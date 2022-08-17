@@ -1,0 +1,59 @@
+ @extends('layouts.dashboard')
+@section('sidebar')
+    @include('dashboard.admin.sidebar')
+@endsection
+@section('hierarchy')
+    <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
+    <x-breadcrumb-item title="افزودن پروژه" route="dashboard.admin.project.create" />
+@endsection
+@section('content')
+    @if(Session::has('info'))
+    <div class="row">
+        <div class="col-md-12">
+            <p class="alert alert-info">{{ Session::get('info') }}</p>
+        </div>
+    </div>
+@endif
+    <div class="col-md-12">
+        <x-card type="info">
+            <x-card-header>ساخت پروژه جدید</x-card-header>
+        <form style="padding:10px;" action="{{ route('dashboard.admin.project.create') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title"  placeholder="عنوان">
+            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_name"  placeholder="نام و نام خانوادگی مشتری">
+            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_phone"  placeholder="تلفن مشتری">
+            <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="description"  placeholder="توضیحات پروژه"></textarea>
+            <div class="form-group">
+                <label>تاریخ شروع:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input required id="date" name="start_date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                </div>
+                <!-- /.input group -->
+            </div>
+            <div class="form-group">
+                <label>تاریخ پایان:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input required name="finish_date" type="text" id="date1" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                </div>
+                <!-- /.input group -->
+            </div>
+            <x-select-group required="" label="وضعیت" name="status">
+                <x-select-item value="not_done">{{ __('app.status.not_done') }}</x-select-item>
+                <x-select-item value="delayed">{{ __('app.status.delayed') }}</x-select-item>
+                <x-select-item value="in_progress">{{ __('app.status.in_progress') }}</x-select-item>
+                <x-select-item value="done">{{ __('app.status.done') }}</x-select-item>
+                <x-select-item value="paid">{{ __('app.status.paid') }}</x-select-item>
+            </x-select-group>
+              {{ csrf_field() }}
+             <x-card-footer>
+                <button type="submit" style=" margin: 20px 0px; height: 42px;width: 100%;font-size: 20px;"  class="btn btn-primary">ایجاد</button>
+             </x-card-footer>
+            </form>
+    </x-card>
+    </div>
+    @endsection
