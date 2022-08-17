@@ -14,6 +14,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
+
+// test
+
 Route::get('/', function () {
     return redirect(RouteServiceProvider::HOME);
 });
