@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 
 // my test 
 // my test i
+// my test in
 
 Route::get('/', function () {
     return redirect(RouteServiceProvider::HOME);
