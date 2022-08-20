@@ -1,4 +1,4 @@
-<form style="padding:10px;" action="{{ route('dashboard.admin.task.create',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+<form style="padding:10px;" action="{{ route('dashboard.admin.task.store',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade show" id="modal-create-task" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-lg">

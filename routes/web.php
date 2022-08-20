@@ -14,10 +14,12 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// my test 
+// my test
 // my test i
 // my test in
 // my test in company webyar
+// composer require morilog/jalali:3.*
+// Wl..A7&j1%%g=2Ym
 
 Route::get('/', function () {
     return redirect(RouteServiceProvider::HOME);
@@ -60,7 +62,7 @@ Route::prefix('dashboard')
                 Route::get('deletepost/{id}','ProjectController@DeletePost')->name('project.deletepost');
                 Route::get('updatepost/{id}','ProjectController@GetEditPost')->name('project.updatepost');
                 Route::post('updatepost/{id}','ProjectController@UpdatePost')->name('project.update');
-                
+
                 //CUSTOMER PAGE
                 Route::get('customer/show/{id}', 'CustomerController@GetCustomer')->name('customer.show');
                 Route::post('customer/create', ['uses' => 'CustomerController@CreatePost','as' => 'customer.store']);
@@ -69,7 +71,7 @@ Route::prefix('dashboard')
                 Route::get('deletecustomer/{id}','CustomerController@DeletePost')->name('customer.deletecustomer');
                 Route::get('updatecustomer/{id}','CustomerController@GetEditPost')->name('customer.updatecustomer');
                 Route::post('updatecustomer/{id}','CustomerController@UpdatePost')->name('customer.update');
-                
+
                 //SERVICE PAGE
                 Route::get('service/index/{id}', 'ServiceController@GetService')->name('service.index');
                 Route::post('service/create/{id}', ['uses' => 'ServiceController@CreatePost','as' => 'service.store']);
@@ -77,7 +79,7 @@ Route::prefix('dashboard')
                 Route::get('service/manage', 'ServiceController@GetManagePost')->name('service.manage');
                 Route::get('deleteservice/{id}','ServiceController@DeletePost')->name('service.deleteservice');
                 Route::get('updateservice/{id}','ServiceController@GetEditPost')->name('service.updateservice');
-                Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('service.update');               
+                Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('service.update');
 
                 //PHASE PAGE
                 Route::post('phase/create/{id}', ['uses' => 'PhaseController@CreatePost','as' => 'phase.store']);
@@ -145,7 +147,7 @@ Route::prefix('dashboard')
                 Route::get('date/create', ['uses' => 'DateController@GetCreatePost','as' => 'date.create']);
                 Route::get('date/manage', 'DateController@GetDate')->name('date.manage');
                 Route::get('deletedate/{id}','DateController@DeletePost')->name('date.deletedate');
-                
+
                //REPORT PAGE
                 Route::get('report/index', 'ReportController@index')->name('report.index');
                 Route::get('report/show/{id}', 'ReportController@show')->name('report.show');
@@ -178,10 +180,10 @@ Route::prefix('dashboard')
                 Route::get('updatetask/{id}','TaskController@GetEditPost')->name('task.updatetask');
                 Route::post('updatetask/{id}','TaskController@UpdatePost')->name('task.update');
                 Route::post('edittask/{id}','TaskController@EditPost')->name('task.edittask');
-                
+
                 Route::post('task/note', ['uses' => 'TaskController@CreateNote','as' => 'task.note']);
                 Route::get('deletenote/{id}','TaskController@DeleteNote')->name('task.deletenote');
-                
+
 
                 //ABSENCE
                 Route::post('absence/create', ['uses' => 'TaskController@Absence','as' => 'absence.store']);

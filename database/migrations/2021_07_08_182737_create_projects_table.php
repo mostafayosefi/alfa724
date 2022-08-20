@@ -18,9 +18,19 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->date('start_date');
             $table->date('finish_date');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();  
+            $table->string('customer_name')->nullable();
+            $table->string('customer_phone')->nullable();
+            $table->string('customer_mobile')->nullable();
+            $table->string('customer_job')->nullable();
+            $table->string('customer_provider')->nullable();
+            $table->string('customer_service')->nullable();
+            $table->string('price')->nullable();
+            $table->string('counter')->nullable();
+            $table->string('employer')->nullable(); 
+            $table->string('employer_money')->nullable();  
             $table->softDeletes(); 
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

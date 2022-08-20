@@ -23,6 +23,7 @@ class Project extends Model
     'price',
     'counter',
     'employer',
+    'employer_money',
     ];
     protected $casts = [
         'start_date' => 'date',
