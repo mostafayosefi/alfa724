@@ -1,10 +1,10 @@
+ 
+
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Dashboard\Admin\DailyController;
-use App\Http\Controllers\Dashboard\Admin\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,23 +24,6 @@ use App\Http\Controllers\Dashboard\Admin\IndexController;
 // Wl..A7&j1%%g=2Ym
 // test system company
 // test 3 3
-
-
-
-// Route::prefix('dashboard')->name('dashboard.')->group(function () {
-
-    
-//     Route::get('/', [DailyController::class, 'index'])->name('index');
-//     Route::get('/create', [DailyController::class, 'create'])->name('create');
-//     Route::post('/', [DailyController::class, 'store'])->name('store');
-//     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
-//     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
-//     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
-//     Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
-//     Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
-
-// });
-
 
 Route::get('/', function () {
     return redirect(RouteServiceProvider::HOME);
@@ -68,12 +51,7 @@ Route::prefix('dashboard')
             ->middleware(['user_type:admin'])
             ->namespace('Admin')
             ->group(function() {
-                // Route::get('',  'IndexController@get')->name('index');
-
-                 
-                Route::get('', [IndexController::class, 'dashboard'])->name('index');
- 
-
+                Route::get('',  'IndexController@get')->name('index');
 
                 Route::resource('score', 'ScoreController');
 
@@ -159,24 +137,14 @@ Route::prefix('dashboard')
                Route::post('message/{message}/answer', 'MessageController@AnswerMessage')->name('message.answer.updat');
 
                //DAILY MANAGMENT
-
-               
-Route::prefix('daily')->name('daily.')->group(function () { 
-
-    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage');
-    Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
-    Route::post('/', [DailyController::class, 'CreatePost'])->name('store');
-    Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show'); 
-    Route::put('/{id}', [DailyController::class, 'UpdatePost'])->name('update');
-    Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily'); 
-    Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily');
-
-    // Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
-    // Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
-
-
-});
-  
+                Route::post('daily/create', ['uses' => 'DailyController@CreatePost','as' => 'daily.store']);
+                Route::get('daily/create', ['uses' => 'DailyController@GetCreatePost','as' => 'daily.create']);
+                Route::get('daily/manage', 'DailyController@GetManagePost')->name('daily.manage');
+                Route::get('updatedaily/{id}','DailyController@GetEditPost')->name('daily.updatedaily');
+                Route::get('show/{id}','DailyController@GetTask')->name('daily.show');
+                Route::get('updatedaily/{id}','DailyController@GetEditPost')->name('daily.updatedaily');
+                Route::post('updatedaily/{id}','DailyController@UpdatePost')->name('daily.update');
+                Route::post('editdaily/{id}','DailyController@EditPost')->name('daily.editdaily');
 
                //DATE MANAGMENT
                 Route::post('date/create', ['uses' => 'DateController@CreatePost','as' => 'date.store']);
@@ -235,4 +203,5 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::get('money', 'AccountingController@GetMoney')->name('money.index');
 
      });
-    });
+    }); 
+ 

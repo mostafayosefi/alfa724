@@ -126,8 +126,9 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                        <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
+                        <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
                             @csrf
+                            @method('PUT')
                             <input type="hidden" name="id" value="{{ $item->id }}" >
                             <input type="hidden"  name="status" value="done">
                            <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>
@@ -235,8 +236,9 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                        <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
+                        <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
                             @csrf
+                            @method('PUT')
                             <input type="hidden" name="id" value="{{ $item->id }}" >
                             <input type="hidden"  name="status" value="done">
                            <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>
@@ -345,8 +347,9 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                       <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                       <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
+                       <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
                            @csrf
+                           @method('PUT')
                            <input type="hidden" name="id" value="{{ $item->id }}" >
                            <input type="hidden"  name="status" value="done">
                           <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>

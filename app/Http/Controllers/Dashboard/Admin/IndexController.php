@@ -20,7 +20,7 @@ use Carbon\Carbon;
 
 class IndexController extends Controller
 {
-    public function get() {
+    public function dashboard() { 
         $posts = Project::orderBy('created_at', 'desc')->get();
         $users=User::where('type','employee')->orderBy('created_at', 'desc')->get();
         $from_date_finishing = now();
