@@ -21,6 +21,7 @@ use App\Http\Controllers\UserController;
 // composer require morilog/jalali:3.*
 // Wl..A7&j1%%g=2Ym
 // test system company
+// test 2
 
 Route::get('/', function () {
     return redirect(RouteServiceProvider::HOME);
