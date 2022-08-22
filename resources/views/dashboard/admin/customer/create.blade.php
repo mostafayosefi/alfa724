@@ -17,7 +17,7 @@
     <div class="col-md-12">
         <x-card type="info">
             <x-card-header>ساخت مشتری جدید</x-card-header>
-            <form style="padding:10px;" action="{{ route('dashboard.admin.customer.create') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+            <form style="padding:10px;" action="{{ route('dashboard.admin.customer.store') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
                  <div class="form-group">
                      <div class="row">
                          <div class="col-md-2 col-sm-12">

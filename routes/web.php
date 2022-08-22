@@ -5,6 +5,10 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Dashboard\Admin\DailyController;
 use App\Http\Controllers\Dashboard\Admin\IndexController;
+use App\Http\Controllers\Dashboard\Admin\PhaseController;
+use App\Http\Controllers\Dashboard\Admin\ProjectController;
+use App\Http\Controllers\Dashboard\Admin\ServiceController;
+use App\Http\Controllers\Dashboard\Admin\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,42 +81,74 @@ Route::prefix('dashboard')
 
                 Route::resource('score', 'ScoreController');
 
-                //Project PAGE
-                Route::get('project/index/{id}', 'ProjectController@GetProject')->name('project.index');
-                Route::post('project/create', ['uses' => 'ProjectController@CreatePost','as' => 'project.store']);
-                Route::get('project/create', ['uses' => 'ProjectController@GetCreatePost','as' => 'project.create']);
-                Route::get('project/manage', 'ProjectController@GetManagePost')->name('project.manage');
-                Route::get('project/done', 'ProjectController@GetDonePost')->name('project.done');
-                Route::get('project/paid', 'ProjectController@GetPaidPost')->name('project.paid');
-                Route::get('project/{id}/status/{status}','ProjectController@UpdateStatus')->name('project.updatestatus');
-                Route::get('deletepost/{id}','ProjectController@DeletePost')->name('project.deletepost');
-                Route::get('updatepost/{id}','ProjectController@GetEditPost')->name('project.updatepost');
-                Route::post('updatepost/{id}','ProjectController@UpdatePost')->name('project.update');
+                //Project PAGE 
+Route::prefix('project')->name('project.')->group(function () { 
+ 
+    Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
+    Route::get('/create', [ProjectController::class, 'GetCreatePost'])->name('create');
+    Route::post('/', [ProjectController::class, 'CreatePost'])->name('store');
+    Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
+    Route::get('/{id}/edit', [ProjectController::class, 'GetEditPost'])->name('updatepost');
+    Route::put('/{id}', [ProjectController::class, 'UpdatePost'])->name('update'); 
+    Route::get('/done', [ProjectController::class, 'GetDonePost'])->name('done');
+    Route::get('/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
+    Route::get('/{id}/status/{status}', [ProjectController::class, 'UpdateStatus'])->name('updatestatus');
+    Route::get('/deletepost/{id}', [ProjectController::class, 'DeletePost'])->name('deletepost');
 
-                //CUSTOMER PAGE
-                Route::get('customer/show/{id}', 'CustomerController@GetCustomer')->name('customer.show');
-                Route::post('customer/create', ['uses' => 'CustomerController@CreatePost','as' => 'customer.store']);
-                Route::get('customer/create', ['uses' => 'CustomerController@GetCreatePost','as' => 'customer.create']);
-                Route::get('customer/manage', 'CustomerController@GetManagePost')->name('customer.manage');
-                Route::get('deletecustomer/{id}','CustomerController@DeletePost')->name('customer.deletecustomer');
-                Route::get('updatecustomer/{id}','CustomerController@GetEditPost')->name('customer.updatecustomer');
-                Route::post('updatecustomer/{id}','CustomerController@UpdatePost')->name('customer.update');
+            });
+
+
+                //CUSTOMER PAGE 
+Route::prefix('customer')->name('customer.')->group(function () { 
+    
+    Route::get('/', [CustomerController::class, 'GetManagePost'])->name('manage'); 
+    Route::get('/create', [CustomerController::class, 'GetCreatePost'])->name('create'); 
+    Route::post('/', [CustomerController::class, 'CreatePost'])->name('store');
+    Route::get('/{id}', [CustomerController::class, 'GetCustomer'])->name('show');
+    Route::get('/{id}/edit', [CustomerController::class, 'GetEditPost'])->name('updatecustomer'); 
+    Route::put('/{id}', [CustomerController::class, 'UpdatePost'])->name('update');
+    Route::get('/deletecustomer/{id}', [CustomerController::class, 'DeletePost'])->name('deletecustomer'); 
+ 
+});
+
+
+
 
                 //SERVICE PAGE
-                Route::get('service/index/{id}', 'ServiceController@GetService')->name('service.index');
-                Route::post('service/create/{id}', ['uses' => 'ServiceController@CreatePost','as' => 'service.store']);
-                Route::get('service/create/{id}', ['uses' => 'ServiceController@GetCreatePost','as' => 'service.create']);
-                Route::get('service/manage', 'ServiceController@GetManagePost')->name('service.manage');
-                Route::get('deleteservice/{id}','ServiceController@DeletePost')->name('service.deleteservice');
-                Route::get('updateservice/{id}','ServiceController@GetEditPost')->name('service.updateservice');
-                Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('service.update');
 
+                Route::prefix('service')->name('service.')->group(function () { 
+
+                    Route::get('/index/{id}', [ServiceController::class, 'GetService'])->name('index');
+                    Route::post('/create/{id}', ['uses' => 'ServiceController@CreatePost','as' => 'store']);
+                    Route::get('/create/{id}', ['uses' => 'ServiceController@GetCreatePost','as' => 'create']);
+                    Route::get('/','ServiceController@GetManagePost')->name('manage');
+                    Route::get('deleteservice/{id}','ServiceController@DeletePost')->name('deleteservice');
+                    Route::get('updateservice/{id}','ServiceController@GetEditPost')->name('updateservice');
+                    Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('update');
+
+                    
+                // Route::get('service/index/{id}', 'ServiceController@GetService')->name('service.index');
+                // Route::post('service/create/{id}', ['uses' => 'ServiceController@CreatePost','as' => 'service.store']);
+                // Route::get('service/create/{id}', ['uses' => 'ServiceController@GetCreatePost','as' => 'service.create']);
+                // Route::get('service/manage', 'ServiceController@GetManagePost')->name('service.manage');
+                // Route::get('deleteservice/{id}','ServiceController@DeletePost')->name('service.deleteservice');
+                // Route::get('updateservice/{id}','ServiceController@GetEditPost')->name('service.updateservice');
+                // Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('service.update');
+
+                });
                 //PHASE PAGE
-                Route::post('phase/create/{id}', ['uses' => 'PhaseController@CreatePost','as' => 'phase.store']);
-                Route::get('deletephase/{id}/{project_id}','PhaseController@DeletePost')->name('phase.deletephase');
-                Route::post('updatephase/{id}','PhaseController@UpdatePost')->name('phase.updatephase');
-                Route::get('phase/tasks/{id}', 'PhaseController@GetManageTask')->name('phase.tasks');
 
+                
+Route::prefix('phase')->name('phase.')->group(function () { 
+
+    Route::post('/create/{id}', [PhaseController::class, 'CreatePost'])->name('store');
+    Route::get('/deletephase/{id}/{project_id}', [PhaseController::class, 'DeletePost'])->name('deletephase');
+    Route::post('/updatephase/{id}', [PhaseController::class, 'UpdatePost'])->name('updatephase');
+    Route::get('/phase/tasks/{id}', [PhaseController::class, 'GetManageTask'])->name('tasks'); 
+
+}); 
+
+ 
                 //SALARY PAGE
                 Route::get('salary', ['uses' => 'SalaryController@GetIndex','as' => 'salary.index']);
                 Route::post('salary/create', ['uses' => 'SalaryController@CreatePost','as' => 'salary.store']);
@@ -169,11 +205,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show'); 
     Route::put('/{id}', [DailyController::class, 'UpdatePost'])->name('update');
     Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily'); 
-    Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily');
-
-    // Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
-    // Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
-
+    Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily'); 
 
 });
   
