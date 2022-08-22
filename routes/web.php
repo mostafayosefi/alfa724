@@ -2,13 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Dashboard\Admin\DateController;
+use App\Http\Controllers\Dashboard\Admin\TaskController;
+use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\DailyController;
-use App\Http\Controllers\Dashboard\Admin\IndexController;
 use App\Http\Controllers\Dashboard\Admin\PhaseController;
+use App\Http\Controllers\Dashboard\Admin\ReportController;
+use App\Http\Controllers\Dashboard\Admin\SalaryController;
+use App\Http\Controllers\Dashboard\Admin\AbsenceController;
+use App\Http\Controllers\Dashboard\Admin\MessageController;
 use App\Http\Controllers\Dashboard\Admin\ProjectController;
 use App\Http\Controllers\Dashboard\Admin\ServiceController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
+use App\Http\Controllers\Dashboard\Admin\EmployeeController;
+use App\Http\Controllers\Dashboard\Admin\IndexController;
+use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
+use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
+use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
+use App\Http\Controllers\Dashboard\Employee\MessageController as EmployeeMessageController ;
+use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAccountingController ;
+use App\Http\Controllers\Dashboard\Admin\AccountingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +46,7 @@ use App\Http\Controllers\Dashboard\Admin\CustomerController;
 
 // Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
-    
+
 //     Route::get('/', [DailyController::class, 'index'])->name('index');
 //     Route::get('/create', [DailyController::class, 'create'])->name('create');
 //     Route::post('/', [DailyController::class, 'store'])->name('store');
@@ -74,22 +87,22 @@ Route::prefix('dashboard')
             ->group(function() {
                 // Route::get('',  'IndexController@get')->name('index');
 
-                 
+
                 Route::get('', [IndexController::class, 'dashboard'])->name('index');
- 
+
 
 
                 Route::resource('score', 'ScoreController');
 
-                //Project PAGE 
-Route::prefix('project')->name('project.')->group(function () { 
- 
+                //Project PAGE
+Route::prefix('project')->name('project.')->group(function () {
+
     Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
     Route::get('/create', [ProjectController::class, 'GetCreatePost'])->name('create');
     Route::post('/', [ProjectController::class, 'CreatePost'])->name('store');
     Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
     Route::get('/{id}/edit', [ProjectController::class, 'GetEditPost'])->name('updatepost');
-    Route::put('/{id}', [ProjectController::class, 'UpdatePost'])->name('update'); 
+    Route::put('/{id}', [ProjectController::class, 'UpdatePost'])->name('update');
     Route::get('/done', [ProjectController::class, 'GetDonePost'])->name('done');
     Route::get('/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
     Route::get('/{id}/status/{status}', [ProjectController::class, 'UpdateStatus'])->name('updatestatus');
@@ -98,17 +111,17 @@ Route::prefix('project')->name('project.')->group(function () {
             });
 
 
-                //CUSTOMER PAGE 
-Route::prefix('customer')->name('customer.')->group(function () { 
-    
-    Route::get('/', [CustomerController::class, 'GetManagePost'])->name('manage'); 
-    Route::get('/create', [CustomerController::class, 'GetCreatePost'])->name('create'); 
+                //CUSTOMER PAGE
+Route::prefix('customer')->name('customer.')->group(function () {
+
+    Route::get('/', [CustomerController::class, 'GetManagePost'])->name('manage');
+    Route::get('/create', [CustomerController::class, 'GetCreatePost'])->name('create');
     Route::post('/', [CustomerController::class, 'CreatePost'])->name('store');
     Route::get('/{id}', [CustomerController::class, 'GetCustomer'])->name('show');
-    Route::get('/{id}/edit', [CustomerController::class, 'GetEditPost'])->name('updatecustomer'); 
+    Route::get('/{id}/edit', [CustomerController::class, 'GetEditPost'])->name('updatecustomer');
     Route::put('/{id}', [CustomerController::class, 'UpdatePost'])->name('update');
-    Route::get('/deletecustomer/{id}', [CustomerController::class, 'DeletePost'])->name('deletecustomer'); 
- 
+    Route::get('/deletecustomer/{id}', [CustomerController::class, 'DeletePost'])->name('deletecustomer');
+
 });
 
 
@@ -116,110 +129,138 @@ Route::prefix('customer')->name('customer.')->group(function () {
 
                 //SERVICE PAGE
 
-                Route::prefix('service')->name('service.')->group(function () { 
+                Route::prefix('service')->name('service.')->group(function () {
 
                     Route::get('/index/{id}', [ServiceController::class, 'GetService'])->name('index');
-                    Route::post('/create/{id}', ['uses' => 'ServiceController@CreatePost','as' => 'store']);
-                    Route::get('/create/{id}', ['uses' => 'ServiceController@GetCreatePost','as' => 'create']);
-                    Route::get('/','ServiceController@GetManagePost')->name('manage');
-                    Route::get('deleteservice/{id}','ServiceController@DeletePost')->name('deleteservice');
-                    Route::get('updateservice/{id}','ServiceController@GetEditPost')->name('updateservice');
-                    Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('update');
+                    Route::post('/create/{id}', [ServiceController::class, 'CreatePost'])->name('store');
+                    Route::get('/create/{id}', [ServiceController::class, 'GetCreatePost'])->name('create');
+                    Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
+                    Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
+                    Route::get('updateservice/{id}', [ServiceController::class, 'GetEditPost'])->name('updateservice');
+                    Route::post('updateservice/{id}', [ServiceController::class, 'UpdatePost'])->name('update');
 
-                    
-                // Route::get('service/index/{id}', 'ServiceController@GetService')->name('service.index');
-                // Route::post('service/create/{id}', ['uses' => 'ServiceController@CreatePost','as' => 'service.store']);
-                // Route::get('service/create/{id}', ['uses' => 'ServiceController@GetCreatePost','as' => 'service.create']);
-                // Route::get('service/manage', 'ServiceController@GetManagePost')->name('service.manage');
-                // Route::get('deleteservice/{id}','ServiceController@DeletePost')->name('service.deleteservice');
-                // Route::get('updateservice/{id}','ServiceController@GetEditPost')->name('service.updateservice');
-                // Route::post('updateservice/{id}','ServiceController@UpdatePost')->name('service.update');
 
                 });
                 //PHASE PAGE
 
-                
-Route::prefix('phase')->name('phase.')->group(function () { 
+
+Route::prefix('phase')->name('phase.')->group(function () {
 
     Route::post('/create/{id}', [PhaseController::class, 'CreatePost'])->name('store');
     Route::get('/deletephase/{id}/{project_id}', [PhaseController::class, 'DeletePost'])->name('deletephase');
     Route::post('/updatephase/{id}', [PhaseController::class, 'UpdatePost'])->name('updatephase');
-    Route::get('/phase/tasks/{id}', [PhaseController::class, 'GetManageTask'])->name('tasks'); 
+    Route::get('/phase/tasks/{id}', [PhaseController::class, 'GetManageTask'])->name('tasks');
 
-}); 
+});
 
- 
+
                 //SALARY PAGE
-                Route::get('salary', ['uses' => 'SalaryController@GetIndex','as' => 'salary.index']);
-                Route::post('salary/create', ['uses' => 'SalaryController@CreatePost','as' => 'salary.store']);
-                Route::get('salary/create', ['uses' => 'SalaryController@GetCreatePost','as' => 'salary.create']);
-                Route::get('salary/{salary}/delete','SalaryController@DeletePost')->name('salary.delete');
-                Route::get('salary/{salary}','SalaryController@GetEditPost')->name('salary.edit');
-                Route::post('salary/{salary}','SalaryController@UpdatePost')->name('salary.update');
+                Route::prefix('salary')->name('salary.')->group(function () {
+
+                Route::get('/', [SalaryController::class, 'GetIndex'])->name('index');
+                Route::post('/create', [SalaryController::class, 'CreatePost'])->name('store');
+                Route::get('/create', [SalaryController::class, 'GetCreatePost'])->name('create');
+                Route::get('/{salary}/delete', [SalaryController::class, 'DeletePost'])->name('delete');
+                Route::get('/{salary}', [SalaryController::class, 'GetEditPost'])->name('edit');
+                Route::post('/{salary}', [SalaryController::class, 'UpdatePost'])->name('update');
+
+                });
 
                //EMPLOYEE PAGE
-               Route::post('employee/create/{id}', ['uses' => 'EmployeeController@CreatePost','as' => 'employee.store']);
-               Route::get('deleteemployee/{id}/{project_id}','EmployeeController@DeletePost')->name('employee.deleteemployee');
-               Route::post('updateemployee/{id}','EmployeeController@UpdatePost')->name('employee.updateemployee');
+               Route::prefix('employee')->name('employee.')->group(function () {
+
+               Route::post('/create/{id}', [EmployeeController::class, 'CreatePost'])->name('store');
+               Route::get('/appdeleteemployee/{id}/{project_id}', [EmployeeController::class, 'DeletePost'])->name('deleteemployee');
+               Route::post('/updateemployee/{id}', [EmployeeController::class, 'UpdatePost'])->name('updateemployee');
+
+               });
 
                //TASK PAGE
-               Route::post('task/create/{id}', ['uses' => 'TaskController@CreatePost','as' => 'task.store']);
-               Route::get('deletetask/{id}','TaskController@DeletePost')->name('task.deletetask');
-               Route::post('updatetask/{id}','TaskController@UpdatePost')->name('task.update');
-               Route::get('updatetask/{id}','TaskController@GetTask')->name('task.updatetask');
-               Route::post('edittask/{id}','TaskController@EditPost')->name('task.edittask');
+               Route::prefix('task')->name('task.')->group(function () {
+
+               Route::post('/create/{id}', [TaskController::class, 'CreatePost'])->name('store');
+               Route::get('/deletetask/{id}', [TaskController::class, 'DeletePost'])->name('deletetask');
+               Route::post('/updatetask/{id}', [TaskController::class, 'UpdatePost'])->name('update');
+               Route::get('/updatetask/{id}', [TaskController::class, 'GetTask'])->name('updatetask');
+               Route::post('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
+               });
 
                //Users PAGE
-               Route::get('users/employee', 'UserController@GetUsers')->name('users.employee');
-               Route::get('users/profile/{id}', 'UserController@GetProfile')->name('users.profile');
-               Route::get('users/restore/{id}','UserController@restore')->name('users.restore');
-               Route::get('deleteuser/{id}','UserController@DeletePost')->name('users.deleteuser');
-               Route::get('updateuser/{id}','UserController@GetEditPost')->name('users.updateuser');
-               Route::post('updateuser/{id}','UserController@UpdatePost')->name('users.update');
+               Route::prefix('users')->name('users.')->group(function () {
+
+               Route::get('/employee', [UserController::class, 'GetUsers'])->name('employee');
+               Route::get('/profile/{id}', [UserController::class, 'GetProfile'])->name('profile');
+               Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
+               Route::get('/deleteuser/{id}', [UserController::class, 'DeletePost'])->name('deleteuser');
+               Route::get('/updateuser/{id}', [UserController::class, 'GetEditPost'])->name('updateuser');
+               Route::post('/updateuser/{id}', [UserController::class, 'UpdatePost'])->name('update');
+
+               });
 
                //ACCOUNTING PAGE
-               Route::get('money/employee', 'AccountingController@GetEmployee')->name('money.employee');
+               Route::prefix('money')->name('money.')->group(function () {
+               Route::get('/employee', [AccountingController::class, 'GetEmployee'])->name('employee');
+               });
 
                //ABSENCE PAGE
-               Route::get('absence/manage', 'AbsenceController@GetAbsence')->name('absence.manage');
+
+               Route::prefix('absence')->name('absence.')->group(function () {
+                Route::get('/manage', [AbsenceController::class, 'GetAbsence'])->name('manage');
+                });
+
 
                //MESSAGE PAGE
-               Route::post('message/create', ['uses' => 'MessageController@CreatePost','as' => 'message.store']);
-               Route::get('message/create', ['uses' => 'MessageController@GetCreatePost','as' => 'message.create']);
-               Route::get('message/manage', 'MessageController@GetMessage')->name('message.manage');
-               Route::get('deletemessage/{id}','MessageController@DeletePost')->name('message.deletemessage');
-               Route::get('updatemessage/{id}','MessageController@GetEditPost')->name('message.updatemessage');
-               Route::post('updatemessage/{id}','MessageController@UpdatePost')->name('message.update');
-               Route::get('message/show/{id}', 'MessageController@ShowMessage')->name('message.show');
-               Route::get('message/{message}/answer', 'MessageController@GetAnswerMessage')->name('message.answer.edit');
-               Route::post('message/{message}/answer', 'MessageController@AnswerMessage')->name('message.answer.updat');
+
+               Route::prefix('message')->name('message.')->group(function () {
+
+                Route::post('/create', [MessageController::class, 'CreatePost'])->name('store');
+                Route::get('/create', [MessageController::class, 'GetCreatePost'])->name('create');
+               Route::get('/manage', [MessageController::class, 'GetMessage'])->name('manage');
+               Route::get('/deletemessage/{id}', [MessageController::class, 'DeletePost'])->name('deletemessage');
+               Route::get('/updatemessage/{id}', [MessageController::class, 'GetEditPost'])->name('updatemessage');
+               Route::post('/updatemessage/{id}', [MessageController::class, 'UpdatePost'])->name('update');
+               Route::get('/show/{id}', [MessageController::class, 'ShowMessage'])->name('show');
+               Route::get('/{message}/answer', [MessageController::class, 'GetAnswerMessage'])->name('answer.edit');
+               Route::post('/{message}/answer', [MessageController::class, 'AnswerMessage'])->name('answer.updat');
+
+                });
+
+
 
                //DAILY MANAGMENT
 
-               
-Route::prefix('daily')->name('daily.')->group(function () { 
+
+Route::prefix('daily')->name('daily.')->group(function () {
 
     Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage');
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::post('/', [DailyController::class, 'CreatePost'])->name('store');
-    Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show'); 
+    Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
     Route::put('/{id}', [DailyController::class, 'UpdatePost'])->name('update');
-    Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily'); 
-    Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily'); 
+    Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily');
+    Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily');
 
 });
-  
+
 
                //DATE MANAGMENT
-                Route::post('date/create', ['uses' => 'DateController@CreatePost','as' => 'date.store']);
-                Route::get('date/create', ['uses' => 'DateController@GetCreatePost','as' => 'date.create']);
-                Route::get('date/manage', 'DateController@GetDate')->name('date.manage');
-                Route::get('deletedate/{id}','DateController@DeletePost')->name('date.deletedate');
+               Route::prefix('date')->name('date.')->group(function () {
+
+                Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
+                Route::get('/create', [DateController::class, 'GetCreatePost'])->name('create');
+                Route::get('/manage', [DateController::class, 'GetDate'])->name('manage');
+                Route::get('/deletedate/{id}', [DateController::class, 'DeletePost'])->name('deletedate');
+            });
 
                //REPORT PAGE
-                Route::get('report/index', 'ReportController@index')->name('report.index');
-                Route::get('report/show/{id}', 'ReportController@show')->name('report.show');
-                Route::get('report/absence/{id}', 'ReportController@absence')->name('report.absence');
+               Route::prefix('report')->name('report.')->group(function () {
+
+                Route::get('/index', [ReportController::class, 'index'])->name('index');
+                Route::get('/show/{id}', [ReportController::class, 'show'])->name('show');
+                Route::get('/absence/{id}', [ReportController::class, 'absence'])->name('absence');
+            });
+
+
             });
 
         Route::prefix('customer')
@@ -227,7 +268,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
             ->middleware(['user_type:customer'])
             ->namespace('Customer')
             ->group(function() {
-                Route::get('',  'IndexController@get')->name('index');
+                Route::get('/', [CustomerIndexController::class, 'get'])->name('index');
 
             });
 
@@ -236,35 +277,53 @@ Route::prefix('daily')->name('daily.')->group(function () {
             ->middleware(['user_type:employee'])
             ->namespace('Employee')
             ->group(function() {
-                Route::get('',  'IndexController@get')->name('index');
-                Route::get('profile',  'IndexController@profile')->name('profile');
+
+                Route::get('/', [EmployeeIndexController::class, 'get'])->name('index');
+                Route::get('/profile', [EmployeeIndexController::class, 'profile'])->name('profile');
+
 
                 //TASK MANAGMENT
-                Route::post('task/create', ['uses' => 'TaskController@CreatePost','as' => 'task.store']);
-                Route::get('task/create', ['uses' => 'TaskController@GetCreatePost','as' => 'task.create']);
-                Route::get('task/manage', 'TaskController@GetManagePost')->name('task.manage');
-                Route::get('updatetask/{id}','TaskController@GetEditPost')->name('task.edit');
-                Route::get('show/{id}','TaskController@GetTask')->name('task.show');
-                Route::get('updatetask/{id}','TaskController@GetEditPost')->name('task.updatetask');
-                Route::post('updatetask/{id}','TaskController@UpdatePost')->name('task.update');
-                Route::post('edittask/{id}','TaskController@EditPost')->name('task.edittask');
+                Route::prefix('task')->name('task.')->group(function () {
 
-                Route::post('task/note', ['uses' => 'TaskController@CreateNote','as' => 'task.note']);
-                Route::get('deletenote/{id}','TaskController@DeleteNote')->name('task.deletenote');
+                Route::post('/create', [EmployeeTaskController::class, 'CreatePost'])->name('store');
+                Route::get('/create', [EmployeeTaskController::class, 'GetCreatePost'])->name('create');
+                Route::get('/manage', [EmployeeTaskController::class, 'GetManagePost'])->name('manage');
+                Route::get('/updatetask/{id}', [EmployeeTaskController::class, 'GetEditPost'])->name('edit');
+                Route::get('/show/{id}', [EmployeeTaskController::class, 'GetTask'])->name('show');
+                Route::get('/updatetask/{id}', [EmployeeTaskController::class, 'GetEditPost'])->name('updatetask');
+                Route::post('/updatetask/{id}', [EmployeeTaskController::class, 'UpdatePost'])->name('update');
+                Route::post('/edittask/{id}', [EmployeeTaskController::class, 'EditPost'])->name('edittask');
+
+                Route::post('/note', [EmployeeTaskController::class, 'CreateNote'])->name('note');
+                Route::get('/deletenote/{id}', [EmployeeTaskController::class, 'DeleteNote'])->name('deletenote');
+
+                });
 
 
                 //ABSENCE
-                Route::post('absence/create', ['uses' => 'TaskController@Absence','as' => 'absence.store']);
-                Route::post('absence/end/{id}','TaskController@AbsenceEnd')->name('absence.end');
+                Route::prefix('absence')->name('absence.')->group(function () {
+
+                Route::post('/create', [EmployeeTaskController::class, 'Absence'])->name('store');
+                Route::post('/end/{id}', [EmployeeTaskController::class, 'AbsenceEnd'])->name('end');
+
+            });
+
 
                 //MESSAGE PAGE
-                Route::get('message/manage', 'MessageController@GetMessage')->name('message.manage');
-                Route::get('message/show/{id}', 'MessageController@ShowMessage')->name('message.show');
-                Route::get('message/{message}/answer', 'MessageController@GetAnswerMessage')->name('message.answer.edit');
-                Route::post('message/{message}/answer', 'MessageController@AnswerMessage')->name('message.answer.post');
+                Route::prefix('message')->name('message.')->group(function () {
+                Route::get('/manage', [EmployeeMessageController::class, 'GetMessage'])->name('manage');
+                Route::get('/show/{id}', [EmployeeMessageController::class, 'ShowMessage'])->name('show');
+                Route::get('/{message}/answer', [EmployeeMessageController::class, 'GetAnswerMessage'])->name('answer.edit');
+                Route::post('/{message}/answer', [EmployeeMessageController::class, 'AnswerMessage'])->name('answer.post');
 
+                });
                 //ACCOUNTING PAGE
-                Route::get('money', 'AccountingController@GetMoney')->name('money.index');
 
-     });
+     Route::prefix('money')->name('money.')->group(function () {
+        Route::get('/', [EmployeeAccountingController::class, 'GetMoney'])->name('index');
+         });
+
+
+
+    });
     });
