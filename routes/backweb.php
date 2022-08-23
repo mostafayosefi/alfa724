@@ -51,7 +51,7 @@ Route::prefix('dashboard')
             ->middleware(['user_type:admin'])
             ->namespace('Admin')
             ->group(function() {
-                Route::get('',  'IndexController@get')->name('index');
+                Route::get('/',  'IndexController@get')->name('index');
 
                 Route::resource('score', 'ScoreController');
 

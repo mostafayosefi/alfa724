@@ -81,18 +81,17 @@ Route::prefix('dashboard')
     ->namespace('Dashboard')
     ->group(function() {
        Route::get('/', [DashboardIndexController::class, 'get'])->name('index');
-       Route::get('/profile', [ProfileController::class, 'edit'])->name('edit');
-       Route::put('/profile', [ProfileController::class, 'update'])->name('update');
+       Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+       Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
    
         Route::prefix('admin')
             ->name('admin.')
             ->middleware(['user_type:admin'])
             ->namespace('Admin')
             ->group(function() {
-                // Route::get('',  'IndexController@get')->name('index');
+ 
 
-
-                Route::get('', [IndexController::class, 'dashboard'])->name('index');
+                Route::get('/', [IndexController::class, 'dashboard'])->name('index');
 
 
 
@@ -254,6 +253,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::get('/create', [DateController::class, 'GetCreatePost'])->name('create');
                 Route::get('/manage', [DateController::class, 'GetDate'])->name('manage');
                 Route::get('/deletedate/{id}', [DateController::class, 'DeletePost'])->name('deletedate');
+           
+                Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
             });
 
                //REPORT PAGE
