@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\Admin\DateController;
 use App\Http\Controllers\Dashboard\Admin\TaskController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\DailyController;
+use App\Http\Controllers\Dashboard\Admin\IndexController;
 use App\Http\Controllers\Dashboard\Admin\PhaseController;
 use App\Http\Controllers\Dashboard\Admin\ReportController;
 use App\Http\Controllers\Dashboard\Admin\SalaryController;
@@ -15,14 +17,13 @@ use App\Http\Controllers\Dashboard\Admin\ProjectController;
 use App\Http\Controllers\Dashboard\Admin\ServiceController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
+use App\Http\Controllers\Dashboard\Admin\AccountingController;
 use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController; 
-use App\Http\Controllers\Dashboard\Admin\IndexController;
+use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
 use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
-use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Employee\MessageController as EmployeeMessageController ;
 use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAccountingController ;
-use App\Http\Controllers\Dashboard\Admin\AccountingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +35,7 @@ use App\Http\Controllers\Dashboard\Admin\AccountingController;
 |
 */
 
+// my test3
 // my test
 // my test i
 // my test in
@@ -79,9 +81,9 @@ Route::prefix('dashboard')
     ->namespace('Dashboard')
     ->group(function() {
        Route::get('/', [DashboardIndexController::class, 'get'])->name('index');
- 
-        Route::get('profile',  'ProfileController@edit')->name('profile.edit');
-        Route::put('profile',  'ProfileController@update')->name('profile.update');
+       Route::get('/profile', [ProfileController::class, 'edit'])->name('edit');
+       Route::put('/profile', [ProfileController::class, 'update'])->name('update');
+   
         Route::prefix('admin')
             ->name('admin.')
             ->middleware(['user_type:admin'])
