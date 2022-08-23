@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\Admin\ProjectController;
 use App\Http\Controllers\Dashboard\Admin\ServiceController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
+use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController; 
 use App\Http\Controllers\Dashboard\Admin\IndexController;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
 use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
@@ -77,7 +78,8 @@ Route::prefix('dashboard')
     ->middleware('auth')
     ->namespace('Dashboard')
     ->group(function() {
-        Route::get('',  'IndexController@get')->name('index');
+       Route::get('/', [DashboardIndexController::class, 'get'])->name('index');
+ 
         Route::get('profile',  'ProfileController@edit')->name('profile.edit');
         Route::put('profile',  'ProfileController@update')->name('profile.update');
         Route::prefix('admin')
