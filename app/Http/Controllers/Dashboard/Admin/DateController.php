@@ -20,7 +20,8 @@ class DateController extends Controller
     public function GetDate()
     {
         $date=date::orderBy('created_at', 'asc')->get();
-        return view('dashboard.admin.date.manage', ['posts' => $date]);
+        // return view('dashboard.admin.date.manage', ['posts' => $date]);
+        return view('dashboard.admin.date.democleander', ['posts' => $date]);
     }
 
     public function GetCreatePost(Request $request)
