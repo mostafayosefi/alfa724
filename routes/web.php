@@ -332,3 +332,6 @@ Route::prefix('daily')->name('daily.')->group(function () {
 
     });
     });
+
+
+    // https://rapidcode.ir/6341/persian-calendar-js-project/

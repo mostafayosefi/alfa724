@@ -1,0 +1,394 @@
+
+Route::get('superadmin/settingrezerv','SuperadminController@settingrezerv');
+Route::post('superadmin/settingrezerv','SuperadminController@settingrezervpost');
+Route::get('superadmin/setrezerv','SuperadminController@setrezerv');
+Route::get('superadmin/date/{year}/{month}','SuperadminController@dateyearmonth');
+Route::get('superadmin/settingrezerv/edit/{id}','SuperadminController@settingrezerveditid');
+Route::post('superadmin/settingrezerv/edit/{id}','SuperadminController@settingrezerveditidpost');
+
+---------------------------------------------
+
+	public function settingrezerv(){
+if (Session::has('signsuperadmin')){ 
+	Session::set('nav', 'settingrezerv');  
+
+$month = DB::table('month')->where([
+    ['month_id', '<>', 0], 
+    ['month_month', '=', Session::get('month')],
+    ['month_year', '=', Session::get('year')], ])
+    ->orderBy('month_id', 'desc')->first(); 
+    
+    
+$calendarrezervs = DB::table('calendarrezerv')->where([
+    ['cal_id', '<>', 0], 
+    ['cal_month', '=', Session::get('month')],
+    ['cal_year', '=', Session::get('year')], ])
+    ->orderBy('cal_id', 'desc')->get(); 
+    
+ $todayshamsi=  \DB::table('dateshamsi')  ->where([ ['id', '=',  1],   ])->orderBy('id', 'desc')->first(); 
+	    
+	return view('sup.settingrezerv', ['month' => $month , 'todayshamsi' => $todayshamsi , 'calendarrezervs' => $calendarrezervs]);
+	
+	} else{ return redirect('superadmin/sign-in'); }
+				}
+
+
+
+-------------------------------------
+
+				
+public function settingrezervpost(Request $request){
+if (Session::has('signsuperadmin')){  
+
+
+
+ DB::table('calendarrezerv')->insert([
+    ['cal_year' => $request->year , 'cal_month' => $request->month , 'cal_day' => $request->day ,   'cal_createdatdate' =>  date('Y-m-d H:i:s')  ,  'cal_hours' => $request->time  ,  'cal_pes' => $request->pes   ]
+]);   	
+ 
+ 
+
+$nametr = Session::flash('statust', 'رزرو جدید باموفقیت ایجاد شد.');
+$nametrt = Session::flash('sessurl', 'settingrezerv');
+		 return redirect('superadmin/settingrezerv'); 	    	 }	
+else{ return redirect('superadmin/sign-in'); }    	  
+}
+	
+ 
+
+
+ -----------------------------------------------
+
+
+
+ 
+	public function setrezerv(){
+if (Session::has('signsuperadmin')){ 
+	Session::set('nav', 'settingrezerv');  
+ 
+    
+ $todayshamsi=  \DB::table('dateshamsi')  ->where([ ['id', '=',  1],   ])->orderBy('id', 'desc')->first(); 
+ 
+ 
+	Session::set('year', $todayshamsi->year);
+	Session::set('month', $todayshamsi->month); 
+
+ return redirect('superadmin/settingrezerv'); 
+	    
+	return view('sup.settingrezerv', ['month' => $month , 'todayshamsi' => $todayshamsi]);
+	
+	} else{ return redirect('superadmin/sign-in'); }
+				}
+
+--------------------------------------------
+
+
+
+	
+
+	public function dateyearmonth($year,$month){
+if (Session::has('signsuperadmin')){ 
+	Session::set('nav', 'settingrezerv');
+	
+	// if($year!=1399){ $year=1399; }
+
+
+
+ if(($year==1399)&&($month>4)) { $year=1399; $month=$month; }
+ if(($year==1400)&&($month<10)){ $year=1400; $month=$month; }
+	
+	
+	
+ if(($year==1400)&&($month==10)){ $year=1400; $month=1; }
+	
+	/*
+	 if($month < '12'){ $month=$month; } 
+	 if(($month>'11')||($month<'4')){ $month=6; }
+	 
+	 */
+	
+	Session::set('year', $year);
+	Session::set('month', $month); 
+
+ return redirect('superadmin/settingrezerv'); 
+ 
+	}	 else{ return redirect('superadmin/sign-in'); }
+				}
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+	public function settingrezerveditid($id){
+if (Session::has('signsuperadmin')){ 
+	Session::set('nav', 'settingrezerv');  
+
+$month = DB::table('month')->where([
+    ['month_id', '<>', 0], 
+    ['month_month', '=', Session::get('month')],
+    ['month_year', '=', Session::get('year')], ])
+    ->orderBy('month_id', 'desc')->first(); 
+    
+    
+$calendarrezervs = DB::table('calendarrezerv')->where([
+    ['cal_id', '<>', 0], 
+    ['cal_id', '=', $id], 
+    ['cal_month', '=', Session::get('month')],
+    ['cal_year', '=', Session::get('year')], ])
+    ->orderBy('cal_id', 'desc')->first(); 
+    
+ $todayshamsi=  \DB::table('dateshamsi')  ->where([ ['id', '=',  1],   ])->orderBy('id', 'desc')->first(); 
+	    
+	return view('sup.editsettingrezerv', ['month' => $month , 'todayshamsi' => $todayshamsi , 'calendarrezervs' => $calendarrezervs]);
+	
+	} else{ return redirect('superadmin/sign-in'); }
+				}
+
+-------------------------------------------------
+
+public function settingrezerveditidpost(Request $request , $id){
+if (Session::has('signsuperadmin')){    	    	
+    	$this->validate($request,[
+    	    	'cal_pes' => 'required', 
+    		],[
+    			'cal_pes.required' => 'لطفا ظرفیت را وارد نمایید', 
+    			
+    		]);   
+
+
+    		  
+$updatee = \DB::table('calendarrezerv')->where('cal_id', '=', $id)  ->update(['cal_pes' => $request->cal_pes ]); 
+
+$nametr = Session::flash('statust', 'ظرفیت تاریخ مورد نظر باموفقیت ویرایش شد.');
+$nametrt = Session::flash('sessurl', 'settingrezerv');
+		 return redirect('superadmin/settingrezerv'); 	    	 }	
+else{ return redirect('superadmin/sign-in'); }    	  
+}
+	
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+Route::get('user/viewsrezervmaks','UserController@viewsrezervmaks'); 
+Route::get('user/rezervmak/{idrezerv}/{id}','UserController@rezervmakid') 
+Route::get('user/rezervmak/{id}','UserController@rezervmakid');
+Route::get('user/date/{year}/{month}','UserController@dateyearmonthuser');
+
+
+
+
+
+public function dateyearmonthuser($year,$month){
+	if (Session::has('signuser')){
+		if (Session::get('activeuser')==1){
+
+
+
+	// if($year!=1399){ $year=1399; }
+
+
+
+ if(($year==1399)&&($month>4)) { $year=1399; $month=$month; }
+ if(($year==1400)&&($month<10)){ $year=1400; $month=$month; }
+
+
+
+ if(($year==1400)&&($month==10)){ $year=1400; $month=1; }
+
+	/*
+	 if($month < '12'){ $month=$month; }
+	 if(($month>'11')||($month<'4')){ $month=6; }
+
+	 */
+
+
+	Session::set('year', $year);
+	Session::set('month', $month);
+
+return redirect('user/rezervmak/addrezerv/1');
+
+			}
+else if (Session::get('activeuser')==0){    return redirect('user/activition'); }
+else if (empty(Session::has('signuser'))){   return redirect('user/sign-in'); }
+}
+	}
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+public function viewsrezervmaks(){
+	if (Session::has('signuser')){
+		if (Session::get('activeuser')==1){
+
+ Session::set('nav', 'viewsrezervmaks');
+
+$admins  = \DB::table('listrezerv')
+->join('calendarrezerv', 'listrezerv.list_idcl', '=', 'calendarrezerv.cal_id')
+->join('user', 'listrezerv.list_iduser', '=', 'user.id')
+->leftJoin('makcenter', 'listrezerv.list_mak', '=', 'makcenter.mak_id')
+->where([
+    ['calendarrezerv.cal_id', '<>', 0],
+    ['listrezerv.list_iduser', '=', Session::get('iduser')], ])
+    ->orderBy('listrezerv.list_id', 'desc')->get();
+
+
+return view('cust.viewsrezervmaks', ['admins' => $admins]);
+
+			}
+else if (Session::get('activeuser')==0){    return redirect('user/activition'); }
+else if (empty(Session::has('signuser'))){   return redirect('user/sign-in'); }
+}
+	}
+
+
+
+
+---------------------------------------------------
+
+
+
+
+
+public function rezervmakid($idrezerv , $id){
+	if (Session::has('signuser')){
+		if (Session::get('activeuser')==1){
+
+ Session::set('nav', 'rezervmak');
+
+
+
+$listdiscounts = \DB::table('listdiscount')
+->join('discount', 'listdiscount.listdis_iddisc', '=', 'discount.discount_id')   ->where([
+    ['discount.discount_active', '=', 1],
+    ['listdiscount.listdis_idform', '=', '909090'], ])
+ ->orderBy('discount_id', 'desc')->first();
+
+
+if($id=='3'){
+
+ $rnd=rand(1, 99999999);
+
+
+$updatee = \DB::table('listrezerv')->where([
+    ['listrezerv.list_iduser', '=',  Session::get('iduser')],
+    ['listrezerv.list_id', '=', $idrezerv],   ])
+    ->update(['list_rnd' => $rnd ]);
+
+}
+
+
+$month = DB::table('month')->where([
+    ['month_id', '<>', 0],
+    ['month_month', '=', Session::get('month')],
+    ['month_year', '=', Session::get('year')], ])
+    ->orderBy('month_id', 'desc')->first();
+
+
+$calendarrezervs = DB::table('calendarrezerv')->where([
+    ['cal_id', '<>', 0],
+    ['cal_month', '=', Session::get('month')],
+    ['cal_year', '=', Session::get('year')], ])
+    ->orderBy('cal_id', 'desc')->get();
+
+ $todayshamsi=  \DB::table('dateshamsi')  ->where([ ['id', '=',  1],   ])->orderBy('id', 'desc')->first();
+
+
+if($idrezerv=='addrezerv'){
+$listrezerv = \DB::table('listrezerv')
+->join('calendarrezerv', 'listrezerv.list_idcl', '=', 'calendarrezerv.cal_id')
+->where([
+    ['calendarrezerv.cal_id', '<>', 0],
+    ['listrezerv.list_iduser', '=', Session::get('iduser')], ])
+    ->orderBy('listrezerv.list_id', 'desc')->first();
+
+}else{
+
+$listrezerv = \DB::table('listrezerv')
+->join('calendarrezerv', 'listrezerv.list_idcl', '=', 'calendarrezerv.cal_id')
+->where([
+    ['calendarrezerv.cal_id', '<>', 0],
+    ['listrezerv.list_id', '=', $idrezerv],
+    ['listrezerv.list_iduser', '=', Session::get('iduser')], ])
+    ->orderBy('listrezerv.list_id', 'desc')->first();
+}
+
+
+$makcenters = \DB::table('makcenter')
+->where([
+    ['makcenter.mak_id', '<>', 0], ])
+    ->orderBy('makcenter.mak_id', 'asc')->get();
+
+	return view('cust.rezervmak', ['month' => $month , 'todayshamsi' => $todayshamsi , 'calendarrezervs' => $calendarrezervs , 'id' => $id  , 'listrezerv' => $listrezerv  , 'makcenters' => $makcenters  ,  'idrezerv' => $idrezerv , 'listdiscounts' => $listdiscounts ]);
+
+
+			}
+else if (Session::get('activeuser')==0){    return redirect('user/activition'); }
+else if (empty(Session::has('signuser'))){   return redirect('user/sign-in'); }
+}
+	}
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+public function dateyearmonthuser($year,$month){
+	if (Session::has('signuser')){
+		if (Session::get('activeuser')==1){
+
+
+
+	// if($year!=1399){ $year=1399; }
+
+
+
+ if(($year==1399)&&($month>4)) { $year=1399; $month=$month; }
+ if(($year==1400)&&($month<10)){ $year=1400; $month=$month; }
+
+
+
+ if(($year==1400)&&($month==10)){ $year=1400; $month=1; }
+
+	/*
+	 if($month < '12'){ $month=$month; }
+	 if(($month>'11')||($month<'4')){ $month=6; }
+
+	 */
+
+
+	Session::set('year', $year);
+	Session::set('month', $month);
+
+return redirect('user/rezervmak/addrezerv/1');
+
+			}
+else if (Session::get('activeuser')==0){    return redirect('user/activition'); }
+else if (empty(Session::has('signuser'))){   return redirect('user/sign-in'); }
+}
+	}
+
