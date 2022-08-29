@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class CleanderDay extends Model
 {
-    use HasFactory;
+
+    protected $fillable = [
+        'date', 'holiday', 'day',
+        'cleander_month_id',
+    ];
+
+
+
+    public function cleander_month(){
+        return $this->belongsTo(CleanderMonth::class);
+    }
+
 }

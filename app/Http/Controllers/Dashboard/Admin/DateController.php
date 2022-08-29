@@ -22,22 +22,22 @@ class DateController extends Controller
     public function GetDate()
     {
 
-          
-          updatecleandertoday();
- 
-          $year = '1401';
-          $month = '06';
-          $day = '5';
-        //   check_cleander_year($year);
-        //   check_cleander_month($year,$month);
-       echo   check_holiday($year,$month,$day);
 
-        
+         updatecleandertoday();
+
+          $year = '1400';
+          $month = '01';
+          $day = '1';
+          check_cleander_year($year);
+          echo  check_cleander_month($year,$month);
+        //   check_holiday($year,$month,$day);
+
+
 
     //  echo    operator_month($year,$month,'countdaymonth');
 
 
-    
+
 
         $date=date::orderBy('created_at', 'asc')->get();
         // return view('dashboard.admin.date.manage', ['posts' => $date]);

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CleanderToday extends Model
 {
-  
+
     protected $fillable = [
-        'miladi', 'shamsi', 'year', 
+        'miladi', 'shamsi', 'year',
         'month', 'day',  
     ];
 
