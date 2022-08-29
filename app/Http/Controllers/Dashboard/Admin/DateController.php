@@ -2,26 +2,46 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Session\Store;
-use App\Models\date;
-use Illuminate\Auth\Access\Gate;
-use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
-use Illuminate\Support\Facades\Storage;
-use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
+use App\Models\date;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
+use Illuminate\Session\Store;
+use Hekmatinasser\Verta\Verta;
+use Illuminate\Auth\Access\Gate;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Cleander\CleanderToday;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Null_;
 
 class DateController extends Controller
 {
     public function GetDate()
     {
+
+          
+          updatecleandertoday();
+ 
+          $year = '1401';
+          $month = '06';
+          $day = '5';
+        //   check_cleander_year($year);
+        //   check_cleander_month($year,$month);
+       echo   check_holiday($year,$month,$day);
+
+        
+
+    //  echo    operator_month($year,$month,'countdaymonth');
+
+
+    
+
         $date=date::orderBy('created_at', 'asc')->get();
         // return view('dashboard.admin.date.manage', ['posts' => $date]);
-        return view('dashboard.admin.date.democleander', ['posts' => $date]);
+        // return view('dashboard.admin.date.democleander', ['posts' => $date]);
     }
 
     public function GetCreatePost(Request $request)
