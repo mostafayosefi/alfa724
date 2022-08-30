@@ -11,6 +11,7 @@ use Illuminate\Session\Store;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Auth\Access\Gate;
 use App\Http\Controllers\Controller;
+use App\Models\Cleander\CleanderMonth;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cleander\CleanderToday;
 use Illuminate\Database\Eloquent\Model;
@@ -38,10 +39,21 @@ class DateController extends Controller
 
 
 
+    $cleander_month = CleanderMonth::where([ ['month','=','04'] ])->first();
+    $cleander_today = CleanderToday::find(1);
 
-        $date=date::orderBy('created_at', 'asc')->get();
+$id = 1 ;
+        $posts=date::orderBy('created_at', 'asc')->get();
         // return view('dashboard.admin.date.manage', ['posts' => $date]);
-        // return view('dashboard.admin.date.democleander', ['posts' => $date]);
+
+        // manage
+        // manage_cleander
+        // democleander
+
+         return view('dashboard.admin.date.democleander' , compact(['posts'   , 'cleander_month'
+         , 'cleander_today'  , 'id'  ]));
+
+
     }
 
     public function GetCreatePost(Request $request)
