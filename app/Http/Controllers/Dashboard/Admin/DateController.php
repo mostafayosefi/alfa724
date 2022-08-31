@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cleander\CleanderMonth;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cleander\CleanderToday;
+use App\Models\Cleander\CleanderYear;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Null_;
@@ -26,8 +27,8 @@ class DateController extends Controller
 
          updatecleandertoday();
 
-          $year = '1400';
-          $month = '01';
+          $year = '1401';
+          $month = '06';
           $day = '1';
           check_cleander_year($year);
           echo  check_cleander_month($year,$month);
@@ -38,8 +39,10 @@ class DateController extends Controller
     //  echo    operator_month($year,$month,'countdaymonth');
 
 
+    $cleander_year=CleanderYear::where([ ['year','=','1401'] ])->first();
 
-    $cleander_month = CleanderMonth::where([ ['month','=','04'] ])->first();
+    $cleander_month = CleanderMonth::where([ ['month','=','06'],
+    ['cleander_year_id','=',$cleander_year->id]  ])->first();
     $cleander_today = CleanderToday::find(1);
 
 $id = 1 ;
@@ -50,7 +53,7 @@ $id = 1 ;
         // manage_cleander
         // democleander
 
-         return view('dashboard.admin.date.democleander' , compact(['posts'   , 'cleander_month'
+         return view('dashboard.admin.date.manage_cleander' , compact(['posts'   , 'cleander_month'
          , 'cleander_today'  , 'id'  ]));
 
 
