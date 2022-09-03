@@ -43,10 +43,14 @@ if(! function_exists('updatecleandertoday') ) {
 
         $date = now();
         $shamsi = Jalalian::forge($date)->format('Y/m/d');
-        $miladi = now()->format('Y-m-d');
-        $year = now()->format('Y');
-        $month = now()->format('m');
-        $day = now()->format('d');
+        $miladi = Jalalian::forge($date)->format('Y-m-d');
+        $year = Jalalian::forge($date)->format('Y');
+        $month = Jalalian::forge($date)->format('m');
+        $day = Jalalian::forge($date)->format('d');
+
+        // $year = now()->format('Y');
+        // $month = now()->format('m');
+        // $day = now()->format('d');
 
 
         $updatecleandertoday = CleanderToday::updateOrCreate([

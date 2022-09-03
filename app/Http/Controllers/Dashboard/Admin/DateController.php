@@ -52,8 +52,10 @@ $id = 1 ;
         // manage
         // manage_cleander
         // democleander
+        // test
+        // test1
 
-         return view('dashboard.admin.date.manage_cleander' , compact(['posts'   , 'cleander_month'
+         return view('dashboard.admin.date.test1' , compact(['posts'   , 'cleander_month'
          , 'cleander_today'  , 'id'  ]));
 
 
