@@ -25,7 +25,7 @@ class DateController extends Controller
     {
 
 
-        //  updatecleandertoday();
+         updatecleandertoday();
 
           $year = '1401';
           $month = '06';
