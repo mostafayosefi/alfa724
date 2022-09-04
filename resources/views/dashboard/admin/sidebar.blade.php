@@ -11,12 +11,9 @@
 <x-sidebar-item title="تعطیلی ها" icon="fas fa-folder" route="dashboard.admin.date.manage" ul="false" />
 <x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" ul="false" />
 
-{{-- @php
-    $array = ['foo','bar'];
-    $json = json_encode($array);
-     $list = ['Received', 'In Process', 'Repaired', 'Completed', 'Shipped', 'Waiting on Boards', 'In Route'];
 
-@endphp --}}
 
-<x-sidebar-item title="مدیریت تقویم  " icon="fas fa-folder" route="dashboard.admin.report.index" ul="true"   />
+@include('components.dashboard.sidebar-item', [ 'route' => 'dashboard.admin.report.index'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم'  ])
+
+
 

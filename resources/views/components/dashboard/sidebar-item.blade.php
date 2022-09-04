@@ -1,5 +1,5 @@
 
-    @if($ul=='false')
+@if($ul=='false')
 <li class="nav-item">
     @if(!empty($route))
         <a href="{{ route($route, $routeParam) }}" class="nav-link @if(Route::current()->getName() == $route) active @endif">
@@ -16,42 +16,36 @@
         </span>
     @endif
 </li>
-
-
-
 @endif
 
 
 
 
 @if($ul=='true')
-
 <li class="nav-item">
     <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-edit"></i>
+    <i class="nav-icon fas fa-search"></i>
     <p>
-        {{ $title }}
+    Search
     <i class="fas fa-angle-left right"></i>
     </p>
     </a>
     <ul class="nav nav-treeview" style="display: none;">
     <li class="nav-item">
-    <a href="../forms/general.html" class="nav-link">
+    <a href="pages/search/simple.html" class="nav-link">
     <i class="far fa-circle nav-icon"></i>
-    <p>General Elements</p>
+    <p>Simple Search</p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="pages/search/enhanced.html" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>Enhanced</p>
     </a>
     </li>
     </ul>
     </li>
-
-    @php dd($routeParam); @endphp
-
-    @foreach($routeParam() as $item)
-    <li class="nav-item">
-        <a href="../forms/general.html" class="nav-link">
-        <i class="far fa-circle nav-icon"></i>
-        <p>ffffff fffff</p>
-        </a>
-        </li>
-        @endforeach
 @endif
+
+
+
