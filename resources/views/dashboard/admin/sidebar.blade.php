@@ -1,12 +1,22 @@
-<x-sidebar-item title="داشبورد" icon="fas fa-tachometer-alt" route="dashboard.admin.index" />
-<x-sidebar-item title="برنامه روزانه" icon="fas fa-folder" route="dashboard.admin.daily.manage"/>
-<x-sidebar-item title="مدیریت مشتری ها" icon="fas fa-users" route="dashboard.admin.customer.manage" />
-<x-sidebar-item title="مدیریت پروژه ها" icon="fas fa-folder" route="dashboard.admin.project.manage" />
-<x-sidebar-item title="مدیریت کارمند ها" icon="fas fa-users" route="dashboard.admin.users.employee" />
-<x-sidebar-item title="مدیریت مالی" icon="fas fa-money-check-alt" route="dashboard.admin.money.employee" />
-<x-sidebar-item title="مدیریت پیام ها" icon="fas fa-envelope-open-text" route="dashboard.admin.message.manage" />
-<x-sidebar-item title="مدیریت دستمزد ها" icon="fas fa-list" route="dashboard.admin.salary.index" />
-<x-sidebar-item title="مدیریت امتیازات" icon="fas fa-medal" route="dashboard.admin.score.index" />
-<x-sidebar-item title="حضورغیاب" icon="fas fa-users" route="dashboard.admin.absence.manage" />
-<x-sidebar-item title="تعطیلی ها" icon="fas fa-folder" route="dashboard.admin.date.manage" />
-<x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" />
+<x-sidebar-item title="داشبورد" icon="fas fa-tachometer-alt" route="dashboard.admin.index" ul="false" />
+<x-sidebar-item title="برنامه روزانه" icon="fas fa-folder" route="dashboard.admin.daily.manage" ul="false" />
+<x-sidebar-item title="مدیریت مشتری ها" icon="fas fa-users" route="dashboard.admin.customer.manage" ul="false" />
+<x-sidebar-item title="مدیریت پروژه ها" icon="fas fa-folder" route="dashboard.admin.project.manage" ul="false" />
+<x-sidebar-item title="مدیریت کارمند ها" icon="fas fa-users" route="dashboard.admin.users.employee" ul="false" />
+<x-sidebar-item title="مدیریت مالی" icon="fas fa-money-check-alt" route="dashboard.admin.money.employee" ul="false" />
+<x-sidebar-item title="مدیریت پیام ها" icon="fas fa-envelope-open-text" route="dashboard.admin.message.manage" ul="false" />
+<x-sidebar-item title="مدیریت دستمزد ها" icon="fas fa-list" route="dashboard.admin.salary.index" ul="false" />
+<x-sidebar-item title="مدیریت امتیازات" icon="fas fa-medal" route="dashboard.admin.score.index" ul="false" />
+<x-sidebar-item title="حضورغیاب" icon="fas fa-users" route="dashboard.admin.absence.manage" ul="false" />
+<x-sidebar-item title="تعطیلی ها" icon="fas fa-folder" route="dashboard.admin.date.manage" ul="false" />
+<x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" ul="false" />
+
+{{-- @php
+    $array = ['foo','bar'];
+    $json = json_encode($array);
+     $list = ['Received', 'In Process', 'Repaired', 'Completed', 'Shipped', 'Waiting on Boards', 'In Route'];
+
+@endphp --}}
+
+<x-sidebar-item title="مدیریت تقویم  " icon="fas fa-folder" route="dashboard.admin.report.index" ul="true"   />
+

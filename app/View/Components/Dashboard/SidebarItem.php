@@ -10,6 +10,7 @@ class SidebarItem extends Component
     public $route;
     public $icon;
     public $routeParam;
+    public $ul;
 
     /**
      * Create a new component instance.
@@ -18,12 +19,13 @@ class SidebarItem extends Component
      * @param $route
      * @param $icon
      */
-    public function __construct($title, $icon, $route = null, $routeParam = [])
+    public function __construct($title, $icon, $route = null, $routeParam = [], $ul)
     {
         $this->title = $title;
         $this->icon = $icon;
         $this->route = $route;
         $this->routeParam = $routeParam;
+        $this->ul = $ul;
     }
 
     /**

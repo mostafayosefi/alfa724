@@ -10,21 +10,38 @@
 
 @if($name_tr == 'multi_table')
 
+<style>
+    .day-holiday{
+        background-color: rgb(232, 157, 247);
+    }
+</style>
 
 <td role="gridcell"
+@php
+$holiday = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'holiday');
+@endphp
 
 @if (($cleander_month->cleander_year->year == $cleander_today->year) && ($cleander_month->month== $cleander_today->month) &&  (($j + $p ) == $cleander_today->day))
 class="fc-daygrid-day fc-day fc-day-tue fc-day-today "
-@else
+@endif
+
 
 
 @if ($j + $p < 1 || $j + $p > $month_daymonth)
 class="fc-daygrid-day fc-day fc-day-wed fc-day-future fc-day-other"
  @else
+
+@if ($holiday=='true')
+class="fc-daygrid-day fc-day fc-day-tue day-holiday "
+@endif
+
 class="fc-daygrid-day fc-day fc-day-sun fc-day-past"
- @endif
+
 
  @endif
+
+
+
 
 
 data-date="2022-08-14"
@@ -35,14 +52,25 @@ aria-labelledby="fc-dom-30">
             id="fc-dom-30"
             class="fc-daygrid-day-number"
             aria-label="August 14, 2022">
-            @if ($j + $p < 1)
-            {{ $month_dayprev + $n + $p }}
-        @elseif($j + $p > $month_daymonth)
-            {{ $j + $p - $month_daymonth }}
-        @else
-            {{ $j + $p }}
-        @endif
- 
+
+{{table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day');}}
+
+    @php
+
+
+// dateshamsi
+// echo    table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'dateshamsi');
+
+
+//  cleander_day
+// $cleander_day = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day_id');
+// $month_td = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'month');
+// $year_td = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'year');
+
+//  echo check_holiday($year_td,$month_td,$cleander_day->day);
+
+    @endphp
+
         </a>
     </div>
     <div class="fc-daygrid-day-events">

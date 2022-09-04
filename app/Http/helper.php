@@ -304,8 +304,101 @@ if(! function_exists('check_holiday') ) {
         $datecleander = (new Jalalian($year,$month, $day, 00, 00, 0))->toCarbon()->toDateTimeString();
         $date=date_create($datecleander);
         $dayweek = date_format($date,"D");
-        if($dayweek=='Fri'){$holiday="true";}else{{$holiday="false";}}
+        if($dayweek=='Fri'){$holiday="true";}else{$holiday="false";}
         return $holiday;
+
+    }
+}
+
+
+
+
+if(! function_exists('table_day_cleander') ) {
+    function table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,$name_cleander)
+    {
+
+
+
+    if ($j + $p < 1){
+        $myday =$month_dayprev + $n + $p;
+        $mymonth=$cleander_month->month - 1;
+        $myyear = $cleander_month->cleander_year->year;
+        if($cleander_month->month==1){ $mymonth=12; $myyear = $cleander_month->cleander_year->year - 1;  }
+
+    } elseif($j + $p > $month_daymonth){
+        $myday =$j + $p - $month_daymonth;
+        $mymonth=$cleander_month->month + 1;
+        $myyear = $cleander_month->cleander_year->year;
+        if($cleander_month->month==12){ $mymonth=1; $myyear = $cleander_month->cleander_year->year + 1;  }
+
+    } else{
+        $myday =$j + $p;
+        $mymonth=$cleander_month->month ;
+        $myyear = $cleander_month->cleander_year->year;
+    }
+
+    $cleander_month_id = cleander_year_id($myyear,$mymonth,'month');
+
+
+    $cleander_day = CleanderDay::where([ ['cleander_month_id' ,$cleander_month_id ],
+    ['day' ,$myday ], ])->first();
+
+
+
+
+
+    if($name_cleander=='year'){
+        return $myyear;
+    }
+    if($name_cleander=='month'){
+        return $mymonth;
+    }
+    if($name_cleander=='day'){
+        return $myday;
+    }
+    if($name_cleander=='dateshamsi'){
+        return $myyear.'/'.$mymonth.'/'.$myday;
+    }
+
+    if($name_cleander=='day_id'){
+        return $cleander_day;
+    }
+
+    if($name_cleander=='holiday'){
+        // return check_holiday($myyear,$mymonth,$myday);
+        return $cleander_day->holiday;
+    }
+
+
+
+
+
+    }
+}
+
+
+
+
+
+
+
+if(! function_exists('cleander_year_id') ) {
+    function cleander_year_id($year,$month,$cleander)
+    {
+
+
+    check_cleander_year($year);
+    $cleander_year = CleanderYear::where([ [ 'year' , $year],  ])->first();
+
+    if($cleander=='year'){
+        return $cleander_year->id;
+    }
+    if($cleander=='month'){
+        check_cleander_month($year,$month);
+        $cleander_month = CleanderMonth::where([ [ 'cleander_year_id' , $cleander_year->id], [ 'month' , $month],  ])->first();
+        return $cleander_month->id;
+    }
+
 
     }
 }

@@ -164,7 +164,7 @@
                                                 <div class="fc-scroller-harness">
                                                     <div class="fc-scroller" style="overflow: hidden;">
                                                         <table role="presentation" class="fc-col-header "
-                                                            style="width: 795px;">
+                                                           >
                                                             <colgroup></colgroup>
                                                             <thead role="presentation">
                                                                 <tr role="row">
@@ -233,9 +233,10 @@
                                                     <div class="fc-scroller fc-scroller-liquid-absolute"
                                                         style="overflow: hidden auto;">
                                                         <div class="fc-daygrid-body fc-daygrid-body-unbalanced "
-                                                            style="width: 795px;">
+                                                             >
                                                             <table role="presentation" class="fc-scrollgrid-sync-table"
-                                                                style="width: 795px; height: 558px;">
+
+                                                                >
                                                                 <colgroup></colgroup>
                                                                 <tbody role="presentation">
 
