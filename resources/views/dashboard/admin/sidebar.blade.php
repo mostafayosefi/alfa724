@@ -13,7 +13,13 @@
 
 
 
-@include('components.dashboard.sidebar-item', [ 'route' => 'dashboard.admin.report.index'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم'  ])
+@include('components.dashboard.sidebar-item', [ 'route' => 'dashboard.admin.report.index'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم' ,
+ 'array' => [
+    ['#1', 'اول'],
+    ['#2', 'دوم'],
+]
+
+ ])
 
 
 
