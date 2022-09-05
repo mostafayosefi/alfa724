@@ -1,6 +1,11 @@
 <x-sidebar-item title="داشبورد" icon="fas fa-tachometer-alt" route="dashboard.admin.index" ul="false" />
 <x-sidebar-item title="برنامه روزانه" icon="fas fa-folder" route="dashboard.admin.daily.manage" ul="false" />
-<x-sidebar-item title="مدیریت مشتری ها" icon="fas fa-users" route="dashboard.admin.customer.manage" ul="false" />
+
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مشتری ها' ,
+ 'multi_route' => [   ['dashboard.admin.customer.manage', [  ], 'مدیریت مشتری ها' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.customer.create', [  ], 'ثبت مشتری' , 'far fa-circle nav-icon'  ],   ]  ])
+
+{{-- <x-sidebar-item title="مدیریت مشتری ها" icon="fas fa-users" route="dashboard.admin.customer.manage" ul="false" /> --}}
+
 <x-sidebar-item title="مدیریت پروژه ها" icon="fas fa-folder" route="dashboard.admin.project.manage" ul="false" />
 <x-sidebar-item title="مدیریت کارمند ها" icon="fas fa-users" route="dashboard.admin.users.employee" ul="false" />
 <x-sidebar-item title="مدیریت مالی" icon="fas fa-money-check-alt" route="dashboard.admin.money.employee" ul="false" />
@@ -12,14 +17,10 @@
 <x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" ul="false" />
 
 
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'far fa-calendar-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم' ,
+ 'multi_route' => [   ['dashboard.admin.calender.manage',[ 'holiday' ] ,'مدیریت تعطیلی ها' , 'far fa-circle nav-icon'],  ['dashboard.admin.customer.create',[], 'مدیریت پروژه ها' , 'far fa-circle nav-icon'],   ]  ])
 
-@include('components.dashboard.sidebar-item', [ 'route' => 'dashboard.admin.report.index'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم' ,
- 'array' => [
-    ['#1', 'اول'],
-    ['#2', 'دوم'],
-]
 
- ])
 
 
 

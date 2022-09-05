@@ -19,12 +19,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Null_;
 
+use Illuminate\Support\Facades\Route;
+
 class DateController extends Controller
 {
     public function GetDate()
     {
 
 
+ 
          updatecleandertoday();
 
           $year = '1401';

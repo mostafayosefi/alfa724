@@ -15,6 +15,39 @@ use App\Models\Cleander\CleanderToday;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
+
+
+
+
+
+if(!function_exists('isActive'))
+{
+    function isActive($key , $activeClassName = 'active')
+    {
+        if (is_array($key))
+        {
+            return in_array(Route::currentRouteName() , $key) ? $activeClassName : '';
+        }
+        return Route::currentRouteName() == $key ? $activeClassName : '';
+    }
+}
+
+if(!function_exists('isActive_open'))
+{
+    function isActive_open($key , $activeClassName = 'menu-open')
+    {
+
+        // dd($key);
+        if (is_array($key))
+        {
+            return in_array(Route::currentRouteName() , $key) ? $activeClassName : '';
+        }
+        return Route::currentRouteName() == $key ? $activeClassName : '';
+    }
+}
+
+
+
 if(! function_exists('getStatusEmployerPackage') ) {
 
     function getStatusEmployerPackage($status)

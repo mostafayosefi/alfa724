@@ -18,7 +18,8 @@ use App\Http\Controllers\Dashboard\Admin\ServiceController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\AccountingController;
-use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController; 
+use App\Http\Controllers\Dashboard\Admin\CalenderController;
+use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController;
 use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
 use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
@@ -83,13 +84,13 @@ Route::prefix('dashboard')
        Route::get('/', [DashboardIndexController::class, 'get'])->name('index');
        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-   
+
         Route::prefix('admin')
             ->name('admin.')
             ->middleware(['user_type:admin'])
             ->namespace('Admin')
             ->group(function() {
- 
+
 
                 Route::get('/', [IndexController::class, 'dashboard'])->name('index');
 
@@ -253,7 +254,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::get('/create', [DateController::class, 'GetCreatePost'])->name('create');
                 Route::get('/manage', [DateController::class, 'GetDate'])->name('manage');
                 Route::get('/deletedate/{id}', [DateController::class, 'DeletePost'])->name('deletedate');
-           
+
                 Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
             });
 
@@ -264,6 +265,17 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::get('/show/{id}', [ReportController::class, 'show'])->name('show');
                 Route::get('/absence/{id}', [ReportController::class, 'absence'])->name('absence');
             });
+
+
+
+                //Calender PAGE
+                Route::prefix('calender')->name('calender.')->group(function () {
+
+                    Route::get('/{type}/{year?}/{month?}', [CalenderController::class, 'manage'])->name('manage');
+
+                });
+
+
 
 
             });
