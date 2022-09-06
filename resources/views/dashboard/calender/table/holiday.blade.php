@@ -18,9 +18,9 @@
 
 
 
+<div class="modal fade show" id="status_{{$admin->id}}" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg">
 
-<div class="modal fade" id="status_{{$admin->id}}">
-    <div class="modal-dialog">
 
     @if ($admin->holiday == 'false')
     <div class="modal-content bg-success">

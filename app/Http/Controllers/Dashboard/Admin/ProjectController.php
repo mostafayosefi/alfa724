@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Salary;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Session\Store;
-use App\Models\User;
-use App\Models\Project;
-use App\Models\Phase;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Phase;
+use App\Http\Requests;
+use App\Models\Salary;
+use App\Models\Project;
+use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectController extends Controller
@@ -60,19 +61,19 @@ class ProjectController extends Controller
         $post->save();
         return redirect()->route('dashboard.admin.project.index', ['id' => $post->id])->with('info', '  پروژه جدید ذخیره شد و نام آن' .' ' . $request->input('title'));
     }
-    
+
     public function GetManagePost(Request $request)
     {
         $posts = Project::where('status','!=','paid')->where('status','!=','done')->orderBy('created_at', 'desc')->get();
         return view('dashboard.admin.project.manage', ['posts' => $posts]);
     }
-    
+
     public function GetDonePost(Request $request)
     {
         $posts = Project::withTrashed()->where('status','done')->orderBy('created_at', 'desc')->get();
         return view('dashboard.admin.project.done', ['posts' => $posts]);
     }
-    
+
     public function GetPaidPost(Request $request)
     {
         $posts = Project::withTrashed()->where('status','paid')->orderBy('created_at', 'desc')->get();
@@ -112,7 +113,7 @@ class ProjectController extends Controller
             if ($post->finish_date->lt($post->start_date))
                 return redirect()->back()->withErrors(['finish_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
             $post->status = $request->input('status');
-            
+
             $post->save();
             if ($post->status == 'done' && $old_status != $post->status)
                 $post->applyEmployeesScore();
@@ -132,5 +133,28 @@ class ProjectController extends Controller
         }
         return redirect()->back()->with('info', 'وضعیت پروژه تغییر کرد به "' . __('app.status.' . $status) . '"');
     }
+
+
+    public function testi(){
+
+
+
+
+
+
+        // $user = User::create([
+        //     'name' => 'test',
+        //     'first_name' => 'test',
+        //     'last_name' => 'test',
+        //     'email' => 'mustafa1390@gmail.com',
+        //     'password' => Hash::make('98879887') ,
+        // ]);
+
+
+        echo 'hi';
+
+    }
+
+
 
 }
