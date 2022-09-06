@@ -33,6 +33,8 @@ BY WEBITO
 
     @yield('styles', '')
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.rtl.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/my_style.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <script>
@@ -60,8 +62,8 @@ BY WEBITO
     .small-box:hover .icon > i.fa, .small-box:hover .icon > i.fas, .small-box:hover .icon > i.far, .small-box:hover .icon > i.fab, .small-box:hover .icon > i.glyphicon, .small-box:hover .icon > i.ion {
     font-size: 57px;
     }
-    table th , table td { 
-    padding :7px !important; 
+    table th , table td {
+    padding :7px !important;
     font-size:13px !important;
     vertical-align: middle !important;
     }
@@ -242,7 +244,7 @@ BY WEBITO
 </script>
  <script>
   $(function () {
-      
+
     $("#example1").DataTable({
     "language": {
           "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
@@ -250,7 +252,7 @@ BY WEBITO
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    
+
     $("#example3").DataTable({
      "language": {
           "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
@@ -258,7 +260,7 @@ BY WEBITO
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    
+
     $("#example").DataTable({
       "language": {
           "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
@@ -266,7 +268,7 @@ BY WEBITO
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    
+
     $('.toastrDefaultSuccess').click(function() {
       toastr.error('شما حضوری خود را ثبت کرده اید')
     });

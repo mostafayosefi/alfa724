@@ -10,14 +10,13 @@
 
 @if($name_tr == 'multi_table')
 
-<style>
-    .day-holiday{
-        background-color: rgb(232, 157, 247);
-    }
-</style>
 
 <td role="gridcell"
+
 @php
+
+$day_id = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day_id');
+
 $holiday = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'holiday');
 @endphp
 
@@ -54,6 +53,9 @@ aria-labelledby="fc-dom-30">
             aria-label="August 14, 2022">
 
 {{table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day');}}
+@include('dashboard.calender.table.holiday', ['admin' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
+
+{{-- {{$day_id->id}} --}}
 
     @php
 

@@ -25,41 +25,10 @@ class DateController extends Controller
 {
     public function GetDate()
     {
-
-
  
-         updatecleandertoday();
-
-          $year = '1401';
-          $month = '06';
-          $day = '1';
-          check_cleander_year($year);
-          echo  check_cleander_month($year,$month);
-        //   check_holiday($year,$month,$day);
-
-
-
-    //  echo    operator_month($year,$month,'countdaymonth');
-
-
-    $cleander_year=CleanderYear::where([ ['year','=','1401'] ])->first();
-
-    $cleander_month = CleanderMonth::where([ ['month','=','06'],
-    ['cleander_year_id','=',$cleander_year->id]  ])->first();
-    $cleander_today = CleanderToday::find(1);
-
-$id = 1 ;
         $posts=date::orderBy('created_at', 'asc')->get();
-        // return view('dashboard.admin.date.manage', ['posts' => $date]);
 
-        // manage
-        // manage_cleander
-        // democleander
-        // test
-        // test1
-
-         return view('dashboard.admin.date.test1' , compact(['posts'   , 'cleander_month'
-         , 'cleander_today'  , 'id'  ]));
+         return view('dashboard.admin.date.manage' , compact(['posts'   ]));
 
 
     }

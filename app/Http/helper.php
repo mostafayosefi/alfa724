@@ -95,7 +95,10 @@ if(! function_exists('updatecleandertoday') ) {
             'month'   => $month,
             'day'      => $day
         ]);
-$date = (new Jalalian(1397, 1, 18, 12, 10, 0))->toCarbon()->toDateTimeString();
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->toCarbon()->toDateTimeString();
+
+$cleander_today = CleanderToday::find(1);
+return $cleander_today;
 
     }
 
@@ -109,6 +112,9 @@ if(! function_exists('check_cleander_year') ) {
         ],[
             'year'     => $year
         ]);
+
+        $cleander_year = CleanderYear::where([ ['year',$year] ])->first();
+        return $cleander_year;
 
     }
 
@@ -394,7 +400,7 @@ if(! function_exists('table_day_cleander') ) {
     }
 
     if($name_cleander=='day_id'){
-        return $cleander_day;
+        return $cleander_day; 
     }
 
     if($name_cleander=='holiday'){

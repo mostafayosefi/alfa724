@@ -18,35 +18,18 @@ class CalenderController extends Controller
 
 
 
+        $cleander_today =  updatecleandertoday();
 
-        updatecleandertoday();
+        if($year==null){ $year = $cleander_today->year;  }
+        if($month==null){ $month =  $cleander_today->month;  }
 
-        $year = '1401';
-        $month = '06';
-        $day = '1';
-        check_cleander_year($year);
-        echo  check_cleander_month($year,$month);
-      //   check_holiday($year,$month,$day);
+          $cleander_year = check_cleander_year($year);
+          echo  check_cleander_month($year,$month);
 
+         $cleander_month = CleanderMonth::where([ ['month','=',$month],
+         ['cleander_year_id','=',$cleander_year->id]  ])->first();
 
-
-  //  echo    operator_month($year,$month,'countdaymonth');
-
-
-  $cleander_year=CleanderYear::where([ ['year','=','1401'] ])->first();
-
-  $cleander_month = CleanderMonth::where([ ['month','=','06'],
-  ['cleander_year_id','=',$cleander_year->id]  ])->first();
-  $cleander_today = CleanderToday::find(1);
-
-$id = 1 ;
-      $posts=date::orderBy('created_at', 'asc')->get();
-
-
-       return view('dashboard.admin.calender.manage' , compact(['posts'   , 'cleander_month'
-       , 'cleander_today'  , 'id'  ]));
-
-
+         return view('dashboard.calender.manage.index' , compact([  'cleander_month' , 'cleander_today'  , 'type'     ]));
 
     }
 
