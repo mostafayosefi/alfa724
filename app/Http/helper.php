@@ -400,7 +400,7 @@ if(! function_exists('table_day_cleander') ) {
     }
 
     if($name_cleander=='day_id'){
-        return $cleander_day; 
+        return $cleander_day;
     }
 
     if($name_cleander=='holiday'){
@@ -437,6 +437,26 @@ if(! function_exists('cleander_year_id') ) {
         $cleander_month = CleanderMonth::where([ [ 'cleander_year_id' , $cleander_year->id], [ 'month' , $month],  ])->first();
         return $cleander_month->id;
     }
+
+
+    }
+}
+
+
+
+
+if(! function_exists('route_calender') ) {
+    function route_calender($year,$month,$flag,$name)
+    {
+
+        $new_year = $year;
+        $new_month = $month;
+        if(($month=='12')&&($flag=='next')){ $new_year = $year + 1; $new_month = '01'; }
+        elseif(($month=='1')&&($flag=='prev')){ $new_year = $year - 1; $new_month = '12'; }
+        else { $new_year = $year; $new_month = $month + 1; }
+
+        if($name=='year'){ return $new_year;  }
+
 
 
     }

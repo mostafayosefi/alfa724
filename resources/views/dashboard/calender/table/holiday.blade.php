@@ -1,57 +1,25 @@
-
-
-                            @if ($admin->holiday == 'false')
-                                  <button type="button" class="btn btn-success" data-toggle="modal"
-                                      data-target="#status_{{ $admin->id }}">
-                                      <i data-feather="check-circle"></i> &nbsp; فعال
-                                  </button>
-
-
-                                  @elseif($admin->holiday=='true')
-                                  <button type="button" class="btn btn-warning" data-toggle="modal"
-                                      data-target="#status_{{ $admin->id }}">
-                                      <i data-feather="x-circle"></i> &nbsp; غیرفعال
-                                  </button>
-
-
-                                  @endif
-
-
-
-<div class="modal fade show" id="status_{{$admin->id}}" aria-modal="true" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-
-    @if ($admin->holiday == 'false')
-    <div class="modal-content bg-success">
-        @else
-        <div class="modal-content bg-warning">
-
-        @endif
-    <div class="modal-header">
-    <h4 class="modal-title">{{ $admin->holiday == 'false' ? ' غیرفعال کردن'.$myname : ' فعال کردن'.$myname }}</h4>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
+<form method="post">
+    {{-- <span class="handle">
+      <i class="fas fa-ellipsis-v"></i>
+      <i class="fas fa-ellipsis-v"></i>
+    </span> --}}
+    {{-- <div  class="icheck-primary d-inline ml-2">
+      <input type="checkbox"  id="todoCheck2{{ $items->id }}"  data-toggle="modal" data-target="#modal-success{{ $items->id }}">
+      <label for="todoCheck2{{ $items->id }}"></label>
+    </div> --}}
+    {{-- <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $items->id }}" data-toggle="modal">{{ $items->date }}</span> --}}
+    {{-- <small class="badge badge-info"><i class="far fa-clock"></i> 12 </small> --}}
+    <div class="tools">
+      <i class="fas fa-edit" data-target="#modal-lf{{ $items->id }}" data-toggle="modal"></i>
+      <script>
+        $(document).ready(function(){
+      $(".check").click(function(){
+          $("#todoCheck2{{ $items->id }}").prop("checked", true);
+      });
+      $(".uncheckd").click(function(){
+          $("#todoCheck2{{ $items->id }}").prop("checked", false);
+      });
+     });
+    </script>
     </div>
-    <div class="modal-body">
-    <p>
-        آیا شما مایل به   {{ $admin->holiday == 'false' ? ' غیرفعال کردن'.$myname : ' فعال کردن'.$myname }} هستید؟
-
-    </p>
-    </div>
-    <div class="modal-footer justify-content-between">
-    <button type="button" class="btn btn-outline-light" data-dismiss="modal">خیر</button>
-
-    @if ($admin->holiday == 'false')
-    <button type="button" class="btn btn-outline-light">غیرفعال کردن</button>
-
-     @else
-    <button type="button" class="btn btn-outline-light">  فعال کردن</button>
-
-     @endif
-
-    </div>
-    </div>
-    </div>
-    </div>
+  </form>

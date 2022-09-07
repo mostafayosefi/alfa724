@@ -7,7 +7,9 @@ use App\Models\Cleander\CleanderMonth;
 use App\Models\Cleander\CleanderToday;
 use App\Models\Cleander\CleanderYear;
 use App\Models\date;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CalenderController extends Controller
 {
@@ -28,8 +30,9 @@ class CalenderController extends Controller
 
          $cleander_month = CleanderMonth::where([ ['month','=',$month],
          ['cleander_year_id','=',$cleander_year->id]  ])->first();
+ 
 
-         return view('dashboard.calender.manage.index' , compact([  'cleander_month' , 'cleander_today'  , 'type'     ]));
+         return view('dashboard.calender.manage.index' , compact([   'cleander_month' , 'cleander_today'  , 'type'     ]));
 
     }
 

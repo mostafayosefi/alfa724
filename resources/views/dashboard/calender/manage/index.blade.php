@@ -14,8 +14,11 @@
             </div>
         </div>
     @endif
-    
 
+
+
+
+    @include('dashboard.calender.table.holiday_modal')
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
@@ -42,7 +45,7 @@
                                 <div class="btn-group">
 
 
-                                    <a type="button"
+                                    <a href="{{route('dashboard.admin.calender.manage',[ $type ,$cleander_month->cleander_year->year , $cleander_month->month  ])}}" type="button"
                                     title="ماه بعدی" aria-pressed="false" class="fc-next-button btn btn-primary color-white"    ><span
                                         class="fa fa-chevron-right"></span></a>
                                             <button type="button"

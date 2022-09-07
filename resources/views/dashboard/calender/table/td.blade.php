@@ -14,9 +14,7 @@
 <td role="gridcell"
 
 @php
-
 $day_id = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day_id');
-
 $holiday = table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'holiday');
 @endphp
 
@@ -53,7 +51,20 @@ aria-labelledby="fc-dom-30">
             aria-label="August 14, 2022">
 
 {{table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day');}}
-@include('dashboard.calender.table.holiday', ['admin' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
+
+{{-- {{$type}} --}}
+
+@if($type=='holiday')
+@include('dashboard.calender.table.holiday', ['items' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
+@endif
+
+
+
+
+
+
+
+
 
 {{-- {{$day_id->id}} --}}
 
