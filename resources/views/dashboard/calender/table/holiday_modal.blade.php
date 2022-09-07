@@ -4,74 +4,31 @@
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">{{ $item->date }}</h4>
+                          <h4 class="modal-title">{{ $item->day }} {{$cleander_month->name}} {{$cleander_month->cleander_year->year}}</h4>
                           <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                           </button>
                         </div>
                         <div class="modal-body">
                           <div class="col-md-12">
-                            <x-card type="info">
-                                <x-card-header>ویرایش مسئولیت </x-card-header>
-                            <form style="padding:10px;" action="{{ route('dashboard.admin.daily.editdaily', $item->id) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="{{ $item->id }}" >
-                                <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title" value="{{ $item->date }}" placeholder="عنوان">
-                                <textarea type="text" id="ckeditor{{ $item->id }}" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" name="description"  placeholder="توضیحات">{{ $item->description }}</textarea>
-                                <input type="hidden" name="employee_id" value="{{ Auth::user()->id }}" >
-                                <div class="form-group">
-                                    <label>تاریخ شروع:</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                      </div>
+                            <x-card type="success">
+                                <x-card-header>ویرایش تعطیلی  {{ $item->day }} {{$cleander_month->name}} {{$cleander_month->cleander_year->year}} </x-card-header>
+                            <form style="padding:10px;" action="{{ route('dashboard.admin.calender.holiday.update', $item->id) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+                               
+                              @csrf
 
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                                <div class="form-group">
-                                    <label>تاریخ پایان:</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                      </div>
+                              @method('PUT')
 
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                                <div class="form-group">
-                                    <label>ساعت شروع کار:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input name="start_time" value="{{ !empty($item->start_time) ? $item->start_time->format('H:i') : '' }}" type="text" class="form-control mdtimepicker-input">
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                                <div class="form-group">
-                                    <label>ساعت پایان کار:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input name="finish_time" value="{{ !empty($item->finish_time) ? $item->finish_time->format('H:i') : '' }}" type="text" class="form-control mdtimepicker-input">
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" name="ignore_conflict" id="ignore_conflict">
-                                        <label class="form-check-label" for="ignore_conflict">
-                                            صرف‌نظر کردن از تداخل زمانی
-                                        </label>
-                                    </div>
-                                </div>
-                                <x-select-group name="status" label="وضعیت" :model="$item ?? null">
-                                  <x-select-item value="notwork">انجام نشده</x-select-item>
-                                  <x-select-item value="done">انجام شده</x-select-item>
-                                </x-select-group>
+                              
+                              <x-select-group name="holiday" label="وضعیت" :model="$item ?? null">
+                                <x-select-item value="true"   >تعطیل</x-select-item>
+                                <x-select-item value="false"  >روز کاری  </x-select-item>
+                              </x-select-group>
 
-                                 {{ csrf_field() }}
+
+                                  
+                                  
+ 
                         </x-card>
                         </div>
                         </div>

@@ -2,22 +2,29 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cleander\CleanderMonth;
-use App\Models\Cleander\CleanderToday;
-use App\Models\Cleander\CleanderYear;
 use App\Models\date;
 use App\Models\Task;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Cleander\CleanderDay;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Cleander\CleanderYear;
+use Illuminate\Support\Facades\Route;
+
+use App\Models\Cleander\CleanderMonth;
+use App\Models\Cleander\CleanderToday;
 
 class CalenderController extends Controller
 {
 
 
 
-    public function manage($type,$year = null ,$month = null ){
+    public function manage( $year = null ,$month = null ){
+ 
+        $type =  explode_url('2'); 
 
+         
 
 
         $cleander_today =  updatecleandertoday();
@@ -36,6 +43,23 @@ class CalenderController extends Controller
 
     }
 
+
+
+    public function holiday_update(Request $request  ,  $id){
+
+
+        $request->validate([
+            'holiday' => 'required', 
+        ]);
+
+        $cleander_day=CleanderDay::find($id);         
+        $data = $request->all();  
+        $cleander_day->update($data);
+        // Alert::success('با موفقیت ویرایش شد', 'اطلاعات با موفقیت ویرایش شد');
+        return redirect()->back()->with('info', 'اطلاعات با موفقیت ویرایش شد');
+
+        return back();
+    }
 
 
 

@@ -274,7 +274,14 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //Calender PAGE
                 Route::prefix('calender')->name('calender.')->group(function () {
 
-                    Route::get('/{type}/{year?}/{month?}', [CalenderController::class, 'manage'])->name('manage');
+                    Route::get('/holiday/{year?}/{month?}', [CalenderController::class, 'manage'])->name('holiday'); 
+                    Route::get('/daily/{year?}/{month?}', [CalenderController::class, 'manage'])->name('daily'); 
+                    Route::get('/project/{year?}/{month?}', [CalenderController::class, 'manage'])->name('project'); 
+                    Route::get('/absence/{year?}/{month?}', [CalenderController::class, 'manage'])->name('absence'); 
+                    
+                    Route::put('/updateholiday/{id}', [CalenderController::class, 'holiday_update'])->name('holiday.update');
+
+
 
                 });
 

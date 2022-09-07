@@ -45,30 +45,49 @@
                                 <div class="btn-group">
 
 
-                                    <a href="{{route('dashboard.admin.calender.manage',[ $type ,$cleander_month->cleander_year->year , $cleander_month->month  ])}}" type="button"
-                                    title="ماه بعدی" aria-pressed="false" class="fc-next-button btn btn-primary color-white"    ><span
+                                    <a href="{{route('dashboard.admin.calender.holiday',[  
+                                     route_calender($cleander_month->cleander_year->year,$cleander_month->month,'next','year' )  ,
+                                     route_calender($cleander_month->cleander_year->year,$cleander_month->month,'next','month' ) 
+                                       ])}}" type="button"
+                                    title="ماه بعدی" 
+                                    
+                                    aria-pressed="false" class="fc-next-button btn btn-primary color-white"    ><span
                                         class="fa fa-chevron-right"></span></a>
                                             <button type="button"
                                     title="This month" disabled="" aria-pressed="false"
                                     class="fc-today-button btn btn-primary"> {{$cleander_month->name}} {{$cleander_month->cleander_year->year}} </button>
 
-                                    <button type="button" title="ماه قبلی" aria-pressed="false"
+                                    <a href="{{route('dashboard.admin.calender.holiday',[  
+                                    route_calender($cleander_month->cleander_year->year,$cleander_month->month,'prev','year' )  ,
+                                    route_calender($cleander_month->cleander_year->year,$cleander_month->month,'prev','month' ) 
+                                      ])}}" type="button" title="ماه قبلی" aria-pressed="false"
                                         class="fc-prev-button btn btn-primary"><span
-                                            class="fa fa-chevron-left"></span></button>
+                                            class="fa fa-chevron-left"></span></a>
 
                                         </div>
                             </div>
-                            <div class="fc-toolbar-chunk">
+                            {{-- <div class="fc-toolbar-chunk">
                                 <h2 class="fc-toolbar-title" id="fc-dom-1">  {{$cleander_month->name}} {{$cleander_month->cleander_year->year}} </h2>
-                            </div>
-                            <div class="fc-toolbar-chunk">
+                            </div> --}}
+
+                            {{-- <div class="fc-toolbar-chunk">
                                 <div class="btn-group"><button type="button" title="month view" aria-pressed="true"
                                         class="fc-dayGridMonth-button btn btn-primary active">month</button><button
                                         type="button" title="week view" aria-pressed="false"
                                         class="fc-timeGridWeek-button btn btn-primary">week</button><button type="button"
                                         title="day view" aria-pressed="false"
                                         class="fc-timeGridDay-button btn btn-primary">day</button></div>
-                            </div>
+                            </div> --}}
+
+                          <div class="fc-toolbar-chunk">
+                                <div class="btn-group">
+                                    <a href="{{route('dashboard.admin.calender.holiday',[    ])}}"  type="button" title="  Today" aria-pressed="true"
+                                        class="fc-dayGridMonth-button btn btn-primary active">امروز</a>
+                                        
+                                    
+                                    </div>
+                            </div> 
+
                         </div>
                         <div aria-labelledby="fc-dom-1" class="fc-view-harness fc-view-harness-active"
                             style="height: 590.37px;  ">

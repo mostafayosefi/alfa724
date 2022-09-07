@@ -52,11 +52,15 @@ aria-labelledby="fc-dom-30">
 
 {{table_day_cleander($j,$p,$n,$month_dayprev,$month_daymonth,$cleander_month,'day');}}
 
+ 
+
 {{-- {{$type}} --}}
 
 @if($type=='holiday')
-@include('dashboard.calender.table.holiday', ['items' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
 @endif
+
+@include('dashboard.calender.table.holiday', ['items' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
+
 
 
 
