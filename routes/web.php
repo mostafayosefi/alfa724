@@ -110,8 +110,8 @@ Route::prefix('project')->name('project.')->group(function () {
     Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
     Route::get('/{id}/edit', [ProjectController::class, 'GetEditPost'])->name('updatepost');
     Route::put('/{id}', [ProjectController::class, 'UpdatePost'])->name('update');
-    Route::get('/done', [ProjectController::class, 'GetDonePost'])->name('done');
-    Route::get('/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
+    Route::get('/show/done', [ProjectController::class, 'GetDonePost'])->name('done');
+    Route::get('/show/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
     Route::get('/{id}/status/{status}', [ProjectController::class, 'UpdateStatus'])->name('updatestatus');
     Route::get('/deletepost/{id}', [ProjectController::class, 'DeletePost'])->name('deletepost');
 
@@ -274,11 +274,11 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //Calender PAGE
                 Route::prefix('calender')->name('calender.')->group(function () {
 
-                    Route::get('/holiday/{year?}/{month?}', [CalenderController::class, 'manage'])->name('holiday'); 
-                    Route::get('/daily/{year?}/{month?}', [CalenderController::class, 'manage'])->name('daily'); 
-                    Route::get('/project/{year?}/{month?}', [CalenderController::class, 'manage'])->name('project'); 
-                    Route::get('/absence/{year?}/{month?}', [CalenderController::class, 'manage'])->name('absence'); 
-                    
+                    Route::get('/holiday/{year?}/{month?}', [CalenderController::class, 'manage'])->name('holiday');
+                    Route::get('/daily/{year?}/{month?}', [CalenderController::class, 'manage'])->name('daily');
+                    Route::get('/project/{year?}/{month?}', [CalenderController::class, 'manage'])->name('project');
+                    Route::get('/absence/{year?}/{month?}', [CalenderController::class, 'manage'])->name('absence');
+
                     Route::put('/updateholiday/{id}', [CalenderController::class, 'holiday_update'])->name('holiday.update');
 
 

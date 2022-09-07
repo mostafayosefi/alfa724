@@ -455,19 +455,19 @@ if(! function_exists('route_calender') ) {
 
 
         if($flag=='next'){
-            if($month == 12){ $new_year = $year + 1; $new_month = 1; } 
-            else{ $new_year = $year; $new_month = $month + 1; } 
+            if($month == 12){ $new_year = $year + 1; $new_month = 1; }
+            else{ $new_year = $year; $new_month = $month + 1; }
           }
 
         if($flag=='prev'){
-            if($month == 1){ $new_year = $year - 1; $new_month = 12; } 
-            else{ $new_year = $year; $new_month = $month - 1; } 
+            if($month == 1){ $new_year = $year - 1; $new_month = 12; }
+            else{ $new_year = $year; $new_month = $month - 1; }
           }
 
-          
 
 
-        // if(($month==12)&&($flag=='next')){ $new_year = $year + 1; $new_month = 1; } 
+
+        // if(($month==12)&&($flag=='next')){ $new_year = $year + 1; $new_month = 1; }
         // elseif(($month==1)&&($flag=='prev')){ $new_year = $year - 1; $new_month = 12; }
         // else { $new_year = $year; $new_month = $month - 1; }
 
@@ -487,11 +487,12 @@ if(! function_exists('route_calender') ) {
 if(! function_exists('explode_url') ) {
     function explode_url($array)
     {
- 
-$route_cleander = Route::current()->action['prefix']; 
-$collection = Str::of($route_cleander)->explode('/');  
 
+$route_cleander = Route::currentRouteName();
+$collection = Str::of($route_cleander)->explode('.');
 return $collection[$array];
+
+
 
     }
 }

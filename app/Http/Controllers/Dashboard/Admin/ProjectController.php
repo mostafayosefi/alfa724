@@ -70,6 +70,7 @@ class ProjectController extends Controller
 
     public function GetDonePost(Request $request)
     {
+        
         $posts = Project::withTrashed()->where('status','done')->orderBy('created_at', 'desc')->get();
         return view('dashboard.admin.project.done', ['posts' => $posts]);
     }

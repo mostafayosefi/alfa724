@@ -21,24 +21,15 @@ class CalenderController extends Controller
 
 
     public function manage( $year = null ,$month = null ){
- 
-        $type =  explode_url('2'); 
 
-         
-
-
+        $type =  explode_url('3');
         $cleander_today =  updatecleandertoday();
-
         if($year==null){ $year = $cleander_today->year;  }
         if($month==null){ $month =  $cleander_today->month;  }
-
           $cleander_year = check_cleander_year($year);
           echo  check_cleander_month($year,$month);
-
          $cleander_month = CleanderMonth::where([ ['month','=',$month],
          ['cleander_year_id','=',$cleander_year->id]  ])->first();
- 
-
          return view('dashboard.calender.manage.index' , compact([   'cleander_month' , 'cleander_today'  , 'type'     ]));
 
     }
@@ -49,11 +40,11 @@ class CalenderController extends Controller
 
 
         $request->validate([
-            'holiday' => 'required', 
+            'holiday' => 'required',
         ]);
 
-        $cleander_day=CleanderDay::find($id);         
-        $data = $request->all();  
+        $cleander_day=CleanderDay::find($id);
+        $data = $request->all();
         $cleander_day->update($data);
         // Alert::success('با موفقیت ویرایش شد', 'اطلاعات با موفقیت ویرایش شد');
         return redirect()->back()->with('info', 'اطلاعات با موفقیت ویرایش شد');

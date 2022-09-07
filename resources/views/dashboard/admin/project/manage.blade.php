@@ -28,7 +28,7 @@
                 </x-card-header>
                 <x-card-body>
                     <div class="box-body">
-                        <a href="{{route('dashboard.admin.project.create')}}" style="float: left;margin-bottom: 15px;" class="btn btn-success">ثبت پروژه جدید</a> 
+                        <a href="{{route('dashboard.admin.project.create')}}" style="float: left;margin-bottom: 15px;" class="btn btn-success">ثبت پروژه جدید</a>
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>

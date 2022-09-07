@@ -38,6 +38,7 @@
     </div>
 @endif
 
+
     <div class="col-md-12">
                 <div class="row">
                     <div class="col-12 col-md-4 col-lg-3">
@@ -50,10 +51,10 @@
                             <a class="btn btn-success w-100 m-2" href="{{ route("dashboard.admin.project.updatestatus", ['id'=>$id,'status'=>'paid']) }}">پروژه تسویه شده</a>
                         @endif
                     </div>
-                </div>  
+                </div>
         <x-card type="info">
             <x-card-header>
-            {{ $post->title }}  
+            {{ $post->title }}
             </x-card-header>
                 <x-card-body>
                     <div class="box-body">
