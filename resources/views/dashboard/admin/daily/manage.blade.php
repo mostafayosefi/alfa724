@@ -33,8 +33,9 @@
     </div>
 @endif
 @include('dashboard.admin.daily.create')
+@include('dashboard.admin.daily.note')
 @include('dashboard.admin.daily.edit')
-
+@include('dashboard.admin.daily.updatenote')
 <div class="row">
     <!-- SIDE 1 -->
     <section class="col-lg-4 connectedSortable">
@@ -122,13 +123,11 @@
                       </div>
                       <div class="modal-body">
                           آیا این مسئولیت را با موفقیت به اتمام رساندید ؟
-
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                        <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
+                        <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
                             @csrf
-                            @method('PUT')
                             <input type="hidden" name="id" value="{{ $item->id }}" >
                             <input type="hidden"  name="status" value="done">
                            <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>
@@ -147,6 +146,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">
+                       <button type="button"  data-toggle="modal" data-target="#modal-lg" style="font-size:13px;" class="btn btn-info float-right"><i class="fas fa-plus"></i>اضافه کردن کار</button>
         </div>
       </div>
     </section>
@@ -236,9 +236,8 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                        <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
+                        <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
                             @csrf
-                            @method('PUT')
                             <input type="hidden" name="id" value="{{ $item->id }}" >
                             <input type="hidden"  name="status" value="done">
                            <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>
@@ -255,6 +254,7 @@
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">
+                   <button type="button"  data-toggle="modal" data-target="#modal-lg" style="font-size:13px;" class="btn btn-info float-right"><i class="fas fa-plus"></i>اضافه کردن کار</button>
     </div>
   </div>
 </section>
@@ -278,8 +278,8 @@
             <!-- /.card-header -->
             <div class="card-body">
               <ul class="todo-list" data-widget="todo-list">
-                @foreach ($write as $item)
-                  <li>
+                @foreach ($note as $item)
+                  <l i>
                   <form  method="post">
                   <span class="handle">
                     <i class="fas fa-ellipsis-v"></i>
@@ -289,10 +289,10 @@
                        <input type="checkbox"  id="todoCheck2{{ $item->id }}"  data-toggle="modal" data-target="#modal-success{{ $item->id }}">
                     <label for="todoCheck2{{ $item->id }}"></label>
                   </div>
-                  <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->title }}</span>
-                  <small class="badge badge-info"><i class="far fa-clock"></i>@if(!empty($item->start_time)){{ $item->start_time->format('H:i') }} - {{ $item->finish_time->format('H:i') }} - {{$item->finish_date->formatJalali()}}@else {{$item->finish_date->formatJalali()}} @endif</small>
+                  <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->content }}</span>
+                  <small class="badge badge-info"><i class="far fa-clock"></i> {{$item->created_at->formatJalali()}}</small>
                   <div class="tools">
-                    <i class="fas fa-edit" data-target="#modal-lf{{ $item->id }}" data-toggle="modal"></i>
+                    <i class="fas fa-edit" data-target="#modal-lgf{{ $item->id }}" data-toggle="modal"></i>
                     <script>
                       $(document).ready(function(){
                     $(".check").click(function(){
@@ -307,52 +307,26 @@
                   </div>
 
                 </li>
-                <!-- SHOW INFO modal -->
-                <div class="modal fade show" id="modal-info{{ $item->id }}" aria-modal="true" role="dialog">
-                  <div class="modal-dialog modal-info">
-                    <div class="modal-content bg-info">
-                      <div class="modal-header">
-                        <h4 class="modal-title">{{ $item->title }}</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        {!! $item->description !!}
-
-                      </div>
-                      <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">بستن</button>
-
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
 
                <!-- SHOW SUCCESS modal -->
                <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
-                <div class="modal-dialog modal-success">
-                  <div class="modal-content bg-success">
+                <div class="modal-dialog modal-danger">
+                  <div class="modal-content bg-danger">
                     <div class="modal-header">
-                      <h4 class="modal-title">{{ $item->title }}</h4>
+                      <h4 class="modal-title">{!! $item->content !!}</h4>
                       <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
                         <span  aria-hidden="true">×</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                        آیا این مسئولیت را با موفقیت به اتمام رساندید ؟
+                        آیا می خواهید این یادداشت را حذف کنید ؟
 
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                       <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
-                           @csrf
-                           @method('PUT')
+                      <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
+                       <form  action="#" method="post">
                            <input type="hidden" name="id" value="{{ $item->id }}" >
-                           <input type="hidden"  name="status" value="done">
-                          <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>
+                          <a href="{{ route('dashboard.admin.daily.deletenote', $item->id) }}" class="btn btn-outline-light">بله </a>
                        </form>
                     </div>
                   </div>
@@ -365,7 +339,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-              <button type="button"  data-toggle="modal" data-target="#modal-lg" style="font-size:13px;" class="btn btn-info float-right"><i class="fas fa-plus"></i>اضافه کردن کار</button>
+              <button type="button"  data-toggle="modal" data-target="#modal-lgg" style="font-size:13px;" class="btn btn-warning float-right"><i class="fas fa-plus"></i>اضافه کردن یادداشت</button>
               <ul class="pagination">
                  {{$write->links()}}
               </ul>

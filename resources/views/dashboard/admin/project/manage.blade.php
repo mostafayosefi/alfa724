@@ -21,6 +21,9 @@
               <a href="{{route('dashboard.admin.project.done')}}" class="btn btn-secondary">پروژه های انجام شده</a>
               <a href="{{route('dashboard.admin.project.paid')}}" class="btn btn-success">پروژه های تسویه شده</a>
             </div>
+            <div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
+              <a href="{{route('dashboard.admin.project.create')}}" style="float:left;" class="btn btn-success">ثبت پروژه جدید</a>
+            </div>
         </div>
         <x-card type="info">
             <x-card-header>
@@ -28,8 +31,7 @@
                 </x-card-header>
                 <x-card-body>
                     <div class="box-body">
-                        <a href="{{route('dashboard.admin.project.create')}}" style="float: left;margin-bottom: 15px;" class="btn btn-success">ثبت پروژه جدید</a>
-                        <table id="example2" class="table table-bordered table-hover">
+                        <table id="example" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>عنوان</th>
@@ -48,12 +50,38 @@
                                     <td>{!! $item->finish_date->formatJalali() !!}</td>
                                     <td><a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" class="btn btn-block bg-gradient-primary btn-sm">نمایش پروژه</a></td>
                                     <td>
-                                    <a href="{{route('dashboard.admin.project.deletepost',['id'=>$item->id])}}" class="delete_post" ><i class="fa fa-fw fa-eraser"></i></a>
+                                    <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                                     </td>
                                     <td>
                                     <a href="{{route('dashboard.admin.project.updatepost',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
+                                <!-- SHOW SUCCESS modal -->
+                                   <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
+                                    <div class="modal-dialog modal-danger">
+                                      <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">{{ $item->content }}</h4>
+                                          <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
+                                            <span  aria-hidden="true">×</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            آیا می خواهید این  مورد حذف کنید ؟
+                    
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
+                                           <form  action="#" method="post">
+                                               <input type="hidden" name="id" value="{{ $item->id }}" >
+                                              <a href="{{route('dashboard.admin.project.deletepost',['id'=>$item->id])}}" class="btn btn-outline-light">بله </a>
+                                           </form>
+                                        </div>
+                                      </div>
+                                      <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                  </div>
                              @endforeach
                                 </tbody>
                                 <tfoot>

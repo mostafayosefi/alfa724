@@ -73,20 +73,20 @@ class User extends Authenticatable
     }
 
     public function Absence() {
-        return $this->hasOne('App\Models\Absence', 'employee_id');
+        return $this->hasOne(User::class, 'employee_id');
     }
-    
+
 
     public function Payment() {
-        return $this->hasOne('App\Models\Payment', 'employee_id');
+        return $this->hasOne(Payment::class, 'employee_id');
     }
 
     public function messages() {
-        return $this->hasMany('App\Models\message', 'user_id');
+        return $this->hasMany(message::class, 'user_id');
     }
 
     public function messagesend() {
-        return $this->hasMany('App\Models\message', 'sender_id');
+        return $this->hasMany(message::class, 'sender_id');
     }
 
     public function defaultSubscription() {
@@ -102,15 +102,15 @@ class User extends Authenticatable
     }
 
     public function scores() {
-        return $this->hasMany('App\Models\Score');
+        return $this->hasMany(Score::class);
     }
 
     public function employeeProjects() {
-        return $this->hasMany('App\Models\EmployeeProject', 'employee_id');
+        return $this->hasMany(EmployeeProject::class, 'employee_id');
     }
 
     public function tasks() {
-        return $this->hasMany('App\Models\Task', 'employee_id');
+        return $this->hasMany(Task::class, 'employee_id');
     }
 
     public function getScoreAttribute() {

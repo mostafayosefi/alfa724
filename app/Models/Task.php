@@ -11,7 +11,7 @@ class Task extends Model
     use SoftDeletes;
     use HasFactory;
     protected $table='tasks';
-    protected $fillable=['project_id','employee_id','phase_id','title','description','status','start_date','finish_date','continuity','start_time','finish_time','done_at'];
+    protected $fillable=['project_id','employee_id','phase_id','title','description','status','start_date','finish_date','continuity','start_time','finish_time','done_at','price'];
     protected $casts = [
         'start_date' => 'date',
         'finish_date' => 'date',
@@ -20,16 +20,27 @@ class Task extends Model
         'finish_time' => 'date:H:i',
     ];
 
+
+    // public function form_category(){
+    //     return $this->belongsTo(FormCategory::class);
+    // }
+
+
+    // public function forms(){
+    //     return $this->hasMany(Form::class , 'form_subcategory_id');
+    // }
+
+
 public function for() {
-    return $this->belongsTo('App\Models\User', 'employee_id');
+    return $this->belongsTo(User::class, 'employee_id');
 }
 
 public function phase() {
-    return $this->belongsTo('App\Models\Phase', 'phase_id');
+    return $this->belongsTo(Phase::class, 'phase_id');
 }
 
 public function project() {
-    return $this->belongsTo('App\Models\Project', 'project_id');
+    return $this->belongsTo(Project::class, 'project_id');
 }
 
     public function getIsDoneAttribute() {

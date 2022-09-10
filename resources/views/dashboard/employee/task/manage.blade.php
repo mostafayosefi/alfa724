@@ -96,12 +96,14 @@
 @include('dashboard.employee.task.create')
 @include('dashboard.employee.task.note')
 @include('dashboard.employee.task.edit')
+@include('dashboard.employee.task.updatenote')
+
 @if(empty($absence))
     <div class="row">
         <div class="col-md-12">
           <div class="alert alert-danger no-dismiss" style="">
             <p>لطفا حضوری خود را ثبت کنید</p>
-            <form method="post" action="{{ route('dashboard.employee.absence.store') }}">
+            <form method="post" action="{{ route('dashboard.employee.absence.create') }}">
               @csrf
             <button type="submit" class="btn btn-primary toastrDefaultInfo">
               ثبت حضوری
@@ -368,7 +370,18 @@
                   <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->content }}</span>
                   <small class="badge badge-info"><i class="far fa-clock"></i> {{$item->created_at->formatJalali()}}</small>
                   <div class="tools">
-
+                    <i class="fas fa-edit" data-target="#modal-lgf{{ $item->id }}" data-toggle="modal"></i>
+                    <script>
+                      $(document).ready(function(){
+                    $(".check").click(function(){
+                        $("#todoCheck2{{ $item->id }}").prop("checked", true);
+                    });
+                    $(".uncheckd").click(function(){
+                        $("#todoCheck2{{ $item->id }}").prop("checked", false);
+                    });
+                   });
+    
+                  </script>
                   </div>
 
                 </li>
@@ -378,7 +391,7 @@
                 <div class="modal-dialog modal-danger">
                   <div class="modal-content bg-danger">
                     <div class="modal-header">
-                      <h4 class="modal-title">{{ $item->content }}</h4>
+                      <h4 class="modal-title">{!! $item->content !!}</h4>
                       <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
                         <span  aria-hidden="true">×</span>
                       </button>

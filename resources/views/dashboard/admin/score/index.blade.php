@@ -35,15 +35,37 @@
                             <td>@empty($item->user) کاربر حذف شده @else {{ $item->user->first_name }} {{ $item->user->last_name }}@endempty</td>
                             <td>{{ $item->description }}</td>
                             <td>
-                                <form action="{{ route('dashboard.admin.score.destroy', ['score' => $item]) }}" method="post">
-                                    @method("DELETE")
-                                    @csrf
-                                    <a href="{{route('dashboard.admin.score.edit',['score'=>$item])}}" class="edit_post"
+                             <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
+                                                                 <a href="{{route('dashboard.admin.score.edit',['score'=>$item])}}" class="edit_post"
                                         target="_blank"><i class="fas fa-edit"></i></a>
-                                    <button style="color: #dc3545; background: none; border: none; display: inline" type="submit" class="edit_post"><i class="fas fa-trash"></i></button>
-                                </form>
                             </td>
                         </tr>
+                                                <!-- SHOW SUCCESS modal -->
+                                   <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
+                                    <div class="modal-dialog modal-danger">
+                                      <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">{{ $item->content }}</h4>
+                                          <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
+                                            <span  aria-hidden="true">×</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            آیا می خواهید این  مورد حذف کنید ؟
+                    
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
+                                           <form  action="#" method="post">
+                                               <input type="hidden" name="id" value="{{ $item->id }}" >
+                                              <a href="{{route('dashboard.admin.score.deletescore',['id'=>$item->id])}}" class="btn btn-outline-light">بله </a>
+                                           </form>
+                                        </div>
+                                      </div>
+                                      <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                  </div>
                     @endforeach
                     </tbody>
                     <tfoot>

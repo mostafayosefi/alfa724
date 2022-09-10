@@ -32,7 +32,7 @@ if ($user_id==$user->id){
             <x-card-header>ارسال پیام</x-card-header>
         <form style="padding:10px;" action="{{ route('dashboard.admin.message.create') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title"  placeholder="عنوان">
-            <x-select-group name="user_id" label="ارسال به" required :model="$model ?? null">
+            <x-select-group name="user_id[]" multiple  label="ارسال به" required :model="$model ?? null">
                @if ($user_id!=NULL)
                <x-select-item :value="$user_id"><?php echo $name.' '.$lastname; ?></x-select-item>
                @endif

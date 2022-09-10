@@ -1,4 +1,4 @@
-<form action="{{ route('dashboard.admin.phase.store',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+<form action="{{ route('dashboard.admin.phase.create',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade show" id="modal-create-phase" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-lg">

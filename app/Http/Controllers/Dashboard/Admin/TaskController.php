@@ -21,10 +21,15 @@ class TaskController extends Controller
         ]);
 
         $post = new Task($data);
+        if($request->input('price') != NULL){
+            $users=EmployeeProject::where('project_id',$request->input('project_id'))->where('employee_id',$request->input('employee_id'))->orderBy('created_at', 'desc')->FIRST();
+            $users->cost=$users->cost+$request->input('price');
+            $users->save();
+        }
         $post->save();
         return redirect()->back()->with('info', 'مسئولیت جدید اضافه شد ' );
     }
-    
+
 
     public function DeletePost($id){
         $post = Task::find($id);
@@ -48,6 +53,12 @@ class TaskController extends Controller
         $post = Task::find($request->input('id'));
         if (!is_null($post)) {
             $old_status = $post->status;
+            echo $request->input('price');
+            if($request->input('price') != NULL){
+                $users=EmployeeProject::where('project_id',$request->input('project_id'))->where('employee_id',$request->input('employee_id'))->orderBy('created_at', 'desc')->FIRST();
+                $users->cost=$users->cost+$request->input('price')-$post->price;
+                $users->save();
+            }
             $post->fill($request->validated());
             $post->save();
             if (!empty($post->for) && $post->status == 'done' && $old_status != $post->status)

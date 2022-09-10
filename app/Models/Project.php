@@ -23,7 +23,6 @@ class Project extends Model
     'price',
     'counter',
     'employer',
-    'employer_money',
     ];
     protected $casts = [
         'start_date' => 'date',
@@ -32,7 +31,7 @@ class Project extends Model
     protected $cascadeDeletes = ['employeeProjects', 'Phase', 'tasks'];
 
     public function Phase() {
-        return $this->hasOne('App\Models\Phase', 'project_id');
+        return $this->hasOne(Phase::class, 'project_id');
     }
 
     public function employees(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -46,7 +45,7 @@ class Project extends Model
     }
 
     public function tasks() {
-        return $this->hasMany('App\Models\Task');
+        return $this->hasMany(Task::class);
     }
 
     public function applyEmployeesScore() {

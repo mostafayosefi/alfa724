@@ -1,4 +1,4 @@
-<form style="padding:10px;" action="{{ route('dashboard.admin.task.store',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+<form style="padding:10px;" action="{{ route('dashboard.admin.task.create',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade show" id="modal-create-task" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -70,6 +70,8 @@
                                 <x-select-item value="1d">نمایش در هر روز</x-select-item>
                                 <x-select-item value="2d">نمایش یک روز در میان</x-select-item>
                             </x-select-group>
+                            <label>دستمزد را به صورت عددی و به نرخ تومان وارد کنید</label><br>
+                            <input type="number" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"  name="price"  placeholder="دستمزد">
                             <div class="form-group">
                                 <label>کاربر</label><br>
                                 @foreach($posts as $item)

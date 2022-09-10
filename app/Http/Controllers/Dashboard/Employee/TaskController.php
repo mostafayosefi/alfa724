@@ -40,26 +40,6 @@ class TaskController extends Controller
         $post->save();
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'مسئولیت جدید اضافه شد ' );
     }
-    
-    public function CreateNote(Request $request)
-    {
-        $this->validate($request, [
-            'content' => ['required', 'string', 'max:255'] ,
-        ]);
-        $post = new Note([
-            'content' => $request->input('content'),
-            'user_id' =>  Auth::user()->id,
-        ]);
-        $post->save();
-        return redirect()->back()->with('info', 'یادداشت جدید اضافه شد ' );
-    }
-    
-    public function DeleteNote($id){
-        $post = Note::find($id);
-        $post->delete();
-        return redirect()->back()->with('info', 'یادداشت پاک شد ' );
-    }
-    
 
     public function GetManagePost(Request $request)
     {
@@ -136,6 +116,9 @@ class TaskController extends Controller
     //ABSENCCE CONTROLLER
     public function Absence(Request $request)
     {
+       $absence=NULL;
+       $absence=Absence::where('employee_id', Auth::user()->id)->where('date',Carbon::now()->format('Y-m-d'))->where('exit', NULL)->orderBy('created_at', 'desc')->FIRST();
+       if($absence == NULL){
         $post = new Absence([
             'employee_id' => Auth::user()->id,
             'date' => Carbon::now(),
@@ -143,8 +126,11 @@ class TaskController extends Controller
         ]);
         $post->save();
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'حضوری شما زده شد ' );
+       }
+       else{
+        return redirect()->route('dashboard.employee.task.manage')->with('info', 'شما حضوری خود را ثبت کرده اید' );
     }
-    
+    }
     public function AbsenceEnd($id,Request $request)
     {
         $post = Absence::find($id);
@@ -155,5 +141,49 @@ class TaskController extends Controller
         }
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'ساعت خروج شما ثبت شد ' );
     }
+
+
+   //NOTE CONTROLLER
+    public function CreateNote(Request $request)
+    {
+        $this->validate($request, [
+            'content' => ['required', 'string', 'max:255'] ,
+        ]);
+        $post = new Note([
+            'content' => $request->input('content'),
+            'user_id' =>  Auth::user()->id,
+        ]);
+        $post->save();
+        return redirect()->back()->with('info', 'یادداشت جدید اضافه شد ' );
+    }
+
+    public function DeleteNote($id){
+        $post = Note::find($id);
+        $post->delete();
+        return redirect()->back()->with('info', 'یادداشت پاک شد ' );
+    }
+
+    public function GetEditNote($id)
+    {
+        $post = Note::find($id);
+        return view('dashboard.employee.task.updatenote', ['post' => $post, 'id' => $id]);
+    }
+
+    public function UpdateNote(Request $request)
+    {
+        $this->validate($request, [
+            'content' => ['required', 'string', 'max:255'] ,
+        ]);
+        $post = Note::find($request->input('id'));
+        if (!is_null($post)) {
+            $old_status = $post->status;
+            $post->content = $request->input('content');
+            $post->save();
+
+        }
+        return redirect()->route('dashboard.employee.task.manage')->with('info', 'یادداشت ویرایش شد');
+    }
+
+
 
 }

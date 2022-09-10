@@ -17,6 +17,6 @@ class Payment extends Model
     ];
 
     public function for() {
-        return $this->belongsTo('App\Models\User', 'employee_id');
+        return $this->belongsTo(User::class, 'employee_id');
     }
 }

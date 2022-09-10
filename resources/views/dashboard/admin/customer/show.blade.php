@@ -12,6 +12,11 @@
         .item-lists{
             display:inline-flex;
         }
+        @media only screen and (max-width:700px){
+            .item-lists{
+                display:block;
+            }
+        }
         .item-lists p{
             margin-left:70px;
         }
@@ -61,7 +66,9 @@
                                     <td>نام:{{ $item->name }}</td>
                                     <td>تعداد:{{ $item->count }}</td>
                                     <td>مدت زمان:{{ $item->time }}</td>
+                                    @isset($item->user->first_name )
                                     <td>نام کارمند:{{ $item->user->first_name }}  {{ $item->user->last_name }}</td>
+                                    @endisset
                                     <td>تاریخ شروع:{{ $item->start_date->formatJalali() }}</td>
                                     <td>تاریخ پایان:{{ $item->end_date->formatJalali() }}</td>
                                     <td>تاریخ تسویه:{{ $item->final_date }}</td>
@@ -103,12 +110,37 @@
                         <div class="card-footer">
                            <div class="row">
                                <div class="col-12 col-md-4 col-lg-3">
-                                     <a href="{{route('dashboard.admin.service.deleteservice',['id'=>$item->id])}}" class="delete_post" ><i class="fa fa-fw fa-eraser"></i></a>
+                                     <a href="#" class="delete_post" data-toggle="modal" data-target="#modal-success{{ $item->id }}"><i class="fa fa-fw fa-eraser"></i></a>
                                      <a href="{{route('dashboard.admin.service.updateservice',['id'=>$item->id])}}" class="btn btn-danger" >ویرایش خدمت</a>
                                </div>
                            </div>
                        </div>
-
+                                <!-- SHOW SUCCESS modal -->
+                                   <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
+                                    <div class="modal-dialog modal-danger">
+                                      <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">{{ $item->content }}</h4>
+                                          <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
+                                            <span  aria-hidden="true">×</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            آیا می خواهید این  مورد حذف کنید ؟
+                    
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
+                                           <form  action="#" method="post">
+                                               <input type="hidden" name="id" value="{{ $item->id }}" >
+                                              <a href="{{route('dashboard.admin.service.deleteservice',['id'=>$item->id])}}" class="btn btn-outline-light">بله </a>
+                                           </form>
+                                        </div>
+                                      </div>
+                                      <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                  </div>
                         <!-- /.card-body -->
                         </div>
                         </div>

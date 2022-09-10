@@ -20,11 +20,11 @@ class Phase extends Model
     protected $cascadeDeletes = ['tasks'];
 
     public function for() {
-        return $this->belongsTo('App\Models\Project', 'project_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function tasks() {
-        return $this->hasMany('App\Models\Task', 'phase_id');
+        return $this->hasMany(Task::class, 'phase_id');
     }
 
 

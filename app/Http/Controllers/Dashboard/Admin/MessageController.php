@@ -37,21 +37,24 @@ class MessageController extends Controller
 
     public function CreatePost(Request $request)
     {
-        $post = new message([
-            'sender_id' => Auth::user()->id,
-            'user_id' => $request->input('user_id'),
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+        foreach($request->input('user_id') as $item)
+        {
+            $post = new message([
+                'sender_id' => Auth::user()->id,
+                'user_id' => $item,
+                'title' => $request->input('title'),
+                'content' => $request->input('content'),
+            ]);
 
-        //--------------
-        if($request->input('file')!=NULL){
-        $uploadedFile = $request->file('file');
-        $filename = $uploadedFile->getClientOriginalName();
-        Storage::disk('public')->putFileAs('/files/'.$filename, $uploadedFile, $filename);
-        $post->file = $filename;
+            //--------------
+            if($request->input('file')!=NULL){
+            $uploadedFile = $request->file('file');
+            $filename = $uploadedFile->getClientOriginalName();
+            Storage::disk('public')->putFileAs('/files/'.$filename, $uploadedFile, $filename);
+            $post->file = $filename;
+            }
+            $post->save();
         }
-        $post->save();
         return redirect()->route('dashboard.admin.message.manage')->with('info', '  پیام جدید ارسال شد و نام آن' .' ' . $request->input('title'));
     }
 

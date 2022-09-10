@@ -48,14 +48,14 @@ class Service extends Model
         'start_date' => 'date',
         'end_date' => 'date',
     ];
-    
+
     public function custome() {
-        return $this->belongsTo('App\Models\Customer', 'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
 
     public function user() {
-        return $this->belongsTo('App\Models\User', 'lead');
+        return $this->belongsTo(User::class, 'lead');
     }
 
 

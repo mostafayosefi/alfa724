@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Session\Store;
 use App\Models\User;
+use App\Models\Note;
 use App\Models\Task;
 use App\Models\Project;
 use App\Models\Phase;
@@ -39,6 +40,7 @@ class DailyController extends Controller
         $post->save();
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت جدید اضافه شد ' );
     }
+
     public function GetManagePost(Request $request)
     {
         $message=message::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
@@ -64,11 +66,13 @@ class DailyController extends Controller
         }
         }
         $task=Task::managePage()->where('status','!=','done')->where('employee_id',Auth::user()->id)->orderBy('finish_date', 'asc')->limit(90)->get();
+        $note=Note::where('user_id',Auth::user()->id)->orderBy('created_at', 'asc')->limit(30)->get();
         $write=Task::managePage()->where('status','!=','done')->where('employee_id',Auth::user()->id)->where('project_id',null)->orderBy('finish_date', 'asc')->paginate(6);
 
         return view('dashboard.admin.daily.manage', [
         'task' => $task,
         'write' => $write,
+        'note' => $note,
         'absence' => $absence,
         'diff' => $diff,
         ]);
@@ -85,13 +89,13 @@ class DailyController extends Controller
         $post = Task::find($request->input('id'));
         if (!is_null($post)) {
             $old_status = $post->status;
-            
+
             if($post->created_at<='2022-01-26 14:20:44'){
                 $post->status == 'done';
                 $post->save();
                 return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت انجام شد');
             }
-            
+
             $post->update($request->validated());
             if ($post->status == 'done' && $old_status != $post->status)
                 $post->applyEmployeeScore(Auth::user());
@@ -126,7 +130,7 @@ class DailyController extends Controller
         $post->save();
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'حضوری شما زده شد ' );
     }
-    
+
     public function AbsenceEnd($id,Request $request)
     {
         $post = Absence::find($id);
@@ -136,6 +140,48 @@ class DailyController extends Controller
             $post->save();
         }
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'ساعت خروج شما ثبت شد ' );
+    }
+
+
+
+    public function CreateNote(Request $request)
+    {
+        $this->validate($request, [
+            'content' => ['required', 'string', 'max:255'] ,
+        ]);
+        $post = new Note([
+            'content' => $request->input('content'),
+            'user_id' =>  Auth::user()->id,
+        ]);
+        $post->save();
+        return redirect()->back()->with('info', 'یادداشت جدید اضافه شد ' );
+    }
+
+    public function DeleteNote($id){
+        $post = Note::find($id);
+        $post->delete();
+        return redirect()->back()->with('info', 'یادداشت پاک شد ' );
+    }
+
+    public function GetEditNote($id)
+    {
+        $post = Note::find($id);
+        return view('dashboard.admin.daily.updatenote', ['post' => $post, 'id' => $id]);
+    }
+
+    public function UpdateNote(Request $request)
+    {
+        $this->validate($request, [
+            'content' => ['required', 'string', 'max:255'] ,
+        ]);
+        $post = Note::find($request->input('id'));
+        if (!is_null($post)) {
+            $old_status = $post->status;
+            $post->content = $request->input('content');
+            $post->save();
+
+        }
+        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'یادداشت ویرایش شد');
     }
 
 }

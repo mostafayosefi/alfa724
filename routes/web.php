@@ -247,6 +247,12 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily');
     Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily');
 
+
+    Route::post('/note', [DailyController::class, 'CreateNote'])->name('note');
+    Route::post('/updatenote', [DailyController::class, 'UpdateNote'])->name('updatenote');
+    Route::get('/deletenote/{id}', [DailyController::class, 'DeleteNote'])->name('deletenote');
+
+
 });
 
 

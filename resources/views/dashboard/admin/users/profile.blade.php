@@ -119,12 +119,38 @@ foreach ($task as $item) {
                                                 @endif
                                                 <td>{{ __('app.status.' . $item->status) }}</td>
                                                 <td>
-                                                <a href="{{route('dashboard.admin.task.deletetask',['id'=>$item->id,'project_id'=>$item->for->id])}}" class="delete_post" ><i class="fa fa-fw fa-eraser"></i></a>
+                                                <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                                                 </td>
                                                 <td>
                                                 <button type="button" data-toggle="modal" data-target="#modal-edit-task-{{ $item->id }}" style="padding: 0;color:#dc3545" class="btn edit_post"><i class="fas fa-edit"></i></button>
                                                 </td>
                                             </tr>
+                                                                    <!-- SHOW SUCCESS modal -->
+                                   <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
+                                    <div class="modal-dialog modal-danger">
+                                      <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">{{ $item->content }}</h4>
+                                          <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
+                                            <span  aria-hidden="true">×</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            آیا می خواهید این  مورد حذف کنید ؟
+                    
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
+                                           <form  action="#" method="post">
+                                               <input type="hidden" name="id" value="{{ $item->id }}" >
+                                              <a href="{{route('dashboard.admin.task.deletetask',['id'=>$item->id,'project_id'=>$item->for->id])}}" class="btn btn-outline-light">بله </a>
+                                           </form>
+                                        </div>
+                                      </div>
+                                      <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                  </div>
                                          @endforeach
                                             </tbody>
                                             <tfoot>

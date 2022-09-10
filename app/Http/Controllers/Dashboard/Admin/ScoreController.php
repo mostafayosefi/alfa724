@@ -41,8 +41,9 @@ class ScoreController extends Controller
         return redirect()->route('dashboard.admin.score.index')->with('info', 'امتیاز ویرایش شد!');
     }
 
-    public function destroy(Score $score) {
-        $score->delete();
+    public function delete($id) {
+        $post = Score::find($id);
+        $post->delete();
         return redirect()->route('dashboard.admin.score.index')->with('info', 'امتیاز حذف شد!');
     }
 

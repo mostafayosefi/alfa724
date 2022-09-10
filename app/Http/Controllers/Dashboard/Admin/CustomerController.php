@@ -61,8 +61,8 @@ class CustomerController extends Controller
                 'lead' => $specification['lead']  ,
                 'salary' => $specification['salary'] ,
                 'final_date' => $specification['final_date'] ,
-                'customer_id' => $post->id , 
-                'purchase_date' => $specification['purchase_date'] , 
+                'customer_id' => $post->id ,
+                'purchase_date' => $specification['purchase_date'] ,
                 'start_date' => Carbon::fromJalali($specification['start_date']),
                 'end_date' => Carbon::fromJalali($specification['end_date']),
                 'status' => 'new',
@@ -89,9 +89,9 @@ class CustomerController extends Controller
             ]);
                 if ($project->end_date->lt($project->start_date))
             return redirect()->back()->withErrors(['end_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
-       
+
              $project->save();
-             
+
           }
         }
         return redirect()->route('dashboard.admin.customer.manage')->with('info', '  مشتری جدید ذخیره شد و نام آن' .' ' . $request->input('customer_name'));
@@ -111,12 +111,15 @@ class CustomerController extends Controller
     public function GetEditPost($id)
     {
         $post = Customer::find($id);
-        return view('dashboard.admin.customer.update', ['post' => $post, 'id' => $id]);
+        $service= Service::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'desc')->get();
+        return view('dashboard.admin.customer.update', ['post' => $post, 'id' => $id,'service' => $service,'users' => $users]);
     }
 
     public function UpdatePost(Request $request)
     {
-        $post = Customer::find($request->input('id'));
+        $post = Customer::find($request->input('customer_id'));
+        $customer=$request->input('customer_id');
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->description = $request->input('description');
@@ -132,7 +135,51 @@ class CustomerController extends Controller
             $post->save();
 
         }
-        return redirect()->route('dashboard.admin.customer.manage',$post->id)->with('info', 'مشتری ویرایش شد');
+        return redirect()->route('dashboard.admin.customer.updatecustomer',$customer)->with('info', 'مشتری ویرایش شد');
+
+    }
+
+    public function UpdateService(Request $request)
+    {
+        $post = Service::find($request->input('id'));
+        $customer=$request->input('customer_id');
+        if (!is_null($post)) {
+            $post->name = $request->input('name');
+            $post->price = $request->input('price');
+            $post->count = $request->input('count');
+            $post->time = $request->input('time');
+            $post->lead = $request->input('lead');
+            $post->salary = $request->input('salary');
+            $post->final_date = $request->input('final_date');
+            $post->customer_id = $request->input('customer_id');
+            $post->purchase_date = $request->input('purchase_date');
+            $post->start_date = $request->input('start_date');
+            $post->end_date = $request->input('end_date');
+            $post->description = $request->input('description');
+
+            $post->deposit = $request->input('deposit');
+            $post->deposit_date = $request->input('deposit_date');
+            $post->deposit2 = $request->input('deposit2');
+            $post->deposit_date2 = $request->input('deposit_date2');
+            $post->deposit3 = $request->input('deposit3');
+            $post->deposit_date3 = $request->input('deposit_date3');
+            $post->deposit4 = $request->input('deposit4');
+            $post->deposit_date4 = $request->input('deposit_date4');
+            $post->deposit5 = $request->input('deposit5');
+            $post->deposit_date5 = $request->input('deposit_date5');
+            $post->deposit6 = $request->input('deposit6');
+            $post->deposit_date6 = $request->input('deposit_date6');
+            $post->deposit7 = $request->input('deposit7');
+            $post->deposit_date7 = $request->input('deposit_date7');
+            $post->deposit8 = $request->input('deposit8');
+            $post->deposit_date8 = $request->input('deposit_date8');
+            $post->deposit9 = $request->input('deposit9');
+            $post->deposit_date9 = $request->input('deposit_date9');
+
+            $post->save();
+
+        }
+        return redirect()->route('dashboard.admin.customer.updatecustomer',$customer)->with('info', 'خدمت ویرایش شد');
     }
 
 

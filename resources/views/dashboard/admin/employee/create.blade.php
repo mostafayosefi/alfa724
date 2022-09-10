@@ -35,7 +35,7 @@
                                     </td>
                                     <td>
                                         <form style="padding:10px;"
-                                              action="{{ route('dashboard.admin.employee.store',['id'=>$id]) }}"
+                                              action="{{ route('dashboard.admin.employee.create',['id'=>$id]) }}"
                                               method="post" role="form" class="form-horizontal "
                                               enctype="multipart/form-data">
                                             <input type="hidden"

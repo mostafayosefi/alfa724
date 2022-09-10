@@ -17,15 +17,15 @@ class EmployeeProject extends Model
     ];
 
     public function for() {
-        return $this->belongsTo('App\Models\User', 'employee_id');
+        return $this->belongsTo(User::class, 'employee_id');
     }
 
     public function project() {
-        return $this->belongsTo('App\Models\Project', 'project_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function salary() {
-        return $this->belongsTo('App\Models\Salary', 'salary_id');
+        return $this->belongsTo(Salary::class, 'salary_id');
     }
 
 }

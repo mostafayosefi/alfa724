@@ -14,15 +14,15 @@ class message extends Model
     protected $fillable=['sender_id','user_id','answer_id','title','content','file'];
 
     public function as() {
-        return $this->belongsTo('App\Models\User', 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public function for() {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function answer() {
-        return $this->belongsTo('App\Models\message', 'answer_id');
+        return $this->belongsTo(message::class, 'answer_id');
     }
 
 }
