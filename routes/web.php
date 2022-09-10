@@ -42,7 +42,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // my test in
 // my test in company webyar
 // composer require morilog/jalali:3.*
-// Wl..A7&j1%%g=2Ym
+// MWl..A7&j1%%g=2Ym
 // test system company
 // test 3 3
 
@@ -245,7 +245,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
     Route::put('/{id}', [DailyController::class, 'UpdatePost'])->name('update');
     Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily');
-    Route::put('/{id}/edit', [DailyController::class, 'GetEditPost'])->name('updatedaily');
+    Route::put('/{id}/edit/daily', [DailyController::class, 'GetEditPost'])->name('updatedaily');
 
 
     Route::post('/note', [DailyController::class, 'CreateNote'])->name('note');

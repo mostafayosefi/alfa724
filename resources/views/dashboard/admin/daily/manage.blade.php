@@ -126,7 +126,8 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                        <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
+                        <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
+                            @method('PUT')
                             @csrf
                             <input type="hidden" name="id" value="{{ $item->id }}" >
                             <input type="hidden"  name="status" value="done">
@@ -236,9 +237,9 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                        <form  action="{{ route('dashboard.admin.daily.updatedaily', $item->id) }}" method="post">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $item->id }}" >
+                        <form  action="{{ route('dashboard.admin.daily.update', $item->id) }}" method="post">
+                            @method('PUT')
+                            @csrf                            <input type="hidden" name="id" value="{{ $item->id }}" >
                             <input type="hidden"  name="status" value="done">
                            <button type="submit"  class="btn btn-outline-light">بله انجام و تست شده</button>
                         </form>
@@ -278,8 +279,9 @@
             <!-- /.card-header -->
             <div class="card-body">
               <ul class="todo-list" data-widget="todo-list">
+                @if($note)
                 @foreach ($note as $item)
-                  <l i>
+                  <li>
                   <form  method="post">
                   <span class="handle">
                     <i class="fas fa-ellipsis-v"></i>
@@ -335,6 +337,7 @@
                 <!-- /.modal-dialog -->
               </div>
                 @endforeach
+                @endif
               </ul>
             </div>
             <!-- /.card-body -->

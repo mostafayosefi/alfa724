@@ -75,8 +75,9 @@
                                     <x-select-item value="1d">نمایش در هر روز</x-select-item>
                                     <x-select-item value="2d">نمایش یک روز در میان</x-select-item>
                                 </x-select-group>
-                                 {{ csrf_field() }}
-                        </x-card>
+
+                                @csrf
+                            </x-card>
                         </div>
                         </div>
                         <div class="modal-footer justify-content-between">
