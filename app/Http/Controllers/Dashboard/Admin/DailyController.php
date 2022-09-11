@@ -35,15 +35,15 @@ class DailyController extends Controller
 
     public function store(TaskCreateRequest $request)
     {
+
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
-
-
-
-        insert_task_in_cleander($data['start_date'],$data['finish_date'],'tasks','id');
-
-        $post = new Task($data);
-        $post->save();
+        $cleander_day = first_cleander_day($data['finish_date']);
+        if($cleander_day==null){
+            return redirect()->back()->withErrors(['finish_date' => 'دقت نمایید بازه زمانی انتخاب شده در سیستم تعریف نشده است!       ' ]);
+        }
+        $task = Task::create($data);
+        insert_task_in_cleander($data['start_date'],$data['finish_date'],'tasks',$task->id);
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت جدید اضافه شد ' );
     }
 

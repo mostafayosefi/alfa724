@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Eform\PriceFinical;
 use App\Models\Cleander\CleanderDay;
+use App\Models\Cleander\CleanderDayPhase;
+use App\Models\Cleander\CleanderDayProject;
+use App\Models\Cleander\CleanderDayService;
+use App\Models\Cleander\CleanderDayTask;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cleander\CleanderYear;
@@ -502,38 +506,28 @@ if(! function_exists('insert_task_in_cleander') ) {
     function insert_task_in_cleander($start,$end,$elq,$elq_id)
     {
 
+        $start = $start->isoFormat('YYYY-MM-DD');
+        $end = $end->isoFormat('YYYY-MM-DD');
+        $cleander_day = CleanderDay::where([ ['date','>=',$start] ,  ['date','<=',$end] , ])->get();
 
+        if($cleander_day){
+            foreach($cleander_day as $item){
 
-        // $date = Jalalian::forge($start)->format('Y/m/d ساعت H:i a');
+                if($elq=='tasks'){
+                    $task = CleanderDayTask::create([ 'task_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+                }
+                if($elq=='projects'){
+                    $task = CleanderDayProject::create([ 'project_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+                }
+                if($elq=='phases'){
+                    $task = CleanderDayPhase::create([ 'phase_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+                }
+                if($elq=='services'){
+                    $task = CleanderDayService::create([ 'service_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+                }
 
-
-        $start_year = Jalalian::forge($start)->format('Y');
-        $start_month = Jalalian::forge($start)->format('m');
-        $start_day = Jalalian::forge($start)->format('d');
-
-        $end_year = Jalalian::forge($end)->format('Y');
-        $end_month = Jalalian::forge($end)->format('m');
-        $end_day = Jalalian::forge($end)->format('d');
-
-$end = $end->isoFormat('YYYY-MM-DD');
-        $cleander_day = CleanderDay::where([ ['date','=',$end] ])->first();
-
-
-        dd($cleander_day);
-
-        if(($start_year==$end_year)&&($start_month==$end_month)&&($start_day==$end_day)){
-            dd( $start_year);
+            }
         }
-
-
-
-        route_calender($start_year,$start_month,'next','year' );
-        route_calender($start_year,$start_month,'next','month' );
-
-
-
-        $cleander_year = check_cleander_year($year);
-        check_cleander_month($year,$month);
 
 
     }
@@ -543,3 +537,13 @@ $end = $end->isoFormat('YYYY-MM-DD');
 
 
 
+
+if(! function_exists('first_cleander_day') ) {
+    function first_cleander_day($data)
+    {
+        $data = $data->isoFormat('YYYY-MM-DD');
+        $cleander_day = CleanderDay::where([ ['date','=',$data] ])->first();
+        return $cleander_day;
+
+    }
+}
