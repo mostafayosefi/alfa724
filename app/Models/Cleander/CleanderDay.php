@@ -19,4 +19,23 @@ class CleanderDay extends Model
         return $this->belongsTo(CleanderMonth::class);
     }
 
+
+    public function cleander_day_tasks(){
+        return $this->hasMany(CleanderDayTask::class , 'cleander_day_id');
+    }
+
+
+    public function cleander_day_projects(){
+        return $this->hasMany(CleanderDayProject::class , 'cleander_day_id');
+    }
+
+    public function cleander_day_phases(){
+        return $this->hasMany(CleanderDayPhase::class , 'cleander_day_id');
+    }
+
+    public function cleander_day_services(){
+        return $this->hasMany(CleanderDayService::class , 'cleander_day_id');
+    }
+
+
 }

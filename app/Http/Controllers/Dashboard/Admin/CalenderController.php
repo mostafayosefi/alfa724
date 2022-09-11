@@ -27,7 +27,7 @@ class CalenderController extends Controller
         if($year==null){ $year = $cleander_today->year;  }
         if($month==null){ $month =  $cleander_today->month;  }
           $cleander_year = check_cleander_year($year);
-          echo  check_cleander_month($year,$month);
+          check_cleander_month($year,$month);
          $cleander_month = CleanderMonth::where([ ['month','=',$month],
          ['cleander_year_id','=',$cleander_year->id]  ])->first();
          return view('dashboard.calender.manage.index' , compact([   'cleander_month' , 'cleander_today'  , 'type'     ]));

@@ -498,6 +498,48 @@ return $collection[$array];
 }
 
 
+if(! function_exists('insert_task_in_cleander') ) {
+    function insert_task_in_cleander($start,$end,$elq,$elq_id)
+    {
+
+
+
+        // $date = Jalalian::forge($start)->format('Y/m/d ساعت H:i a');
+
+
+        $start_year = Jalalian::forge($start)->format('Y');
+        $start_month = Jalalian::forge($start)->format('m');
+        $start_day = Jalalian::forge($start)->format('d');
+
+        $end_year = Jalalian::forge($end)->format('Y');
+        $end_month = Jalalian::forge($end)->format('m');
+        $end_day = Jalalian::forge($end)->format('d');
+
+$end = $end->isoFormat('YYYY-MM-DD');
+        $cleander_day = CleanderDay::where([ ['date','=',$end] ])->first();
+
+
+        dd($cleander_day);
+
+        if(($start_year==$end_year)&&($start_month==$end_month)&&($start_day==$end_day)){
+            dd( $start_year);
+        }
+
+
+
+        route_calender($start_year,$start_month,'next','year' );
+        route_calender($start_year,$start_month,'next','month' );
+
+
+
+        $cleander_year = check_cleander_year($year);
+        check_cleander_month($year,$month);
+
+
+    }
+}
+
+
 
 
 

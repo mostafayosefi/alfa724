@@ -130,4 +130,14 @@ public function project() {
         }
     }
 
+
+
+
+    public function cleander_day_tasks(){
+        return $this->hasMany(CleanderDayTask::class , 'task_id');
+    }
+
+
+
+
 }

@@ -241,7 +241,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
 
     Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage');
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
-    Route::post('/', [DailyController::class, 'CreatePost'])->name('store');
+    Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
     Route::put('/{id}', [DailyController::class, 'UpdatePost'])->name('update');
     Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily');

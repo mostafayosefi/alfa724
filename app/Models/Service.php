@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cleander\CleanderDayService;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -56,6 +57,12 @@ class Service extends Model
 
     public function user() {
         return $this->belongsTo(User::class, 'lead');
+    }
+
+
+
+    public function cleander_day_services(){
+        return $this->hasMany(CleanderDayService::class , 'service_id');
     }
 
 

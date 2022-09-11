@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Morilog\Jalali\Jalalian;
 
 class DailyController extends Controller
 {
@@ -32,10 +33,15 @@ class DailyController extends Controller
         return view('dashboard.admin.daily.create');
     }
 
-    public function CreatePost(TaskCreateRequest $request)
+    public function store(TaskCreateRequest $request)
     {
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
+
+
+
+        insert_task_in_cleander($data['start_date'],$data['finish_date'],'tasks','id');
+
         $post = new Task($data);
         $post->save();
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت جدید اضافه شد ' );

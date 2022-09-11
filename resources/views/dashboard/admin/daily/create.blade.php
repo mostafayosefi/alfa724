@@ -11,8 +11,8 @@
         <x-card type="info">
           <x-card-header>ساخت برنامه کاری جدید</x-card-header>
       <form style="padding:10px;" action="{{ route('dashboard.admin.daily.store') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-          <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title"  placeholder="عنوان">
-          <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="description"  placeholder="توضیحات مسئولیت"></textarea>
+          <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title" value="{{ old('title') }}"  placeholder="عنوان">
+          <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="description"   placeholder="توضیحات مسئولیت">{{ old('description') }}</textarea>
           <input type="hidden" style="margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"  name="status" value="notwork" >
           <div class="form-group">
               <label>تاریخ شروع:</label>
@@ -20,7 +20,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                 </div>
-                <input id="date" name="start_date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                <input id="date" name="start_date" value="{{ old('start_date') }}" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
               </div>
               <!-- /.input group -->
           </div>
@@ -30,7 +30,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                 </div>
-                <input name="finish_date" type="text" id="date1" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                <input name="finish_date" type="text" id="date1" value="{{ old('finish_date') }}" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
               </div>
               <!-- /.input group -->
           </div>
@@ -40,7 +40,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                 </div>
-                <input name="start_time" type="text" class="form-control mdtimepicker-input">
+                <input name="start_time" value="{{ old('start_time') }}" type="text" class="form-control mdtimepicker-input">
               </div>
               <!-- /.input group -->
           </div>
@@ -50,7 +50,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                 </div>
-                <input name="finish_time" type="text" class="form-control mdtimepicker-input">
+                <input name="finish_time"  type="text" value="{{ old('finish_time') }}" class="form-control mdtimepicker-input">
               </div>
               <!-- /.input group -->
           </div>

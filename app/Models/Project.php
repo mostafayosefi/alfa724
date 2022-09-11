@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cleander\CleanderDayProject;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,4 +61,10 @@ class Project extends Model
             }
         }
     }
+
+
+    public function cleander_day_projects(){
+        return $this->hasMany(CleanderDayProject::class , 'project_id');
+    }
+
 }

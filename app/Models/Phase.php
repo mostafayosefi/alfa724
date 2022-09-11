@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cleander\CleanderDayPhase;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,5 +28,10 @@ class Phase extends Model
         return $this->hasMany(Task::class, 'phase_id');
     }
 
+
+
+    public function cleander_day_phases(){
+        return $this->hasMany(CleanderDayPhase::class , 'phase_id');
+    }
 
 }
