@@ -25,7 +25,7 @@
                             <tr>
                                 <th>اسم</th>
                                 <th>تعداد</th>
-                                <th>نام مسئول</th>
+                                {{-- <th>نام مسئول</th> --}}
                                 <th>تاریخ پایان</th>
                                 <th>تاریخ شروع</th>
                                 <th>مشاهده</th>
@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->count }}</td>
-                                    <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td>
+                                    {{-- <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td> --}}
                                     <td>{{ $item->start_date->formatJalali() }}</td>
                                     <td>{{ $item->end_date->formatJalali() }}</td>
                                     <td><a href="{{route('dashboard.admin.service.index',['id'=>$item->id])}}" class="btn btn-primary">مشاهده</a></td>

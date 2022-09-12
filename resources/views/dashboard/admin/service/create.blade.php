@@ -59,7 +59,7 @@
                         @elseif(!empty($model))
                             @foreach($model->specifications as $specification)
                                 @include('dashboard.admin.customer.spec-item', ['specification' => $specification])
-                             
+
                             @endforeach
                         @endif
                         </tbody>
@@ -86,7 +86,7 @@
         </x-card>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () { 
+        document.addEventListener("DOMContentLoaded", function () {
             let field = `@include('dashboard.admin.customer.spec-item', ['specification' => null])`;
             let idx = $("#specs tr").length + 1;
             $('#add-spec').click(function () {
@@ -94,7 +94,7 @@
                 updateListeners();
                 idx ++;
             });
-  
+
             function onRemove() {
                 $(this).closest('tr').remove();
             }
@@ -102,7 +102,7 @@
                 $('.btn-remove-spec').click(onRemove);
             }
         });
-        document.write(idx); 
+        document.write(idx);
     </script>
 
 @endsection
