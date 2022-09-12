@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCleanderDayServicesTable extends Migration
+class CreateCleanderDayMyServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateCleanderDayServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cleander_day_services', function (Blueprint $table) {
+        Schema::create('cleander_day_my_services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id')->constrained('services')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('my_service_id')->constrained('my_services')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('cleander_day_id')->constrained('cleander_days')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateCleanderDayServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cleander_day_services');
+        Schema::dropIfExists('cleander_day_my_services');
     }
 }

@@ -43,6 +43,9 @@ class IndexController extends Controller
             ->where('status', '!=', 'paid')
             ->get();
 
+            update_customer_to();
+            update_service_to();
+
         return view('dashboard.admin.index', [
             'posts' => $posts,
             'users' => $users,

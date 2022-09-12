@@ -33,8 +33,8 @@ class CleanderDay extends Model
         return $this->hasMany(CleanderDayPhase::class , 'cleander_day_id');
     }
 
-    public function cleander_day_services(){
-        return $this->hasMany(CleanderDayService::class , 'cleander_day_id');
+    public function cleander_day_my_services(){
+        return $this->hasMany(CleanderDayMyService::class , 'cleander_day_id');
     }
 
 

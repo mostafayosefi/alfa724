@@ -116,4 +116,12 @@ class User extends Authenticatable
     public function getScoreAttribute() {
         return $this->scores()->sum('value');
     }
+
+
+    public function my_services(){
+        return $this->hasMany(MyService::class , 'user_id');
+    }
+
+
+
 }

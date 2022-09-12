@@ -26,4 +26,9 @@ class Customer extends Model
     ];
 
 
+    public function my_customer(){
+        return $this->hasOne(MyCustomer::class , 'customer_id');
+    }
+
+
 }

@@ -16,6 +16,10 @@ use App\Models\Cleander\CleanderYear;
 use Illuminate\Support\Facades\Route;
 use App\Models\Cleander\CleanderMonth;
 use App\Models\Cleander\CleanderToday;
+use App\Models\Customer;
+use App\Models\MyCustomer;
+use App\Models\MyService;
+use App\Models\Service;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -545,5 +549,63 @@ if(! function_exists('first_cleander_day') ) {
         $cleander_day = CleanderDay::where([ ['date','=',$data] ])->first();
         return $cleander_day;
 
+    }
+}
+
+
+
+if(! function_exists('update_customer_to') ) {
+    function update_customer_to()
+    {
+        $customers = Customer::where([['id' , '<>' , '0']  ])->get();
+        if($customers){
+            foreach($customers as $customer){
+        $my_customer = MyCustomer::updateOrCreate([
+            'customer_id'   => $customer->id ,
+        ],[
+            'name'   => $customer->customer_name ,
+            'code'   => $customer->customer_code ,
+            'tell'   => $customer->customer_mobile ,
+            'tells'   => $customer->customer_phone ,
+            'job'   => $customer->customer_job ,
+            'referal'   => $customer->customer_provider ,
+            'domain'   => $customer->domain ,
+            'host'   => $customer->host ,
+            'email'   => $customer->email ,
+            'text'   => $customer->description ,
+            'customer_id'   => $customer->id ,
+        ]);
+            }
+        }
+    }
+}
+
+
+if(! function_exists('update_service_to') ) {
+    function update_service_to()
+    { 
+        $services = Service::where([['id' , '<>' , '0']  ])->get();
+        if($services){
+            foreach($services as $service){
+        $my_service = MyService::updateOrCreate([
+            'service_id'   => $service->id ,
+        ],[
+            'name'   => $service->name ,
+            'count'   => $service->count ,
+            'price'   => $service->price ,
+            'durday'   => $service->time ,
+            'startdate'   => $service->start_date ,
+            'enddate'   => $service->end_date ,
+            'recvdate'   => $service->final_date ,
+            'purdate'   => $service->purchase_date ,
+            'text'   => $service->description ,
+            'pricerecvsallary'   => $service->salary ,
+            'user_id'   => $service->lead ,
+            'my_customer_id'   => $service->customer_id ,
+            'status'   => $service->status ,
+            'service_id'   => $service->id ,
+        ]);
+            }
+        }
     }
 }

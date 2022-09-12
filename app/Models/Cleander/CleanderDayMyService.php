@@ -2,15 +2,15 @@
 
 namespace App\Models\Cleander;
 
-use App\Models\Service;
+use App\Models\MyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CleanderDayService extends Model
+class CleanderDayMyService extends Model
 {
 
     protected $fillable = [
-        'service_id',
+        'my_service_id',
         'cleander_day_id',
     ];
 
@@ -19,7 +19,7 @@ class CleanderDayService extends Model
         return $this->belongsTo(CleanderDay::class);
     }
 
-    public function service(){
-        return $this->belongsTo(Service::class);
+    public function my_service(){
+        return $this->belongsTo(MyService::class);
     }
 }
