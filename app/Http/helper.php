@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Eform\PriceFinical;
 use App\Models\Cleander\CleanderDay;
+use App\Models\Cleander\CleanderDayMyService;
 use App\Models\Cleander\CleanderDayPhase;
 use App\Models\Cleander\CleanderDayProject;
-use App\Models\Cleander\CleanderDayService;
 use App\Models\Cleander\CleanderDayTask;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +19,9 @@ use App\Models\Cleander\CleanderToday;
 use App\Models\Customer;
 use App\Models\MyCustomer;
 use App\Models\MyService;
+use App\Models\Price\PriceMyService;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -526,8 +528,8 @@ if(! function_exists('insert_task_in_cleander') ) {
                 if($elq=='phases'){
                     $task = CleanderDayPhase::create([ 'phase_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
                 }
-                if($elq=='services'){
-                    $task = CleanderDayService::create([ 'service_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+                if($elq=='my_services'){
+                    $task = CleanderDayMyService::create([ 'service_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
                 }
 
             }
@@ -583,7 +585,7 @@ if(! function_exists('update_customer_to') ) {
 
 if(! function_exists('update_service_to') ) {
     function update_service_to()
-    { 
+    {
         $services = Service::where([['id' , '<>' , '0']  ])->get();
         if($services){
             foreach($services as $service){
@@ -609,3 +611,209 @@ if(! function_exists('update_service_to') ) {
         }
     }
 }
+
+
+
+
+
+if(! function_exists('update_price_my_service_to') ) {
+    function update_price_my_service_to()
+    {
+        $services = Service::where([['id' , '<>' , '0']  ])->get();
+        if($services){
+            foreach($services as $service){
+                 update_deposit_to($service->id);
+            }
+        }
+    }
+}
+
+
+
+if(! function_exists('convert_shamsi_to_miladi') ) {
+    function convert_shamsi_to_miladi($date,$repl)
+    {
+$collection = Str::of($date)->explode($repl);
+
+if(empty($date)){
+
+    return null;
+
+}else{
+
+
+    $milladi = (new Jalalian($collection[0],$collection[1], $collection[2], 00, 00, 0))->toCarbon()->toDateTimeString();
+    $pdate=date_create($milladi);
+    $miladi = date_format($pdate,"Y-m-d");
+    return $miladi;
+}
+
+
+
+
+    }
+}
+
+
+
+if(! function_exists('update_deposit_to') ) {
+    function update_deposit_to($id)
+    {
+        $service = Service::where([['id' , '=' , $id]  ])->first();
+        $my_service = MyService::where([['service_id' , '=' , $id]  ])->first();
+
+        if($service){
+            if($service->deposit != null ){
+                     $updateorinsert = PriceMyService::updateOrCreate([
+                        'my_service_id'   => $my_service->id ,
+                        'price'   => $service->deposit ,
+                        'date'   => $service->deposit_date ,
+                    ],[
+                        'price'   => $service->deposit ,
+                        'date'   => $service->deposit_date ,
+                        'type'   => 'depo' ,
+                        'miladi'   => convert_shamsi_to_miladi($service->deposit_date,'/') ,
+                        'my_service_id'   => $my_service->id ,
+                    ]);
+
+            }
+
+            if($service->deposit2 != null ){
+                $updateorinsert = PriceMyService::updateOrCreate([
+                    'my_service_id'   => $my_service->id ,
+                    'price'   => $service->deposit2 ,
+                    'date'   => $service->deposit_date2 ,
+                ],[
+                    'price'   => $service->deposit2 ,
+                    'date'   => $service->deposit_date2 ,
+                    'type'   => 'depo' ,
+                    'miladi'   => convert_shamsi_to_miladi($service->deposit_date2,'/') ,
+                    'my_service_id'   => $my_service->id ,
+                ]);
+            }
+
+
+            if($service->deposit3 != null ){
+                $updateorinsert = PriceMyService::updateOrCreate([
+                    'my_service_id'   => $my_service->id ,
+                    'price'   => $service->deposit3 ,
+                    'date'   => $service->deposit_date3 ,
+                ],[
+                    'price'   => $service->deposit3 ,
+                    'date'   => $service->deposit_date3 ,
+                    'type'   => 'depo' ,
+                    'miladi'   => convert_shamsi_to_miladi($service->deposit_date3,'/') ,
+                    'my_service_id'   => $my_service->id ,
+                ]);
+            }
+
+            if($service->deposit4 != null ){
+                $updateorinsert = PriceMyService::updateOrCreate([
+                    'my_service_id'   => $my_service->id ,
+                    'price'   => $service->deposit4 ,
+                    'date'   => $service->deposit_date4 ,
+                ],[
+                    'price'   => $service->deposit4 ,
+                    'date'   => $service->deposit_date4 ,
+                    'type'   => 'depo' ,
+                    'miladi'   => convert_shamsi_to_miladi($service->deposit_date4,'/') ,
+                    'my_service_id'   => $my_service->id ,
+                ]);
+            }
+
+            if($service->deposit5 != null ){
+                $updateorinsert = PriceMyService::updateOrCreate([
+                    'my_service_id'   => $my_service->id ,
+                    'price'   => $service->deposit5 ,
+                    'date'   => $service->deposit_date5 ,
+                ],[
+                    'price'   => $service->deposit5 ,
+                    'date'   => $service->deposit_date5 ,
+                    'type'   => 'depo' ,
+                    'miladi'   => convert_shamsi_to_miladi($service->deposit_date5,'/') ,
+                    'my_service_id'   => $my_service->id ,
+                ]);
+            }
+
+
+            if($service->deposit6 != null ){
+                $updateorinsert = PriceMyService::updateOrCreate([
+                    'my_service_id'   => $my_service->id ,
+                    'price'   => $service->deposit6 ,
+                    'date'   => $service->deposit_date6 ,
+                ],[
+                    'price'   => $service->deposit6 ,
+                    'date'   => $service->deposit_date6 ,
+                    'type'   => 'depo' ,
+                    'miladi'   => convert_shamsi_to_miladi($service->deposit_date6,'/') ,
+                    'my_service_id'   => $my_service->id ,
+                ]);
+            }
+
+
+            if($service->deposit7 != null ){
+                $updateorinsert = PriceMyService::updateOrCreate([
+                    'my_service_id'   => $my_service->id ,
+                    'price'   => $service->deposit7 ,
+                    'date'   => $service->deposit_date7 ,
+                ],[
+                    'price'   => $service->deposit7 ,
+                    'date'   => $service->deposit_date7 ,
+                    'type'   => 'depo' ,
+                    'miladi'   => convert_shamsi_to_miladi($service->deposit_date7,'/') ,
+                    'my_service_id'   => $my_service->id ,
+                ]);
+            }
+
+
+
+
+        }
+    }
+}
+
+
+
+
+if(! function_exists('price_finical') ) {
+    function price_finical($user,$type,$startdate,$enddate)
+    {
+
+
+        $user = User::find($user);
+
+        if(($startdate=='null')&&($enddate=='null')){
+            $startdate = '2000-01-01';
+            $enddate = '3000-01-01';
+        }
+
+        if($user->type=='admin'){
+           $price_my_service =  PriceMyService::where([ ['miladi','>=',$startdate] ,  ['miladi','<=',$enddate] , ])->get();
+           $my_service = MyService::where([ ['startdate','>=',$startdate] ,   ])->get();
+        }
+
+        if($type=='income'){
+            $fir = 0 ;
+            foreach($my_service as $item){
+                $fir = $item->price + $fir;
+            }
+        }
+
+        if($type=='depo'){
+            $fir = 0 ;
+            foreach($price_my_service as $item){
+                if(($item->status=='active')&&($item->type=='depo')){
+                    $fir = $item->price + $fir;
+                }
+            }
+        }
+
+
+        // dd($fir);
+        return $fir;
+
+
+
+    }
+}
+

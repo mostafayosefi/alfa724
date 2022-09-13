@@ -29,5 +29,13 @@ class AccountingController extends Controller
         return view('dashboard.admin.money.employee', ['employee' => $employee, 'salaries' => Salary::all(),'service' => $service,]);
     }
 
+    public function report( $year = null ,$month = null )
+    {
+        $type =  explode_url('4');
+        $employee=EmployeeProject::orderBy('created_at', 'desc')->get();
+        $service= Service::orderBy('created_at', 'desc')->get();
+        return view('dashboard.admin.money.employee', ['employee' => $employee, 'salaries' => Salary::all(),'service' => $service,]);
+    }
+
 
 }

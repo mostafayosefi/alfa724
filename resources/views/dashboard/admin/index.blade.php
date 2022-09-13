@@ -35,11 +35,11 @@ foreach ($service as $key) {
 
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-danger">
+          <div class="small-box bg-info">
             <div class="inner">
-              <h3><?php echo number_format($price-$deposits) ?><sup style="font-size: 14px; top:1px;">تومان</sup></h3>
+              <h3>{{number_format(price_finical(auth()->user()->id,'depo','null','null'))}}<sup style="font-size: 14px; top:1px;">تومان</sup></h3>
 
-              <p>بدهی</p>
+              <p>بیعانه های دریافتی</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -52,9 +52,9 @@ foreach ($service as $key) {
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3><?php echo number_format($price) ?><sup style="font-size: 14px; top:1px;">تومان</sup></h3>
+              <h3>{{number_format(price_finical(auth()->user()->id,'income','null','null'))}}<sup style="font-size: 14px; top:1px;">تومان</sup></h3>
 
-              <p>درآمد</p>
+              <p>درآمد کل پروژه ها</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>

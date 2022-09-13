@@ -18,6 +18,7 @@ use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Support\Facades\Storage;
 use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
+use Morilog\Jalali\Jalalian;
 
 class IndexController extends Controller
 {
@@ -43,8 +44,16 @@ class IndexController extends Controller
             ->where('status', '!=', 'paid')
             ->get();
 
+
+
+
+
+            price_finical(Auth::user()->id,'income','null','null');
+
             update_customer_to();
             update_service_to();
+            update_price_my_service_to();
+
 
         return view('dashboard.admin.index', [
             'posts' => $posts,

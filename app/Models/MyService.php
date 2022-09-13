@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Cleander\CleanderDayMyService;
+use App\Models\Price\PriceMyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +30,11 @@ class MyService extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+
+    public function price_my_services(){
+        return $this->hasMany(PriceMyService::class , 'my_service_id');
     }
 
 
