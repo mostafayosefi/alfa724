@@ -603,7 +603,7 @@ if(! function_exists('update_service_to') ) {
             'text'   => $service->description ,
             'pricerecvsallary'   => $service->salary ,
             'user_id'   => $service->lead ,
-            'my_customer_id'   => $service->customer_id ,
+            'customer_id'   => $service->customer_id ,
             'status'   => $service->status ,
             'service_id'   => $service->id ,
         ]);
@@ -817,3 +817,26 @@ if(! function_exists('price_finical') ) {
     }
 }
 
+
+
+
+if(! function_exists('calender_route_origin') ) {
+    function calender_route_origin($year,$month,$flag)
+    {
+
+        $cleander_today =  updatecleandertoday();
+        if($year==null){ $year = $cleander_today->year;  }
+        if($month==null){ $month =  $cleander_today->month;  }
+          $cleander_year = check_cleander_year($year);
+          check_cleander_month($year,$month);
+         $cleander_month = CleanderMonth::where([ ['month','=',$month],
+         ['cleander_year_id','=',$cleander_year->id]  ])->first();
+
+         if($flag == 'cleander_month'){ return $cleander_month;}
+         if($flag == 'cleander_today'){ return $cleander_today;}
+
+
+
+    }
+
+}

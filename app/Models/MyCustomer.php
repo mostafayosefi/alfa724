@@ -20,5 +20,8 @@ class MyCustomer extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function my_services(){
+        return $this->hasMany(MyService::class , 'my_customer_id');
+    }
 
 }

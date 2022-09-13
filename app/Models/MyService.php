@@ -15,7 +15,7 @@ class MyService extends Model
         'name', 'count', 'price',
         'durday','startdate','enddate',
         'recvdate','purdate','pricerecvsallary',
-        'text','user_id','my_customer_id',  'status','service_id',
+        'text','user_id','customer_id',  'status','service_id',
     ];
 
 
@@ -35,6 +35,16 @@ class MyService extends Model
 
     public function price_my_services(){
         return $this->hasMany(PriceMyService::class , 'my_service_id');
+    }
+
+
+    public function my_customer(){
+        return $this->belongsTo(MyCustomer::class);
+    }
+
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
     }
 
 

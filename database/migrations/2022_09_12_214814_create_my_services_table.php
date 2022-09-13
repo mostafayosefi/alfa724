@@ -26,7 +26,7 @@ class CreateMyServicesTable extends Migration
             $table->string('pricerecvsallary')->default('0')->nullable();
             $table->mediumText('text')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('my_customer_id')->constrained('customers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade')->onUpdate('cascade');
             $table->string('status')->default('active');
             $table->string('service_id')->nullable();
             $table->timestamps();
