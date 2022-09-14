@@ -15,7 +15,10 @@
 
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-money-check-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مالی' ,
- 'multi_route' => [   ['dashboard.admin.money.employee', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.money.report.depo', [  ], 'گزارش بیعانه ها' , 'far fa-circle nav-icon'  ],   ]  ])
+ 'multi_route' => [
+     ['dashboard.admin.money.employee', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.report.service', [  ], 'گزارش مالی پروژه ها' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.report.depo', [  ], 'گزارش مالی بیعانه ها' , 'far fa-circle nav-icon'  ],   ]  ])
 
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   'مدیریت پیام ها' ,

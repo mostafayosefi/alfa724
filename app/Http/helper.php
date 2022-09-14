@@ -840,3 +840,54 @@ if(! function_exists('calender_route_origin') ) {
     }
 
 }
+
+
+
+
+if(! function_exists('law_name') ) {
+    function law_name($type)
+    {
+
+        if($type=='depo'){$name='بیعانه'; }
+        if($type=='service'){$name='خدمات پروژه'; }
+
+        return $name;
+
+    }
+}
+
+
+
+
+if(! function_exists('date_frmat_mnth') ) {
+    function date_frmat_mnth($date)
+    {
+        $date = Jalalian::forge($date)->format('%A, %d %B %Y');
+        return $date;
+
+    }
+
+}
+//get date_frmat
+if(! function_exists('date_frmat') ) {
+    function date_frmat($date)
+    {
+        $date = Jalalian::forge($date)->format('Y/m/d ساعت H:i a');
+        return $date;
+        // return Verta($date)->format('Y/m/d ساعت H:i a');
+
+    }
+
+}
+
+
+ if(! function_exists('date_frmat_ymd') ) {
+    function date_frmat_ymd($date)
+    {
+        $date = Jalalian::forge($date)->format('Y/m/d');
+        return $date;
+
+    }
+
+}
+

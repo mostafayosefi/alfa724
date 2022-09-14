@@ -210,6 +210,7 @@ Route::prefix('phase')->name('phase.')->group(function () {
                Route::prefix('money')->name('money.')->group(function () {
                Route::get('/employee', [AccountingController::class, 'GetEmployee'])->name('employee');
                Route::get('/report/depo/{year?}/{month?}', [AccountingController::class, 'report'])->name('report.depo');
+               Route::get('/report/service/{year?}/{month?}', [AccountingController::class, 'report'])->name('report.service');
                });
 
                //ABSENCE PAGE
