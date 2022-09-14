@@ -104,6 +104,7 @@ Route::prefix('dashboard')
                 Route::resource('score', 'ScoreController');
 
                 //Project PAGE
+                //Project PAGE
 Route::prefix('project')->name('project.')->group(function () {
 
     Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
