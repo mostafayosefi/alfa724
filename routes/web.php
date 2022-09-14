@@ -17,6 +17,8 @@ use App\Http\Controllers\Dashboard\Admin\AbsenceController;
 use App\Http\Controllers\Dashboard\Admin\MessageController;
 use App\Http\Controllers\Dashboard\Admin\ProjectController;
 use App\Http\Controllers\Dashboard\Admin\ServiceController;
+use App\Http\Controllers\Dashboard\Notification\SettingSmsController;
+use App\Http\Controllers\Dashboard\Notification\NotificationListController;
 use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
@@ -103,7 +105,7 @@ Route::prefix('dashboard')
 
                 Route::resource('score', 'ScoreController');
 
-                //Project PAGE 
+                //Project PAGE
 Route::prefix('project')->name('project.')->group(function () {
 
     Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
@@ -134,6 +136,33 @@ Route::prefix('customer')->name('customer.')->group(function () {
 });
 
 
+
+
+
+Route::prefix('notification')->name('notification.')->group(function () {
+
+    Route::prefix('settingsms')
+    ->name('settingsms.')->group(function () {
+        Route::get('/smssetting', [SettingSmsController::class, 'index'])->name('index');
+        Route::get('/smssetting/{id}/edit', [SettingSmsController::class, 'edit'])->name('edit');
+        Route::put('/smssetting/{id}', [SettingSmsController::class, 'update'])->name('update');
+        Route::put('/smssetting/statuse/{status}/{id}', [SettingSmsController::class, 'status'])->name('status');
+    });
+
+
+    Route::prefix('list')
+    ->name('list.')->group(function () {
+        Route::get('/index', [NotificationListController::class, 'index'])->name('index');
+        Route::get('/{id}/type', [NotificationListController::class, 'type'])->name('type');
+        Route::get('/{id}/type/edit', [NotificationListController::class, 'edit'])->name('edit');
+        Route::put('/{id}/type/update', [NotificationListController::class, 'update'])->name('update');
+        Route::put('/{id}/status', [NotificationListController::class, 'status'])->name('status');
+
+     });
+
+
+
+});
 
 
                 //SERVICE PAGE

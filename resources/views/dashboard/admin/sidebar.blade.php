@@ -21,6 +21,13 @@
       ['dashboard.admin.money.report.depo', [  ], 'گزارش مالی بیعانه ها' , 'far fa-circle nav-icon'  ],   ]  ])
 
 
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-setting'  ,  'ul' => 'true' ,  'title' =>   '  اطلاع رسانی' ,
+ 'multi_route' => [
+      ['dashboard.admin.money.report.service', [  ], 'تنطیمات درگاه پیامک      ' , 'far fa-circle nav-icon'  ],
+     ['dashboard.admin.money.employee', [  ], 'تنظیمات اطلاع رسانی ' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.report.depo', [  ], 'مدیریت متن های پیش فرض      ' , 'far fa-circle nav-icon'  ],   ]  ])
+
+
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   'مدیریت پیام ها' ,
  'multi_route' => [   ['dashboard.admin.message.manage', [  ], 'مدیریت پیام ها' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.message.create', [  ], 'ثبت پیام جدید' , 'far fa-circle nav-icon'  ],   ]  ])
 
