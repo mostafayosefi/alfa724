@@ -50,9 +50,12 @@ class IndexController extends Controller
 
             price_finical(Auth::user()->id,'income','null','null');
 
-            update_customer_to();
+            // update_customer_to();
             update_service_to();
             update_price_my_service_to();
+
+            update_model_v1('tasks');
+            update_model_v1('customers');
 
 
         return view('dashboard.admin.index', [

@@ -58,7 +58,8 @@
                             @endforeach
                         @elseif(!empty($model))
                             @foreach($model->specifications as $specification)
-                                @include('dashboard.admin.customer.spec-item', ['specification' => $specification])
+                                {{-- @include('dashboard.admin.customer.spec-item', ['specification' => $specification]) --}}
+                                @include('dashboard.admin.service.add_item', ['specification' => $specification])
 
                             @endforeach
                         @endif

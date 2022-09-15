@@ -11,7 +11,8 @@ class Task extends Model
     use SoftDeletes;
     use HasFactory;
     protected $table='tasks';
-    protected $fillable=['project_id','employee_id','phase_id','title','description','status','start_date','finish_date','continuity','start_time','finish_time','done_at','price'];
+    protected $fillable=['project_id', 'phase_id','title','description','status',
+    'start_date','finish_date','continuity','start_time','finish_time','done_at','price','user_id'];
     protected $casts = [
         'start_date' => 'date',
         'finish_date' => 'date',
@@ -31,9 +32,11 @@ class Task extends Model
     // }
 
 
-public function for() {
-    return $this->belongsTo(User::class, 'employee_id');
+public function user() {
+    return $this->belongsTo(User::class);
 }
+
+ 
 
 public function phase() {
     return $this->belongsTo(Phase::class, 'phase_id');

@@ -14,6 +14,7 @@ use App\Models\Phase;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\EmployeeProject;
+use App\Models\MyService;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
@@ -32,19 +33,21 @@ class CustomerController extends Controller
     {
         $post = Customer::find($id);
         $service= Service::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.customer.show', ['post' => $post, 'id' => $id ,'service' => $service ]);
+        $my_services= MyService::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
+
+        return view('dashboard.admin.customer.show' , compact([   'post' , 'id'  , 'service'  , 'my_services'     ]));
     }
 
     public function CreatePost(Request $request)
     {
         $post = new Customer([
             'description' => $request->input('description'),
-            'customer_code' => $request->input('customer_code'),
-            'customer_name' => $request->input('customer_name'),
-            'customer_phone' => $request->input('customer_phone'),
-            'customer_mobile' => $request->input('customer_mobile'),
-            'customer_job' => $request->input('customer_job'),
-            'customer_provider' => $request->input('customer_provider'),
+            'code' => $request->input('code'),
+            'name' => $request->input('name'),
+            'tells' => $request->input('tells'),
+            'tell' => $request->input('tell'),
+            'job' => $request->input('job'),
+            'referal' => $request->input('referal'),
             'domain' => $request->input('domain'),
             'host' => $request->input('host'),
             'email' => $request->input('email'),
@@ -94,7 +97,7 @@ class CustomerController extends Controller
 
           }
         }
-        return redirect()->route('dashboard.admin.customer.manage')->with('info', '  مشتری جدید ذخیره شد و نام آن' .' ' . $request->input('customer_name'));
+        return redirect()->route('dashboard.admin.customer.manage')->with('info', '  مشتری جدید ذخیره شد و نام آن' .' ' . $request->input('name'));
     }
     public function GetManagePost(Request $request)
     {
@@ -118,17 +121,17 @@ class CustomerController extends Controller
 
     public function UpdatePost(Request $request)
     {
-        $post = Customer::find($request->input('customer_id'));
-        $customer=$request->input('customer_id');
+        $post = Customer::find($request->input('id'));
+        $customer=$request->input('id');
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->description = $request->input('description');
-            $post->customer_code = $request->input('customer_code');
-            $post->customer_name = $request->input('customer_name');
-            $post->customer_phone = $request->input('customer_phone');
-            $post->customer_mobile = $request->input('customer_mobile');
-            $post->customer_job = $request->input('customer_job');
-            $post->customer_provider = $request->input('customer_provider');
+            $post->code = $request->input('code');
+            $post->name = $request->input('name');
+            $post->tells = $request->input('tells');
+            $post->tell = $request->input('tell');
+            $post->job = $request->input('job');
+            $post->referal = $request->input('referal');
             $post->domain = $request->input('domain');
             $post->host = $request->input('host');
             $post->email = $request->input('email');
@@ -142,7 +145,7 @@ class CustomerController extends Controller
     public function UpdateService(Request $request)
     {
         $post = Service::find($request->input('id'));
-        $customer=$request->input('customer_id');
+        $customer=$request->input('id');
         if (!is_null($post)) {
             $post->name = $request->input('name');
             $post->price = $request->input('price');

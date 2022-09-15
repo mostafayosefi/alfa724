@@ -23,6 +23,7 @@ class Customer extends Model
     'domain',
     'host',
     'email',
+    'name', 'tell', 'tells', 'referal', 'code','job',
     ];
 
 

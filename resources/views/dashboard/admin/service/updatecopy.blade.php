@@ -21,16 +21,7 @@
 <tr style="margin-top:50px;">
 <div style="margin-top:50px"></div>
   <form style="padding:10px;" action="{{ route('dashboard.admin.service.updateservice',['id'=>$my_service->id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-
-
-
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
-
-
-    <input type="hidden" value="{{$my_service->id}}" name="id">
+      <input type="hidden" value="{{$my_service->id}}" name="id">
       <input type="hidden" value="{{$my_service->customer_id}}" name="customer_id">
       <div class="form-group">
         <div class="input-group">
@@ -61,10 +52,10 @@
        <style>
                 label:not(.form-check-label):not(.custom-file-label):not(.custom-control-label) {
                     font-weight: 700;
-                    /* display: none !important; */
+                    display: none !important;
                 }
                 label{
-                    /* display:none !important; */
+                    display:none !important;
                 }
                 </style>
       <div class="form-group">

@@ -18,10 +18,7 @@ class MyService extends Model
         'text','user_id','customer_id',  'status','service_id',
     ];
 
-
-    public function service(){
-        return $this->belongsTo(Service::class);
-    }
+ 
 
     public function cleander_day_my_services(){
         return $this->hasMany(CleanderDayMyService::class , 'my_service_id');
@@ -38,9 +35,9 @@ class MyService extends Model
     }
 
 
-    public function my_customer(){
-        return $this->belongsTo(MyCustomer::class);
-    }
+    // public function my_customer(){
+    //     return $this->belongsTo(MyCustomer::class);
+    // }
 
 
     public function customer(){

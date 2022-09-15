@@ -50,11 +50,11 @@
                                 <tbody>
                              @foreach($posts as $item)
                                 <tr>
-                                    <td>{{ $item->customer_code}}</td>
-                                    <td>{{ $item->customer_name }}</td>
-                                    <td>{{ $item->customer_job }}</td>
-                                    <td>{{ $item->customer_phone }}</td>
-                                    <td>{{ $item->customer_mobile }}</td>
+                                    <td>{{ $item->code}}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->job }}</td>
+                                    <td>{{ $item->tells }}</td>
+                                    <td>{{ $item->tell }}</td>
                                     <td>
                                     <a href="{{route('dashboard.admin.customer.show',['id'=>$item->id])}}" class="btn btn-primary" >نمایش</a>
                                     </td>

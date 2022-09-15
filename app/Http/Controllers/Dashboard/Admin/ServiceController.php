@@ -14,6 +14,7 @@ use App\Models\Phase;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\EmployeeProject;
+use App\Models\MyService;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
@@ -42,8 +43,8 @@ class ServiceController extends Controller
                 'lead' => $specification['lead']  ,
                 'salary' => $specification['salary'] ,
                 'final_date' =>  $specification['final_date'] ,
-                'customer_id' => $request->input('customer_id') , 
-                'purchase_date' => $specification['purchase_date'] , 
+                'customer_id' => $request->input('customer_id') ,
+                'purchase_date' => $specification['purchase_date'] ,
                 'start_date' => Carbon::fromJalali($specification['start_date']),
                 'end_date' => Carbon::fromJalali($specification['end_date']),
                 'status' => 'new',
@@ -69,14 +70,14 @@ class ServiceController extends Controller
             ]);
                 if ($project->end_date->lt($project->start_date))
             return redirect()->back()->withErrors(['end_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
-       
+
              $project->save();
-             
+
           }
         }
         return redirect()->route('dashboard.admin.customer.show',$request->input('customer_id'))->with('info', '  سرویس جدید ذخیره شد و نام آن' .' ' . $request->input('name'));
     }
-    
+
     public function GetService($id)
     {
         $post = Service::find($id);
@@ -99,8 +100,12 @@ class ServiceController extends Controller
     public function GetEditPost($id)
     {
         $post = Service::find($id);
+        $my_service = MyService::find($id);
         $users = User::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.service.update', ['post' => $post, 'id' => $id,'users' => $users]);
+
+        return view('dashboard.admin.service.update' , compact([   'post' , 'id'  , 'users'  , 'my_service'     ]));
+ 
+
     }
 
     public function UpdatePost(Request $request)
@@ -119,7 +124,7 @@ class ServiceController extends Controller
             $post->start_date = $request->input('start_date');
             $post->end_date = $request->input('end_date');
             $post->description = $request->input('description');
-            
+
             $post->deposit = $request->input('deposit');
             $post->deposit_date = $request->input('deposit_date');
             $post->deposit2 = $request->input('deposit2');

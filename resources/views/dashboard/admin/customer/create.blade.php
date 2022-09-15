@@ -17,38 +17,38 @@
     <div class="col-md-12">
         <x-card type="info">
             <x-card-header>ساخت مشتری جدید</x-card-header>
-            <form style="padding:10px;" action="{{ route('dashboard.admin.customer.create') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+            <form style="padding:10px;" action="{{ route('dashboard.admin.customer.store') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
                  <div class="form-group">
                      <div class="row">
                          <div class="col-md-2 col-sm-12">
-                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_code"  placeholder="کد مشتری">
+                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="code"  placeholder="کد مشتری">
                          </div>
-                         
+
                          <div class="col-md-2 col-sm-12">
-                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_name"  placeholder="نام و نام خانوادگی مشتری">
-                         </div> 
-                         
-                         <div class="col-md-2 col-sm-12">
-                             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_phone"  placeholder="تلفن مشتری">
+                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="name"  placeholder="نام و نام خانوادگی مشتری">
                          </div>
-                         
+
+                         <div class="col-md-2 col-sm-12">
+                             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="tells"  placeholder="تلفن مشتری">
+                         </div>
+
                         <div class="col-md-2 col-sm-12">
-                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_mobile"  placeholder="موبایل مشتری">
+                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="tell"  placeholder="موبایل مشتری">
                          </div>
                          <div class="col-md-2 col-sm-12">
-                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_job"  placeholder="موضوع کسب و کار">
-                         </div>     
+                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="job"  placeholder="موضوع کسب و کار">
+                         </div>
                          <div class="col-md-2 col-sm-12">
-                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_provider"  placeholder=" معرف">
+                            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="referal"  placeholder=" معرف">
                          </div>
                         <div class="col-md-4 col-sm-12">
                             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="domain"  placeholder="آدرس سایت">
                          </div>
-                         
+
                          <div class="col-md-4 col-sm-12">
                             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="host"  placeholder="هاست">
-                         </div> 
-                         
+                         </div>
+
                          <div class="col-md-4 col-sm-12">
                              <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="email"  placeholder="ایمیل">
                          </div>
@@ -60,7 +60,7 @@
                     <label style="margin-top: 20px;">افزودن لیست خدمات این پروژه</label>
                     <table class="table table-bordered" style="margin-top: 30px;">
                         <thead>
-                        
+
                         </thead>
                         <tbody id="specs" style="margin-top: 70px;">
                             <?php $number=0 ?>
@@ -81,7 +81,7 @@
                         @elseif(!empty($model))
                             @foreach($model->specifications as $specification)
                                 @include('dashboard.admin.customer.spec-item', ['specification' => $specification])
-                             
+
                             @endforeach
                         @endif
                         </tbody>
@@ -108,7 +108,7 @@
         </x-card>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () { 
+        document.addEventListener("DOMContentLoaded", function () {
             let field = `@include('dashboard.admin.customer.spec-item', ['specification' => null])`;
             let idx = $("#specs tr").length + 1;
             $('#add-spec').click(function () {
@@ -116,7 +116,7 @@
                 updateListeners();
                 idx ++;
             });
-  
+
             function onRemove() {
                 $(this).closest('tr').remove();
             }
@@ -124,6 +124,6 @@
                 $('.btn-remove-spec').click(onRemove);
             }
         });
-        document.write(idx); 
+        document.write(idx);
     </script>
 @endsection

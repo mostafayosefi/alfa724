@@ -25,20 +25,20 @@
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
     <x-breadcrumb-item title="مدیریت مشتری ها" route="dashboard.admin.customer.manage" />
-    <x-breadcrumb-item title="{{ $post->customer_name }}" route="dashboard.admin.customer.show" />
+    <x-breadcrumb-item title="{{ $post->name }}" route="dashboard.admin.customer.show" />
 @endsection
 @section('content')
     <div class="col-md-12">
         <x-card type="info">
-            <x-card-header>{{ $post->customer_name }}</x-card-header>
+            <x-card-header>{{ $post->name }}</x-card-header>
                 <x-card-body>
                     <div class="box-body">
                         <div class="item-lists">
-                            <p>نام مشتری:{{ $post->customer_name }} </p>
-                            <p>کد مشتری:{{ $post->customer_code }} </p>
-                            <p>تلفن:{{ $post->customer_phone }} </p>
-                            <p>تلفن همراه مشتری:{{ $post->customer_mobile }} </p>
-                            <p>شغل مشتری:{{ $post->customer_job}} </p>
+                            <p>نام مشتری:{{ $post->name }} </p>
+                            <p>کد مشتری:{{ $post->code }} </p>
+                            <p>تلفن:{{ $post->tells }} </p>
+                            <p>تلفن همراه مشتری:{{ $post->tell }} </p>
+                            <p>شغل مشتری:{{ $post->tells}} </p>
                         </div>
                         <div class="item-lists">
                             <p>نام دامنه:{{ $post->domain}} </p>
@@ -50,7 +50,7 @@
                         {!! $post->description !!}
                         </div>
                         <div style="margin-bottom: 50px; clear:both;"></div>
-                    @foreach($service as $item)
+                    @foreach($my_services as $item)
                        <div class="card">
                            <div class="card-header">
                              <h3 class="card-title">{{ $item->name }}</h3>
@@ -58,47 +58,33 @@
                        <div class="card-body">
                         <table id="" class="table table-bordered table-hover">
                             <thead>
-                    
+
                             </thead>
                                 <tbody>
-                            
+
                                 <tr>
                                     <td>نام:{{ $item->name }}</td>
                                     <td>تعداد:{{ $item->count }}</td>
-                                    <td>مدت زمان:{{ $item->time }}</td>
+                                    <td>مدت زمان:{{ $item->durday }}</td>
                                     @isset($item->user->first_name )
                                     <td>نام کارمند:{{ $item->user->first_name }}  {{ $item->user->last_name }}</td>
                                     @endisset
-                                    <td>تاریخ شروع:{{ $item->start_date->formatJalali() }}</td>
-                                    <td>تاریخ پایان:{{ $item->end_date->formatJalali() }}</td>
-                                    <td>تاریخ تسویه:{{ $item->final_date }}</td>
-                                    <td>قیمت :{{ $item->price }}</td>
+                                    <td>تاریخ شروع:{{ $item->startdate }}</td>
+                                    <td>تاریخ پایان:{{ $item->enddate  }}</td>
+                                    <td>تاریخ تسویه:{{ $item->purdate }}</td>
                                 </tr>
+
+
+                                @foreach ($item->price_my_services as  $my_price )
+
                                 <tr>
-                                    <td>بیعانه:{{ $item->deposit }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date }}</td>
-                                    <td>بیعانه:{{ $item->deposit2 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date2 }}</td>
-                                    <td>بیعانه:{{ $item->deposit3 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date3 }}</td>
-                                    <td>بیعانه:{{ $item->deposit4 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date4 }}</td>
+                                    <td>بیعانه:{{ $my_price->date }}</td>
+                                    <td>تاریخ بیعانه:{{ $my_price->price }}</td>
                                 </tr>
-                                <tr>
-                                    <td>بیعانه:{{ $item->deposit5 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date5 }}</td>
-                                    <td>بیعانه:{{ $item->deposit6 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date6 }}</td>
-                                    <td>بیعانه:{{ $item->deposit7 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date7 }}</td>
-                                    <td>بیعانه:{{ $item->deposit8 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date8 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>بیعانه:{{ $item->deposit9 }}</td>
-                                    <td>تاریخ بیعانه:{{ $item->deposit_date9 }}</td>
-                                </tr>
-                            
+
+                                @endforeach
+
+
                                 </tbody>
                                 <tfoot>
 
@@ -106,7 +92,7 @@
                         </table>
                         <div style="max-height:250px;overflow-y:scroll;">
                             {!! $item->description !!}
-                        </div> 
+                        </div>
                         <div class="card-footer">
                            <div class="row">
                                <div class="col-12 col-md-4 col-lg-3">
@@ -127,7 +113,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
@@ -146,8 +132,8 @@
                         </div>
                          <div style="margin-bottom: 50px; clear:both;"></div>
                         @endforeach
-            
-                        
+
+
                     </div>
                     </x-card-body>
             <x-card-footer>

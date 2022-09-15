@@ -128,7 +128,7 @@ Route::prefix('customer')->name('customer.')->group(function () {
     Route::get('/', [CustomerController::class, 'GetManagePost'])->name('manage');
     Route::get('/create', [CustomerController::class, 'GetCreatePost'])->name('create');
     Route::post('/', [CustomerController::class, 'CreatePost'])->name('store');
-    Route::get('/{id}', [CustomerController::class, 'GetCustomer'])->name('show');
+    Route::get('/{id}/show', [CustomerController::class, 'GetCustomer'])->name('show');
     Route::get('/{id}/edit', [CustomerController::class, 'GetEditPost'])->name('updatecustomer');
     Route::put('/{id}', [CustomerController::class, 'UpdatePost'])->name('update');
     Route::get('/deletecustomer/{id}', [CustomerController::class, 'DeletePost'])->name('deletecustomer');

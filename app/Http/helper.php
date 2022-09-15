@@ -21,6 +21,7 @@ use App\Models\MyCustomer;
 use App\Models\MyService;
 use App\Models\Price\PriceMyService;
 use App\Models\Service;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -886,6 +887,35 @@ if(! function_exists('date_frmat') ) {
     {
         $date = Jalalian::forge($date)->format('Y/m/d');
         return $date;
+
+    }
+
+}
+
+
+
+ if(! function_exists('update_model_v1') ) {
+    function update_model_v1($model)
+    {
+
+        if($model == 'tasks'){
+            $tasks = Task::where([ ['employee_id' , '<>' , NULL  ], ])->get();
+            foreach($tasks as $item){
+                $item->update([ 'user_id' => $item->employee_id ]);
+            }
+        }
+
+        if($model == 'customers'){
+            $customers = Customer::where([ ['id' , '<>' , '0'  ], ])->get();
+            foreach($customers as $item){
+                $item->update([ 'name' => $item->customer_name  ,
+                 'code' => $item->customer_code ,  'tells' => $item->customer_phone ,
+                 'tell' => $item->customer_mobile , 'referal' => $item->customer_provider
+                 , 'job' => $item->customer_job    ]);
+            }
+        }
+
+
 
     }
 
