@@ -25,9 +25,10 @@ class ServiceController extends Controller
 {
 
     public function GetCreatePost($id)
-    {   $post = Customer::find($id);
+    {   $customer = Customer::find($id);
         $users = User::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.service.create', ['post' => $post,'users' => $users]);
+        return view('dashboard.admin.service.create' , compact([   'users'  ,'customer'     ]));
+
     }
 
     public function CreatePost($id,Request $request)
@@ -78,15 +79,18 @@ class ServiceController extends Controller
         return redirect()->route('dashboard.admin.customer.show',$request->input('customer_id'))->with('info', '  سرویس جدید ذخیره شد و نام آن' .' ' . $request->input('name'));
     }
 
-    public function GetService($id)
+    public function show($id)
     {
-        $post = Service::find($id);
-        return view('dashboard.admin.service.show', ['post' => $post, 'id' => $id ]);
+        $item = MyService::find($id);
+        $customer = $item->customer;
+        return view('dashboard.admin.service.show' , compact([   'item'  ,'customer'     ]));
+
+
     }
 
     public function GetManagePost(Request $request)
     {
-        $posts = Service::orderBy('created_at', 'desc')->get();
+        $posts = MyService::orderBy('created_at', 'desc')->get();
         return view('dashboard.admin.service.manage', ['posts' => $posts]);
     }
 
@@ -104,7 +108,7 @@ class ServiceController extends Controller
         $users = User::orderBy('created_at', 'desc')->get();
 
         return view('dashboard.admin.service.update' , compact([   'post' , 'id'  , 'users'  , 'my_service'     ]));
- 
+
 
     }
 

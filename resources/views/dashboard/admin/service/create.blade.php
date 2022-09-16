@@ -33,77 +33,90 @@
     <div class="col-md-12">
         <x-card type="info">
             <x-card-header>ساخت خدمت جدید</x-card-header>
-            <form style="padding:10px;" action="{{ route('dashboard.admin.service.create',['id'=>$post->id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-                 <div class="form-group">
-                    <label style="margin-top: 20px;">سرویس جدید برای {{ $post->customer_name }}</label>
-                    <input type="hidden" value="{{$post->id}}" name="customer_id">
-                    <table class="table table-bordered" style="margin-top: 30px;">
-                        <thead>
-                        </thead>
-                        <tbody id="specs" style="margin-top: 70px;">
-                            <?php $number=0 ?>
-                        @if(old('specifications'))
-                            @foreach(old('specifications') as $idx => $specification)
-                                @if(!empty($specification['customer'])))
-                                    @include('dashboard.admin.customer.spec-item', [
-                                        'idx' => $idx,
-                                        'title' => $specification['title'],
-                                        'price' => $specification['price'],
-                                        'time' => $specification['time'],
-                                        'counter' => $specification['counter'],
-                                        'start_date' => $specification['start_date'],
-                                        'finish_date' => $specification['finish_date'],
-                                    ])
-                                @endif
-                            @endforeach
-                        @elseif(!empty($model))
-                            @foreach($model->specifications as $specification)
-                                {{-- @include('dashboard.admin.customer.spec-item', ['specification' => $specification]) --}}
-                                @include('dashboard.admin.service.add_item', ['specification' => $specification])
-
-                            @endforeach
-                        @endif
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                        <td colspan="7">
-                            <script>
-                                $(function () {
-                              });
-                            </script>
-                            <button id="add-spec" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
-                        </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                 </div>
-                {{ csrf_field() }}
-                <x-card-footer>
-                    <button type="submit" style=" margin: 20px 0px; height: 42px;width: 100%;font-size: 20px;"
-                            class="btn btn-primary">ارسال
-                    </button>
-                </x-card-footer>
-            </form>
+            @include('dashboard.admin.customer.detial')
         </x-card>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let field = `@include('dashboard.admin.customer.spec-item', ['specification' => null])`;
-            let idx = $("#specs tr").length + 1;
-            $('#add-spec').click(function () {
-                $("#specs").append(field.replace(/IDX/g, idx.toString()));
-                updateListeners();
-                idx ++;
-            });
 
-            function onRemove() {
-                $(this).closest('tr').remove();
-            }
-            function updateListeners() {
-                $('.btn-remove-spec').click(onRemove);
-            }
-        });
-        document.write(idx);
-    </script>
+
+    <div class="col-md-12">
+        <x-card type="info">
+            <x-card-header>ساخت خدمت جدید</x-card-header>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <form style="padding:10px;" action="#" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+
+                        <div class="form-group">
+                            <label for="name">نام خدمت</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="نام خدمت  ">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>تاریخ شروع:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                  </div>
+                                  <input id="date" name="startdate" value="{{ old('startdate') }}" type="text"
+                                  class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="durday">  مدت زمان روزکاری</label>
+                                <input type="text" class="form-control" name="durday" id="durday" placeholder="مدت زمان روزکاری">
+                                </div>
+
+
+                            <div class="form-group ">
+                                <label for="user_id">انتخاب کارمند</label>
+                                <select id="user_id" name="user_id" class="form-control" required>
+                                    <option value=""> لطفا انتخاب نمایید </option>
+                                    @foreach ($users as $user )
+                                    <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+
+@include('dashboard.ui.java-price')
+
+
+<div class="form-group">
+    <label for="durday">  هزینه پروژه (به تومان)    </label>
+    <input type="text" class="form-control" id="price"  name="price"  onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
+    </div>
+
+
+
+{{-- 
+    $data = $request->all();
+    $data['rateusd'] = str_rep_price($data['rateusd']); --}}
+
+
+    @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
+     'input_name' => 'name'  ,  'name_select' => '  کارمند ' ,
+     'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id' ])
+
+
+
+
+                    </form>
+
+
+
+                </div>
+                <div class="col-md-6"></div>
+             </div>
+                    </x-card>
+    </div>
+
+
+
+
 
 @endsection

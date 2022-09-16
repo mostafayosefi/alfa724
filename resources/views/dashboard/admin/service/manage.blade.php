@@ -26,8 +26,8 @@
                                 <th>اسم</th>
                                 <th>تعداد</th>
                                 {{-- <th>نام مسئول</th> --}}
-                                <th>تاریخ پایان</th>
                                 <th>تاریخ شروع</th>
+                                <th>تاریخ پایان</th>
                                 <th>مشاهده</th>
                                 <th>حذف</th>
                             </tr>
@@ -38,9 +38,9 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->count }}</td>
                                     {{-- <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td> --}}
-                                    <td>{{ $item->start_date->formatJalali() }}</td>
-                                    <td>{{ $item->end_date->formatJalali() }}</td>
-                                    <td><a href="{{route('dashboard.admin.service.index',['id'=>$item->id])}}" class="btn btn-primary">مشاهده</a></td>
+                                    <td>{{ date_frmat_a($item->startdate) }}</td>
+                                    <td>{{ date_frmat_a($item->enddate) }}</td>
+                                    <td><a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}" class="btn btn-primary">مشاهده</a></td>
                                     <td>
                                     <a href="{{route('dashboard.admin.service.deleteservice',['id'=>$item->id])}}" class="delete_post" ><i class="fa fa-fw fa-eraser"></i></a>
                                     </td>

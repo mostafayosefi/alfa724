@@ -14,21 +14,19 @@
                             <x-card type="success">
                                 <x-card-header>ویرایش تعطیلی  {{ $item->day }} {{$cleander_month->name}} {{$cleander_month->cleander_year->year}} </x-card-header>
                             <form style="padding:10px;" action="{{ route('dashboard.admin.calender.holiday.update', $item->id) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-                               
                               @csrf
-
                               @method('PUT')
 
-                              
+
                               <x-select-group name="holiday" label="وضعیت" :model="$item ?? null">
                                 <x-select-item value="true"   >تعطیل</x-select-item>
                                 <x-select-item value="false"  >روز کاری  </x-select-item>
                               </x-select-group>
 
 
-                                  
-                                  
- 
+
+
+
                         </x-card>
                         </div>
                         </div>

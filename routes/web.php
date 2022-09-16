@@ -169,7 +169,7 @@ Route::prefix('notification')->name('notification.')->group(function () {
 
                 Route::prefix('service')->name('service.')->group(function () {
 
-                    Route::get('/index/{id}', [ServiceController::class, 'GetService'])->name('index');
+                    Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
                     Route::post('/create/{id}', [ServiceController::class, 'CreatePost'])->name('store');
                     Route::get('/create/{id}', [ServiceController::class, 'GetCreatePost'])->name('create');
                     Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');

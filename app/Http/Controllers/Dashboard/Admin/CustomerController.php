@@ -31,11 +31,11 @@ class CustomerController extends Controller
 
     public function GetCustomer($id)
     {
-        $post = Customer::find($id);
+        $customer = Customer::find($id);
         $service= Service::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
         $my_services= MyService::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
 
-        return view('dashboard.admin.customer.show' , compact([   'post' , 'id'  , 'service'  , 'my_services'     ]));
+        return view('dashboard.admin.customer.show' , compact([   'customer' , 'id'  , 'service'  , 'my_services'     ]));
     }
 
     public function CreatePost(Request $request)

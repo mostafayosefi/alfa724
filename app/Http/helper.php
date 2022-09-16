@@ -590,6 +590,8 @@ if(! function_exists('update_service_to') ) {
         $services = Service::where([['id' , '<>' , '0']  ])->get();
         if($services){
             foreach($services as $service){
+               $purdate = convert_shamsi_to_miladi($service->purchase_date,'-');
+               $recvdate = convert_shamsi_to_miladi($service->final_date,'-');
         $my_service = MyService::updateOrCreate([
             'service_id'   => $service->id ,
         ],[
@@ -599,8 +601,8 @@ if(! function_exists('update_service_to') ) {
             'durday'   => $service->time ,
             'startdate'   => $service->start_date ,
             'enddate'   => $service->end_date ,
-            'recvdate'   => $service->final_date ,
-            'purdate'   => $service->purchase_date ,
+            'recvdate'   => $recvdate ,
+            'purdate'   => $purdate ,
             'text'   => $service->description ,
             'pricerecvsallary'   => $service->salary ,
             'user_id'   => $service->lead ,
@@ -877,6 +879,15 @@ if(! function_exists('date_frmat') ) {
         return $date;
         // return Verta($date)->format('Y/m/d ساعت H:i a');
 
+    }
+
+}
+
+if(! function_exists('date_frmat_a') ) {
+    function date_frmat_a($date)
+    {
+        $date = Jalalian::forge($date)->format('Y/m/d');
+        return $date;
     }
 
 }
