@@ -21,11 +21,11 @@
       ['dashboard.admin.money.report.depo', [  ], 'گزارش مالی بیعانه ها' , 'far fa-circle nav-icon'  ],   ]  ])
 
 
-@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-setting'  ,  'ul' => 'true' ,  'title' =>   '  اطلاع رسانی' ,
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   '  اطلاع رسانی' ,
  'multi_route' => [
-      ['dashboard.admin.money.report.service', [  ], 'تنطیمات درگاه پیامک      ' , 'far fa-circle nav-icon'  ],
-     ['dashboard.admin.money.employee', [  ], 'تنظیمات اطلاع رسانی ' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.report.depo', [  ], 'مدیریت متن های پیش فرض      ' , 'far fa-circle nav-icon'  ],   ]  ])
+      ['dashboard.admin.notification.list.index', [  ], 'تنطیمات درگاه پیامک      ' , 'far fa-circle nav-icon'  ],
+     ['dashboard.admin.notification.list.index', [  ], 'تنظیمات اطلاع رسانی ' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.notification.list.index', [  ], 'مدیریت متن های پیش فرض      ' , 'far fa-circle nav-icon'  ],   ]  ])
 
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   'مدیریت پیام ها' ,

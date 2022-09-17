@@ -29,7 +29,7 @@ class UserController extends Controller
 
     public function GetProfile($id) {
         $post = User::find($id);
-        $task=Task::where('employee_id',$id)->orderBy('created_at', 'desc')->paginate(50);
+        $task=Task::where('user_id',$id)->orderBy('created_at', 'desc')->paginate(50);
         $employee=EmployeeProject::where('employee_id',$id)->orderBy('created_at', 'desc')->get();
         $phase=Phase::whereHas('for', function($q) {
             $q->whereHas('employees', function($q) {

@@ -137,13 +137,13 @@ foreach ($task as $item) {
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
                                            <form  action="#" method="post">
                                                <input type="hidden" name="id" value="{{ $item->id }}" >
-                                              <a href="{{route('dashboard.admin.task.deletetask',['id'=>$item->id,'project_id'=>$item->for->id])}}" class="btn btn-outline-light">بله </a>
+                                              {{-- <a href="{{route('dashboard.admin.task.deletetask',['id'=>$item->id,'project_id'=>$item->for->id])}}" class="btn btn-outline-light">بله </a> --}}
                                            </form>
                                         </div>
                                       </div>

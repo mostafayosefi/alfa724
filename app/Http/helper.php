@@ -1,30 +1,31 @@
 <?php
 
 
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Service;
+use App\Models\Customer;
+use App\Models\MyService;
+use App\Models\MyCustomer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Eform\PriceFinical;
 use App\Models\Cleander\CleanderDay;
-use App\Models\Cleander\CleanderDayMyService;
-use App\Models\Cleander\CleanderDayPhase;
-use App\Models\Cleander\CleanderDayProject;
-use App\Models\Cleander\CleanderDayTask;
+use App\Models\Price\PriceMyService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cleander\CleanderYear;
 use Illuminate\Support\Facades\Route;
 use App\Models\Cleander\CleanderMonth;
 use App\Models\Cleander\CleanderToday;
-use App\Models\Customer;
-use App\Models\MyCustomer;
-use App\Models\MyService;
-use App\Models\Price\PriceMyService;
-use App\Models\Service;
-use App\Models\Task;
-use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
+use App\Models\Cleander\CleanderDayTask;
+use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Cleander\CleanderDayProject;
+use App\Models\Cleander\CleanderDayMyService;
 
 
 
@@ -509,12 +510,87 @@ return $collection[$array];
 }
 
 
-if(! function_exists('insert_task_in_cleander') ) {
-    function insert_task_in_cleander($start,$end,$elq,$elq_id)
+if(! function_exists('add_days_date') ) {
+    function add_days_date($start,$durday ,$holiday)
+    {
+        if($holiday=='holiday'){
+            $add_day = date('Y-m-d', strtotime($start. ' + '.$durday.' days'));
+            return $add_day;
+        }
+
+    }
+}
+
+
+
+if(! function_exists('check_holiday_v1') ) {
+    function check_holiday_v1($start,$end,$flg)
+    {
+        if($flg=='count'){
+            $count = CleanderDay::where([ ['date','>=',$start] ,  ['date','<',$end] , ['holiday','=','true'] , ])->count();
+            return $count;
+        }
+    }
+}
+
+
+if(! function_exists('check_holiday_v2') ) {
+    function check_holiday_v2($date)
     {
 
-        $start = $start->isoFormat('YYYY-MM-DD');
-        $end = $end->isoFormat('YYYY-MM-DD');
+            $cleander_day = CleanderDay::where([ ['date','=',$date],   ])->first();
+            return $cleander_day->holiday;
+
+    }
+}
+
+
+
+
+if(! function_exists('computing_day_work') ) {
+    function computing_day_work($start,$durday)
+    {
+
+
+        $A=round($durday/7);
+        $alldaymax=$A*4;
+        $alldaymax=$alldaymax+$durday;
+        $n = 0;
+        for ($x = 0; $x <= $alldaymax; $x++) {
+           $day_out =  add_days_date($start,$x,'holiday');
+           $holiday = check_holiday_v2($day_out);
+            if($holiday=='false'){
+                $n++;
+            }
+            if($n==$durday){
+                $timeenddate = $day_out =  add_days_date($start,$x,'holiday');
+            }
+            // echo "The ".$holiday."  number ".$n." is: $day_out <br>";
+          }
+
+           return $timeenddate;
+
+
+
+
+    }
+}
+
+
+
+
+
+
+
+if(! function_exists('insert_task_in_cleander') ) {
+    function insert_task_in_cleander($start,$end,$elq,$elq_id,$flgdate)
+    {
+
+        if($flgdate=='shamsi'){
+            $start = $start->isoFormat('YYYY-MM-DD');
+            $end = $end->isoFormat('YYYY-MM-DD');
+        }
+
         $cleander_day = CleanderDay::where([ ['date','>=',$start] ,  ['date','<=',$end] , ])->get();
 
         if($cleander_day){
@@ -530,7 +606,18 @@ if(! function_exists('insert_task_in_cleander') ) {
                     $task = CleanderDayPhase::create([ 'phase_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
                 }
                 if($elq=='my_services'){
-                    $task = CleanderDayMyService::create([ 'service_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+
+
+                    $updateorinsert = CleanderDayMyService::updateOrCreate([
+                        'my_service_id'   => $elq_id ,
+                        'cleander_day_id'   => $item->id ,
+                    ],[
+                        'my_service_id'   => $elq_id ,
+                        'cleander_day_id'   => $item->id ,
+                    ]);
+
+                    // $task = CleanderDayMyService::create([ 'my_service_id' => $elq_id , 'cleander_day_id' => $item->id  ]);
+
                 }
 
             }
@@ -932,3 +1019,56 @@ if(! function_exists('date_frmat_a') ) {
 
 }
 
+
+if(! function_exists('str_rep_price') ) {
+    function str_rep_price($price)
+    {
+
+     return  str_replace( ",","" , $price);
+
+
+    }
+}
+
+
+if(! function_exists('valid_init') ) {
+    function valid_init($number,$flg)
+    {
+        $number1 = filter_var( $number , FILTER_VALIDATE_INT );
+        if($flg=='daywork'){
+            if($number1){
+                $mystring = $number1.' روزکاری ';
+            }else{
+                $mystring = $number;
+            }
+        }
+
+
+        return $mystring;
+
+
+    }
+}
+
+
+
+
+
+if(! function_exists('config_optimize') ) {
+    function config_optimize()
+    {
+        Artisan::call('route:cache');
+        Artisan::call('config:cache');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('optimize:clear');
+        exec('composer dump-autoload');
+
+
+
+
+
+
+
+    }
+}

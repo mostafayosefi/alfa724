@@ -9,7 +9,7 @@
 <div class="card-body">
  <div class="row">
     <div class="col-md-4">
-        <strong><i class="fas fa-book mr-1"></i> مدت زمان :  {{ $item->durday }}</strong>
+        <strong><i class="fas fa-book mr-1"></i> مدت زمان :  {{ valid_init($item->durday,'daywork') }}</strong>
         <p class="text-muted">
         </p>
     </div>
@@ -41,7 +41,7 @@
     <div class="col-md-4">
         <strong><i class="fas fa-book mr-1"></i> هزینه کل پروژه :
 
-            <span class="btn btn-block btn-primary btn-sm">
+            <span class="btn btn-primary btn-sm">
                 {{ number_format($item->price) }} تومان </span>         </strong>
         <p class="text-muted">
         </p>

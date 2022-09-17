@@ -35,6 +35,9 @@ class ProjectController extends Controller
         $all_users = User::orderBy('created_at', 'desc')->get();
         $tasks= Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25);
         $salaries = Salary::all();
+
+        // dd($users);
+
         return view('dashboard.admin.project.index', ['post' => $post, 'id' => $id ,'phase' => $phase,'users' => $users , 'all_users' => $all_users, 'tasks' =>$tasks, 'salaries' => $salaries ]);
     }
 
@@ -70,7 +73,7 @@ class ProjectController extends Controller
 
     public function GetDonePost(Request $request)
     {
-        
+
         $posts = Project::withTrashed()->where('status','done')->orderBy('created_at', 'desc')->get();
         return view('dashboard.admin.project.done', ['posts' => $posts]);
     }

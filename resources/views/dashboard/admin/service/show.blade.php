@@ -19,7 +19,7 @@
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
     <x-breadcrumb-item title="مدیریت سرویس ها" route="dashboard.admin.service.manage" />
-    <x-breadcrumb-item title="{{ $item->name }}" route="dashboard.admin.service.show" />
+    {{-- <x-breadcrumb-item title="{{ $item->name }}" route="dashboard.admin.service.show" /> --}}
 @endsection
 @section('content')
     <div class="col-md-12">

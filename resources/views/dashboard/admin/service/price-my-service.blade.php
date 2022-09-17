@@ -21,7 +21,7 @@
                                     <td>{{ $key++ }}</td>
                                     <td>  {{ $my_price->date }}</td>
                                     <td>
-                                        <span class="btn btn-block btn-primary btn-sm">
+                                        <span class="btn btn-warning btn-sm">
                                         {{ number_format($my_price->price) }} تومان </span>  </td>
                                 </tr>
 
@@ -39,9 +39,22 @@
                         <div class="card-footer">
                            <div class="row">
                                <div class="col-12 col-md-4 col-lg-3">
-                                     <a href="#" class="delete_post" data-toggle="modal" data-target="#modal-success{{ $item->id }}"><i class="fa fa-fw fa-eraser"></i></a>
-                                     <a href="{{route('dashboard.admin.service.updateservice',['id'=>$item->id])}}" class="btn btn-danger" >ویرایش خدمت</a>
-                               </div>
+
+<a href="#" class="delete_post" data-toggle="modal" data-target="#modal-success{{ $item->id }}">
+    <span class="btn btn-danger btn-sm">
+    <i class="fa fa-fw fa-eraser"></i> حذف خدمت
+    </span>
+</a>
+
+
+@if(explode_url(2)=='customer')
+                                <a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}" class="btn btn-success" >میز خدمت</a>
+@endif
+
+@if(explode_url(2)=='service')
+                                <a href="{{route('dashboard.admin.service.edit',['id'=>$item->id])}}" class="btn btn-success" >ویرایش خدمت</a>
+@endif
+                            </div>
                            </div>
                        </div>
                                 <!-- SHOW SUCCESS modal -->

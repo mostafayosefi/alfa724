@@ -103,7 +103,7 @@
         <div class="col-md-12">
           <div class="alert alert-danger no-dismiss" style="">
             <p>لطفا حضوری خود را ثبت کنید</p>
-            <form method="post" action="{{ route('dashboard.employee.absence.create') }}">
+            <form method="post" action="{{ route('dashboard.employee.absence.store') }}">
               @csrf
             <button type="submit" class="btn btn-primary toastrDefaultInfo">
               ثبت حضوری
@@ -380,7 +380,7 @@
                         $("#todoCheck2{{ $item->id }}").prop("checked", false);
                     });
                    });
-    
+
                   </script>
                   </div>
 

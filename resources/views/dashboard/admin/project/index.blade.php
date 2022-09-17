@@ -50,10 +50,10 @@
                             <a class="btn btn-success w-100 m-2" href="{{ route("dashboard.admin.project.updatestatus", ['id'=>$id,'status'=>'paid']) }}">پروژه تسویه شده</a>
                         @endif
                     </div>
-                </div>  
+                </div>
         <x-card type="info">
             <x-card-header>
-            {{ $post->title }}  
+            {{ $post->title }}
             </x-card-header>
                 <x-card-body>
                     <div class="box-body">
@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
@@ -143,8 +143,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                        <div style="margin-bottom: 50px;"></div>
                        <div class="card">
                            <div class="card-header">
@@ -191,7 +191,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
@@ -283,7 +283,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>

@@ -54,6 +54,33 @@ return [
         'social_twitter'        => 'آیدی توییتر',
         'category'              => 'دسته‌بندی',
         'keywords'              => 'کلمات کلیدی',
+
+        "qustion" => "سوال",
+        "answer" => "پاسخ",
+        "tell" => "شماره تلفن",
+        "logo" => "لوگو سایت ",
+        "favicon" => "فاوآیکن سایت ",
+        "link" => "لینک",
+        "captcha" => "کد کپچا",
+        "newhost" => "هاست",
+        "ip1" => "آی پی اول",
+        "ip2" => "آی پی دوم",
+        "ip3" => "آی پی سوم",
+        "currenthost" => "هاست فعلی",
+        "g-recaptcha-response" => "تاییدیه کپچا",
+
+        "user_id" => "کاربر",
+        "categorybrand_id" => "دسته بندی برند",
+        "subcategorybrand_id" => "زیرگروه دسته برند",
+        "tellir" => "تلفن تماس ایران",
+        "codpir" => "کدپستی ایران",
+        "adresir" => "آدرس ایران",
+        "price" => "هزینه ",
+        "short" => "معرفی کوتاه ",
+        "durday" => " روزکاری ",
+
+
+
     ],
     'before'               => ':attribute باید تاریخی قبل از :date باشد.',
     'before_or_equal'      => ':attribute باید تاریخی قبل از :date، یا مطابق با آن باشد.',

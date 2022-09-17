@@ -51,7 +51,7 @@
 </div>
 
 
-@if(explode_url(3)!='create')
+@if((explode_url(2)=='edit')||(explode_url(3)=='show'))
 <div class="row">
     <div class="col-md-12">
     <strong> &nbsp; </strong>
