@@ -34,7 +34,7 @@ foreach ($task as $item) {
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="{{ !empty($post->picture) ? Storage::url($post->picture) : asset('assets/images/user.png') }}" alt="{{ $post->first_name }}">
+                  <img class="profile-user-img img-fluid img-circle" src="{{ !empty($post->picture) ? $post->picture : asset('assets/images/user.png') }}" alt="{{ $post->first_name }}">
                 </div>
 
                 <h3 class="profile-username text-center">{{ $post->first_name }} {{ $post->last_name }}</h3>
