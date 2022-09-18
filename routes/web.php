@@ -87,7 +87,8 @@ Route::get('/config_optimize', function() {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Artisan::call('optimize:clear');
-    // exec('composer dump-autoload');});
+    // exec('composer dump-autoload');
+});
 
 Route::get('install', 'InstallController@index')->name('install');
 Route::post('installl', 'InstallController@install')->name('installl');
