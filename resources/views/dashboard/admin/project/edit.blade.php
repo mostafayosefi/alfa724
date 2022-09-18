@@ -40,7 +40,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                   </div>
-                  <input required name="start_date" type="text" id="date" value="{{date_frmat_a($project->start_date)  }} " class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                  <input required name="start_date" type="text" id="date" value="{{date_frmat_a($project->start_date)}}" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
                 </div>
                 <!-- /.input group -->
             </div>
@@ -51,7 +51,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input required name="finish_date" value="{{date_frmat_a($project->finish_date)  }} " type="text" id="date1" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                    <input required name="finish_date" value="{{date_frmat_a($project->finish_date)}}" type="text" id="date1" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
                 </div>
                 <!-- /.input group -->
             </div>

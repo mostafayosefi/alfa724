@@ -92,8 +92,8 @@ class ProjectController extends Controller
     {
 
         $data = $request->all();
-        $data['startdate'] = convert_shamsi_to_miladi($data['start_date'],'/');
-        $data['startdate'] = convert_shamsi_to_miladi($data['finish_date'],'/');
+        $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
+        $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
         $data['price'] = str_rep_price($data['price']);
         $data['employer_money'] = str_rep_price($data['employer_money']);
 
@@ -124,7 +124,7 @@ class ProjectController extends Controller
         //     if ($post->status == 'done' && $old_status != $post->status)
         //         $post->applyEmployeesScore();
         // }
-        return redirect()->route('dashboard.admin.project.manage',$project->id)->with('info', 'پروژه ویرایش شد');
+        return redirect()->route('dashboard.admin.project.manage')->with('info', 'پروژه ویرایش شد');
     }
 
     public function UpdateStatus(Request $request, $id, $status)
