@@ -1,6 +1,7 @@
 <?php
 
 
+use Carbon\Carbon;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Service;
@@ -1065,10 +1066,27 @@ if(! function_exists('config_optimize') ) {
         exec('composer dump-autoload');
 
 
-
-
-
-
-
     }
+}
+
+
+
+
+
+if(! function_exists('uploadFile') ) {
+
+    function uploadFile($file,$path,$defaultfile)
+    {
+ if($file){
+        $current_timestamp = Carbon::now()->timestamp;
+        $imagePath = "/upload/$path/";
+        $filename = $current_timestamp . $file->getClientOriginalName();
+        $file = $file->move(public_path($imagePath) , $filename);
+        return $imagePath.$filename;
+
+ }else{
+     return $defaultfile;
+ }
+    }
+
 }

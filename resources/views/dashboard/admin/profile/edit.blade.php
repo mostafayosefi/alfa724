@@ -25,7 +25,7 @@
                     @if(!empty(Auth::user()->picture))
                         <div class="form-group row" style="text-align: left">
                             <div class="col-md-3" style="text-align: right">تصویر فعلی</div>
-                            <div class="col-md-9"><img style="max-width: 100px; width: 100%" src="{{ Storage::url(Auth::user()->picture) }}"></div>
+                            <div class="col-md-9"><img style="max-width: 100px; width: 100%" src="{{ Auth::user()->picture }}"></div>
                         </div>
                     @endif
                     <x-text-group name="password" label="رمزعبور (در صورت عدم تغییر خالی بگذارید)" type="password" />
