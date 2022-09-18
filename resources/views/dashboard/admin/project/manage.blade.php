@@ -35,9 +35,11 @@
                             <thead>
                             <tr>
                                 <th>عنوان</th>
+                                <th>مسئول پروژه</th>
                                 <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
                                 <th>نمایش پروژه</th>
+                                {{-- <th>تاریخ ایجاد  </th> --}}
                                 <th>حذف</th>
                                 <th>ویرایش</th>
                             </tr>
@@ -46,42 +48,19 @@
                              @foreach($posts as $item)
                                 <tr>
                                     <td>{{ $item->title }}</td>
-                                    <td>{!! $item->start_date->formatJalali() !!}</td>
-                                    <td>{!! $item->finish_date->formatJalali() !!}</td>
+                                    <td>{{ $item->customer_name }}</td>
+                                    <td>{{ date_frmat_a($item->start_date) }}</td>
+                                    <td>{{ date_frmat_a($item->finish_date) }}</td>
                                     <td><a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" class="btn btn-block bg-gradient-primary btn-sm">نمایش پروژه</a></td>
+                                    {{-- <td>{{ date_frmat($item->created_at) }}</td> --}}
                                     <td>
-                                    <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
+                                     @include('dashboard.ui.modal_delete', [$item ,'route' => route('dashboard.admin.project.destroy', $item) , 'myname' => 'پروژه '.$item->title ])
                                     </td>
                                     <td>
-                                    <a href="{{route('dashboard.admin.project.updatepost',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 <!-- SHOW SUCCESS modal -->
-                                   <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
-                                    <div class="modal-dialog modal-danger">
-                                      <div class="modal-content bg-danger">
-                                        <div class="modal-header">
-                                          <h4 class="modal-title">{{ $item->content }}</h4>
-                                          <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
-                                            <span  aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            آیا می خواهید این  مورد حذف کنید ؟
-                    
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                          <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
-                                           <form  action="#" method="post">
-                                               <input type="hidden" name="id" value="{{ $item->id }}" >
-                                              <a href="{{route('dashboard.admin.project.deletepost',['id'=>$item->id])}}" class="btn btn-outline-light">بله </a>
-                                           </form>
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
                              @endforeach
                                 </tbody>
                                 <tfoot>

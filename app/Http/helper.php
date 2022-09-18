@@ -1072,6 +1072,20 @@ if(! function_exists('config_optimize') ) {
 
 
 
+if(! function_exists('check_date_startfinish') ) {
+    function check_date_startfinish($start,$end)
+    {
+
+        if ($end < $start){
+            return 'false';
+        }
+
+    }
+}
+
+
+
+
 
 if(! function_exists('uploadFile') ) {
 

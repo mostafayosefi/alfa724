@@ -120,15 +120,15 @@ Route::prefix('dashboard')
 Route::prefix('project')->name('project.')->group(function () {
 
     Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
-    Route::get('/create', [ProjectController::class, 'GetCreatePost'])->name('create');
-    Route::post('/', [ProjectController::class, 'CreatePost'])->name('store');
+    Route::get('/create', [ProjectController::class, 'create'])->name('create');
+    Route::post('/', [ProjectController::class, 'store'])->name('store');
     Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
-    Route::get('/{id}/edit', [ProjectController::class, 'GetEditPost'])->name('updatepost');
-    Route::put('/{id}', [ProjectController::class, 'UpdatePost'])->name('update');
+    Route::get('/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ProjectController::class, 'update'])->name('update');
     Route::get('/show/done', [ProjectController::class, 'GetDonePost'])->name('done');
     Route::get('/show/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
     Route::get('/{id}/status/{status}', [ProjectController::class, 'UpdateStatus'])->name('updatestatus');
-    Route::get('/deletepost/{id}', [ProjectController::class, 'DeletePost'])->name('deletepost');
+    Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('destroy');
 
             });
 

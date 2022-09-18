@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectController extends Controller
 {
-    public function GetCreatePost()
+    public function create()
     {
         return view('dashboard.admin.project.create');
     }
@@ -41,28 +41,20 @@ class ProjectController extends Controller
         return view('dashboard.admin.project.index', ['post' => $post, 'id' => $id ,'phase' => $phase,'users' => $users , 'all_users' => $all_users, 'tasks' =>$tasks, 'salaries' => $salaries ]);
     }
 
-    public function CreatePost(Request $request)
+    public function store(Request $request)
     {
-        $post = new Project([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'customer_name' => $request->input('customer_name'),
-            'customer_phone' => $request->input('customer_phone'),
-            'customer_mobile' => $request->input('customer_mobile'),
-            'customer_job' => $request->input('customer_job'),
-            'customer_provider' => $request->input('customer_provider'),
-            'customer_service' => $request->input('customer_service'),
-            'price' => $request->input('price'),
-            'counter' => $request->input('counter'),
-            'employer' => $request->input('employer'),
-            'start_date' => Carbon::fromJalali($request->input('start_date')),
-            'finish_date' => Carbon::fromJalali($request->input('finish_date')),
-            'status' => $request->input('status'),
-        ]);
-        if ($post->finish_date->lt($post->start_date))
+
+
+
+        $data = $request->all();
+        $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
+        $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
+        $datestartfinish=check_date_startfinish($data['start_date']  , $data['finish_date'] );
+        if($datestartfinish=='false'){
             return redirect()->back()->withErrors(['finish_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
-        $post->save();
-        return redirect()->route('dashboard.admin.project.index', ['id' => $post->id])->with('info', '  پروژه جدید ذخیره شد و نام آن' .' ' . $request->input('title'));
+        }
+        $project = Project::create($data);
+        return redirect()->route('dashboard.admin.project.index', ['id' => $project->id])->with('info', '  پروژه جدید با نام '.$project->title.' ذخیره شد و نام آن' .' ');
     }
 
     public function GetManagePost(Request $request)
@@ -84,45 +76,55 @@ class ProjectController extends Controller
         return view('dashboard.admin.project.paid', ['posts' => $posts]);
     }
 
-    public function DeletePost($id){
+    public function destroy($id){
         $post = Project::find($id);
         $post->delete();
         return redirect()->route('dashboard.admin.project.manage')->with('info', 'پروژه پاک شد');
     }
 
-    public function GetEditPost($id)
+    public function edit($id)
     {
-        $post = Project::find($id);
-        return view('dashboard.admin.project.updatepost', ['post' => $post, 'id' => $id]);
+        $project = Project::find($id);
+        return view('dashboard.admin.project.edit', ['project' => $project ]);
     }
 
-    public function UpdatePost(Request $request)
+    public function update($id , Request $request)
     {
-        $post = Project::find($request->input('id'));
-        if (!is_null($post)) {
-            $old_status = $post->status;
-            $post->title = $request->input('title');
-            $post->description = $request->input('description');
-            $post->customer_name = $request->input('customer_name');
-            $post->customer_phone = $request->input('customer_phone');
-            $post->customer_mobile = $request->input('customer_mobile');
-            $post->customer_job = $request->input('customer_job');
-            $post->customer_provider = $request->input('customer_provider');
-            $post->customer_service = $request->input('customer_service');
-            $post->price = $request->input('price');
-            $post->counter = $request->input('counter');
-            $post->employer = $request->input('employer');
-            $post->start_date = Carbon::fromJalali($request->input('start_date'));
-            $post->finish_date = Carbon::fromJalali($request->input('finish_date'));
-            if ($post->finish_date->lt($post->start_date))
-                return redirect()->back()->withErrors(['finish_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
-            $post->status = $request->input('status');
 
-            $post->save();
-            if ($post->status == 'done' && $old_status != $post->status)
-                $post->applyEmployeesScore();
-        }
-        return redirect()->route('dashboard.admin.project.manage',$post->id)->with('info', 'پروژه ویرایش شد');
+        $data = $request->all();
+        $data['startdate'] = convert_shamsi_to_miladi($data['start_date'],'/');
+        $data['startdate'] = convert_shamsi_to_miladi($data['finish_date'],'/');
+        $data['price'] = str_rep_price($data['price']);
+        $data['employer_money'] = str_rep_price($data['employer_money']);
+
+        $project=Project::find($id);
+
+        $project->update($data);
+
+
+
+        // if (!is_null($post)) {
+        //     $old_status = $post->status;
+        //     $post->title = $request->input('title');
+        //     $post->description = $request->input('description');
+        //     $post->customer_name = $request->input('customer_name');
+        //     $post->customer_phone = $request->input('customer_phone');
+        //     $post->customer_mobile = $request->input('customer_mobile');
+        //     $post->customer_job = $request->input('customer_job');
+        //     $post->customer_provider = $request->input('customer_provider');
+        //     $post->customer_service = $request->input('customer_service');
+        //     $post->price = $request->input('price');
+        //     $post->counter = $request->input('counter');
+        //     $post->employer = $request->input('employer');
+        //     $post->start_date = Carbon::fromJalali($request->input('start_date'));
+        //     $post->finish_date = Carbon::fromJalali($request->input('finish_date'));
+        //     $post->status = $request->input('status');
+        //     $post->save();
+
+        //     if ($post->status == 'done' && $old_status != $post->status)
+        //         $post->applyEmployeesScore();
+        // }
+        return redirect()->route('dashboard.admin.project.manage',$project->id)->with('info', 'پروژه ویرایش شد');
     }
 
     public function UpdateStatus(Request $request, $id, $status)
