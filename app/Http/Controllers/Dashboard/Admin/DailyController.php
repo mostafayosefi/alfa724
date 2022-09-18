@@ -43,7 +43,7 @@ class DailyController extends Controller
             return redirect()->back()->withErrors(['finish_date' => 'دقت نمایید بازه زمانی انتخاب شده در سیستم تعریف نشده است!       ' ]);
         }
         $task = Task::create($data);
-        insert_task_in_cleander($data['start_date'],$data['finish_date'],'tasks',$task->id);
+        insert_task_in_cleander($data['start_date'],$data['finish_date'],'tasks',$task->id,'shamsi');
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت جدید اضافه شد ' );
     }
 

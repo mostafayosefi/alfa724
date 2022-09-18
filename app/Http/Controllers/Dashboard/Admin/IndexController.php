@@ -55,7 +55,7 @@ class IndexController extends Controller
             update_price_my_service_to();
 
             update_model_v1('tasks');
-            update_model_v1('customers');
+            // update_model_v1('customers');
 
 
         return view('dashboard.admin.index', [
