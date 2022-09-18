@@ -96,34 +96,8 @@ class ProjectController extends Controller
         $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
         $data['price'] = str_rep_price($data['price']);
         $data['employer_money'] = str_rep_price($data['employer_money']);
-
         $project=Project::find($id);
-
         $project->update($data);
-
-
-
-        // if (!is_null($post)) {
-        //     $old_status = $post->status;
-        //     $post->title = $request->input('title');
-        //     $post->description = $request->input('description');
-        //     $post->customer_name = $request->input('customer_name');
-        //     $post->customer_phone = $request->input('customer_phone');
-        //     $post->customer_mobile = $request->input('customer_mobile');
-        //     $post->customer_job = $request->input('customer_job');
-        //     $post->customer_provider = $request->input('customer_provider');
-        //     $post->customer_service = $request->input('customer_service');
-        //     $post->price = $request->input('price');
-        //     $post->counter = $request->input('counter');
-        //     $post->employer = $request->input('employer');
-        //     $post->start_date = Carbon::fromJalali($request->input('start_date'));
-        //     $post->finish_date = Carbon::fromJalali($request->input('finish_date'));
-        //     $post->status = $request->input('status');
-        //     $post->save();
-
-        //     if ($post->status == 'done' && $old_status != $post->status)
-        //         $post->applyEmployeesScore();
-        // }
         return redirect()->route('dashboard.admin.project.manage')->with('info', 'پروژه ویرایش شد');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Cleander\CleanderDayProject;
+use App\Models\Score\ScoreProject;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,22 +50,20 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function applyEmployeesScore() {
-        $delay_in_days = $this->finish_date->startOfDay()->diffInDays(now()->startOfDay(), false);
-        if ($this->status == 'done' && $delay_in_days > 0) {
-            foreach ($this->employees as $user) {
-                Score::create([
-                    'user_id' => $user->id,
-                    'value' => Score::PROJECT_DELAY[0] * $delay_in_days,
-                    'description' => sprintf(Score::PROJECT_DELAY[1], $delay_in_days, $this->title),
-                ]);
-            }
-        }
-    }
 
 
     public function cleander_day_projects(){
         return $this->hasMany(CleanderDayProject::class , 'project_id');
     }
+
+
+
+
+    public function score_projects(){
+        return $this->hasMany(ScoreProject::class , 'project_id');
+    }
+
+
+
 
 }

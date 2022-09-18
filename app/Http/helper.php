@@ -27,11 +27,7 @@ use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
 use App\Models\Cleander\CleanderDayMyService;
-
-
-
-
-
+use App\Models\Score\ScoreSetting;
 
 if(!function_exists('isActive'))
 {
@@ -1012,6 +1008,35 @@ if(! function_exists('date_frmat_a') ) {
                  'tell' => $item->customer_mobile , 'referal' => $item->customer_provider
                  , 'job' => $item->customer_job    ]);
             }
+        }
+
+
+        if($model == 'score_settings'){
+
+            $updateorinsert = ScoreSetting::updateOrCreate([
+                'link'   => 'tasks' ,
+            ],[
+                'link'   => 'tasks' ,  'name'   => 'تاخیر در انجام مسئولیت' ,
+            ]);
+
+            $updateorinsert = ScoreSetting::updateOrCreate([
+                'link'   => 'projects' ,
+            ],[
+                'link'   => 'projects' ,  'name'   => 'تاخیر در انجام پروژه' ,
+            ]);
+
+            $updateorinsert = ScoreSetting::updateOrCreate([
+                'link'   => 'phases' ,
+            ],[
+                'link'   => 'phases' ,  'name'   => ' تاخیر در انجام فاز پروژه' ,
+            ]);
+
+            $updateorinsert = ScoreSetting::updateOrCreate([
+                'link'   => 'absences' ,
+            ],[
+                'link'   => 'absences' ,  'name'   => ' تاخیر در حضور غیاب  ' ,
+            ]);
+
         }
 
 

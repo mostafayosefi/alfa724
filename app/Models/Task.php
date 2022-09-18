@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Score\ScoreTask;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,7 +37,7 @@ public function user() {
     return $this->belongsTo(User::class);
 }
 
- 
+
 
 public function phase() {
     return $this->belongsTo(Phase::class, 'phase_id');
@@ -122,22 +123,18 @@ public function project() {
         });
     }
 
-    public function applyEmployeeScore($user) {
-        $delay_in_days = $this->finish_date->startOfDay()->diffInDays(now()->startOfDay(), false);
-        if ($this->status == 'done' && $delay_in_days > 0) {
-            Score::create([
-                'user_id' => $user->id,
-                'value' => Score::TASK_DELAY[0] * $delay_in_days,
-                'description' => sprintf(Score::TASK_DELAY[1], $delay_in_days, empty($this->project) ? 'نامشخص' : $this->project->title, $this->title),
-            ]);
-        }
-    }
 
 
 
 
     public function cleander_day_tasks(){
         return $this->hasMany(CleanderDayTask::class , 'task_id');
+    }
+
+
+
+    public function score_tasks(){
+        return $this->hasMany(ScoreTask::class , 'task_id');
     }
 
 

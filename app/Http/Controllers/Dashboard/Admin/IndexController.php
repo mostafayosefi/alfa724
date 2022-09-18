@@ -53,8 +53,8 @@ class IndexController extends Controller
             // update_customer_to();
             update_service_to();
             update_price_my_service_to();
-
             update_model_v1('tasks');
+            update_model_v1('score_settings');
             // update_model_v1('customers');
 
 

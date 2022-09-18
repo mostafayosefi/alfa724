@@ -37,8 +37,12 @@
  'multi_route' => [   ['dashboard.admin.salary.index', [  ], 'مدیریت دستمزد ها' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.salary.create', [  ], 'ایجاد دستمزد جدید' , 'far fa-circle nav-icon'  ],   ]  ])
 
 
-<x-sidebar-item title="مدیریت امتیازات" icon="fas fa-medal" route="dashboard.admin.score.index" ul="false" />
-<x-sidebar-item title="حضورغیاب" icon="fas fa-users" route="dashboard.admin.absence.manage" ul="false" />
+
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-medal'  ,  'ul' => 'true' ,  'title' =>   'مدیریت امتیازات ' ,
+ 'multi_route' => [   ['dashboard.admin.score.index', [  ], 'مدیریت امتیازات ' , 'far fa-circle nav-icon'  ],    ]  ])
+
+
+ <x-sidebar-item title="حضورغیاب" icon="fas fa-users" route="dashboard.admin.absence.manage" ul="false" />
 <x-sidebar-item title="تعطیلی ها" icon="fas fa-folder" route="dashboard.admin.date.manage" ul="false" />
 <x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" ul="false" />
 
