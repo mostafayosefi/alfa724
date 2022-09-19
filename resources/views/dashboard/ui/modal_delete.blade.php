@@ -4,7 +4,7 @@
                                     <div class="modal-dialog modal-danger">
                                       <div class="modal-content bg-danger">
                                         <div class="modal-header">
-                                          <h4 class="modal-title">{{ $item->content }}</h4>
+                                          <h4 class="modal-title">{{$myname}}</h4>
                                           <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
                                             <span  aria-hidden="true">×</span>
                                           </button>

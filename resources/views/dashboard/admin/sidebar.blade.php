@@ -39,7 +39,7 @@
 
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-medal'  ,  'ul' => 'true' ,  'title' =>   'مدیریت امتیازات ' ,
- 'multi_route' => [   ['dashboard.admin.score.index', [  ], 'مدیریت امتیازات ' , 'far fa-circle nav-icon'  ],    ]  ])
+ 'multi_route' => [   ['dashboard.admin.score.index', [  ], 'مدیریت امتیازات ' , 'far fa-circle nav-icon'  ],   ['dashboard.admin.setting.score.index', [  ], 'تنظیمات امتیازات ' , 'far fa-circle nav-icon'  ],    ]  ])
 
 
  <x-sidebar-item title="حضورغیاب" icon="fas fa-users" route="dashboard.admin.absence.manage" ul="false" />

@@ -511,8 +511,8 @@ if(! function_exists('add_days_date') ) {
     function add_days_date($start,$durday ,$holiday)
     {
         if($holiday=='holiday'){
-            $add_day = date('Y-m-d', strtotime($start. ' + '.$durday.' days'));
-            return $add_day;
+            $date_output = add_date_func('Y-m-d' , $start , $durday , ' days');
+            return $date_output;
         }
 
     }
@@ -1095,8 +1095,6 @@ if(! function_exists('config_optimize') ) {
 }
 
 
-
-
 if(! function_exists('check_date_startfinish') ) {
     function check_date_startfinish($start,$end)
     {
@@ -1129,3 +1127,65 @@ if(! function_exists('uploadFile') ) {
     }
 
 }
+
+
+
+
+
+if(! function_exists('score_system') ) {
+    function score_system($link , $id)
+    {
+        $score_setting = ScoreSetting::where([ ['link',$link] ])->first();
+
+
+
+        if($link=='tasks'){
+            $task = Task::where([ ['id', $id],['status', '=','notwork'], ])->first();
+            $mydate =now()->format('Y-m-d H:i:s');
+            $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '+1' , ' days');
+            if($task){
+                $pdate = date_by_time(   $task->finish_date , $task->finish_time  );
+                if ($mydate >= $pdate) {
+                    echo $pdate.'greater than'.$date_output;
+                }else{
+                    echo $pdate.'less than'.$date_output;
+                }
+            }
+
+        }
+
+
+
+    }
+}
+
+
+
+
+
+
+if(! function_exists('add_date_func') ) {
+    function add_date_func($format , $date_input , $value , $type)
+    {
+        $date_outpout = date($format, strtotime($date_input. '  '.$value.' '.$type));
+        return $date_outpout;
+
+    }
+}
+
+
+
+if(! function_exists('date_by_time') ) {
+    function date_by_time(   $date , $time  )
+    {
+
+        $ndate =  $date->format('Y-m-d');
+        $ntime =  $time->format('H:i:s');
+        $pdate = $ndate." ".$ntime;
+        return $pdate;
+
+
+    }
+}
+
+

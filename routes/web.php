@@ -22,6 +22,7 @@ use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\AccountingController;
+use App\Http\Controllers\Dashboard\Admin\ScoreSettingController;
 // use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Notification\NotificationListController;
 use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController;
@@ -115,6 +116,19 @@ Route::prefix('dashboard')
 
 
                 Route::resource('score', 'ScoreController');
+
+
+                Route::prefix('setting')->name('setting.')->group(function () {
+
+                Route::prefix('score')->name('score.')->group(function () {
+                    Route::get('/' , [ScoreSettingController::class,'index'])->name('index');
+                    Route::put('/{id}' , [ScoreSettingController::class,'update'])->name('update');
+
+                });
+
+                });
+
+
 
                 //Project PAGE
 Route::prefix('project')->name('project.')->group(function () {
