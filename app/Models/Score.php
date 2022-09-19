@@ -16,6 +16,9 @@ class Score extends Model
         'user_id',
         'value',
         'description',
+        'model',
+        'model_id',
+        'pre',
     ];
 
     public function user() {

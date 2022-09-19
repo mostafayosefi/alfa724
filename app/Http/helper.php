@@ -27,7 +27,9 @@ use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
 use App\Models\Cleander\CleanderDayMyService;
+use App\Models\Score;
 use App\Models\Score\ScoreSetting;
+use App\Models\Score\ScoreTask;
 
 if(!function_exists('isActive'))
 {
@@ -1137,19 +1139,54 @@ if(! function_exists('score_system') ) {
     {
         $score_setting = ScoreSetting::where([ ['link',$link] ])->first();
 
-
-
         if($link=='tasks'){
             $task = Task::where([ ['id', $id],['status', '=','notwork'], ])->first();
+
+
+
             $mydate =now()->format('Y-m-d H:i:s');
-            $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '+1' , ' days');
+            // $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '+1' , ' days');
             if($task){
                 $pdate = date_by_time(   $task->finish_date , $task->finish_time  );
-                if ($mydate >= $pdate) {
-                    echo $pdate.'greater than'.$date_output;
-                }else{
-                    echo $pdate.'less than'.$date_output;
-                }
+                $betwen_hours = betwen_day_date($pdate,$mydate,'hours');
+                $betwen_day = betwen_day_date($pdate,$mydate,'days');
+                if($betwen_hours>0){
+                    for ($x = 0; $x <= $betwen_day; $x++) {
+                        if($x==0){ $pre = 'first'; $my_time="یک ساعته";  }elseif($x!=0){$pre = $x; $my_time= $x."روزه ";  }
+
+
+            if($task->project){
+                $description = "به دلیل تاخیر ( ".$my_time." ) در مسئولیت ( ".$task->title." ) در پروژه ( ".$task->project->title." ) ";
+            }else{
+                $description = "به دلیل تاخیر ( ".$my_time." ) در مسئولیت ( ".$task->title." )  ";
+            }
+
+
+                $score = Score::updateOrCreate([
+                    'pre'   => $pre ,
+                    'model'   => $link ,
+                    'model_id'   => $id,
+                    'user_id'   => $task->employee_id,
+                ],[
+                    'pre'   => $pre ,
+                    'model'   => $link ,
+                    'model_id'   => $id,
+                    'user_id'   => $task->employee_id,
+                    'value'   =>  $score_setting->value  ,
+                    'description'   =>  $description  ,
+                ]);
+
+                $updateorinsert = ScoreTask::updateOrCreate([
+                    'task_id'   => $id ,
+                    'score_id'   => $score->id ,
+                ],[
+                    'task_id'   => $id ,
+                    'score_id'   => $score->id ,
+                ]);
+
+            }
+        }
+
             }
 
         }
@@ -1175,6 +1212,23 @@ if(! function_exists('add_date_func') ) {
 
 
 
+if(! function_exists('scope_score') ) {
+    function scope_score(   $link , $user_id )
+    {
+
+        $user = User::find($user_id);
+        if($user){
+            foreach($user->tasks as $item){
+                score_system($link,$item->id);
+            }
+        }
+
+
+
+    }
+}
+
+
 if(! function_exists('date_by_time') ) {
     function date_by_time(   $date , $time  )
     {
@@ -1184,6 +1238,55 @@ if(! function_exists('date_by_time') ) {
         $pdate = $ndate." ".$ntime;
         return $pdate;
 
+
+    }
+}
+
+
+
+if(! function_exists('delete_model') ) {
+    function delete_model(   $model  )
+    {
+
+
+        if($model=='tasks'){
+            $deleted = Task::where([ ['id','<>','0'], ])->delete();
+        }
+
+
+        if($model=='scores'){
+            $deleted = Score::where([ ['id','<>','0'], ])->delete();
+        }
+
+
+
+
+    }
+}
+
+
+if(! function_exists('betwen_day_date') ) {
+    function betwen_day_date(   $start , $end , $flg )
+    {
+
+        $now = strtotime($end);
+        $your_date = strtotime($start);
+        $datediff = $now - $your_date;
+
+        if($flg=='days'){
+            $time =  round($datediff / (60 * 60 * 24));
+        }
+        if($flg=='secconds'){
+            $time =  round($datediff );
+        }
+        if($flg=='minuts'){
+            $time =  round($datediff /60);
+        }
+        if($flg=='hours'){
+            $time =  round($datediff /(60*60));
+        }
+
+        return $time;
 
     }
 }

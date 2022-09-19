@@ -108,10 +108,10 @@ class User extends Authenticatable
     public function employeeProjects() {
         return $this->hasMany(EmployeeProject::class, 'employee_id');
     }
- 
+
 
     public function tasks() {
-        return $this->hasMany(Task::class, 'user_id');
+        return $this->hasMany(Task::class, 'employee_id');
     }
 
     public function getScoreAttribute() {

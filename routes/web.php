@@ -252,7 +252,7 @@ Route::prefix('phase')->name('phase.')->group(function () {
                Route::prefix('users')->name('users.')->group(function () {
 
                Route::get('/employee', [UserController::class, 'GetUsers'])->name('employee');
-               Route::get('/profile/{id}', [UserController::class, 'GetProfile'])->name('profile');
+               Route::get('/profile/{id}', [UserController::class, 'edit'])->name('profile');
                Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
                Route::get('/deleteuser/{id}', [UserController::class, 'DeletePost'])->name('deleteuser');
                Route::get('/updateuser/{id}', [UserController::class, 'GetEditPost'])->name('updateuser');

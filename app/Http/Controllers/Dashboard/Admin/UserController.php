@@ -27,7 +27,7 @@ class UserController extends Controller
         return view('dashboard.admin.users.employee', ['users' => $users]);
     }
 
-    public function GetProfile($id) {
+    public function edit($id) {
         $post = User::find($id);
         $task=Task::where('user_id',$id)->orderBy('created_at', 'desc')->paginate(50);
         $employee=EmployeeProject::where('employee_id',$id)->orderBy('created_at', 'desc')->get();
@@ -37,6 +37,7 @@ class UserController extends Controller
             });
         })->get();
         $users = EmployeeProject::where('employee_id', Auth::id())->get();
+        scope_score(   'tasks' , $id );
         return view('dashboard.admin.users.profile', ['id' => $id,'post' => $post,'phase' => $phase,'users' => $users,'employee' => $employee,'task' => $task]);
     }
 

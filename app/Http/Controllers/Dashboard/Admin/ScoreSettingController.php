@@ -13,8 +13,6 @@ class ScoreSettingController extends Controller
 
     public function index(){
         $score_settings= ScoreSetting::all();
-       $m =  score_system('tasks','4444');
-        dd($m);
         return view('dashboard.admin.score.setting.index' , compact(['score_settings'  ]));
     }
 

@@ -1,4 +1,8 @@
-<a href="#" class="edit_post" ><i class="fa fa-edit"  data-toggle="modal" data-target="#modal-edit{{ $item->id }}"></i></a>
+<a href="#" class="edit_post"   data-toggle="modal" data-target="#modal-edit{{ $item->id }}">
+    <span class="btn btn-success btn-sm">
+        <i class="fa fa-fw fa-edit" ></i> مشاهده
+        </span>
+ </a>
 
                                    <div class="modal fade show" id="modal-edit{{ $item->id }}" aria-modal="true" role="dialog">
                                     <div class="modal-dialog {{$class_modal}}">

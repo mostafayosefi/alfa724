@@ -33,7 +33,7 @@
                         <tr>
                             <td style="direction:ltr">{{ $item->value }}</td>
                             <td>@empty($item->user) کاربر حذف شده @else {{ $item->user->first_name }} {{ $item->user->last_name }}@endempty</td>
-                            <td>{{ $item->description }}</td>
+                            <td >{!! $item->description !!}</td>
                             <td>
                              <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                                                                  <a href="{{route('dashboard.admin.score.edit',['score'=>$item])}}" class="edit_post"
