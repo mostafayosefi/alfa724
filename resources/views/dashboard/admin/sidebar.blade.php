@@ -44,7 +44,7 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-medal'  ,  'ul' => 'true' ,  'title' =>   'مدیریت امتیازات ' ,
  'multi_route' => [
      ['dashboard.admin.score.index', [  ], 'مدیریت امتیازات ' , 'far fa-circle nav-icon'  ],
-    //   ['dashboard.admin.setting.score.index', [  ], 'تنظیمات امتیازات ' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.setting.score.index', [  ], 'تنظیمات امتیازات ' , 'far fa-circle nav-icon'  ],
         ]  ])
 
 
@@ -56,7 +56,7 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'far fa-calendar-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم' ,
  'multi_route' => [
      ['dashboard.admin.calender.holiday',[   ] ,'مدیریت تعطیلی ها' , 'far fa-circle nav-icon'],
-    //  ['dashboard.admin.calender.daily',[   ] ,'مدیریت برنامه روزانه ' , 'far fa-circle nav-icon'],
+     ['dashboard.admin.calender.daily',[   ] ,'مدیریت برنامه روزانه ' , 'far fa-circle nav-icon'],
      ['dashboard.admin.calender.project',[   ] ,'مدیریت پروژه ها  ' , 'far fa-circle nav-icon'],
      ['dashboard.admin.calender.absence',[   ] ,'مدیریت حضور و غیاب   ' , 'far fa-circle nav-icon'],
       ]
