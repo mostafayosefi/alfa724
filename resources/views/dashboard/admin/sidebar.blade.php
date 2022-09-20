@@ -31,7 +31,8 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   'مدیریت پیام ها' ,
  'multi_route' => [
      ['dashboard.admin.message.manage', [  ], 'مدیریت پیام ها' , 'far fa-circle nav-icon'  ],
-     ['dashboard.admin.message.create', [  ], 'ثبت پیام جدید' , 'far fa-circle nav-icon'  ],   ]  ])
+     ['dashboard.admin.message.create', [  ], 'ثبت پیام جدید' , 'far fa-circle nav-icon'  ],
+      ]  ])
 
 
 
@@ -58,7 +59,8 @@
     //  ['dashboard.admin.calender.daily',[   ] ,'مدیریت برنامه روزانه ' , 'far fa-circle nav-icon'],
      ['dashboard.admin.calender.project',[   ] ,'مدیریت پروژه ها  ' , 'far fa-circle nav-icon'],
      ['dashboard.admin.calender.absence',[   ] ,'مدیریت حضور و غیاب   ' , 'far fa-circle nav-icon'],
-      ]  ])
+      ]
+      ])
 
 
 
