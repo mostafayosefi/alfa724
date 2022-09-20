@@ -13,7 +13,7 @@ class Task extends Model
     use HasFactory;
     protected $table='tasks';
     protected $fillable=['project_id', 'phase_id','title','description','status',
-    'start_date','finish_date','continuity','start_time','finish_time','done_at','price','user_id'];
+    'start_date','finish_date','continuity','start_time','finish_time','done_at','price','employee_id'];
     protected $casts = [
         'start_date' => 'date',
         'finish_date' => 'date',

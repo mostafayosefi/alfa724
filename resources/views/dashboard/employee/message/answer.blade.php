@@ -5,7 +5,7 @@
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.employee.index" />
     <x-breadcrumb-item title="پیام ها" route="dashboard.employee.message.manage" />
-    <x-breadcrumb-item title="پاسخ به پیام" route="dashboard.employee.message.answer" />
+    {{-- <x-breadcrumb-item title="پاسخ به پیام" route="dashboard.employee.message.answer" /> --}}
 @endsection
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/dropzone/min/dropzone.min.css') }}">
@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <x-card type="info">
             <x-card-header>ارسال پیام</x-card-header>
-        <form style="padding:10px;" action="{{ route('dashboard.employee.message.answer', ['message' => $message]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+        <form style="padding:10px;" action="{{ route('dashboard.employee.message.answer.edit', ['message' => $message]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title"  placeholder="عنوان">
             <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="content"  placeholder="متن پیام"></textarea>
             {{ csrf_field() }}

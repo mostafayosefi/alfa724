@@ -77,9 +77,17 @@
                 <i class="fas fa-ellipsis-v"></i>
               </span>
               <div  class="icheck-primary d-inline ml-2">
-                <input type="checkbox"  id="todoCheck2{{ $item->id }}"  data-toggle="modal" data-target="#modal-success{{ $item->id }}">
-                <label for="todoCheck2{{ $item->id }}"></label>
+                <input type="checkbox"  id="todoCheck20{{ $item->id }}"  data-toggle="modal" data-target="#modal-success{{ $item->id }}">
+                <label for="todoCheck20{{ $item->id }}"></label>
               </div>
+{{--
+              <input
+    type="checkbox"
+    id="myCheck"
+    onmouseover="myFunction()"
+    onclick="alert('click event occurred')" /> --}}
+
+
               <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->title }}</span>
               <small class="badge badge-info"><i class="far fa-clock"></i>@if(!empty($item->start_time)){{ $item->start_time->format('H:i') }} - {{ $item->finish_time->format('H:i') }} - {{$item->finish_date->formatJalali()}}@else {{$item->finish_date->formatJalali()}} @endif</small>
               <div class="tools">
@@ -87,10 +95,10 @@
                 <script>
                   $(document).ready(function(){
                 $(".check").click(function(){
-                    $("#todoCheck2{{ $item->id }}").prop("checked", true);
+                    $("#todoCheck20{{ $item->id }}").prop("checked", true);
                 });
                 $(".uncheckd").click(function(){
-                    $("#todoCheck2{{ $item->id }}").prop("checked", false);
+                    $("#todoCheck20{{ $item->id }}").prop("checked", false);
                 });
                });
               </script>

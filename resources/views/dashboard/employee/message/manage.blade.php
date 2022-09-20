@@ -52,7 +52,7 @@
                                     <td>
                                         <a href="{{route('dashboard.employee.message.show',['id'=>$item->id])}}" class="btn btn-block btn-outline-primary btn-sm">مشاهده پیام</a>
                                         @if(!$item->answer_id)
-                                            <a href="{{route('dashboard.employee.message.answer',['message'=>$item])}}" class="btn btn-block btn-outline-success btn-sm">ارسال پاسخ</a>
+                                            <a href="{{route('dashboard.employee.message.answer.edit',['message'=>$item])}}" class="btn btn-block btn-outline-success btn-sm">ارسال پاسخ</a>
                                         @endif
                                     </td>
                                 </tr>

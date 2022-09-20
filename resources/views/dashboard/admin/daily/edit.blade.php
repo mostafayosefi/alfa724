@@ -76,6 +76,7 @@
                                     <x-select-item value="2d">نمایش یک روز در میان</x-select-item>
                                 </x-select-group>
 
+                                @method('PUT')
                                 @csrf
                             </x-card>
                         </div>

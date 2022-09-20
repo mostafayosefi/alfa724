@@ -22,11 +22,10 @@ class CalenderController extends Controller
 
     public function manage( $year = null ,$month = null ){
 
-        $type =  explode_url('3');
+       $type =  explode_url('3');
        $cleander_month =  calender_route_origin($year  ,$month , 'cleander_month'  );
        $cleander_today = calender_route_origin($year  ,$month , 'cleander_today'  );
-
-         return view('dashboard.calender.manage.index' , compact([   'cleander_month' , 'cleander_today'  , 'type'     ]));
+       return view('dashboard.calender.manage.index' , compact([   'cleander_month' , 'cleander_today'  , 'type'     ]));
 
     }
 

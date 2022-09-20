@@ -107,8 +107,8 @@ class DailyController extends Controller
             }
 
             $post->update($request->validated());
-            if ($post->status == 'done' && $old_status != $post->status)
-                $post->applyEmployeeScore(Auth::user());
+            // if ($post->status == 'done' && $old_status != $post->status)
+            //     $post->applyEmployeeScore(Auth::user());
         }
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت انجام شد');
     }
@@ -122,8 +122,8 @@ class DailyController extends Controller
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->update($data);
-            if ($post->status == 'done' && $old_status != $post->status)
-                $post->applyEmployeeScore(Auth::user());
+            // if ($post->status == 'done' && $old_status != $post->status)
+            //     $post->applyEmployeeScore(Auth::user());
         }
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت ویرایش شد');
     }

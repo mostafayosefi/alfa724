@@ -1234,10 +1234,13 @@ if(! function_exists('scope_score') ) {
 if(! function_exists('date_by_time') ) {
     function date_by_time(   $date , $time  )
     {
-
-        $ndate =  $date->format('Y-m-d');
-        $ntime =  $time->format('H:i:s');
-        $pdate = $ndate." ".$ntime;
+        if(($date==null)||($time==null)){
+            $pdate =now()->format('Y-m-d H:i:s');
+        }else{
+            $ndate =  $date->format('Y-m-d');
+            $ntime =  $time->format('H:i:s');
+            $pdate = $ndate." ".$ntime;
+        }
         return $pdate;
 
 
@@ -1245,7 +1248,7 @@ if(! function_exists('date_by_time') ) {
 }
 
 
-// day or hours or minute betwen two date 
+// day or hours or minute betwen two date
 if(! function_exists('betwen_day_date') ) {
     function betwen_day_date(   $start , $end , $flg )
     {

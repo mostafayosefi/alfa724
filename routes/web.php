@@ -389,6 +389,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::post('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
 
                 Route::post('/note', [TaskController::class, 'CreateNote'])->name('note');
+                Route::post('/updatenote', [TaskController::class, 'UpdateNote'])->name('updatenote');
                 Route::get('/deletenote/{id}', [TaskController::class, 'DeleteNote'])->name('deletenote');
 
                 });

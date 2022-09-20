@@ -91,8 +91,7 @@ class TaskController extends Controller
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->update($request->validated());
-            if ($post->status == 'done' && $old_status != $post->status)
-                $post->applyEmployeeScore(Auth::user());
+             
         }
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'مسئولیت انجام شد');
     }

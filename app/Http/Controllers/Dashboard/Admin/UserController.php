@@ -37,6 +37,8 @@ class UserController extends Controller
             });
         })->get();
         $users = EmployeeProject::where('employee_id', Auth::id())->get();
+
+        // dd($post);
         scope_score(   'tasks' , $id );
         return view('dashboard.admin.users.profile', ['id' => $id,'post' => $post,'phase' => $phase,'users' => $users,'employee' => $employee,'task' => $task]);
     }

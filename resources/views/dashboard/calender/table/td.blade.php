@@ -60,14 +60,7 @@ aria-labelledby="fc-dom-30">
 
 
 
-
-
-
-
-
-
-
-
+ 
 
 {{-- {{$day_id->id}} --}}
 
