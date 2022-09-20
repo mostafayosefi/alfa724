@@ -55,6 +55,16 @@
         <div class="card-body">
           <ul class="todo-list ui-sortable" data-widget="todo-list">
             @foreach ($task as $item)
+
+
+            @php
+
+             $sdate = date_by_time(   $item->start_date , $item->start_time  );
+             $mydate =now()->format('Y-m-d H:i:s');
+             $fdate = date_by_time(   $item->finish_date , $item->finish_time  );
+
+            @endphp
+
             @if ($item->is_due_or_overdue)
             @if ($item->is_overdue)
               <li style="background:#ff7c7c">

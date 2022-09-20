@@ -18,7 +18,7 @@
 
 
 
-    @include('dashboard.calender.table.holiday_modal')
+    @include('dashboard.calender.table.modal')
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
@@ -45,21 +45,21 @@
                                 <div class="btn-group">
 
 
-                                    <a href="{{route('dashboard.admin.calender.holiday',[  
+                                    <a href="{{route('dashboard.admin.calender.holiday',[
                                      route_calender($cleander_month->cleander_year->year,$cleander_month->month,'next','year' )  ,
-                                     route_calender($cleander_month->cleander_year->year,$cleander_month->month,'next','month' ) 
+                                     route_calender($cleander_month->cleander_year->year,$cleander_month->month,'next','month' )
                                        ])}}" type="button"
-                                    title="ماه بعدی" 
-                                    
+                                    title="ماه بعدی"
+
                                     aria-pressed="false" class="fc-next-button btn btn-primary color-white"    ><span
                                         class="fa fa-chevron-right"></span></a>
                                             <button type="button"
                                     title="This month" disabled="" aria-pressed="false"
                                     class="fc-today-button btn btn-primary"> {{$cleander_month->name}} {{$cleander_month->cleander_year->year}} </button>
 
-                                    <a href="{{route('dashboard.admin.calender.holiday',[  
+                                    <a href="{{route('dashboard.admin.calender.holiday',[
                                     route_calender($cleander_month->cleander_year->year,$cleander_month->month,'prev','year' )  ,
-                                    route_calender($cleander_month->cleander_year->year,$cleander_month->month,'prev','month' ) 
+                                    route_calender($cleander_month->cleander_year->year,$cleander_month->month,'prev','month' )
                                       ])}}" type="button" title="ماه قبلی" aria-pressed="false"
                                         class="fc-prev-button btn btn-primary"><span
                                             class="fa fa-chevron-left"></span></a>
@@ -83,10 +83,10 @@
                                 <div class="btn-group">
                                     <a href="{{route('dashboard.admin.calender.holiday',[    ])}}"  type="button" title="  Today" aria-pressed="true"
                                         class="fc-dayGridMonth-button btn btn-primary active">امروز</a>
-                                        
-                                    
+
+
                                     </div>
-                            </div> 
+                            </div>
 
                         </div>
                         <div aria-labelledby="fc-dom-1" class="fc-view-harness fc-view-harness-active"

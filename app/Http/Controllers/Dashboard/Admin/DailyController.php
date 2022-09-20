@@ -71,6 +71,10 @@ class DailyController extends Controller
             }
         }
         }
+
+        // $query=Task::where([ ['id' , '<>' ,'0'], ['employee_id',Auth::user()->id], ['status','!=','done'],  ]);
+        // dd($query);
+
         $task=Task::managePage()->where('status','!=','done')->where('employee_id',Auth::user()->id)->orderBy('finish_date', 'asc')->limit(90)->get();
         $note=Note::where('user_id',Auth::user()->id)->orderBy('created_at', 'asc')->limit(30)->get();
         $write=Task::managePage()->where('status','!=','done')->where('employee_id',Auth::user()->id)->where('project_id',null)->orderBy('finish_date', 'asc')->paginate(6);

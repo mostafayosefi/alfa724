@@ -56,9 +56,8 @@ aria-labelledby="fc-dom-30">
 
 {{-- {{$type}} --}}
 
-@if($type=='holiday')
-@include('dashboard.calender.table.holiday', ['items' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
-@endif
+@include('dashboard.calender.table.add', ['items' => $day_id ,'route' => '' , 'myname' => $day_id->date ])
+
 
 
 

@@ -86,6 +86,8 @@ BY WEBITO
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" class="nav-link">{{ __('خروج') }}</a>
             </li>
+
+{{-- 
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="far fa-bell fa-2x mr-md-2"></i>
@@ -111,7 +113,9 @@ BY WEBITO
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
-                </li>
+                </li> --}}
+
+
         </ul>
 
 

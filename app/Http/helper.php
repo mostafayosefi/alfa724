@@ -1200,6 +1200,7 @@ if(! function_exists('score_system') ) {
 
 
 
+// next or prev day hours minute
 
 if(! function_exists('add_date_func') ) {
     function add_date_func($format , $date_input , $value , $type)
@@ -1229,6 +1230,7 @@ if(! function_exists('scope_score') ) {
 }
 
 
+// set date join time
 if(! function_exists('date_by_time') ) {
     function date_by_time(   $date , $time  )
     {
@@ -1243,28 +1245,7 @@ if(! function_exists('date_by_time') ) {
 }
 
 
-
-if(! function_exists('delete_model') ) {
-    function delete_model(   $model  )
-    {
-
-
-        if($model=='tasks'){
-            $deleted = Task::where([ ['id','<>','0'], ])->delete();
-        }
-
-
-        if($model=='scores'){
-            $deleted = Score::where([ ['id','<>','0'], ])->delete();
-        }
-
-
-
-
-    }
-}
-
-
+// day or hours or minute betwen two date 
 if(! function_exists('betwen_day_date') ) {
     function betwen_day_date(   $start , $end , $flg )
     {
@@ -1287,6 +1268,28 @@ if(! function_exists('betwen_day_date') ) {
         }
 
         return $time;
+
+    }
+}
+
+
+
+if(! function_exists('delete_model') ) {
+    function delete_model(   $model  )
+    {
+
+
+        if($model=='tasks'){
+            $deleted = Task::where([ ['id','<>','0'], ])->delete();
+        }
+
+
+        if($model=='scores'){
+            $deleted = Score::where([ ['id','<>','0'], ])->delete();
+        }
+
+
+
 
     }
 }
