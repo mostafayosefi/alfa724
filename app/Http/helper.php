@@ -1299,6 +1299,8 @@ if(! function_exists('delete_model') ) {
 
 
 // https://www.honeybadger.io/blog/user-roles-permissions-in-laravel/
+// https://www.honeybadger.io/blog/user-roles-permissions-in-laravel/
 
+https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
 https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
 https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
