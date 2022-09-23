@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Role\Role;
 use Awobaz\Compoships\Compoships;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -128,6 +129,14 @@ class User extends Authenticatable
     public function notification_messages(){
         return $this->hasMany(NotificationMessage::class , 'user_id');
     }
+
+
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+
 
 
 

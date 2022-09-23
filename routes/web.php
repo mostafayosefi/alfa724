@@ -22,6 +22,7 @@ use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\AccountingController;
+use App\Http\Controllers\Dashboard\Admin\PermissionRoleController;
 use App\Http\Controllers\Dashboard\Admin\ScoreSettingController;
 // use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Notification\NotificationListController;
@@ -128,6 +129,23 @@ Route::prefix('dashboard')
 
                 });
 
+
+
+
+
+
+Route::prefix('permission')->name('permission.')->group(function () {
+
+    Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
+//     Route::get('/', [DailyController::class, 'index'])->name('index');
+//     Route::post('/', [DailyController::class, 'store'])->name('store');
+//     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
+//     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
+//     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
+//     Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
+//     Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
+
+});
 
 
                 //Project PAGE
@@ -251,6 +269,22 @@ Route::prefix('phase')->name('phase.')->group(function () {
                //Users PAGE
                Route::prefix('users')->name('users.')->group(function () {
 
+
+                Route::prefix('admins')->name('admins.')->group(function () {
+
+                    Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
+                //     Route::get('/', [DailyController::class, 'index'])->name('index');
+                //     Route::post('/', [DailyController::class, 'store'])->name('store');
+                //     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
+                //     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
+                //     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
+                //     Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
+                //     Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
+
+                });
+
+
+
                Route::get('/employee', [UserController::class, 'GetUsers'])->name('employee');
                Route::get('/profile/{id}', [UserController::class, 'edit'])->name('profile');
                Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
@@ -300,7 +334,7 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
 Route::prefix('daily')->name('daily.')->group(function () {
 
-    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage');
+    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');

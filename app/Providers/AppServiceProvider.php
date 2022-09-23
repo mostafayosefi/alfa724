@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use Blade;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,7 +28,16 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {   Schema::defaultStringLength(191);
+    {
+
+        Blade::if('admin', function ($base) {
+            if(($base=='gg')&& (auth()->user() ) && (auth()->user()->id)){
+                return 1;
+             }
+              return 0;
+           });
+
+        Schema::defaultStringLength(191);
         Blade::component('breadcrumb-item', \App\View\Components\Dashboard\BreadcrumbItem::class);
         Blade::component('card', \App\View\Components\Dashboard\Card::class);
         Blade::component('card-header', \App\View\Components\Dashboard\CardHeader::class);
@@ -42,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('select-item', \App\View\Components\Form\SelectItem::class);
         Blade::component('textarea-group', \App\View\Components\Form\TextareaGroup::class);
         Blade::component('file-group', \App\View\Components\Form\FileGroup::class);
-        
+
         Builder::macro('whereLike', function ($attributes, $searchTerm) {
             /** @var Builder $this */
             $this->where(function (Builder $query) use ($attributes, $searchTerm) {

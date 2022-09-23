@@ -1,6 +1,25 @@
 <x-sidebar-item title="داشبورد" icon="fas fa-tachometer-alt" route="dashboard.admin.index" ul="false" />
 <x-sidebar-item title="برنامه روزانه" icon="fas fa-folder" route="dashboard.admin.daily.manage" ul="false" />
 
+
+
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   ' مدیران ' ,
+ 'multi_route' => [
+     ['dashboard.admin.users.admins.create', [  ], 'ثبت مدیرجدید' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.setting.score.index', [  ], 'مدیریت مدیران' , 'far fa-circle nav-icon'  ],
+        ]  ])
+
+
+
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   ' مدیران ' ,
+ 'multi_route' => [
+      ['dashboard.admin.users.admins.create', [  ], '  ایجاد نقش جدید  ' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.setting.score.index', [  ], 'مدیریت نقش ها' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.setting.score.index', [  ], '  مدیریت سطح دسترسی مدیران' , 'far fa-circle nav-icon'  ],
+        ]  ])
+
+
+
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مشتری ها' ,
  'multi_route' => [   ['dashboard.admin.customer.manage', [  ], 'مدیریت مشتری ها' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.customer.create', [  ], 'ثبت مشتری' , 'far fa-circle nav-icon'  ],   ]  ])
 

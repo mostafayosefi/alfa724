@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class CheckUserType
 {
@@ -16,7 +17,7 @@ class CheckUserType
      */
     public function handle($request, Closure $next, string $type)
     {
-        $user = \Auth::authenticate();
+        $user = Auth::authenticate();
         if ($user->type != $type) {
             return redirect()->route('dashboard.index');
         }

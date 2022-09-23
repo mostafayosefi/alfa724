@@ -288,6 +288,10 @@
                 دفترچه یادداشت
               </h3>
 
+              @admin('gg')
+              <p>Only admin sees this</p>
+              @endadmin
+
               <div class="card-tools">
                 <ul class="pagination pagination-sm">
 
