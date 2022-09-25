@@ -56,6 +56,9 @@ class IndexController extends Controller
 
             // delete_model('scores');
 
+            update_model_v1('permissions');
+            update_model_v1('roles');
+
             update_service_to();
             update_price_my_service_to();
             update_model_v1('tasks');

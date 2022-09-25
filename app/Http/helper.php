@@ -27,6 +27,8 @@ use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
 use App\Models\Cleander\CleanderDayMyService;
+use App\Models\Role\Permission;
+use App\Models\Role\Role;
 use App\Models\Score;
 use App\Models\Score\ScoreSetting;
 use App\Models\Score\ScoreTask;
@@ -1013,6 +1015,29 @@ if(! function_exists('date_frmat_a') ) {
         }
 
 
+
+        if($model == 'permissions'){
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'daily' ,
+            ],[
+                'link'   => 'daily' ,  'name'   => 'مدیریت مسئولیت' ,
+            ]);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'finicall' ,
+            ],[
+                'link'   => 'finicall' ,  'name'   => 'مدیریت مالی' ,
+            ]);
+        }
+
+        if($model == 'roles'){
+            $updateorinsert = Role::updateOrCreate([
+                'link'   => 'superadmin' ,
+            ],[
+                'link'   => 'superadmin' ,  'name'   => '  سوپرادمین' ,
+            ]);
+        }
+
+
         if($model == 'score_settings'){
 
             $updateorinsert = ScoreSetting::updateOrCreate([
@@ -1325,7 +1350,4 @@ Blade::if('admin', function () {
 
 // https://www.honeybadger.io/blog/user-roles-permissions-in-laravel/
 
-https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
-https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
-https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
 https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware

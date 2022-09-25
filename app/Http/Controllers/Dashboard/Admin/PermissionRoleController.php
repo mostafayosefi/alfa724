@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PermissionRoleController extends Controller
@@ -12,14 +13,14 @@ class PermissionRoleController extends Controller
 
 
     public function index(){
-        $values= Value::all();
-        return view('admin.value.index' , compact(['values'  ]));
+        $users= User::where([ [ 'type' , 'admin' ], ])->get();
+        return view('dashboard.admin.admins.index' , compact(['users'  ]));
     }
 
 
     public function create(){
         $users=User::withTrashed()->where('type','admin')->orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.admins.create', ['users' => $users]);
+        return view('dashboard.admin.permission.create', ['users' => $users]);
       }
 
     public function edit($id){
@@ -31,15 +32,21 @@ class PermissionRoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'text' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:users,email,$request->email',
+            'password' => 'required| min:4 |confirmed',
+            'password_confirmation' => 'required| min:4'
         ]);
-        $data = $request->all();
-        $data['image']  =  uploadFile($request->file('image'),'images/values','');
 
-       Value::create($data);
+
+        $data = $request->all();
+        $data['type']  = 'admin';
+        $data['password']  =  Hash::make($request->password) ;
+
+       User::create($data);
        Alert::success('با موفقیت ثبت شد', 'اطلاعات جدید با موفقیت ثبت شد');
-        return redirect()->route('admin.value.index');
+        return redirect()->route('dashboard.admin.users.admins.index');
     }
 
     public function show($id)

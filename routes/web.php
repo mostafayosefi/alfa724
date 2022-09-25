@@ -273,8 +273,8 @@ Route::prefix('phase')->name('phase.')->group(function () {
                 Route::prefix('admins')->name('admins.')->group(function () {
 
                     Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
-                //     Route::get('/', [DailyController::class, 'index'])->name('index');
-                //     Route::post('/', [DailyController::class, 'store'])->name('store');
+                    Route::post('/', [PermissionRoleController::class, 'store'])->name('store');
+                    Route::get('/', [PermissionRoleController::class, 'index'])->name('index');
                 //     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
                 //     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
                 //     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
