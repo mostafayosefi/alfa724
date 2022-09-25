@@ -14,7 +14,7 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   ' سطوح دسترسی ' ,
  'multi_route' => [
       ['dashboard.admin.permission.create', [  ], '  ایجاد نقش جدید  ' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.setting.score.index', [  ], 'مدیریت نقش ها' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.permission.index', [  ], 'مدیریت نقش ها' , 'far fa-circle nav-icon'  ],
       ['dashboard.admin.setting.score.index', [  ], '  مدیریت سطح دسترسی مدیران' , 'far fa-circle nav-icon'  ],
         ]  ])
 

@@ -27,6 +27,7 @@
                         <th>پروفایل</th>
                         <th>ویرایش</th>
                         <th>نقش</th>
+                        <th>دسترسی</th>
                         <th>حذف</th>
                     </tr>
                     </thead>
@@ -54,12 +55,34 @@
 
             <td>
                 <a href="{{ route('dashboard.admin.notification.list.type', $item) }}">
+
+                @foreach ($roles as $role   )
+                @if($role->id==$item->role_id)
+
                 <span class="btn btn-success btn-sm">
-                    <i class="fa fa-fw fa-edit"></i> مشاهده
-                    </span>
+                    {{-- <i class="fa fa-fw fa-edit"></i> --}}
+
+                <b>{{ $role->name }}</b>
+
+            </span>
+                @endif
+                @endforeach
                 </a>
             </td>
 
+
+            <td>
+
+
+                @if($item->role_id)
+
+                @foreach ($permissionroles as $permission   )
+                @if($permission->role_id==$item->role_id)
+                 <b>{{ $permission->permission->name }}</b><br>
+                 @endif
+                @endforeach
+                @endif
+            </td>
                             <td>
                                     <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                             </td>

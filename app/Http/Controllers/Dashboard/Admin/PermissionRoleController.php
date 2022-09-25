@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Role\Permission;
+use App\Models\Role\PermissionRole;
+use App\Models\Role\Role;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -12,9 +15,24 @@ class PermissionRoleController extends Controller
 {
 
 
+    public function indexadmin(){
+
+        $permissionroles = PermissionRole::all();
+        $roles = Role::all();
+        $users= User::where([ [ 'type' , 'admin' ], ])->orderBy('id', 'desc')->get();
+        return view('dashboard.admin.admins.index' , compact(['users' ,  'roles' ,  'permissionroles'  ]));
+    }
+
+
+    public function createadmin(){
+        $roles=Role::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.admins.create', ['roles' => $roles]);
+      }
+
+
     public function index(){
-        $users= User::where([ [ 'type' , 'admin' ], ])->get();
-        return view('dashboard.admin.admins.index' , compact(['users'  ]));
+        $roles=Role::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.permission.index' , compact(['roles'  ]));
     }
 
 

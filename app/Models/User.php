@@ -42,6 +42,7 @@ class User extends Authenticatable
         'address',
         'referral',
         'picture',
+        'role_id',
     ];
 
     protected $cascadeDeletes = ['Absence', 'Payment', 'messages', 'messagesend', 'scores', 'employeeProjects', 'tasks'];
@@ -133,7 +134,7 @@ class User extends Authenticatable
 
 
     public function role(){
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class );
     }
 
 
