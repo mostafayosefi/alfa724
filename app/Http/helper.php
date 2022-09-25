@@ -1327,3 +1327,4 @@ Blade::if('admin', function () {
 
 https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
 https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
+https://spatie.be/docs/laravel-permission/v5/basic-usage/middleware
