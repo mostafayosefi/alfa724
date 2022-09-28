@@ -41,16 +41,8 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// my test3
-// my test
-// my test i
-// my test in
-// my test in company webyar
-// composer require morilog/jalali:3.*
+ 
 // MWl..A7&j1%%g=2Ym
-// test system company
-// test 3 3
 
 
 

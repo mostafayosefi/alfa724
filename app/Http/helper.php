@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
 use App\Models\Cleander\CleanderDayMyService;
 use App\Models\Role\Permission;
+use App\Models\Role\PermissionRole;
 use App\Models\Role\Role;
 use App\Models\Score;
 use App\Models\Score\ScoreSetting;
@@ -1038,6 +1039,26 @@ if(! function_exists('date_frmat_a') ) {
         }
 
 
+        if($model == 'permission_roles'){
+            $updateorinsert = PermissionRole::updateOrCreate([
+                'role_id'   => '1' ,  'permission_id'   => '1'
+            ],[
+                'role_id'   => '1' ,  'permission_id'   => '1' ,'status'   => 'active' ,
+            ]);
+            $updateorinsert = PermissionRole::updateOrCreate([
+                'role_id'   => '1' ,  'permission_id'   => '2'
+            ],[
+                'role_id'   => '1' ,  'permission_id'   => '2' ,'status'   => 'active' ,
+            ]);
+
+            $user = User::where([ ['id' , '1'] ])->update([ 'role_id' => '1'  ]);
+            $user = User::where([ ['id' , '5'] ])->update([ 'role_id' => '1'  ]);
+            $user = User::where([ ['id' , '55'] ])->update([ 'role_id' => '1'  ]);
+
+
+        }
+
+
         if($model == 'score_settings'){
 
             $updateorinsert = ScoreSetting::updateOrCreate([
@@ -1321,6 +1342,8 @@ if(! function_exists('delete_model') ) {
 
     }
 }
+
+
 
 
 
