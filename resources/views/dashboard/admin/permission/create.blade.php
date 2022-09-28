@@ -36,6 +36,42 @@
                       <input type="text" class="form-control" required  name="first_name" value="{{ old('first_name') }}" placeholder="  نام"  >
                     </div>
 
+
+
+
+
+                    <div class="card card-success">
+                        <div class="card-header">
+                        <h3 class="card-title"> فعالسازی دسترسی های نقش کاربری </h3>
+                        </div>
+                        <div class="card-body">
+
+                        <div class="row">
+                        <div class="col-sm-6">
+
+
+                            @foreach ($permissions as $permission )
+
+                            <div class="form-group clearfix">
+                                <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="permission{{ $permission->id }}"
+                                    name="permission{{ $permission->id }}" value="active" >
+                                    <label for="permission{{ $permission->id }}">
+                                        &nbsp; &nbsp; &nbsp;     {{ $permission->name }}
+                                    </label>
+                                </div>
+                                </div>
+
+                            @endforeach
+
+
+                        </div>
+                        </div>
+
+
+
+                        </div>
+
                     {{-- test --}}
 
 {{--

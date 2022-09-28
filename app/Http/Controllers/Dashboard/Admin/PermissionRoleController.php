@@ -26,7 +26,8 @@ class PermissionRoleController extends Controller
 
     public function createadmin(){
         $roles=Role::orderBy('id', 'desc')->get();
-        return view('dashboard.admin.admins.create', ['roles' => $roles]);
+        $permissions=Permission::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.admins.create' , compact([    'permissions' ,  'roles'  ]));
       }
 
 
@@ -38,7 +39,9 @@ class PermissionRoleController extends Controller
 
     public function create(){
         $users=User::withTrashed()->where('type','admin')->orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.permission.create', ['users' => $users]);
+        $roles=Role::orderBy('id', 'desc')->get();
+        $permissions=Permission::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.permission.create' , compact([    'users' ,  'permissions' ,  'roles'  ]));
       }
 
     public function edit($id){

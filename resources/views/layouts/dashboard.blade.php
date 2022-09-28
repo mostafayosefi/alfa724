@@ -30,7 +30,10 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
+
+ 
     @yield('styles', '')
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.rtl.css') }}">
 
@@ -87,7 +90,7 @@ BY WEBITO
                    onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" class="nav-link">{{ __('خروج') }}</a>
             </li>
 
-{{-- 
+{{--
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="far fa-bell fa-2x mr-md-2"></i>
