@@ -15,9 +15,9 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/cdn/webfonts/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/cdn/webfonts/all.css') }}" />
- 
+
     <!-- Theme style -->
-    <link href="{{ asset('assets/cdn/font-face.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cdn/fonts/font-face.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/toastr/toastr.min.css') }}">
@@ -218,15 +218,11 @@ BY WEBITO
 
 <!-- jQuery -->
 <script
-    src="{{ asset('assets/cdn/jquery-3.4.1.min.js')}}"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
+    src="{{ asset('assets/cdn/jquery-3.4.1.min.js')}}" ></script>
 <script src="{{ asset('assets/cdn/popper.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script
-    src="{{ asset('assets/cdn/bootstrap.min.js')}}"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+    src="{{ asset('assets/cdn/bootstrap.min.js')}}" ></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dashboard/js/adminlte.min.js') }}"></script>
 <script>
