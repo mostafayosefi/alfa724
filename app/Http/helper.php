@@ -1021,23 +1021,18 @@ if(! function_exists('date_frmat_a') ) {
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'daily' ,
             ],[
-<<<<<<< HEAD
                 'link'   => 'daily' ,  'name'   => 'مدیریت وظایف' ,
             ]);
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'project' ,
             ],[
                 'link'   => 'project' ,  'name'   => 'مدیریت پروژه' ,
-=======
-                'link'   => 'daily' ,  'name'   => 'مدیریت مسئولیت' ,
->>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
             ]);
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'finicall' ,
             ],[
                 'link'   => 'finicall' ,  'name'   => 'مدیریت مالی' ,
             ]);
-<<<<<<< HEAD
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'customer' ,
             ],[
@@ -1053,8 +1048,6 @@ if(! function_exists('date_frmat_a') ) {
             ],[
                 'link'   => 'phase' ,  'name'   => 'مدیریت فازهای پروژه' ,
             ]);
-=======
->>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
         }
 
         if($model == 'roles'){
@@ -1374,7 +1367,6 @@ if(! function_exists('delete_model') ) {
 
 
 
-<<<<<<< HEAD
 if(! function_exists('func_explode') ) {
     function func_explode($data,$repl,$col)
     {
@@ -1425,8 +1417,6 @@ echo $status." _ ".$item.'<br>';
 
 
 
-=======
->>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
 // ->middleware(['role:admin']);
 
 // 'permission' => \App\Http\Middleware\PermissionUser::class,

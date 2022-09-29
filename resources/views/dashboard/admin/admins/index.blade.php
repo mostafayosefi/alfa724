@@ -71,16 +71,8 @@
             </td>
 
 
-<<<<<<< HEAD
             <td> 
                 @if($item->role_id)
-=======
-            <td>
-
-
-                @if($item->role_id)
-
->>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
                 @foreach ($permissionroles as $permission   )
                 @if($permission->role_id==$item->role_id)
                  <b>{{ $permission->permission->name }}</b><br>
