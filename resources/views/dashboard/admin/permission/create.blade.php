@@ -4,7 +4,11 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index"/>
+<<<<<<< HEAD
     <x-breadcrumb-item title="    مدیریت نقش ها" route="dashboard.admin.permission.index"/>
+=======
+    <x-breadcrumb-item title="    مدیریت نقش ها" route="dashboard.admin.score.index"/>
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
 @endsection
 @section('content')
     @if(Session::has('info'))
@@ -25,6 +29,7 @@
             <x-card-header>  ایجاد نقش جدید</x-card-header>
             <x-card-body>
 
+<<<<<<< HEAD
                 <form style="padding:10px;" action="{{route('dashboard.admin.permission.store')}}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
                     @csrf
@@ -33,6 +38,17 @@
                     <div class="form-group">
                         <label for="name">نام نقش </label>
                       <input type="text" class="form-control" required  name="name" value="{{ old('name') }}" placeholder="  نام"  >
+=======
+                <form style="padding:10px;" action="#" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+
+                    @csrf
+                    @method('PUT')
+
+
+                    <div class="form-group">
+                        <label for="first_name">نام نقش </label>
+                      <input type="text" class="form-control" required  name="first_name" value="{{ old('first_name') }}" placeholder="  نام"  >
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
                     </div>
 
 
@@ -53,9 +69,15 @@
 
                             <div class="form-group clearfix">
                                 <div class="icheck-primary d-inline">
+<<<<<<< HEAD
                                     <input type="checkbox" id="permission{{$permission->id}}"
                                     name="permission[]" value="{{$permission->id}}" >
                                     <label for="permission{{$permission->id}}">
+=======
+                                    <input type="checkbox" id="permission{{ $permission->id }}"
+                                    name="permission{{ $permission->id }}" value="active" >
+                                    <label for="permission{{ $permission->id }}">
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
                                         &nbsp; &nbsp; &nbsp;     {{ $permission->name }}
                                     </label>
                                 </div>

@@ -32,17 +32,26 @@ class PermissionRoleController extends Controller
 
 
     public function index(){
+<<<<<<< HEAD
         $permissionroles = PermissionRole::where([ ['status' , '=' , 'active'], ])->get();
 
         $roles=Role::orderBy('id', 'desc')->get();
         return view('dashboard.admin.permission.index' , compact(['roles' , 'permissionroles'  ]));
+=======
+        $roles=Role::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.permission.index' , compact(['roles'  ]));
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
     }
 
 
     public function create(){
         $users=User::withTrashed()->where('type','admin')->orderBy('created_at', 'desc')->get();
         $roles=Role::orderBy('id', 'desc')->get();
+<<<<<<< HEAD
         $permissions=Permission::orderBy('id', 'asc')->get();
+=======
+        $permissions=Permission::orderBy('id', 'desc')->get();
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
         return view('dashboard.admin.permission.create' , compact([    'users' ,  'permissions' ,  'roles'  ]));
       }
 

@@ -41,7 +41,11 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 | contains the "web" middleware group. Now create something great!
 |
 */
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
 // MWl..A7&j1%%g=2Ym
 
 
@@ -130,6 +134,7 @@ Route::prefix('permission')->name('permission.')->group(function () {
 
     Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
     Route::get('/', [PermissionRoleController::class, 'index'])->name('index');
+<<<<<<< HEAD
     Route::post('/', [PermissionRoleController::class, 'storepermission'])->name('store');
     Route::get('/{id}/edit', [PermissionRoleController::class, 'editpermission'])->name('edit');
     Route::put('/{id}', [PermissionRoleController::class, 'updatepermission'])->name('update');
@@ -137,6 +142,14 @@ Route::prefix('permission')->name('permission.')->group(function () {
 //     Route::put('/{id}/status', [PermissionRoleController::class, 'status'])->name('status');
 
     // Route::get('/{id}', [PermissionRoleController::class, 'show'])->name('show');
+=======
+//     Route::post('/', [DailyController::class, 'store'])->name('store');
+//     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
+//     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
+//     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
+//     Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
+//     Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
+>>>>>>> 6d5953f577c34bb52297a8b3af8c763c85331fd0
 
 });
 
