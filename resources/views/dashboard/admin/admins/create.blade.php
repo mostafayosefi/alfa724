@@ -4,16 +4,9 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index"/>
-    <x-breadcrumb-item title="تنظیمات امتیازات" route="dashboard.admin.score.index"/>
+    <x-breadcrumb-item title="مشاهده مدیران  " route="dashboard.admin.users.admins.index" />
 @endsection
 @section('content')
-    @if(Session::has('info'))
-        <div class="row">
-            <div class="col-md-12">
-                <p class="alert alert-info">{{ Session::get('info') }}</p>
-            </div>
-        </div>
-    @endif
 
 
     <div class="row">
@@ -21,35 +14,46 @@
     <div class="col-md-3"></div>
 
     <div class="col-md-6">
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>  ثبت مدیر جدید</x-card-header>
             <x-card-body>
 
-                <form style="padding:10px;" action="#" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+
+                <form style="padding:10px;" action="{{ route('dashboard.admin.users.admins.store'  ) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
                     @csrf
-                    @method('PUT')
 
 
                     <div class="form-group">
-                        <label for="name">نام </label>
+                        <label for="first_name">نام </label>
                       <input type="text" class="form-control" required  name="first_name" value="{{ old('first_name') }}" placeholder="  نام"  >
                     </div>
 
                     <div class="form-group">
-                        <label for="name">نام خانوادگی </label>
+                        <label for="last_name">نام خانوادگی </label>
                       <input type="text" class="form-control" required  name="last_name" value="{{ old('last_name') }}" placeholder="  نام خانوادگی"  >
                     </div>
 
                     <div class="form-group">
-                        <label for="name"> ایمیل   </label>
+                        <label for="email"> ایمیل   </label>
                       <input type="email" class="form-control" required  name="email" value="{{ old('email') }}" placeholder="  ایمیل  "  >
                     </div>
 
+
+                    <div class="form-group">
+                        <label for="password">  رمزعبور </label>
+                      <input type="password" class="form-control" required  name="password" value="{{ old('password') }}"    >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password_confirmation">  تکرار رمزعبور </label>
+                      <input type="password" class="form-control" required  name="password_confirmation" value="{{ old('password_confirmation') }}"    >
+                    </div>
+{{--
                     <div class="form-group">
                         <label for="name">توضیحات  </label>
                     <textarea type="text" class="form-control" name="text"  placeholder="توضیحات"></textarea>
-                </div>
+                    </div> --}}
 
 
 

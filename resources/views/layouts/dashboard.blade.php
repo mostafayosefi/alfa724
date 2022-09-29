@@ -13,14 +13,15 @@ BY WEBITO
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/persianDatepicker.css') }}" />
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('assets/cdn/webfonts/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/cdn/webfonts/all.css') }}" />
+ 
     <!-- Theme style -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cdn/font-face.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/toastr/toastr.min.css') }}">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/cdn/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
@@ -30,6 +31,9 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+
 
     @yield('styles', '')
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.rtl.css') }}">
@@ -87,7 +91,7 @@ BY WEBITO
                    onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" class="nav-link">{{ __('خروج') }}</a>
             </li>
 
-{{-- 
+{{--
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="far fa-bell fa-2x mr-md-2"></i>
@@ -214,13 +218,13 @@ BY WEBITO
 
 <!-- jQuery -->
 <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    src="{{ asset('assets/cdn/jquery-3.4.1.min.js')}}"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
-<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+<script src="{{ asset('assets/cdn/popper.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    src="{{ asset('assets/cdn/bootstrap.min.js')}}"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
 <!-- AdminLTE App -->
@@ -314,7 +318,7 @@ BY WEBITO
     });
   });
  </script>
- <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
+ <script src="{{ asset('assets/cdn/ckeditor.js')}}"></script>
  <script type="text/javascript">
     CKEDITOR.replace('description', {
      // Load the Farsi interface.

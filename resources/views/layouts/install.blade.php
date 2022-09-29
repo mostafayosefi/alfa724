@@ -13,14 +13,14 @@ BY WEBITO
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/persianDatepicker.css') }}" />
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('assets/cdn/webfonts/all.min.css')}}"  />
+    <link rel="stylesheet" href="{{ asset('assets/cdn/webfonts/all.css')}}"  />
     <!-- Theme style -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/cdn/font-face.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/toastr/toastr.min.css') }}">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/cdn/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
@@ -60,8 +60,8 @@ BY WEBITO
     .small-box:hover .icon > i.fa, .small-box:hover .icon > i.fas, .small-box:hover .icon > i.far, .small-box:hover .icon > i.fab, .small-box:hover .icon > i.glyphicon, .small-box:hover .icon > i.ion {
     font-size: 57px;
     }
-    table th , table td { 
-    padding :7px !important; 
+    table th , table td {
+    padding :7px !important;
     font-size:13px !important;
     vertical-align: middle !important;
     }
@@ -142,7 +142,7 @@ BY WEBITO
 </script>
  <script>
   $(function () {
-      
+
     $("#example1").DataTable({
     "language": {
           "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
@@ -150,17 +150,17 @@ BY WEBITO
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    
+
     $("#example3").DataTable({
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    
+
     $("#example").DataTable({
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    
+
     $('.toastrDefaultSuccess').click(function() {
       toastr.error('شما حضوری خود را ثبت کرده اید')
     });

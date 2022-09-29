@@ -27,6 +27,9 @@ use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
 use App\Models\Cleander\CleanderDayMyService;
+use App\Models\Role\Permission;
+use App\Models\Role\PermissionRole;
+use App\Models\Role\Role;
 use App\Models\Score;
 use App\Models\Score\ScoreSetting;
 use App\Models\Score\ScoreTask;
@@ -1013,6 +1016,69 @@ if(! function_exists('date_frmat_a') ) {
         }
 
 
+
+        if($model == 'permissions'){
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'daily' ,
+            ],[
+                'link'   => 'daily' ,  'name'   => 'مدیریت وظایف' ,
+            ]);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'project' ,
+            ],[
+                'link'   => 'project' ,  'name'   => 'مدیریت پروژه' ,
+            ]);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'finicall' ,
+            ],[
+                'link'   => 'finicall' ,  'name'   => 'مدیریت مالی' ,
+            ]);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'customer' ,
+            ],[
+                'link'   => 'customer' ,  'name'   => 'مدیریت مشتریان' ,
+            ]);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'employee' ,
+            ],[
+                'link'   => 'employee' ,  'name'   => 'مدیریت کارمندان' ,
+            ]);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'phase' ,
+            ],[
+                'link'   => 'phase' ,  'name'   => 'مدیریت فازهای پروژه' ,
+            ]);
+        }
+
+        if($model == 'roles'){
+            $updateorinsert = Role::updateOrCreate([
+                'link'   => 'superadmin' ,
+            ],[
+                'link'   => 'superadmin' ,  'name'   => '  سوپرادمین' ,
+            ]);
+        }
+
+
+        if($model == 'permission_roles'){
+            $updateorinsert = PermissionRole::updateOrCreate([
+                'role_id'   => '1' ,  'permission_id'   => '1'
+            ],[
+                'role_id'   => '1' ,  'permission_id'   => '1' ,'status'   => 'active' ,
+            ]);
+            $updateorinsert = PermissionRole::updateOrCreate([
+                'role_id'   => '1' ,  'permission_id'   => '2'
+            ],[
+                'role_id'   => '1' ,  'permission_id'   => '2' ,'status'   => 'active' ,
+            ]);
+
+            $user = User::where([ ['id' , '1'] ])->update([ 'role_id' => '1'  ]);
+            $user = User::where([ ['id' , '5'] ])->update([ 'role_id' => '1'  ]);
+            $user = User::where([ ['id' , '55'] ])->update([ 'role_id' => '1'  ]);
+
+
+        }
+
+
         if($model == 'score_settings'){
 
             $updateorinsert = ScoreSetting::updateOrCreate([
@@ -1296,6 +1362,58 @@ if(! function_exists('delete_model') ) {
 
     }
 }
+
+
+
+
+
+if(! function_exists('func_explode') ) {
+    function func_explode($data,$repl,$col)
+    {
+$collection = Str::of($data)->explode($repl);
+if(empty($data)){
+    return null;
+}else{
+    return $collection[$col];
+}
+
+    }
+}
+
+
+
+
+if(! function_exists('update_permission_role_v1') ) {
+    function update_permission_role_v1($data,$role_id)
+    {
+
+
+if($data){
+foreach($data as $item){
+$status = 'inactive';
+if($item){
+    $status = 'active';
+}
+
+$update = PermissionRole::updateOrCreate([
+    'role_id' => $role_id  ,
+    'permission_id' => $item,
+],[
+    'status' => $status
+]);
+
+
+echo $status." _ ".$item.'<br>';
+            }
+        }
+
+
+        dd('hi');
+
+    }
+}
+
+
 
 
 

@@ -42,15 +42,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 |
 */
 
-// my test3
-// my test
-// my test i
-// my test in
-// my test in company webyar
-// composer require morilog/jalali:3.*
 // MWl..A7&j1%%g=2Ym
-// test system company
-// test 3 3
 
 
 
@@ -137,13 +129,14 @@ Route::prefix('dashboard')
 Route::prefix('permission')->name('permission.')->group(function () {
 
     Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
-//     Route::get('/', [DailyController::class, 'index'])->name('index');
-//     Route::post('/', [DailyController::class, 'store'])->name('store');
-//     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
-//     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
-//     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
-//     Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
-//     Route::put('/{id}/status', [DailyController::class, 'status'])->name('status');
+    Route::get('/', [PermissionRoleController::class, 'index'])->name('index');
+    Route::post('/', [PermissionRoleController::class, 'storepermission'])->name('store');
+    Route::get('/{id}/edit', [PermissionRoleController::class, 'editpermission'])->name('edit');
+    Route::put('/{id}', [PermissionRoleController::class, 'updatepermission'])->name('update');
+//     Route::delete('/{id}', [PermissionRoleController::class, 'destroy'])->name('destroy');
+//     Route::put('/{id}/status', [PermissionRoleController::class, 'status'])->name('status');
+
+    // Route::get('/{id}', [PermissionRoleController::class, 'show'])->name('show');
 
 });
 
@@ -272,9 +265,9 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
                 Route::prefix('admins')->name('admins.')->group(function () {
 
-                    Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
-                //     Route::get('/', [DailyController::class, 'index'])->name('index');
-                //     Route::post('/', [DailyController::class, 'store'])->name('store');
+                    Route::get('/create', [PermissionRoleController::class, 'createadmin'])->name('create');
+                    Route::post('/', [PermissionRoleController::class, 'store'])->name('store');
+                    Route::get('/', [PermissionRoleController::class, 'indexadmin'])->name('index');
                 //     Route::get('/{id}', [DailyController::class, 'show'])->name('show');
                 //     Route::get('/{id}/edit', [DailyController::class, 'edit'])->name('edit');
                 //     Route::put('/{id}', [DailyController::class, 'update'])->name('update');
