@@ -40,9 +40,12 @@ class CustomerController extends Controller
 
     public function CreatePost(Request $request)
     {
+
+        $code = code_customer();
+
         $post = new Customer([
             'description' => $request->input('description'),
-            'code' => $request->input('code'),
+            'code' => $code,
             'name' => $request->input('name'),
             'tells' => $request->input('tells'),
             'tell' => $request->input('tell'),
@@ -53,51 +56,9 @@ class CustomerController extends Controller
             'email' => $request->input('email'),
         ]);
         $post->save();
-        $post=Customer::orderBy('created_at', 'desc')->FIRST();
-        if($request->input('specifications')){
-        foreach ($request->input('specifications') as $specification) {
-            $project = new Service([
-                'name' => $specification['name'] ,
-                'price' => $specification['price'] ,
-                'count' => $specification['count'] ,
-                'time' => $specification['time'] ,
-                'lead' => $specification['lead']  ,
-                'salary' => $specification['salary'] ,
-                'final_date' => $specification['final_date'] ,
-                'customer_id' => $post->id ,
-                'purchase_date' => $specification['purchase_date'] ,
-                'start_date' => Carbon::fromJalali($specification['start_date']),
-                'end_date' => Carbon::fromJalali($specification['end_date']),
-                'status' => 'new',
-                'description' => $request->input('description'),
-                'deposit' => $specification['deposit'] ,
-                'deposit_date' => $specification['deposit_date'],
-                'deposit2' => $specification['deposit2'],
-                'deposit_date2' => $specification['deposit_date2'],
-                'deposit3' => $specification['deposit3'] ,
-                'deposit_date3' => $specification['deposit_date3'],
-                'deposit4' => $specification['deposit4'] ,
-                'deposit_date4' => $specification['deposit_date4'],
-                'deposit5' => $specification['deposit5'] ,
-                'deposit_date5' => $specification['deposit_date5'],
-                'deposit6' => $specification['deposit6'] ,
-                'deposit_date6' => $specification['deposit_date6'],
-                'deposit7' => $specification['deposit7'] ,
-                'deposit_date7' => $specification['deposit_date7'],
-                'deposit8' => $specification['deposit8'],
-                'deposit_date8' => $specification['deposit_date8'],
-                'deposit9' => $specification['deposit9'] ,
-                'deposit_date9' => $specification['deposit_date9'],
+        $post=Customer::orderBy('id', 'desc')->first();
 
-            ]);
-                if ($project->end_date->lt($project->start_date))
-            return redirect()->back()->withErrors(['end_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
-
-             $project->save();
-
-          }
-        }
-        return redirect()->route('dashboard.admin.customer.manage')->with('info', '  مشتری جدید ذخیره شد و نام آن' .' ' . $request->input('name'));
+        return redirect()->route('dashboard.admin.customer.show' , $post->id)->with('info', '  مشتری جدید ذخیره شد و نام آن' .' ' . $request->input('name'));
     }
     public function GetManagePost(Request $request)
     {
@@ -116,17 +77,16 @@ class CustomerController extends Controller
         $post = Customer::find($id);
         $service= Service::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
         $users = User::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.customer.update', ['post' => $post, 'id' => $id,'service' => $service,'users' => $users]);
+        return view('dashboard.admin.customer.edit', ['post' => $post, 'id' => $id,'service' => $service,'users' => $users]);
     }
 
-    public function UpdatePost(Request $request)
+    public function UpdatePost($id , Request $request)
     {
-        $post = Customer::find($request->input('id'));
-        $customer=$request->input('id');
+        $post = Customer::find($id);
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->description = $request->input('description');
-            $post->code = $request->input('code');
+            // $post->code = $request->input('code');
             $post->name = $request->input('name');
             $post->tells = $request->input('tells');
             $post->tell = $request->input('tell');
@@ -138,7 +98,7 @@ class CustomerController extends Controller
             $post->save();
 
         }
-        return redirect()->route('dashboard.admin.customer.updatecustomer',$customer)->with('info', 'مشتری ویرایش شد');
+        return redirect()->route('dashboard.admin.customer.updatecustomer',$id)->with('info', 'مشتری ویرایش شد');
 
     }
 

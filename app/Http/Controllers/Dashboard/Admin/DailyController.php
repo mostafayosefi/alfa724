@@ -114,11 +114,14 @@ class DailyController extends Controller
     }
 
 
-    public function EditPost($id, TaskUpdateRequest $request)
+    public function EditPost( TaskUpdateRequest $request)
     {
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
-        $post = Task::find($id);
+
+        // dd($request->task_id);
+
+        $post = Task::find($request->task_id);
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->update($data);
@@ -179,8 +182,10 @@ class DailyController extends Controller
         return view('dashboard.admin.daily.updatenote', ['post' => $post, 'id' => $id]);
     }
 
-    public function UpdateNote(Request $request)
+    public function UpdateNote(Request $request , $id)
     {
+
+        // dd($request);
         $this->validate($request, [
             'content' => ['required', 'string', 'max:255'] ,
         ]);

@@ -10,10 +10,15 @@
       <div class="modal-body">
         <x-card type="info">
           <x-card-header>ساخت یادداشت جدید</x-card-header>
-      <form style="padding:10px;" action="{{ route('dashboard.employee.task.note') }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-          <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="content"  placeholder="توضیحات "></textarea>
-            {{ csrf_field() }}
-           <x-card-footer>
+      <form style="padding:10px;" action="{{$route}}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+          <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
+          class="form-control" required name="content"  placeholder="توضیحات "    ></textarea>
+
+
+
+
+          @csrf
+          <x-card-footer>
            </x-card-footer>
 
        </x-card>

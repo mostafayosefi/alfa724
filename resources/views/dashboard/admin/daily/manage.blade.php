@@ -32,10 +32,15 @@
         </div>
     </div>
 @endif
-@include('dashboard.admin.daily.create')
-@include('dashboard.admin.daily.note')
-@include('dashboard.admin.daily.edit')
-@include('dashboard.admin.daily.updatenote')
+@include('dashboard.employee.task.create' , [ 'route' => route('dashboard.admin.daily.store') ] )
+@include('dashboard.employee.task.edit', [ 'route' =>  route('dashboard.admin.daily.editdaily')  ] )
+
+@foreach ($task as $item)
+@include('dashboard.employee.task.updatenote' , [ 'route' => route('dashboard.admin.daily.updatenote', $item->id)  ] )
+@endforeach
+@include('dashboard.employee.task.note' , [ 'route' => route('dashboard.admin.daily.note') ] )
+
+
 <div class="row">
     <!-- SIDE 1 -->
     <section class="col-lg-4 connectedSortable">
@@ -288,9 +293,9 @@
                 دفترچه یادداشت
               </h3>
 
-              @admin('gg')
+              {{-- @admin('gg')
               <p>Only admin sees this</p>
-              @endadmin
+              @endadmin --}}
 
               <div class="card-tools">
                 <ul class="pagination pagination-sm">

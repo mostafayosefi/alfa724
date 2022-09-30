@@ -37,6 +37,7 @@
                         <table id="example" class="table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th> ردیف</th>
                                 <th>کد مشتری</th>
                                 <th>نام و نام خانوادگی</th>
                                 <th>موضوع کسب و کار</th>
@@ -48,8 +49,9 @@
                             </tr>
                             </thead>
                                 <tbody>
-                             @foreach($posts as $item)
+                             @foreach($posts as $key => $item)
                                 <tr>
+                                    <td>{{ $key + 1}}</td>
                                     <td>{{ $item->code}}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->job }}</td>

@@ -91,7 +91,7 @@ class TaskController extends Controller
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->update($request->validated());
-             
+
         }
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'مسئولیت انجام شد');
     }
@@ -101,7 +101,9 @@ class TaskController extends Controller
     {
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
-        $post = Task::find($id);
+        $post = Task::find($request->task_id);
+        // dd($data);
+
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->update($data);

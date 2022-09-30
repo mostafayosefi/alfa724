@@ -93,10 +93,13 @@
         </div>
     </div>
 @endif
-@include('dashboard.employee.task.create')
-@include('dashboard.employee.task.note')
-@include('dashboard.employee.task.edit')
-@include('dashboard.employee.task.updatenote')
+@include('dashboard.employee.task.create' , [ 'route' => route('dashboard.employee.task.store') ] )
+@foreach ($task as $item)
+@include('dashboard.employee.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask', $item->id)  ] )
+@include('dashboard.employee.task.updatenote' , [ 'route' => route('dashboard.employee.task.updatenote', $item->id)  ] )
+
+@endforeach
+@include('dashboard.employee.task.note' , [ 'route' => route('dashboard.employee.task.note') ] )
 
 @if(empty($absence))
     <div class="row">

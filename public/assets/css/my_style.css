@@ -6,3 +6,12 @@
 .day-holiday{
     background-color: rgb(202, 202, 202);
 }
+
+
+.input_mystyle{
+    padding:10px;
+    margin: 10px 0px 16px 0px;
+    height: 40px;
+    border-radius: 7px;
+    font-size: 16px;
+}

@@ -1415,6 +1415,21 @@ echo $status." _ ".$item.'<br>';
 
 
 
+if(! function_exists('code_customer') ) {
+    function code_customer()
+    {
+
+        $customer = Customer::where([ ['id' , '<>' , '0'] ])->orderBy('id', 'desc')->first();
+
+        if($customer){
+            $code = $customer->code + 1 ;
+        }else{ $code = 101; }
+
+        return $code;
+
+    }
+}
+
 
 
 // ->middleware(['role:admin']);

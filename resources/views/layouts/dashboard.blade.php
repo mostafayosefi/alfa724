@@ -33,6 +33,8 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/cdn/editor/summernote-bs4.min.css')}}">
+
 
 
     @yield('styles', '')
@@ -314,7 +316,30 @@ BY WEBITO
     });
   });
  </script>
- <script src="{{ asset('assets/cdn/ckeditor.js')}}"></script>
+
+
+<script src="{{ asset('assets/cdn/editor/summernote-bs4.min.js')}}"></script>
+
+
+<!-- Page specific script -->
+<script>
+    $(function () {
+      // Summernote
+      $('#summernote').summernote()
+
+      // CodeMirror
+      CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+        mode: "htmlmixed",
+        theme: "monokai"
+      });
+    })
+  </script>
+
+ {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/standard/ckeditor.js"></script> --}}
+
+
+ {{-- <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script> --}}
+ {{-- <script src="{{ asset('assets/cdn/ckeditor.js')}}"></script> --}}
  <script type="text/javascript">
     CKEDITOR.replace('description', {
      // Load the Farsi interface.

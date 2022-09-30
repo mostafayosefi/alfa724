@@ -254,7 +254,7 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
                Route::post('/create/{id}', [TaskController::class, 'CreatePost'])->name('store');
                Route::get('/deletetask/{id}', [TaskController::class, 'DeletePost'])->name('deletetask');
-               Route::post('/updatetask/{id}', [TaskController::class, 'UpdatePost'])->name('update');
+               Route::put('/updatetask/{id}', [TaskController::class, 'UpdatePost'])->name('update');
                Route::get('/updatetask/{id}', [TaskController::class, 'GetTask'])->name('updatetask');
                Route::post('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
                });
@@ -331,13 +331,13 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
-    Route::put('/{id}', [DailyController::class, 'UpdatePost'])->name('update');
-    Route::put('/editdaily/{id}', [DailyController::class, 'EditPost'])->name('editdaily');
+    Route::put('/{id}/update', [DailyController::class, 'UpdatePost'])->name('update');
+    Route::put('/editdaily', [DailyController::class, 'EditPost'])->name('editdaily');
     Route::put('/{id}/edit/daily', [DailyController::class, 'GetEditPost'])->name('updatedaily');
 
 
     Route::post('/note', [DailyController::class, 'CreateNote'])->name('note');
-    Route::post('/updatenote', [DailyController::class, 'UpdateNote'])->name('updatenote');
+    Route::put('/updatenote/{id}', [DailyController::class, 'UpdateNote'])->name('updatenote');
     Route::get('/deletenote/{id}', [DailyController::class, 'DeleteNote'])->name('deletenote');
 
 
@@ -413,10 +413,10 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::get('/show/{id}', [TaskController::class, 'GetTask'])->name('show');
                 Route::get('/updatetask/{id}', [TaskController::class, 'GetEditPost'])->name('updatetask');
                 Route::post('/updatetask/{id}', [TaskController::class, 'UpdatePost'])->name('update');
-                Route::post('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
+                Route::put('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
 
                 Route::post('/note', [TaskController::class, 'CreateNote'])->name('note');
-                Route::post('/updatenote', [TaskController::class, 'UpdateNote'])->name('updatenote');
+                Route::put('/updatenote/{id}', [TaskController::class, 'UpdateNote'])->name('updatenote');
                 Route::get('/deletenote/{id}', [TaskController::class, 'DeleteNote'])->name('deletenote');
 
                 });
