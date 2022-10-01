@@ -1,6 +1,13 @@
 ---
 deployment:
   tasks:
+    - export DEPLOYPATH=/home/alfair/public_html/new
+    - /bin/cp -r app $DEPLOYPATH
+    - /bin/cp -r resources $DEPLOYPATH
+    - /bin/cp -r routes $DEPLOYPATH
+    - /bin/cp -r public $DEPLOYPATH
+    - /bin/cp -r config $DEPLOYPATH
+    - /bin/cp -r * $DEPLOYPATH
     - export DEPLOYPATH=/home/alfair/public_html/demo
     - /bin/cp -r app $DEPLOYPATH
     - /bin/cp -r resources $DEPLOYPATH
