@@ -108,8 +108,8 @@ class ProjectController extends Controller
             $old_status = $post->status;
             $post->status = $status;
             $post->save();
-            if ($post->status == 'done' && $old_status != $post->status)
-                $post->applyEmployeesScore();
+            //     if ($post->status == 'done' && $old_status != $post->status)
+            //     $post->applyEmployeesScore();
         }
         return redirect()->back()->with('info', 'وضعیت پروژه تغییر کرد به "' . __('app.status.' . $status) . '"');
     }

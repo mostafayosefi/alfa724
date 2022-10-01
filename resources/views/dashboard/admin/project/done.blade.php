@@ -44,7 +44,7 @@
                                     <td>{!! $item->finish_date->formatJalali() !!}</td>
                                     <td><a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" class="btn btn-block bg-gradient-primary btn-sm">نمایش پروژه</a></td>
                                     <td>
-                                    <a href="{{route('dashboard.admin.project.updatepost',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
                              @endforeach

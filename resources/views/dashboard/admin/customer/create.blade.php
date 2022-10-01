@@ -53,13 +53,13 @@
                 <div class="form-group">
                     <label for="referal">   معرف  </label>
                     <input type="text" class="form-control input_mystyle"
-                       name="referal" value="{{ old('referal') }}" placeholder="     معرف "  >
+                       name="referal" value="{{ old('referal') }}" placeholder="معرف"  >
                     </div><hr>
 
                 <div class="form-group">
                     <label for="host">   هاست  </label>
                     <input type="text" class="form-control input_mystyle"
-                       name="host" value="{{ old('host') }}" placeholder="     هاست "  >
+                       name="host" value="{{ old('host') }}" placeholder="هاست"  >
                     </div><hr>
 
             </div>
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label for="tells">      تلفن مشتری </label>
                     <input type="text" class="form-control input_mystyle"
-                         name="tells" value="{{ old('tells') }}" placeholder="  تلفن مشتری "  >
+                         name="tells" value="{{ old('tells') }}" placeholder="تلفن مشتری "  >
                 </div><hr>
                 <div class="form-group">
                     <label for="tell">      موبایل مشتری </label>
@@ -79,12 +79,12 @@
                 <div class="form-group">
                     <label for="email">   آدرس ایمیل    </label>
                     <input type="text" class="form-control input_mystyle"
-                       name="email" value="{{ old('email') }}" placeholder="     آدرس ایمیل "  >
+                       name="email" value="{{ old('email') }}" placeholder="آدرس ایمیل "  >
                     </div><hr>
                     <div class="form-group">
                     <label for="domain">   آدرس سایت    </label>
                     <input type="text" class="form-control input_mystyle"
-                       name="domain" value="{{ old('domain') }}" placeholder="     آدرس سایت "  >
+                       name="domain" value="{{ old('domain') }}" placeholder="آدرس سایت "  >
                     </div><hr>
 
 
