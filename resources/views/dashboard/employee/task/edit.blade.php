@@ -32,7 +32,10 @@
 
                                 <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title" value="{{ $item->title }}" placeholder="عنوان">
 
-                                <textarea type="text" id="summernote{{ $item->id }}" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" name="description"  placeholder="توضیحات">{{ $item->description }}</textarea>
+                                <textarea type="text"
+                                 id="summernote{{ $item->id }}"
+                                 style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
+                                 class="form-control" name="description"  placeholder="توضیحات">{{ $item->description }}</textarea>
 
 
 

@@ -88,6 +88,18 @@ class DailyController extends Controller
         ]);
     }
 
+    public function index()
+    {
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'ASC')->paginate(50);
+        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user'  ]);
+    }
+
+    public function alluser()
+    {
+        $task=Task::where('id','<>' , '0')->orderBy('finish_date', 'ASC')->paginate(50)->limit(50)->all();
+        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin'  ]);
+    }
+
     public function GetTask($id,Request $request)
     {
         $task=Task::find($id);

@@ -21,6 +21,7 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>ردیف</th>
                         <th>نام و نام خانوادگی </th>
                         <th>ایمیل</th>
                         <th>شماره تماس</th>
@@ -30,9 +31,10 @@
                     </tr>
                     </thead>
                         <tbody>
-                     @foreach($users as $item)
+                     @foreach($users as $key => $item)
                      <?php $ids=$item->id ; ?>
                         <tr>
+                            <td>{{ $key + 1 }}</td>
                             <td>{{ $item->first_name }} {{ $item->last_name }}</td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->mobile }}</td>
@@ -66,7 +68,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>

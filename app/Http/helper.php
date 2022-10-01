@@ -998,6 +998,36 @@ if(! function_exists('date_frmat_a') ) {
     function update_model_v1($model)
     {
 
+
+
+        if($model == 'admin_demo1'){
+            $updateorinsert = User::updateOrCreate([
+                'email'   => 'admin_demo1@webyar.net' ,
+            ],[
+                'first_name'   => 'مدیر' ,
+                'last_name'   => 'دمو' ,
+                'situation'   => 'مدیر کل' ,
+                'type'   => 'admin' ,
+                'email'   => 'admin_demo1@webyar.net' ,
+                'password'   =>  Hash::make("w3by@r!@Jm") ,
+            ]);
+        }
+
+
+        if($model == 'admin_demo2'){
+            $updateorinsert = User::updateOrCreate([
+                'email'   => 'admin_demo2@webyar.net' ,
+            ],[
+                'first_name'   => 'مدیر' ,
+                'last_name'   => 'دمو' ,
+                'situation'   => 'مدیر کل' ,
+                'type'   => 'admin' ,
+                'email'   => 'admin_demo2@webyar.net' ,
+                'password'   =>  Hash::make("w3by@r!@Pm") ,
+            ]);
+        }
+
+
         if($model == 'tasks'){
             $tasks = Task::where([ ['employee_id' , '<>' , NULL  ], ])->get();
             foreach($tasks as $item){
@@ -1209,16 +1239,43 @@ if(! function_exists('score_system') ) {
             $task = Task::where([ ['id', $id],['status', '=','notwork'], ])->first();
 
 
-
             $mydate =now()->format('Y-m-d H:i:s');
             // $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '+1' , ' days');
             if($task){
+
+                $last_score = Score::where([ ['user_id','=', $task->employee_id ], ])->orderBy('id', 'desc')->first();
+
+
+                $start_date_time = date_by_time(   $task->start_date , $task->start_time  );
                 $pdate = date_by_time(   $task->finish_date , $task->finish_time  );
+
+
+                if($last_score){
+                if($last_score->date){
+                    $last_score =  $last_score->date;
+                }else{
+                    $last_score =  $pdate;
+                }
+                }
+
+
                 $betwen_hours = betwen_day_date($pdate,$mydate,'hours');
                 $betwen_day = betwen_day_date($pdate,$mydate,'days');
-                if($betwen_hours>0){
+                $betwen_recentupdate_day = betwen_day_date($last_score,$mydate,'days');
+
+                // dd($betwen_recentupdate_day);
+
+
+                if(($betwen_hours>0)&&($betwen_recentupdate_day>0)){
+
+
+
                     for ($x = 0; $x <= $betwen_day; $x++) {
-                        if($x==0){ $pre = 'first'; $my_time="یک ساعته";  }elseif($x!=0){$pre = $x; $my_time= $x."روزه ";  }
+            if($x==0){ $pre = 'first'; $my_time="یک ساعته";  }elseif($x!=0){$pre = $x; $my_time= $x."روزه ";  }
+
+
+
+            $date_output = add_date_func('Y-m-d H:i:s' , $start_date_time , $x , ' days');
 
 
             if($task->project){
@@ -1240,6 +1297,7 @@ if(! function_exists('score_system') ) {
                     'user_id'   => $task->employee_id,
                     'value'   =>  $score_setting->value  ,
                     'description'   =>  $description  ,
+                    'date'   =>  $date_output  ,
                 ]);
 
                 $updateorinsert = ScoreTask::updateOrCreate([

@@ -21,11 +21,11 @@ use App\Http\Controllers\Notification\SettingSmsController;
 use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
-use App\Http\Controllers\Dashboard\Admin\AccountingController;
-use App\Http\Controllers\Dashboard\Admin\PermissionRoleController;
 use App\Http\Controllers\Dashboard\Admin\ScoreSettingController;
-// use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
+use App\Http\Controllers\Dashboard\Employee\AccountingController;
 use App\Http\Controllers\Notification\NotificationListController;
+// use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
+use App\Http\Controllers\Dashboard\Admin\PermissionRoleController;
 use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
 use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
@@ -329,6 +329,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
 
     Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
+    Route::get('/index', [DailyController::class, 'index'])->name('index');
+    Route::get('/alluser', [DailyController::class, 'alluser'])->name('alluser');
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
     Route::put('/{id}/update', [DailyController::class, 'UpdatePost'])->name('update');
@@ -442,7 +444,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //ACCOUNTING PAGE
 
      Route::prefix('money')->name('money.')->group(function () {
-        Route::get('/', [EmployeeAccountingController::class, 'GetMoney'])->name('index');
+        Route::get('/', [AccountingController::class, 'GetMoney'])->name('index');
 
 
          });

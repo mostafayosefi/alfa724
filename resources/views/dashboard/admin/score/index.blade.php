@@ -22,6 +22,7 @@
                 <table id="example1" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>ردیف</th>
                         <th>مقدار</th>
                         <th>کاربر</th>
                         <th>توضیحات</th>
@@ -29,8 +30,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($scores as $item)
+                    @foreach($scores as $key => $item)
                         <tr>
+                            <td>{{ $key + 1 }}</td>
                             <td style="direction:ltr">{{ $item->value }}</td>
                             <td>@empty($item->user) کاربر حذف شده @else {{ $item->user->first_name }} {{ $item->user->last_name }}@endempty</td>
                             <td >{!! $item->description !!}</td>
@@ -70,6 +72,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
+                        <th>ردیف</th>
                         <th>مقدار</th>
                         <th>کاربر</th>
                         <th>توضیحات</th>

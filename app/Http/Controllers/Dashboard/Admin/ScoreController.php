@@ -13,7 +13,12 @@ class ScoreController extends Controller
 {
     public function index()
     {
-        return view('dashboard.admin.score.index', ['scores' => Score::orderBy('created_at', 'desc')->get()]);
+
+        // $scores = Score::paginate(15);
+        $scores = Score::orderBy('id', 'desc')->get();
+
+
+        return view('dashboard.admin.score.index', ['scores' => $scores ] );
     }
 
     public function create()

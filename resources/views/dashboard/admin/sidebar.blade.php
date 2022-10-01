@@ -1,8 +1,14 @@
 <x-sidebar-item title="داشبورد" icon="fas fa-tachometer-alt" route="dashboard.admin.index" ul="false" />
-<x-sidebar-item title="برنامه روزانه" icon="fas fa-folder" route="dashboard.admin.daily.manage" ul="false" />
 
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مسئولیت' ,
+ 'multi_route' => [
+     ['dashboard.admin.daily.manage',[   ] ,' برنامه روزانه' , 'far fa-circle nav-icon'],
+    //  ['dashboard.admin.daily.index',[   ] ,'   مسئولیت های من' , 'far fa-circle nav-icon'],
+    //  ['dashboard.admin.daily.alluser',[   ] ,'   مسئولیت های کاربران' , 'far fa-circle nav-icon'],
+      ]
+      ])
 
-
+{{--
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   ' مدیران ' ,
  'multi_route' => [
      ['dashboard.admin.users.admins.create', [  ], 'ثبت مدیرجدید' , 'far fa-circle nav-icon'  ],
@@ -16,7 +22,7 @@
       ['dashboard.admin.permission.create', [  ], '  ایجاد نقش جدید  ' , 'far fa-circle nav-icon'  ],
       ['dashboard.admin.permission.index', [  ], 'مدیریت نقش ها' , 'far fa-circle nav-icon'  ],
       ['dashboard.admin.setting.score.index', [  ], '  مدیریت سطح دسترسی مدیران' , 'far fa-circle nav-icon'  ],
-        ]  ])
+        ]  ]) --}}
 
 
 
@@ -39,12 +45,12 @@
       ['dashboard.admin.money.report.service', [  ], 'گزارش مالی پروژه ها' , 'far fa-circle nav-icon'  ],
       ['dashboard.admin.money.report.depo', [  ], 'گزارش مالی بیعانه ها' , 'far fa-circle nav-icon'  ],   ]  ])
 
-
+{{--
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   '  اطلاع رسانی' ,
  'multi_route' => [
       ['dashboard.admin.notification.list.index', [  ], 'تنطیمات درگاه پیامک      ' , 'far fa-circle nav-icon'  ],
      ['dashboard.admin.notification.list.index', [  ], 'تنظیمات اطلاع رسانی ' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.notification.list.index', [  ], 'مدیریت متن های پیش فرض      ' , 'far fa-circle nav-icon'  ],   ]  ])
+      ['dashboard.admin.notification.list.index', [  ], 'مدیریت متن های پیش فرض      ' , 'far fa-circle nav-icon'  ],   ]  ]) --}}
 
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   'مدیریت پیام ها' ,
@@ -75,9 +81,9 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'far fa-calendar-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت تقویم' ,
  'multi_route' => [
      ['dashboard.admin.calender.holiday',[   ] ,'مدیریت تعطیلی ها' , 'far fa-circle nav-icon'],
-     ['dashboard.admin.calender.daily',[   ] ,'مدیریت برنامه روزانه ' , 'far fa-circle nav-icon'],
-     ['dashboard.admin.calender.project',[   ] ,'مدیریت پروژه ها  ' , 'far fa-circle nav-icon'],
-     ['dashboard.admin.calender.absence',[   ] ,'مدیریت حضور و غیاب   ' , 'far fa-circle nav-icon'],
+    //  ['dashboard.admin.calender.daily',[   ] ,'مدیریت برنامه روزانه ' , 'far fa-circle nav-icon'],
+    //  ['dashboard.admin.calender.project',[   ] ,'مدیریت پروژه ها  ' , 'far fa-circle nav-icon'],
+    //  ['dashboard.admin.calender.absence',[   ] ,'مدیریت حضور و غیاب   ' , 'far fa-circle nav-icon'],
       ]
       ])
 

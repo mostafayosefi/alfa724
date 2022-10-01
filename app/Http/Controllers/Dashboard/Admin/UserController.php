@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Session\Store;
-use App\Models\User;
+use Carbon\Carbon;
 use App\Models\Task;
-use App\Models\Project;
+use App\Models\User;
 use App\Models\Phase;
+use App\Models\Score;
+use App\Http\Requests;
 use App\Models\Absence;
+use App\Models\Project;
+use Illuminate\Http\Request;
+use Illuminate\Session\Store;
+use Hekmatinasser\Verta\Verta;
 use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Hekmatinasser\Verta\Verta;
-use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\Null_;
 
 class UserController extends Controller
 {
     public function GetUsers()
     {
-        $users=User::withTrashed()->where('type','employee')->orderBy('created_at', 'desc')->get();
+        $users=User::withTrashed()->where('type','employee')->orderBy('id', 'desc')->get();
         return view('dashboard.admin.users.employee', ['users' => $users]);
     }
 
@@ -38,7 +40,11 @@ class UserController extends Controller
         })->get();
         $users = EmployeeProject::where('employee_id', Auth::id())->get();
 
-        // dd($post);
+
+        // $score = Score::where( [ ['id','<>','0'] ]);
+        // $score->delete();
+
+
         scope_score(   'tasks' , $id );
         return view('dashboard.admin.users.profile', ['id' => $id,'post' => $post,'phase' => $phase,'users' => $users,'employee' => $employee,'task' => $task]);
     }
@@ -73,7 +79,7 @@ class UserController extends Controller
             $post->email = $request->input('email');
             $post->birthdate = $request->input('birthdate');
             if (!empty($password = $request->input('password')))
-                $post->password = \Hash::make($password);
+                $post->password = Hash::make($password);
             $post->save();
         }
         return redirect()->route('dashboard.admin.users.employee',$post->id)->with('info', 'کاربر ویرایش شد');

@@ -12,8 +12,8 @@ use App\Models\Project;
 use App\Models\Phase;
 use App\Models\message;
 use App\Models\EmployeeProject;
-use Illuminate\Auth\Access\Gate; 
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Support\Facades\Storage;
 use Hekmatinasser\Verta\Verta;
@@ -23,10 +23,21 @@ class AccountingController extends Controller
 {
     public function GetMoney()
     {
+
+        // dd('hi');
         $message=message::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         $employee=EmployeeProject::where('employee_id',Auth::user()->id)->orderBy('created_at', 'desc')->get();
         $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'ASC')->paginate(50);
         return view('dashboard.employee.money.index', ['employee' => $employee , 'task' => $task , 'message' => $message]);
+    }
+
+
+
+
+    public function index()
+    {
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'ASC')->paginate(50);
+        return view('dashboard.employee.task.index', ['task' => $task]);
     }
 
 

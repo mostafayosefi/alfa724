@@ -27,6 +27,7 @@
                     <table id="example1" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>ردیف</th>
                             <th>کاربر</th>
                             <th>تاریخ</th>
                             <th>ساعت ورود</th>
@@ -35,8 +36,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($absence as $item)
+                        @foreach($absence as $key => $item)
                             <tr>
+                                <td>{{ $key + 1 }}</td>
                                 <td>{{ $item->for->first_name }} {{ $item->for->last_name }}</td>
                                 <td>{!! Facades\Verta::instance($item->date)->formatDate() !!}</td>
                                 <td>{{ $item->enter }}</td>
@@ -51,6 +53,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
+                            <th>ردیف</th>
                             <th>کاربر</th>
                             <th>تاریخ</th>
                             <th>ساعت ورود</th>
@@ -68,8 +71,8 @@
                             </ul>
                         </div>
                     </div>
-                </div>          
-             </x-card-footer>   
+                </div>
+             </x-card-footer>
         </x-card>
     </div>
 

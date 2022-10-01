@@ -24,7 +24,8 @@
 </style>
 @endsection
 @section('content')
-@include('dashboard.employee.task.edit')
+
+
 <?php
 $tasks=0;
 $income=0;
@@ -37,6 +38,11 @@ foreach ($task as $item) {
 }
 ?>
 
+@if ($task)
+@foreach ($task as $item)
+@include('dashboard.employee.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask', $item->id)  ] )
+@endforeach
+@endif
     <div class="container">
       <div class="row">
 
@@ -69,6 +75,8 @@ foreach ($task as $item) {
                     </div>
                   </div>
                   <div class="col-md-12">
+
+
                     <x-card type="info">
                         <x-card-header>پروژه ها</x-card-header>
                             <x-card-body>
@@ -106,58 +114,15 @@ foreach ($task as $item) {
                             <x-card-footer>
                             </x-card-footer>
                     </x-card>
+
+
                     <div style="margin-top:50px;"></div>
-                    <x-card type="info">
-                        <x-card-header>مسئولیت ها</x-card-header>
-                            <x-card-body>
-                                <div class="box-body">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>عنوان</th>
-                                            <th>تاریخ شروع</th>
-                                            <th>تاریخ پایان</th>
-                                            <th>وضعیت</th>
-                                            <th>ویرایش</th>
-                                        </tr>
-                                        </thead>
-                                            <tbody>
-                                         @foreach($task as $item)
-                                            <tr>
-                                                <td>{{ $item->title }}</td>
-                                                <td>{{ $item->start_date->formatJalali() }}</td>
-                                                <td>{{$item->finish_date->formatJalali()}}</td>
-                                                <td>
-                                                  @if ($item->status=='done')
-                                                    <p style="color:green;"> انجام شده </p>
-                                                  @else
-                                                    <p style="color:red;">انجام نشده</p>
-                                                  @endif
-                                                </td>
-                                                <td>
-                                                <button class="btn btn-warning" type="submit" data-target="#modal-lf{{ $item->id }}" data-toggle="modal"><i class="fas fa-edit"></i> ویرایش</button>
-                                                </td>
-                                            </tr>
-                                         @endforeach
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>عنوان</th>
-                                                <th>تاریخ شروع</th>
-                                                <th>تاریخ پایان</th>
-                                                <th>وضعیت</th>
-                                                <th>ویرایش</th>
-                                            </tr>
-                                            </tfoot>
-                                    </table>
-                                </div>
-                                </x-card-body>
-                            <x-card-footer>
-                             <ul class="pagination">
-                                 {{$task->links()}}
-                              </ul>
-                            </x-card-footer>
-                    </x-card>
+
+
+
+@include('dashboard.card.task.index' , [ 'guard' => 'employee'  ])
+
+
                 </div>
               </div>
           </div>

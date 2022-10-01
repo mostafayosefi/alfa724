@@ -97,7 +97,6 @@
 @foreach ($task as $item)
 @include('dashboard.employee.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask', $item->id)  ] )
 @include('dashboard.employee.task.updatenote' , [ 'route' => route('dashboard.employee.task.updatenote', $item->id)  ] )
-
 @endforeach
 @include('dashboard.employee.task.note' , [ 'route' => route('dashboard.employee.task.note') ] )
 
