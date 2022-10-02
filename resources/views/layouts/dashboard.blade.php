@@ -41,9 +41,7 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.rtl.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/my_style.css') }}">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <script>
+  <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!}
