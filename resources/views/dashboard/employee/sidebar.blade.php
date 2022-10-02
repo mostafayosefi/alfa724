@@ -4,7 +4,7 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مسئولیت' ,
  'multi_route' => [
      ['dashboard.employee.task.manage',[   ] ,' مسئولیتها' , 'far fa-circle nav-icon'],
-    //  ['dashboard.employee.task.index',[   ] ,'  مشاهده مسئولیت ها' , 'far fa-circle nav-icon'],
+     ['dashboard.employee.task.index',[   ] ,'  مشاهده مسئولیت ها' , 'far fa-circle nav-icon'],
 
       ]
       ])

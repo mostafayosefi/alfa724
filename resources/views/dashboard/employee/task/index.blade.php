@@ -1,7 +1,7 @@
 <?php use Hekmatinasser\Verta\Verta; ?>
 @extends('layouts.dashboard')
 @section('sidebar')
-@include('dashboard.employee.notification')
+{{-- @include('dashboard.employee.notification') --}}
 @include('dashboard.employee.sidebar')
 @endsection
 @section('hierarchy')

@@ -404,6 +404,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //TASK MANAGMENT
                 Route::prefix('task')->name('task.')->group(function () {
 
+                Route::get('/index', [TaskController::class, 'index'])->name('index');
                 Route::post('/create', [TaskController::class, 'CreatePost'])->name('store');
                 Route::get('/create', [TaskController::class, 'GetCreatePost'])->name('create');
                 Route::get('/manage', [TaskController::class, 'GetManagePost'])->name('manage');

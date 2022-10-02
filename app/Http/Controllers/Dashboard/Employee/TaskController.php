@@ -107,8 +107,8 @@ class TaskController extends Controller
         if (!is_null($post)) {
             $old_status = $post->status;
             $post->update($data);
-            if ($post->status == 'done' && $old_status != $post->status)
-                $post->applyEmployeeScore(Auth::user());
+            // if ($post->status == 'done' && $old_status != $post->status)
+            //     $post->applyEmployeeScore(Auth::user());
         }
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'مسئولیت ویرایش شد');
     }
@@ -185,6 +185,12 @@ class TaskController extends Controller
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'یادداشت ویرایش شد');
     }
 
+
+    public function index()
+    {
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'ASC')->paginate(50);
+        return view('dashboard.employee.task.index', ['task' => $task , 'guard' => 'user'  ]);
+    }
 
 
 }
