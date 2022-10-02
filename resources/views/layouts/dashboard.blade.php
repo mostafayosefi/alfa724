@@ -283,7 +283,7 @@ BY WEBITO
 
     $("#example1").DataTable({
     "language": {
-          "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
+          "url": "{{ asset('assets/cdn/Persian.json')}}"
       },
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
@@ -291,7 +291,7 @@ BY WEBITO
 
     $("#example3").DataTable({
      "language": {
-          "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
+          "url": "{{ asset('assets/cdn/Persian.json')}}"
       },
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
@@ -299,7 +299,7 @@ BY WEBITO
 
     $("#example").DataTable({
       "language": {
-          "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Persian.json"
+          "url": "{{ asset('assets/cdn/Persian.json')}}"
       },
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
