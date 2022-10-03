@@ -10,6 +10,7 @@ use App\Http\Requests\Dashboard\Employee\TaskUpdateRequest;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\TaskRequest;
 use Illuminate\Session\Store;
 use App\Models\User;
 use App\Models\Task;
@@ -29,10 +30,10 @@ class TaskController extends Controller
 {
     public function GetCreatePost()
     {
-        return view('dashboard.employee.task.create');
+        return view('dashboard.card.task.create');
     }
 
-    public function CreatePost(TaskCreateRequest $request)
+    public function CreatePost(TaskRequest $request)
     {
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
@@ -85,7 +86,7 @@ class TaskController extends Controller
         return view('dashboard.employee.task.show', ['task' => $task]);
     }
 
-    public function UpdatePost($id, TaskStatusUpdateRequest $request)
+    public function UpdatePost( TaskStatusUpdateRequest $request)
     {
         $post = Task::find($request->input('id'));
         if (!is_null($post)) {
@@ -97,7 +98,7 @@ class TaskController extends Controller
     }
 
 
-    public function EditPost($id, TaskUpdateRequest $request)
+    public function EditPost(  TaskRequest $request)
     {
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
@@ -167,13 +168,13 @@ class TaskController extends Controller
     public function GetEditNote($id)
     {
         $post = Note::find($id);
-        return view('dashboard.employee.task.updatenote', ['post' => $post, 'id' => $id]);
+        return view('dashboard.card.note.updatenote', ['post' => $post, 'id' => $id]);
     }
 
     public function UpdateNote(Request $request)
     {
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:255'] ,
+            'content' => ['required', 'string', 'max:3000'] ,
         ]);
         $post = Note::find($request->input('id'));
         if (!is_null($post)) {

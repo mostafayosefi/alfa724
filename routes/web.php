@@ -329,13 +329,13 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::get('/alluser', [DailyController::class, 'alluser'])->name('alluser');
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
-    Route::put('/{id}/update', [DailyController::class, 'UpdatePost'])->name('update');
+    Route::put('/update', [DailyController::class, 'UpdatePost'])->name('update');
     Route::put('/editdaily', [DailyController::class, 'EditPost'])->name('editdaily');
     Route::put('/{id}/edit/daily', [DailyController::class, 'GetEditPost'])->name('updatedaily');
 
 
     Route::post('/note', [DailyController::class, 'CreateNote'])->name('note');
-    Route::put('/updatenote/{id}', [DailyController::class, 'UpdateNote'])->name('updatenote');
+    Route::put('/updatenote', [DailyController::class, 'UpdateNote'])->name('updatenote');
     Route::get('/deletenote/{id}', [DailyController::class, 'DeleteNote'])->name('deletenote');
 
 
@@ -411,11 +411,11 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::get('/updatetask/{id}', [TaskController::class, 'GetEditPost'])->name('edit');
                 Route::get('/show/{id}', [TaskController::class, 'GetTask'])->name('show');
                 Route::get('/updatetask/{id}', [TaskController::class, 'GetEditPost'])->name('updatetask');
-                Route::post('/updatetask/{id}', [TaskController::class, 'UpdatePost'])->name('update');
-                Route::put('/edittask/{id}', [TaskController::class, 'EditPost'])->name('edittask');
+                Route::put('/updatetask', [TaskController::class, 'UpdatePost'])->name('update');
+                Route::put('/edittask', [TaskController::class, 'EditPost'])->name('edittask');
 
                 Route::post('/note', [TaskController::class, 'CreateNote'])->name('note');
-                Route::put('/updatenote/{id}', [TaskController::class, 'UpdateNote'])->name('updatenote');
+                Route::put('/updatenote', [TaskController::class, 'UpdateNote'])->name('updatenote');
                 Route::get('/deletenote/{id}', [TaskController::class, 'DeleteNote'])->name('deletenote');
 
                 });

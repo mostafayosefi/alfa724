@@ -20,16 +20,7 @@
 
 <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 
-
-
-@if ($task)
-@foreach ($task as $item)
-@include('dashboard.employee.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask', $item->id)  ] )
-@endforeach
-@endif
-
-
-
+@include('dashboard.card.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask')  ] )
 @include('dashboard.card.task.index' , [ 'guard' => 'employee'  ])
 
 @endsection

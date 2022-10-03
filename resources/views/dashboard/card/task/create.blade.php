@@ -83,14 +83,16 @@
 
           <input type="hidden" style="margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"  name="status" value="notwork" >
 
-          <div class="form-group">
+          {{-- <input  type="hidden" value="" name="ignore_conflict"  > --}}
+
+          {{-- <div class="form-group">
               <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="1" name="ignore_conflict" id="ignore_conflict">
                   <label class="form-check-label" for="ignore_conflict">
                       صرف‌نظر کردن از تداخل زمانی
                   </label>
               </div>
-          </div>
+          </div> --}}
           <x-select-group label="نوع زمان‌بندی" name="continuity">
               <x-select-item value="1d">پیش‌فرض</x-select-item>
               <x-select-item value="1d">نمایش در هر روز</x-select-item>

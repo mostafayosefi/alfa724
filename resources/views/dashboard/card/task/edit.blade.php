@@ -127,7 +127,7 @@
 
         </div>
     </div>
-
+{{-- 
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="1" name="ignore_conflict" id="ignore_conflict">
@@ -135,7 +135,7 @@
                                             صرف‌نظر کردن از تداخل زمانی
                                         </label>
                                     </div>
-                                </div>
+                                </div> --}}
 @csrf
 @method('PUT')
                             </x-card>

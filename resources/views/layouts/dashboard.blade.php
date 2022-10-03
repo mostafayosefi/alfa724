@@ -72,6 +72,14 @@ BY WEBITO
     vertical-align: middle !important;
     }
 </style>
+
+<style>
+    .z-0 {display:none;}
+    .text-sm{margin-top:20px; }
+    #example1_paginate {display:block }
+    #example1_info {display:block }
+</style>
+
 <body class="hold-transition sidebar-mini dark-mode">
 <div class="wrapper">
 

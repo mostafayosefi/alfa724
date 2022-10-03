@@ -11,9 +11,20 @@
         <x-card type="info">
           <x-card-header>ساخت یادداشت جدید</x-card-header>
       <form style="padding:10px;" action="{{$route}}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-          <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
+          <textarea type="text"
+          id="summernote_note"
+          style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
           class="form-control" required name="content"  placeholder="توضیحات "    ></textarea>
 
+          <script>
+            $(function () {
+              $('#summernote_note').summernote()
+              CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+              });
+            })
+          </script>
 
 
 

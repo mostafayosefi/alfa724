@@ -40,7 +40,7 @@ foreach ($task as $item) {
 
 @if ($task)
 @foreach ($task as $item)
-@include('dashboard.employee.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask', $item->id)  ] )
+@include('dashboard.card.task.edit', [ 'route' =>  route('dashboard.employee.task.edittask', $item->id)  ] )
 @endforeach
 @endif
     <div class="container">

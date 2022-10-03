@@ -10,6 +10,7 @@ use App\Http\Requests\Dashboard\Employee\TaskUpdateRequest;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\TaskRequest;
 use Illuminate\Session\Store;
 use App\Models\User;
 use App\Models\Note;
@@ -33,8 +34,19 @@ class DailyController extends Controller
         return view('dashboard.admin.daily.create');
     }
 
-    public function store(TaskCreateRequest $request)
+    // public function store(TaskCreateRequest $request)
+    public function store(TaskRequest $request)
     {
+
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'username' => ['required',new Uniqemail('users','username',$id)] ,
+        //     'email' => ['required' , 'email',new Uniqemail('users','email',$id)] ,
+        //     'tell' => ['required', 'regex:/^09[0-9]{9}$/' ,new Uniqemail('users','tell',$id)] ,
+        // ]);
+
+
 
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
@@ -90,13 +102,13 @@ class DailyController extends Controller
 
     public function index()
     {
-        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'ASC')->paginate(50);
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'desc')->paginate(50);
         return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user'  ]);
     }
 
     public function alluser()
     {
-        $task=Task::where('id','<>' , '0')->orderBy('finish_date', 'ASC')->paginate(50)->limit(50)->all();
+        $task=Task::where('id','<>' , '0')->orderBy('finish_date', 'desc')->paginate(50);
         return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin'  ]);
     }
 
@@ -106,7 +118,7 @@ class DailyController extends Controller
         return view('dashboard.admin.daily.show', ['task' => $task]);
     }
 
-    public function UpdatePost($id, TaskStatusUpdateRequest $request)
+    public function UpdatePost( TaskStatusUpdateRequest $request)
     {
         $post = Task::find($request->input('id'));
         if (!is_null($post)) {
@@ -126,7 +138,7 @@ class DailyController extends Controller
     }
 
 
-    public function EditPost( TaskUpdateRequest $request)
+    public function EditPost( TaskRequest $request)
     {
         $data = $request->validated();
         $data['employee_id'] = Auth::user()->id;
@@ -194,12 +206,12 @@ class DailyController extends Controller
         return view('dashboard.admin.daily.updatenote', ['post' => $post, 'id' => $id]);
     }
 
-    public function UpdateNote(Request $request , $id)
+    public function UpdateNote(Request $request)
     {
 
         // dd($request);
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:255'] ,
+            'content' => ['required', 'string', 'max:3000'] ,
         ]);
         $post = Note::find($request->input('id'));
         if (!is_null($post)) {

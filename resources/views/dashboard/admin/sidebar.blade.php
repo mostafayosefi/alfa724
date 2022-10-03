@@ -3,8 +3,8 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مسئولیت' ,
  'multi_route' => [
      ['dashboard.admin.daily.manage',[   ] ,' برنامه روزانه' , 'far fa-circle nav-icon'],
-    //  ['dashboard.admin.daily.index',[   ] ,'   مسئولیت های من' , 'far fa-circle nav-icon'],
-    //  ['dashboard.admin.daily.alluser',[   ] ,'   مسئولیت های کاربران' , 'far fa-circle nav-icon'],
+     ['dashboard.admin.daily.index',[   ] ,'   مسئولیت های من' , 'far fa-circle nav-icon'],
+     ['dashboard.admin.daily.alluser',[   ] ,'   مسئولیت های کاربران' , 'far fa-circle nav-icon'],
       ]
       ])
 
