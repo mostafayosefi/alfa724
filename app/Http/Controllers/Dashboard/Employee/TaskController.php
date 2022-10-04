@@ -189,7 +189,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'ASC')->paginate(50);
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'desc')->paginate(50);
         return view('dashboard.employee.task.index', ['task' => $task , 'guard' => 'user'  ]);
     }
 

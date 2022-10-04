@@ -15,6 +15,8 @@
     </div>
 @endif
 
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+
 @include('dashboard.card.task.edit', [ 'route' =>  route('dashboard.admin.daily.editdaily')  ] )
 @include('dashboard.card.task.index')
 
