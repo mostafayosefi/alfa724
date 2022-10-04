@@ -34,6 +34,7 @@
                         <table id="example" class="table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>ردیف</th>
                                 <th>عنوان</th>
                                 <th>مسئول پروژه</th>
                                 <th>تاریخ شروع</th>
@@ -45,8 +46,10 @@
                             </tr>
                             </thead>
                                 <tbody>
-                             @foreach($posts as $item)
+                             @foreach($posts as $key => $item)
                                 <tr>
+
+                                    <td>{{$key+1}}</td>
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->customer_name }}</td>
                                     <td>{{ date_frmat_a($item->start_date) }}</td>
@@ -65,6 +68,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                    <th>ردیف</th>
                                     <th>عنوان</th>
                                     <th>مسئول پروژه</th>
                                     <th>تاریخ شروع</th>

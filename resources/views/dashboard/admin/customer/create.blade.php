@@ -107,7 +107,8 @@
 
                 <div class="col-md-12 col-sm-12">
                     <label for="description"> توضیحات:</label>
-                    <textarea type="text"  rows="6" class="form-control input_mystyle" required name="description"></textarea>
+                    <textarea type="text"  rows="6" class="form-control input_mystyle"
+                      name="description" id="summernote"></textarea>
                 </div>
 
             </div>

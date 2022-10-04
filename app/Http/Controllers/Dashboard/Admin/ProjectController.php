@@ -14,6 +14,7 @@ use Illuminate\Session\Store;
 use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,9 @@ class ProjectController extends Controller
 {
     public function create()
     {
-        return view('dashboard.admin.project.create');
+        $customers = Customer::orderby('id','desc')->get();
+        return view('dashboard.admin.project.create' , compact(['customers'  ]));
+
     }
 
     public function GetProject($id)
@@ -85,17 +88,21 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::find($id);
-        return view('dashboard.admin.project.edit', ['project' => $project ]);
+        $customers = Customer::orderby('id','desc')->get();
+        return view('dashboard.admin.project.edit' , compact(['project' , 'customers'  ]));
+
     }
 
     public function update($id , Request $request)
     {
 
         $data = $request->all();
+
+        // dd($data);
+
         $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
         $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
         $data['price'] = str_rep_price($data['price']);
-        $data['employer_money'] = str_rep_price($data['employer_money']);
         $project=Project::find($id);
         $project->update($data);
         return redirect()->route('dashboard.admin.project.manage')->with('info', 'پروژه ویرایش شد');
@@ -124,13 +131,33 @@ class ProjectController extends Controller
             ['id', '<>' , '0'],
             ['customer_name', '<>' , 'سیداحمدپور'],
             ['customer_name', '<>' , 'خانم واعظ'],
+            ['customer_name', '<>' , 'وب یار'],
+            ['customer_name', '<>' , 'مجموعه وب یار'],
             ['customer_name', '<>' , ''],
-            ])->orderby()->get();
+        ])->orderby('customer_name','asc')->get();
 
 
+        $customers = Customer::where([
+            ['id', '<>' , '0'],
+        ])->orderby('name','asc')->get();
+
+
+        // $projects = Project::where([
+            // ['id', '<>' , '0'],
+            // ['customer_name', 'like' , '%سیداحمدپور%'],
+            // ['customer_name', 'like' , '%خانم واعظ%'],
+            // ['customer_name', 'like' , '%وب یار%'],
+            // ])->orderby('customer_name','asc')->get();
+
+            echo 'Project';  echo '<br>';
             foreach($projects as $project){
+        echo $project->customer_name.'__ customer_mobile: '.$project->customer_mobile.'__id: '.$project->id.'__ phone: '.$project->customer_phone;
+        echo '<br>';
+            }
 
-        echo $project->customer_name.'__ customer_mobile: '.$project->customer_mobile.'__ phone: '.$project->customer_phone;
+            echo 'Customer';  echo '<br>';
+            foreach($customers as $item){
+        echo $item->name.'__ id: '.$item->id;
         echo '<br>';
             }
 
