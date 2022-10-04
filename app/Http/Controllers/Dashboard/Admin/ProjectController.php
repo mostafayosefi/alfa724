@@ -120,7 +120,21 @@ class ProjectController extends Controller
 
 
 
+        $projects = Project::where([
+            ['id', '<>' , '0'],
+            ['customer_name', '<>' , 'سیداحمدپور'],
+            ['customer_name', '<>' , 'خانم واعظ'],
+            ['customer_name', '<>' , ''],
+            ])->orderby()->get();
 
+
+            foreach($projects as $project){
+
+        echo $project->customer_name.'__ customer_mobile: '.$project->customer_mobile.'__ phone: '.$project->customer_phone;
+        echo '<br>';
+            }
+
+        // dd($projects);
 
         // $user = User::create([
         //     'name' => 'test',

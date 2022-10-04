@@ -62,8 +62,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // });
 
 
-// Route::get('/testi', [ProjectController::class, 'testi'])->name('testi');
-// Route::get('/testi', [ProjectController::class, 'testi'])->name('testi');
+Route::get('/testi', [ProjectController::class, 'testi'])->name('testi'); 
 
 
 Route::get('/', function () {

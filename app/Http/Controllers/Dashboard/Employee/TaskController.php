@@ -149,7 +149,7 @@ class TaskController extends Controller
     public function CreateNote(Request $request)
     {
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:255'] ,
+            'content' => ['required', 'string', 'max:5000'] ,
         ]);
         $post = new Note([
             'content' => $request->input('content'),
@@ -174,7 +174,7 @@ class TaskController extends Controller
     public function UpdateNote(Request $request)
     {
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:3000'] ,
+            'content' => ['required', 'string', 'max:5000'] ,
         ]);
         $post = Note::find($request->input('id'));
         if (!is_null($post)) {
@@ -189,7 +189,11 @@ class TaskController extends Controller
 
     public function index()
     {
-        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'desc')->paginate(50);
+
+
+        $mydate =now()->format('Y-m-d H:i:s');
+        $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '-7' , ' days');
+        $task=Task::where([ ['employee_id',Auth::user()->id],  ['finish_date', '>=' ,$date_output], ])->orderBy('finish_date', 'desc')->paginate(50);
         return view('dashboard.employee.task.index', ['task' => $task , 'guard' => 'user'  ]);
     }
 

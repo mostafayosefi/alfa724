@@ -184,7 +184,7 @@ class DailyController extends Controller
     public function CreateNote(Request $request)
     {
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:255'] ,
+            'content' => ['required', 'string', 'max:5000'] ,
         ]);
         $post = new Note([
             'content' => $request->input('content'),
@@ -211,7 +211,7 @@ class DailyController extends Controller
 
         // dd($request);
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:3000'] ,
+            'content' => ['required', 'string', 'max:5000'] ,
         ]);
         $post = Note::find($request->input('id'));
         if (!is_null($post)) {
