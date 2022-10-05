@@ -46,6 +46,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // MWl..A7&j1%%g=2Ym
 
 
+// test 
 
 // Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
@@ -62,7 +63,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // });
 
 
-Route::get('/testi', [ProjectController::class, 'testi'])->name('testi'); 
+Route::get('/testi', [ProjectController::class, 'testi'])->name('testi');
 
 
 Route::get('/', function () {
