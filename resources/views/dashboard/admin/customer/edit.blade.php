@@ -107,7 +107,8 @@
 
                 <div class="col-md-12 col-sm-12">
                     <label for="description"> توضیحات:</label>
-                    <textarea type="text"  rows="6" class="form-control input_mystyle" required name="description">{{$post->description}}</textarea>
+                    <textarea type="text"  rows="6" class="form-control input_mystyle"
+                    id="summernote" required name="description">{{$post->description}}</textarea>
                 </div>
 
             </div>
@@ -132,5 +133,7 @@
 
         </div>
     </div>
+
+
 
 @endsection

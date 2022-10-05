@@ -21,7 +21,7 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/toastr/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/cdn/ionicons.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/ionicons/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->

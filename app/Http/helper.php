@@ -981,6 +981,15 @@ if(! function_exists('date_frmat_a') ) {
 
 }
 
+if(! function_exists('date_frmat_b') ) {
+    function date_frmat_b($date)
+    {
+        $date = Jalalian::forge($date)->format('ساعت H:i a');
+        return $date;
+    }
+
+}
+
 
  if(! function_exists('date_frmat_ymd') ) {
     function date_frmat_ymd($date)

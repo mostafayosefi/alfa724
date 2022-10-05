@@ -75,6 +75,7 @@
                         <table id="example" class="table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>ردیف</th>
                                 <th>عنوان</th>
                                 <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
@@ -83,9 +84,10 @@
                             </tr>
                             </thead>
                                 <tbody>
-                             @foreach($phase as $item)
+                             @foreach($phase as $key=> $item)
                              <?php $ids=$item->id ; ?>
                                 <tr>
+                                    <td>{{$key+1}}</td>
                                     <td>{{ $item->title }}</td>
                                     <td>{!! $item->start_date->formatJalali() !!}</td>
                                     <td>{!! $item->finish_date->formatJalali() !!}</td>
@@ -126,6 +128,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                    <th>ردیف</th>
                                     <th>عنوان</th>
                                     <th>تاریخ شروع</th>
                                     <th>تاریخ پایان</th>

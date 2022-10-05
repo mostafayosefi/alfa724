@@ -22,8 +22,8 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $item->title }}</td>
-                                <td>{{ $item->start_date->formatJalali() }}</td>
-                                <td>{{$item->finish_date->formatJalali()}}</td>
+                                <td>{{ $item->start_date->formatJalali() }}  {{ date_frmat_b($item->start_time) }}</td>
+                                <td>{{$item->finish_date->formatJalali()}} {{ date_frmat_b($item->finish_time) }}</td>
 
 
                                 <td>{{ date_frmat($item->created_at) }}</td>

@@ -25,6 +25,7 @@ class Project extends Model
     'price',
     'counter',
     'employer',
+    'customer_id',
     ];
     protected $casts = [
         'start_date' => 'date',
@@ -63,6 +64,11 @@ class Project extends Model
         return $this->hasMany(ScoreProject::class , 'project_id');
     }
 
+
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 
 
 
