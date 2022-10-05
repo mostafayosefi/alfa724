@@ -60,7 +60,7 @@
                                      @include('dashboard.ui.modal_delete', [$item ,'route' => route('dashboard.admin.project.destroy', $item) , 'myname' => 'پروژه '.$item->title ])
                                     </td>
                                     <td>
-                                    <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" class="edit_post" ><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 <!-- SHOW SUCCESS modal -->

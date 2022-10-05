@@ -26,6 +26,7 @@ class Project extends Model
     'counter',
     'employer',
     'customer_id',
+    'giving_date',  'zero_date', 'time',
     ];
     protected $casts = [
         'start_date' => 'date',

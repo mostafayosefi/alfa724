@@ -46,9 +46,9 @@
 
 
     <div class="form-group">
-        <label for="customer_provider"> مدت زمان حدودی پروژه</label>
+        <label for="time"> مدت زمان حدودی پروژه (به روز)</label>
         <input type="text" class="form-control input_mystyle"
-             name="customer_provider"  value="{{$project->time}}"   placeholder="مدت زمان حدودی پروژه"  >
+             name="time"  value="{{$project->time}}"   placeholder="مدت زمان حدودی پروژه"  >
     </div><hr>
 
 
@@ -65,22 +65,6 @@
           <input required name="finish_date"  value="{{date_frmat_a($project->finish_date)}}"   type="text" id="date1" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
         </div>
     </div><hr>
-
-    <div class="form-group">
-        <label> زمان تحویل:</label>
-        <div class="input-group">
-          <input   name="giving_date" @if($project->giving_date)  value="{{date_frmat_a($project->giving_date)}}" @endif     type="text" id="date1" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
-        </div>
-    </div><hr>
-
-
-    <div class="form-group">
-        <label> زمان تسویه:</label>
-        <div class="input-group">
-          <input   name="zero_date"  @if($project->zero_date) value="{{date_frmat_a($project->zero_date)}}" @endif   type="text" id="date1" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
-        </div>
-    </div><hr>
-
 
 
         </div>
@@ -100,23 +84,20 @@
                 onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
                 </div><hr>
 
-            <div class="form-group">
-                <label for="customer_job">موضوع کسب و کار</label>
-                <input type="text" class="form-control input_mystyle"
-                     name="customer_job"  value="{{$project->customer_job}}"  placeholder="موضوع کسب و کار"  >
-            </div><hr>
+                <div class="form-group">
+                    <label> زمان تحویل:</label>
+                    <div class="input-group">
+                      <input   name="giving_date" @if($project->giving_date)  value="{{date_frmat_a($project->giving_date)}}" @endif     type="text" id="date1" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                    </div>
+                </div><hr>
 
-            <div class="form-group">
-                <label for="customer_provider"> معرف</label>
-                <input type="text" class="form-control input_mystyle"
-                     name="customer_provider"  value="{{$project->customer_provider}}"  placeholder="معرف"  >
-            </div><hr>
 
-            <div class="form-group">
-                <label for="customer_service"> موضوع درخواست</label>
-                <input type="text" class="form-control input_mystyle"
-                     name="customer_service"  value="{{$project->customer_service}}"  placeholder="موضوع درخواست"  >
-            </div><hr>
+                <div class="form-group">
+                    <label> زمان تسویه:</label>
+                    <div class="input-group">
+                      <input   name="zero_date"  @if($project->zero_date) value="{{date_frmat_a($project->zero_date)}}" @endif   type="text" id="date1" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                    </div>
+                </div><hr>
 
 
     <x-select-group required="" label="وضعیت" name="status" :model="$project">
@@ -126,15 +107,6 @@
         <x-select-item value="done">{{ __('app.status.done') }}</x-select-item>
         <x-select-item value="paid">{{ __('app.status.paid') }}</x-select-item>
     </x-select-group>
-
-
-
-
-    <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_name" value="{{ $project->customer_name }}" placeholder="نام و نام خانوادگی مشتری">
-    <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_phone" value="{{ $project->customer_phone }}" placeholder="تلفن مشتری">
-    <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="customer_mobile" value="{{ $project->customer_mobile }}" placeholder="موبایل مشتری">
-
-    <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"   name="employer" value="{{ $project->employer }}" placeholder="مسئول پروژه">
 
 
         </div>
@@ -157,7 +129,7 @@
             <div class="col-md-12 col-sm-12">
                 <label for="description"> توضیحات:</label>
                 <textarea type="text"  rows="6" class="form-control input_mystyle"
-                id="summernote"  required name="description">{{$project->description}}</textarea>
+                id="summernote"    name="description">{{$project->description}}</textarea>
             </div>
 
         </div>

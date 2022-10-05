@@ -95,6 +95,10 @@ class ProjectController extends Controller
 
     public function update($id , Request $request)
     {
+        $request->validate([
+            'time' => 'required|numeric',
+            'price' => 'required',
+        ]);
 
         $data = $request->all();
 
@@ -102,10 +106,12 @@ class ProjectController extends Controller
 
         $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
         $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
+        $data['giving_date'] = convert_shamsi_to_miladi($data['giving_date'],'/');
+        $data['zero_date'] = convert_shamsi_to_miladi($data['zero_date'],'/');
         $data['price'] = str_rep_price($data['price']);
         $project=Project::find($id);
         $project->update($data);
-        return redirect()->route('dashboard.admin.project.manage')->with('info', 'پروژه ویرایش شد');
+        return redirect()->back()->with('info', 'پروژه ویرایش شد');
     }
 
     public function UpdateStatus(Request $request, $id, $status)
