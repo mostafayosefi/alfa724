@@ -23,10 +23,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectController extends Controller
 {
-    public function create()
+    public function create($customer_id=null)
     {
-        $customers = Customer::orderby('id','desc')->get();
-        return view('dashboard.admin.project.create' , compact(['customers'  ]));
+
+
+        $users = User::orderBy('created_at', 'desc')->get();
+        if($customer_id==null){
+            $customer = Customer::orderby('id','desc')->get();
+        }else{
+            $customer = Customer::find($customer_id);
+        }
+
+        return view('dashboard.admin.project.create' , compact([    'customer' , 'customer_id'    ]));
+
 
     }
 

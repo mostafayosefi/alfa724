@@ -31,6 +31,12 @@
 
 
 
+
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-table'  ,  'ul' => 'true' ,  'title' =>   'مدیریت خدمات مشتریان ' ,
+ 'multi_route' => [   ['dashboard.admin.service.index', [  ], 'مدیریت خدمات ' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.service.create', [  ], 'ثبت خدمت' , 'far fa-circle nav-icon'  ],   ]  ])
+
+
+
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت پروژه ها' ,
  'multi_route' => [   ['dashboard.admin.project.manage', [  ], 'مدیریت پروژه ها' , 'far fa-circle nav-icon'  ],  ['dashboard.admin.project.create', [  ], 'ثبت پروژه' , 'far fa-circle nav-icon'  ],   ]  ])
 

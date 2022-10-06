@@ -20,24 +20,23 @@
             <x-card-header>مدیریت خدمت ها</x-card-header>
                 <x-card-body>
                     <div class="box-body">
-                        <table id="example2" class="table table-bordered table-hover">
+                        <table id="example" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>اسم</th>
-                                <th>تعداد</th>
-                                {{-- <th>نام مسئول</th> --}}
-                                <th>تاریخ شروع</th>
+                                <th>ردیف</th>
+                                <th>نام خدمت</th>
+                                 <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
                                 <th>مشاهده</th>
                                 <th>حذف</th>
                             </tr>
                             </thead>
                                 <tbody>
-                             @foreach($posts as $item)
+                             @foreach($myservices as $key => $item)
                                 <tr>
+                                    <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->count }}</td>
-                                    {{-- <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td> --}}
+                                     {{-- <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td> --}}
                                     <td>{{ date_frmat_a($item->startdate) }}</td>
                                     <td>{{ date_frmat_a($item->enddate) }}</td>
                                     <td><a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}" class="btn btn-primary">مشاهده</a></td>
@@ -49,9 +48,8 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                <th>اسم</th>
-                                <th>تعداد</th>
-                                <th>نام مسئول</th>
+                                    <th>ردیف</th>
+                                <th>نام خدمت</th>
                                 <th>تاریخ پایان</th>
                                 <th>تاریخ شروع</th>
                                 <th>مشاهده</th>

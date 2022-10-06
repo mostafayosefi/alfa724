@@ -23,7 +23,7 @@ use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\ScoreSettingController;
-use App\Http\Controllers\Dashboard\Employee\AccountingController;
+use App\Http\Controllers\Dashboard\Admin\AccountingController;
 use App\Http\Controllers\Notification\NotificationListController;
 // use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Admin\PermissionRoleController;
@@ -46,7 +46,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // MWl..A7&j1%%g=2Ym
 
 
-// test 
+// test
 
 // Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
@@ -141,7 +141,7 @@ Route::prefix('permission')->name('permission.')->group(function () {
 Route::prefix('project')->name('project.')->group(function () {
 
     Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
-    Route::get('/create', [ProjectController::class, 'create'])->name('create');
+    Route::get('/create/{customer_id?}', [ProjectController::class, 'create'])->name('create');
     Route::post('/', [ProjectController::class, 'store'])->name('store');
     Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
     Route::get('/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
@@ -201,13 +201,14 @@ Route::prefix('notification')->name('notification.')->group(function () {
 
                 Route::prefix('service')->name('service.')->group(function () {
 
-                    Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
-                    Route::post('/create/{id}', [ServiceController::class, 'store'])->name('store');
-                    Route::get('/create/{id}', [ServiceController::class, 'GetCreatePost'])->name('create');
+                    Route::get('/show/{id}', [ServiceController::class, 'show'])->name('show');
+                    Route::post('/create', [ServiceController::class, 'store'])->name('store');
+                    Route::get('/create/{customer_id?}', [ServiceController::class, 'GetCreatePost'])->name('create');
                     Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
                     Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
                     Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
                     Route::put('update/{id}', [ServiceController::class, 'update'])->name('update');
+                    Route::get('index', [ServiceController::class, 'index'])->name('index');
 
 
                 });

@@ -52,6 +52,10 @@
                     </div>
                 </div>
         <x-card type="info">
+
+            @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])
+
+
             <x-card-header>
             {{ $post->title }}
             </x-card-header>

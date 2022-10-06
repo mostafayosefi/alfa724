@@ -24,14 +24,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ServiceController extends Controller
 {
 
-    public function GetCreatePost($id)
-    {   $customer = Customer::find($id);
-        $users = User::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.service.create' , compact([   'users'  ,'customer'     ]));
+    public function index()
+    {
+
+        $myservices = MyService::where([ ['id' , '<>' , '0'] ])->orderBy('id','desc')->get();
+        return view('dashboard.admin.service.manage' , compact([   'myservices'    ]));
 
     }
 
-    public function store( $id ,Request $request)
+    public function create($customer_id=null)
+    {
+
+        $users = User::orderBy('created_at', 'desc')->get();
+        if($customer_id==null){
+            $customer = Customer::orderby('id','desc')->get();
+        }else{
+            $customer = Customer::find($customer_id);
+        }
+
+        return view('dashboard.admin.service.create' , compact([   'users'  ,'customer' , 'customer_id'    ]));
+
+    }
+
+    public function store( Request $request)
     {
 
 
@@ -44,10 +59,9 @@ class ServiceController extends Controller
         $data['startdate'] = convert_shamsi_to_miladi($data['startdate'],'/');
         $data['price'] = str_rep_price($data['price']);
         $data['count'] = 1;
-        $data['customer_id'] = $id;
         $data['enddate']  = computing_day_work($data['startdate'],$data['durday']);
-       MyService::create($data);
-       return redirect()->route('dashboard.admin.customer.show',$id)->with('info', '  سرویس جدید ذخیره شد و نام آن' .' ' . $data['name'] );
+       $myservice = MyService::create($data);
+       return redirect()->route('dashboard.admin.service.show',$myservice )->with('info', '  سرویس جدید ذخیره شد و نام آن' .' ' . $data['name'] );
 
     }
 
