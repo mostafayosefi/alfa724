@@ -56,20 +56,8 @@
             @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])
 
 
-            <x-card-header>
-            {{ $post->title }}
-            </x-card-header>
                 <x-card-body>
-                    <div class="box-body">
-                        <p>نام و نام خانوادگی مشتری:{{ $post->customer_name }} </p>
-                        <div class="row">
-                            <div class="col-12">
-                                <div style="width:100%; max-height: 750px;overflow-y: scroll;">
-                                {!! $post->description !!}
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="box-body"> 
                         <div style="margin-bottom: 50px; clear:both;"></div>
                         <div class="card">
                             <div class="card-header">

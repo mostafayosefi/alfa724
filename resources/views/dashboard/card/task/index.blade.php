@@ -1,6 +1,5 @@
 
 
-
     <div class="col-md-12">
         <x-card type="primary">
             <x-card-header>  مشاهده مسئولیت ها</x-card-header>
@@ -15,6 +14,7 @@
                             <th>تاریخ ایجاد</th>
                             <th>وضعیت</th>
                             <th>ویرایش</th>
+                            <th>حذف</th>
                         </tr>
                         </thead>
                             <tbody>
@@ -38,6 +38,15 @@
                                 <button class="btn btn-warning" type="submit" data-target="#modal-lf{{ $item->id }}" data-toggle="modal">
                                     <i class="fas fa-edit"></i> ویرایش</button>
                                 </td>
+
+ <td>
+    @if(explode_url(1)=='admin')
+    @include('dashboard.ui.modal_delete' , ['myname' => 'مسئولیت '. $item->title , 'route' => route('dashboard.admin.daily.destroy' , $item->id  ) ] )
+    @elseif (explode_url(1)=='employee')
+    @include('dashboard.ui.modal_delete' , ['myname' => 'مسئولیت '. $item->title , 'route' => route('dashboard.employee.task.destroy' , $item->id  ) ] )
+    @endif
+</td>
+
                             </tr>
                          @endforeach
                             </tbody>
@@ -50,6 +59,7 @@
                                 <th>تاریخ ایجاد</th>
                                 <th>وضعیت</th>
                                 <th>ویرایش</th>
+                                <th>حذف</th>
                             </tr>
                             </tfoot>
                 </table>

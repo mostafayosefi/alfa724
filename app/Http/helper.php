@@ -939,10 +939,21 @@ if(! function_exists('calender_route_origin') ) {
 if(! function_exists('law_name') ) {
     function law_name($type)
     {
-
         if($type=='depo'){$name='بیعانه'; }
+        if($type=='cost'){$name='هزینه'; }
         if($type=='service'){$name='خدمات پروژه'; }
+        return $name;
 
+    }
+}
+
+
+
+if(! function_exists('law_style') ) {
+    function law_style($type)
+    {
+        if($type=='depo'){$name='success'; }
+        if($type=='cost'){$name='warning'; } 
         return $name;
 
     }

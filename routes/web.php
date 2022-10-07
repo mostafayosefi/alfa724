@@ -203,12 +203,13 @@ Route::prefix('notification')->name('notification.')->group(function () {
 
                     Route::get('/show/{id}', [ServiceController::class, 'show'])->name('show');
                     Route::post('/create', [ServiceController::class, 'store'])->name('store');
-                    Route::get('/create/{customer_id?}', [ServiceController::class, 'GetCreatePost'])->name('create');
+                    Route::get('/create/{customer_id?}', [ServiceController::class, 'create'])->name('create');
                     Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
                     Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
                     Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
                     Route::put('update/{id}', [ServiceController::class, 'update'])->name('update');
                     Route::get('index', [ServiceController::class, 'index'])->name('index');
+                    Route::post('price', [ServiceController::class, 'price'])->name('price');
 
 
                 });
@@ -339,6 +340,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::put('/updatenote', [DailyController::class, 'UpdateNote'])->name('updatenote');
     Route::get('/deletenote/{id}', [DailyController::class, 'DeleteNote'])->name('deletenote');
 
+    Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
+
 
 });
 
@@ -418,6 +421,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::post('/note', [TaskController::class, 'CreateNote'])->name('note');
                 Route::put('/updatenote', [TaskController::class, 'UpdateNote'])->name('updatenote');
                 Route::get('/deletenote/{id}', [TaskController::class, 'DeleteNote'])->name('deletenote');
+
+                Route::delete('/{id}', [TaskController::class, 'destroy'])->name('destroy');
 
                 });
 

@@ -65,11 +65,9 @@
 
 <div class="col-md-5">
 
-@include('dashboard.ui.java-price')
-
-
+@include('dashboard.ui.java-price') 
 <div class="form-group">
-    <label for="durday">  هزینه پروژه (به تومان)    </label>
+    <label for="durday">  هزینه خدمت (به تومان)    </label>
     <input type="text" class="form-control input_mystyle" id="price"  name="price"  onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
 </div><hr>
 

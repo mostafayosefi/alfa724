@@ -56,9 +56,14 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'price' => 'required',
+        ]);
 
 
         $data = $request->all();
+
+        $data['price'] = str_rep_price($data['price']);
         $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
         $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
         $datestartfinish=check_date_startfinish($data['start_date']  , $data['finish_date'] );

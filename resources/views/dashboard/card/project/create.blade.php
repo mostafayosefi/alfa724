@@ -16,7 +16,7 @@
             <input type="hidden" name="customer_id" value="{{ $customer_id }}" />
             @else
 
-    @include('dashboard.ui.selectbox', [ 'allforeachs' => $customers ,
+    @include('dashboard.ui.selectbox', [ 'allforeachs' => $customer ,
     'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
     'value' =>   old('customer_id') , 'required'=>'required'  , 'index_id'=>'customer_id' ]) <hr>
 
@@ -28,13 +28,15 @@
   required  name="title" value="{{ old('title') }}" placeholder="عنوان"  >
 </div><hr>
 
-<x-select-group required="" label="وضعیت" name="status">
-    <x-select-item value="not_done">{{ __('app.status.not_done') }}</x-select-item>
-    <x-select-item value="delayed">{{ __('app.status.delayed') }}</x-select-item>
-    <x-select-item value="in_progress">{{ __('app.status.in_progress') }}</x-select-item>
-    <x-select-item value="done">{{ __('app.status.done') }}</x-select-item>
-    <x-select-item value="paid">{{ __('app.status.paid') }}</x-select-item>
-</x-select-group>
+
+
+@include('dashboard.ui.java-price')
+<div class="form-group">
+    <label for="durday">  هزینه پروژه (به تومان)    </label>
+    <input type="text" class="form-control input_mystyle" id="price"  name="price"    value="{{ number_format(old('price')) }}"
+    onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
+    </div><hr>
+
 
         </div>
 
@@ -56,6 +58,13 @@
                 </div>
             </div><hr>
 
+            <x-select-group required="" label="وضعیت" name="status">
+                <x-select-item value="not_done">{{ __('app.status.not_done') }}</x-select-item>
+                <x-select-item value="delayed">{{ __('app.status.delayed') }}</x-select-item>
+                <x-select-item value="in_progress">{{ __('app.status.in_progress') }}</x-select-item>
+                <x-select-item value="done">{{ __('app.status.done') }}</x-select-item>
+                <x-select-item value="paid">{{ __('app.status.paid') }}</x-select-item>
+            </x-select-group>
 
         </div>
         <div class="col-md-1">

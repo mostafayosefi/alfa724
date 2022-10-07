@@ -15,6 +15,7 @@ use App\Models\Customer;
 use App\Models\Service;
 use App\Models\EmployeeProject;
 use App\Models\MyService;
+use App\Models\Price\PriceMyService;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
@@ -26,7 +27,6 @@ class ServiceController extends Controller
 
     public function index()
     {
-
         $myservices = MyService::where([ ['id' , '<>' , '0'] ])->orderBy('id','desc')->get();
         return view('dashboard.admin.service.manage' , compact([   'myservices'    ]));
 
@@ -78,8 +78,8 @@ class ServiceController extends Controller
 
     public function GetManagePost(Request $request)
     {
-        $posts = MyService::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.service.manage', ['posts' => $posts]);
+        $myservices = MyService::where([ ['id' , '<>' , '0'] ])->orderBy('id','desc')->get();
+        return view('dashboard.admin.service.manage' , compact([   'myservices'    ]));
     }
 
     public function DeletePost($id){
@@ -121,6 +121,29 @@ class ServiceController extends Controller
         $my_service->update($data);
 
         return redirect()->route('dashboard.admin.service.show',$my_service->id)->with('info', 'خدمت ویرایش شد');
+    }
+
+
+
+    public function price( Request $request)
+    {
+
+
+        $request->validate([
+            'date' => 'required',
+            'price' => 'required',
+            'text' => 'required',
+        ]);
+        $data = $request->all();
+        $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
+        $data['price'] = str_rep_price($data['price']);
+       $pricemyservice = PriceMyService::create($data);
+
+
+
+       return redirect()->route('dashboard.admin.service.show', $data['my_service_id'] )
+       ->with('info',  'تراکنش ثبت '.law_name($data['type']).' باموفقیت انجام شد') ;
+
     }
 
 
