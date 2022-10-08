@@ -3,29 +3,30 @@
 namespace App\Http\Controllers\Dashboard\Admin;
 
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Employee\TaskCreateRequest;
-use App\Http\Requests\Dashboard\Employee\TaskStatusUpdateRequest;
-use App\Http\Requests\Dashboard\Employee\TaskUpdateRequest;
-use App\Models\Score;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Requests\TaskRequest;
-use Illuminate\Session\Store;
-use App\Models\User;
+use Carbon\Carbon;
 use App\Models\Note;
 use App\Models\Task;
-use App\Models\Project;
+use App\Models\User;
 use App\Models\Phase;
+use App\Models\Score;
+use App\Http\Requests;
 use App\Models\Absence;
 use App\Models\message;
+use App\Models\Project;
+use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
+use Illuminate\Session\Store;
 use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
+use App\Http\Requests\TaskRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
-use Morilog\Jalali\Jalalian;
+use RealRashid\SweetAlert\Facades\Alert;
+use phpDocumentor\Reflection\Types\Null_;
+use App\Http\Requests\Dashboard\Employee\TaskCreateRequest;
+use App\Http\Requests\Dashboard\Employee\TaskUpdateRequest;
+use App\Http\Requests\Dashboard\Employee\TaskStatusUpdateRequest;
 
 class DailyController extends Controller
 {
@@ -102,13 +103,13 @@ class DailyController extends Controller
 
     public function index()
     {
-        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'desc')->paginate(50);
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'desc')->paginate(10);
         return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user'  ]);
     }
 
     public function alluser()
     {
-        $task=Task::where('id','<>' , '0')->orderBy('finish_date', 'desc')->paginate(50);
+        $task=Task::where('id','<>' , '0')->orderBy('finish_date', 'desc')->paginate(10);
         return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin'  ]);
     }
 
@@ -222,5 +223,15 @@ class DailyController extends Controller
         }
         return redirect()->route('dashboard.admin.daily.manage')->with('info', 'یادداشت ویرایش شد');
     }
+
+
+
+    public function destroy($id , Request $request){
+        Task::destroy($request->id);
+        return redirect()->back()->with('info', 'مسئولیت باموفقیت حذف شد ' );
+
+    }
+
+
 
 }

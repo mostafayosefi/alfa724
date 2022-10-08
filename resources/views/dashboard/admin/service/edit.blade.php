@@ -95,7 +95,7 @@
 
 
 <div class="form-group">
-    <label for="durday">  هزینه پروژه (به تومان)    </label>
+    <label for="durday">  هزینه خدمت (به تومان)    </label>
     <input type="text" class="form-control" id="price"  name="price"   value="{{ number_format($item->price) }}"  onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
     </div>
 

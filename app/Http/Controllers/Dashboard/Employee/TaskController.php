@@ -193,9 +193,16 @@ class TaskController extends Controller
 
         $mydate =now()->format('Y-m-d H:i:s');
         $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '-7' , ' days');
-        $task=Task::where([ ['employee_id',Auth::user()->id],  ['finish_date', '>=' ,$date_output], ])->orderBy('finish_date', 'desc')->paginate(50);
+        $task=Task::where([ ['employee_id',Auth::user()->id],  ['finish_date', '>=' ,$date_output], ])->orderBy('finish_date', 'desc')->paginate(10);
         return view('dashboard.employee.task.index', ['task' => $task , 'guard' => 'user'  ]);
     }
 
 
+
+    public function destroy($id , Request $request){
+        Task::destroy($request->id);
+        return redirect()->back()->with('info', 'مسئولیت باموفقیت حذف شد ' );
+
+    }
+    
 }

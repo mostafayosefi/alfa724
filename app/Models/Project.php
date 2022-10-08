@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Cleander\CleanderDayProject;
+use App\Models\Price\PriceMyProject;
 use App\Models\Score\ScoreProject;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,7 @@ class Project extends Model
     'counter',
     'employer',
     'customer_id',
+    'giving_date',  'zero_date', 'time',
     ];
     protected $casts = [
         'start_date' => 'date',
@@ -70,6 +72,10 @@ class Project extends Model
         return $this->belongsTo(Customer::class);
     }
 
+
+    public function price_my_projects(){
+        return $this->hasMany(PriceMyProject::class , 'project_id');
+    }
 
 
 }

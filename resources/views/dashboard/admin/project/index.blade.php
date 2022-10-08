@@ -38,6 +38,10 @@
     </div>
 @endif
 
+
+@include('dashboard.card.money.create' , [ 'flag' => 'depo' , 'item' => $project ] )
+@include('dashboard.card.money.create' , [ 'flag' => 'cost' , 'item' => $project ] )
+
     <div class="col-md-12">
                 <div class="row">
                     <div class="col-12 col-md-4 col-lg-3">
@@ -51,21 +55,19 @@
                         @endif
                     </div>
                 </div>
-        <x-card type="info">
-            <x-card-header>
-            {{ $post->title }}
-            </x-card-header>
+        <x-card type="primary">
+
+             @if($post->customer)
+             @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])
+             @else
+             مشتری این پروژه هنوز مشخص نشده است
+             @endif
+
+
+
+
                 <x-card-body>
                     <div class="box-body">
-                        <p>نام و نام خانوادگی مشتری:{{ $post->customer_name }} </p>
-                        <div class="row">
-                            <div class="col-12">
-                                <div style="width:100%; max-height: 750px;overflow-y: scroll;">
-                                {!! $post->description !!}
-                                </div>
-                            </div>
-                        </div>
-
                         <div style="margin-bottom: 50px; clear:both;"></div>
                         <div class="card">
                             <div class="card-header">
@@ -330,6 +332,10 @@
                          </div>
                     </div>
                     </x-card-body>
+
+
+
+
             <x-card-footer>
             <!--
                 <div class="row">
@@ -348,6 +354,23 @@
             </x-card-footer>
         </x-card>
     </div>
+
+
+
+    <div class="col-md-12">
+        <x-card type="info">
+
+
+ @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'item' => $project , 'items' => $project->price_my_projects ] )
+ @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'item' => $project , 'items' => $project->price_my_projects ] )
+
+@include('dashboard.card.money.table_price_sum',[  'item' => $project ])
+{{-- @include('dashboard.card.service.footer') --}}
+
+        </x-card>
+    </div>
+
+
     @endsection
 
 @section('scripts')

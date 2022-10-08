@@ -3,7 +3,8 @@
 
             <div class="card card-success">
                 <div class="card-header">
-                     <h3 class="card-title">{{ $customer->name }}</h3>
+                     <h3 class="card-title">اطلاعات مشتری</h3>
+                     {{-- <h3 class="card-title">{{ $customer->name }}</h3> --}}
                    </div>
 
 <div class="card-body">
@@ -51,7 +52,7 @@
 </div>
 
 
-@if((explode_url(2)=='edit')||(explode_url(3)=='show'))
+@if((explode_url(2)=='project')||(explode_url(2)=='edit')||(explode_url(3)=='show'))
 <div class="row">
     <div class="col-md-12">
     <strong> &nbsp; </strong>

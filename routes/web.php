@@ -23,7 +23,7 @@ use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
 use App\Http\Controllers\Dashboard\Admin\ScoreSettingController;
-use App\Http\Controllers\Dashboard\Employee\AccountingController;
+use App\Http\Controllers\Dashboard\Admin\AccountingController;
 use App\Http\Controllers\Notification\NotificationListController;
 // use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
 use App\Http\Controllers\Dashboard\Admin\PermissionRoleController;
@@ -46,6 +46,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // MWl..A7&j1%%g=2Ym
 
 
+// test
 
 // Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
@@ -62,7 +63,7 @@ use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAcco
 // });
 
 
-Route::get('/testi', [ProjectController::class, 'testi'])->name('testi'); 
+Route::get('/testi', [ProjectController::class, 'testi'])->name('testi');
 
 
 Route::get('/', function () {
@@ -140,7 +141,7 @@ Route::prefix('permission')->name('permission.')->group(function () {
 Route::prefix('project')->name('project.')->group(function () {
 
     Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
-    Route::get('/create', [ProjectController::class, 'create'])->name('create');
+    Route::get('/create/{customer_id?}', [ProjectController::class, 'create'])->name('create');
     Route::post('/', [ProjectController::class, 'store'])->name('store');
     Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
     Route::get('/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
@@ -149,6 +150,10 @@ Route::prefix('project')->name('project.')->group(function () {
     Route::get('/show/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
     Route::get('/{id}/status/{status}', [ProjectController::class, 'UpdateStatus'])->name('updatestatus');
     Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('destroy');
+
+    Route::post('price', [ProjectController::class, 'price'])->name('price');
+    Route::delete('price/{id}', [ProjectController::class, 'destroy_price'])->name('destroy_price');
+
 
             });
 
@@ -200,13 +205,16 @@ Route::prefix('notification')->name('notification.')->group(function () {
 
                 Route::prefix('service')->name('service.')->group(function () {
 
-                    Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
-                    Route::post('/create/{id}', [ServiceController::class, 'store'])->name('store');
-                    Route::get('/create/{id}', [ServiceController::class, 'GetCreatePost'])->name('create');
+                    Route::get('/show/{id}', [ServiceController::class, 'show'])->name('show');
+                    Route::post('/create', [ServiceController::class, 'store'])->name('store');
+                    Route::get('/create/{customer_id?}', [ServiceController::class, 'create'])->name('create');
                     Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
                     Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
                     Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
                     Route::put('update/{id}', [ServiceController::class, 'update'])->name('update');
+                    Route::get('index', [ServiceController::class, 'index'])->name('index');
+                    Route::post('price', [ServiceController::class, 'price'])->name('price');
+                    Route::delete('price/{id}', [ServiceController::class, 'destroy_price'])->name('destroy_price');
 
 
                 });
@@ -337,6 +345,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::put('/updatenote', [DailyController::class, 'UpdateNote'])->name('updatenote');
     Route::get('/deletenote/{id}', [DailyController::class, 'DeleteNote'])->name('deletenote');
 
+    Route::delete('/{id}', [DailyController::class, 'destroy'])->name('destroy');
+
 
 });
 
@@ -416,6 +426,8 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 Route::post('/note', [TaskController::class, 'CreateNote'])->name('note');
                 Route::put('/updatenote', [TaskController::class, 'UpdateNote'])->name('updatenote');
                 Route::get('/deletenote/{id}', [TaskController::class, 'DeleteNote'])->name('deletenote');
+
+                Route::delete('/{id}', [TaskController::class, 'destroy'])->name('destroy');
 
                 });
 

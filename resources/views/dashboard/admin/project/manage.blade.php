@@ -51,7 +51,7 @@
 
                                     <td>{{$key+1}}</td>
                                     <td>{{ $item->title }}</td>
-                                    <td>{{ $item->customer_name }}</td>
+                                    <td>@if($item->customer) {{$item->customer->name}} @else هنوزمشخص نشده @endif</td>
                                     <td>{{ date_frmat_a($item->start_date) }}</td>
                                     <td>{{ date_frmat_a($item->finish_date) }}</td>
                                     <td><a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" class="btn btn-block bg-gradient-primary btn-sm">نمایش پروژه</a></td>
@@ -60,7 +60,7 @@
                                      @include('dashboard.ui.modal_delete', [$item ,'route' => route('dashboard.admin.project.destroy', $item) , 'myname' => 'پروژه '.$item->title ])
                                     </td>
                                     <td>
-                                    <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" class="edit_post" ><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 <!-- SHOW SUCCESS modal -->

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Phase;
 use App\Http\Requests;
 use App\Models\Salary;
+use App\Models\Price\PriceMyProject;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
@@ -23,15 +24,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectController extends Controller
 {
-    public function create()
+    public function create($customer_id=null)
     {
-        $customers = Customer::orderby('id','desc')->get();
-        return view('dashboard.admin.project.create' , compact(['customers'  ]));
+
+
+        $users = User::orderBy('created_at', 'desc')->get();
+        if($customer_id==null){
+            $customer = Customer::orderby('id','desc')->get();
+        }else{
+            $customer = Customer::find($customer_id);
+        }
+
+        return view('dashboard.admin.project.create' , compact([    'customer' , 'customer_id'    ]));
+
 
     }
 
     public function GetProject($id)
     {
+        $project = Project::find($id);
         $post = Project::find($id);
         $phase= Phase::where('project_id',$id)->orderBy('created_at', 'desc')->get();
         $users = EmployeeProject::where('project_id',$id)->orderBy('created_at', 'desc')->get();
@@ -41,15 +52,22 @@ class ProjectController extends Controller
 
         // dd($users);
 
-        return view('dashboard.admin.project.index', ['post' => $post, 'id' => $id ,'phase' => $phase,'users' => $users , 'all_users' => $all_users, 'tasks' =>$tasks, 'salaries' => $salaries ]);
-    }
+        return view('dashboard.admin.project.index' , compact(['post' , 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
+
+
+     }
 
     public function store(Request $request)
     {
 
+        $request->validate([
+            'price' => 'required',
+        ]);
 
 
         $data = $request->all();
+
+        $data['price'] = str_rep_price($data['price']);
         $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
         $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
         $datestartfinish=check_date_startfinish($data['start_date']  , $data['finish_date'] );
@@ -95,6 +113,10 @@ class ProjectController extends Controller
 
     public function update($id , Request $request)
     {
+        $request->validate([
+            'time' => 'required|numeric',
+            'price' => 'required',
+        ]);
 
         $data = $request->all();
 
@@ -102,10 +124,12 @@ class ProjectController extends Controller
 
         $data['start_date'] = convert_shamsi_to_miladi($data['start_date'],'/');
         $data['finish_date'] = convert_shamsi_to_miladi($data['finish_date'],'/');
+        $data['giving_date'] = convert_shamsi_to_miladi($data['giving_date'],'/');
+        $data['zero_date'] = convert_shamsi_to_miladi($data['zero_date'],'/');
         $data['price'] = str_rep_price($data['price']);
         $project=Project::find($id);
         $project->update($data);
-        return redirect()->route('dashboard.admin.project.manage')->with('info', 'پروژه ویرایش شد');
+        return redirect()->back()->with('info', 'پروژه ویرایش شد');
     }
 
     public function UpdateStatus(Request $request, $id, $status)
@@ -175,6 +199,40 @@ class ProjectController extends Controller
         echo 'hi';
 
     }
+
+
+    
+    public function price( Request $request)
+    {
+
+
+        $request->validate([
+            'date' => 'required',
+            'price' => 'required',
+            'text' => 'required',
+        ]);
+        $data = $request->all();
+        $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
+        $data['price'] = str_rep_price($data['price']);
+       $pricemyservice = PriceMyProject::create($data);
+
+
+
+       return redirect()->route('dashboard.admin.project.index', $data['project_id'] )
+       ->with('info',  'تراکنش ثبت '.law_name($data['type']).' باموفقیت انجام شد') ;
+
+    }
+
+
+    public function destroy_price($id , Request $request){
+
+        $price_my_project = PriceMyProject::find($id);
+        PriceMyProject::destroy($id);
+        return redirect()->back()
+        ->with('info',  'تراکنش  '.law_name($price_my_project->type).' باموفقیت حذف شد') ;
+
+    }
+
 
 
 
