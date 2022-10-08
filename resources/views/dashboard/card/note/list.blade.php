@@ -87,7 +87,7 @@
         <div class="card-footer clearfix">
           <button type="button"  data-toggle="modal" data-target="#modal-lgg" style="font-size:13px;" class="btn btn-warning float-right"><i class="fas fa-plus"></i>اضافه کردن یادداشت</button>
           <ul class="pagination">
-             {{$write->links()}}
+             {{-- {{$write->links()}} --}}
           </ul>
         </div>
       </div>

@@ -17,6 +17,9 @@
     <x-breadcrumb-item title="{{ $post->title }}" route="dashboard.admin.project.index" />
 @endsection
 @section('content')
+
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+
 @include('dashboard.admin.phase.create', ['id' => $post->id])
 @include('dashboard.admin.phase.updatepost', ['posts' => $phase, 'id' => $post->id])
 @include('dashboard.admin.task.create', ['id' => $post->id, 'phase' => $phase, 'posts' => $users])

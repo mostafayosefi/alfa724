@@ -35,7 +35,9 @@ BY WEBITO
 
     <link rel="stylesheet" href="{{ asset('assets/cdn/editor/summernote-bs4.min.css')}}">
 
-
+    <link rel="stylesheet" href="{{ asset('assets/cdn/codemir/codemirror.css')}}">
+    <script src="{{ asset('assets/cdn/codemir/codemirror.js')}}"></script>
+    <script src="{{ asset('assets/cdn/codemir/javascript.js')}}"></script>
 
     @yield('styles', '')
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.rtl.css') }}">
@@ -225,8 +227,7 @@ BY WEBITO
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script
-    src="{{ asset('assets/cdn/jquery-3.4.1.min.js')}}" ></script>
+<script src="{{ asset('assets/cdn/jquery-3.4.1.min.js')}}" ></script>
 <script src="{{ asset('assets/cdn/popper.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script
@@ -344,12 +345,11 @@ BY WEBITO
 
  {{-- <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script> --}}
  {{-- <script src="{{ asset('assets/cdn/ckeditor.js')}}"></script> --}}
- <script type="text/javascript">
+ {{-- <script type="text/javascript">
     CKEDITOR.replace('description', {
-     // Load the Farsi interface.
         language: 'fa'
       });
-</script>
+</script> --}}
 <script>
     setTimeout(function() {
         $('.alert:not(.no-dismiss)').hide('slow', function(){ $target.remove(); });
