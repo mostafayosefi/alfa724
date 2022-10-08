@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Cleander\CleanderDayProject;
+use App\Models\Price\PriceMyProject;
 use App\Models\Score\ScoreProject;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -71,6 +72,10 @@ class Project extends Model
         return $this->belongsTo(Customer::class);
     }
 
+
+    public function price_my_projects(){
+        return $this->hasMany(PriceMyProject::class , 'project_id');
+    }
 
 
 }

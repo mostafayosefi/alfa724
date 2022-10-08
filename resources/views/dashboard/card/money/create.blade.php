@@ -18,6 +18,9 @@
 @if(explode_url(2)=='service')
 action="{{ route('dashboard.admin.service.price') }}"
 @endif
+@if(explode_url(2)=='project')
+action="{{ route('dashboard.admin.project.price') }}"
+@endif
 method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
 
@@ -33,7 +36,7 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
             <div class="col-md-6">
 
                 <div class="form-group">
-                    <label>تاریخ شروع:</label>
+                    <label>تاریخ تراکنش:</label>
                     <div class="input-group">
                       <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
                       data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('date') }}"  >
@@ -43,7 +46,7 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
             </div>
         </div>
 
-        <input type="hidden" name="my_service_id" value="{{ $item->id }}" />
+        <input type="hidden" name="project_id" value="{{ $item->id }}" />
         <input type="hidden" name="type" value="{{$flag}}" />
         <input type="hidden" name="status" value="active" />
 

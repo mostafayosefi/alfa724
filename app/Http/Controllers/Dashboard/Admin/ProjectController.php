@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Phase;
 use App\Http\Requests;
 use App\Models\Salary;
+use App\Models\Price\PriceMyProject;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
@@ -41,6 +42,7 @@ class ProjectController extends Controller
 
     public function GetProject($id)
     {
+        $project = Project::find($id);
         $post = Project::find($id);
         $phase= Phase::where('project_id',$id)->orderBy('created_at', 'desc')->get();
         $users = EmployeeProject::where('project_id',$id)->orderBy('created_at', 'desc')->get();
@@ -50,8 +52,10 @@ class ProjectController extends Controller
 
         // dd($users);
 
-        return view('dashboard.admin.project.index', ['post' => $post, 'id' => $id ,'phase' => $phase,'users' => $users , 'all_users' => $all_users, 'tasks' =>$tasks, 'salaries' => $salaries ]);
-    }
+        return view('dashboard.admin.project.index' , compact(['post' , 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
+
+
+     }
 
     public function store(Request $request)
     {
@@ -195,6 +199,40 @@ class ProjectController extends Controller
         echo 'hi';
 
     }
+
+
+    
+    public function price( Request $request)
+    {
+
+
+        $request->validate([
+            'date' => 'required',
+            'price' => 'required',
+            'text' => 'required',
+        ]);
+        $data = $request->all();
+        $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
+        $data['price'] = str_rep_price($data['price']);
+       $pricemyservice = PriceMyProject::create($data);
+
+
+
+       return redirect()->route('dashboard.admin.project.index', $data['project_id'] )
+       ->with('info',  'تراکنش ثبت '.law_name($data['type']).' باموفقیت انجام شد') ;
+
+    }
+
+
+    public function destroy_price($id , Request $request){
+
+        $price_my_project = PriceMyProject::find($id);
+        PriceMyProject::destroy($id);
+        return redirect()->back()
+        ->with('info',  'تراکنش  '.law_name($price_my_project->type).' باموفقیت حذف شد') ;
+
+    }
+
 
 
 

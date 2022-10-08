@@ -31,16 +31,21 @@
         </div>
     </div>
 @endif
-@include('dashboard.card.money.create' , [ 'route' => route('dashboard.admin.daily.store') , 'flag' => 'depo' ] )
-@include('dashboard.card.money.create' , [ 'route' => route('dashboard.admin.daily.store') , 'flag' => 'cost' ] )
+@include('dashboard.card.money.create' , [ 'flag' => 'depo' ] )
+@include('dashboard.card.money.create' , [ 'flag' => 'cost' ] )
 
     <div class="col-md-12">
         <x-card type="info">
 
             @include('dashboard.admin.customer.detial')
+            @include('dashboard.admin.service.detial')
 
-            @include('dashboard.card.money.list_service' , [ 'flag' => 'depo'  ] )
-            @include('dashboard.card.money.list_service' , [ 'flag' => 'cost'  ] )
+            @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'items' => $item->price_my_services  ] )
+            @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'items' => $item->price_my_services   ] )
+
+
+
+@include('dashboard.card.money.table_price_sum')
 
 @include('dashboard.card.service.footer')
 

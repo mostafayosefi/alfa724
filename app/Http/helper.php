@@ -953,7 +953,7 @@ if(! function_exists('law_style') ) {
     function law_style($type)
     {
         if($type=='depo'){$name='success'; }
-        if($type=='cost'){$name='warning'; } 
+        if($type=='cost'){$name='warning'; }
         return $name;
 
     }
@@ -1507,6 +1507,27 @@ if(! function_exists('code_customer') ) {
         }else{ $code = 101; }
 
         return $code;
+
+    }
+}
+
+
+
+if(! function_exists('sum_price_depocost') ) {
+    function sum_price_depocost($my_model,$flag,$table)
+    {
+
+
+        $sum = 0;
+
+        // if($table=='price_my_service'){
+        //     $my_model = PriceMyService::where([ ['my_services_id','=',$id],['type','=',$flag], ])->first();
+        // }
+
+
+        $sum = $my_model->where('type', $flag)->sum('price');
+
+        return $sum;
 
     }
 }

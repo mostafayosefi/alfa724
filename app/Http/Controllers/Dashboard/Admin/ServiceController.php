@@ -69,9 +69,10 @@ class ServiceController extends Controller
     {
 
         $item = MyService::find($id);
+        $my_service = MyService::find($id);
         $customer = $item->customer;
         insert_task_in_cleander($item->startdate,$item->enddate,'my_services',$id ,'miladi');
-        return view('dashboard.admin.service.show' , compact([   'item'  ,'customer'     ]));
+        return view('dashboard.admin.service.show' , compact([   'item'  ,'customer'  ,'my_service'     ]));
 
 
     }
@@ -143,6 +144,16 @@ class ServiceController extends Controller
 
        return redirect()->route('dashboard.admin.service.show', $data['my_service_id'] )
        ->with('info',  'تراکنش ثبت '.law_name($data['type']).' باموفقیت انجام شد') ;
+
+    }
+
+
+    public function destroy_price($id , Request $request){
+
+        $price_my_service = PriceMyService::find($id);
+        PriceMyService::destroy($id);
+        return redirect()->back()
+        ->with('info',  'تراکنش  '.law_name($price_my_service->type).' باموفقیت حذف شد') ;
 
     }
 
