@@ -46,19 +46,13 @@
 @include('dashboard.card.money.create' , [ 'flag' => 'cost' , 'item' => $project ] )
 
     <div class="col-md-12">
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-3">
-                        @if($post->status != 'done' && $post->status != 'paid')
-                            <a class="btn btn-warning w-100 m-2" href="{{ route("dashboard.admin.project.updatestatus", ['id'=>$id,'status'=>'done']) }}">به اتمام‌رساندن پروژه</a>
-                        @endif
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3">
-                        @if($post->status != 'paid')
-                            <a class="btn btn-success w-100 m-2" href="{{ route("dashboard.admin.project.updatestatus", ['id'=>$id,'status'=>'paid']) }}">پروژه تسویه شده</a>
-                        @endif
-                    </div>
-                </div>
         <x-card type="primary">
+
+
+
+
+@include('dashboard.admin.project.detial')
+
 
              @if($post->customer)
              @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])

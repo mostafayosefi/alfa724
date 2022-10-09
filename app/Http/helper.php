@@ -872,6 +872,7 @@ if(! function_exists('price_finical') ) {
     {
 
 
+        $fir = 0 ;
         $user = User::find($user);
 
         if(($startdate=='null')&&($enddate=='null')){
@@ -880,28 +881,22 @@ if(! function_exists('price_finical') ) {
         }
 
         if($user->type=='admin'){
-           $price_my_service =  PriceMyService::where([ ['miladi','>=',$startdate] ,  ['miladi','<=',$enddate] , ])->get();
-           $my_service = MyService::where([ ['startdate','>=',$startdate] ,   ])->get();
+        $my_price_model  =  PriceMyService::where([ ['miladi','>=',$startdate] ,  ['miladi','<=',$enddate] , ]);
+        $price_my_service = $my_price_model->get();
+
+        $my_service_model = MyService::where([ ['startdate','>=',$startdate] ,  ['enddate','<=',$enddate] ,   ]);
+        $my_service = $my_service_model->get();
         }
 
         if($type=='income'){
-            $fir = 0 ;
-            foreach($my_service as $item){
-                $fir = $item->price + $fir;
-            }
+        $fir = $my_service_model->sum('price');
         }
 
         if($type=='depo'){
-            $fir = 0 ;
-            foreach($price_my_service as $item){
-                if(($item->status=='active')&&($item->type=='depo')){
-                    $fir = $item->price + $fir;
-                }
-            }
+        $fir = $my_price_model->where([ ['type','=','depo'] ,  ['status','=','active'] ,   ])->sum('price');
         }
 
 
-        // dd($fir);
         return $fir;
 
 
@@ -1532,6 +1527,21 @@ if(! function_exists('sum_price_depocost') ) {
     }
 }
 
+
+
+
+if(! function_exists('status_project') ) {
+    function status_project($status)
+    { 
+        if($status=='not_done'){ return 'انجام نشده'; }
+        if($status=='delayed'){ return 'به تعویق افتاده'; }
+        if($status=='in_progress'){ return 'در حال انجام'; }
+        if($status=='done'){ return 'به اتمام رسیده'; }
+        if($status=='paid'){ return 'تسویه شده'; }
+
+
+    }
+}
 
 
 // ->middleware(['role:admin']);

@@ -45,12 +45,6 @@
 </div>
 </x-card-body> --}}
 
-
-            <x-card-footer>
-            <a href="{{route('dashboard.admin.customer.updatecustomer',['id'=>$customer->id])}}" class="btn btn-warning" >ویرایش مشتری</a>
-            <a href="{{route('dashboard.admin.service.create', $customer->id )}}" class="btn btn-success" >ساخت خدمت جدید برای مشتری</a>
-            <a href="{{route('dashboard.admin.project.create', $customer->id )}}" class="btn btn-primary" >ساخت پروژه جدید برای مشتری</a>
-            </x-card-footer>
         </x-card>
     </div>
 

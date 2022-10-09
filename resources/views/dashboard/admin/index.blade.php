@@ -34,65 +34,34 @@ foreach ($service as $key) {
         <div class="row">
 
         <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3>{{number_format(price_finical(auth()->user()->id,'depo','null','null'))}}<sup style="font-size: 14px; top:1px;">تومان</sup></h3>
-
-              <p>بیعانه های دریافتی</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="{{route('dashboard.admin.money.report.depo')}}" class="small-box-footer">اطلاعات بیشتر<i class="fas fa-arrow-circle-right"></i></a>
-          </div>
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'info' , 'box_header' => number_format(price_finical(auth()->user()->id,'depo','null','null')).' تومان '
+             , 'box_titr' => 'بیعانه های دریافتی' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.report.depo') ,
+             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
-        <!-- ./col -->
+
         <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3>{{number_format(price_finical(auth()->user()->id,'income','null','null'))}}<sup style="font-size: 14px; top:1px;">تومان</sup></h3>
-
-              <p>درآمد کل پروژه ها</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="{{route('dashboard.admin.money.report.service')}}" class="small-box-footer">اطلاعات بیشتر<i class="fas fa-arrow-circle-right"></i></a>
-          </div>
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'success' , 'box_header' => number_format(price_finical(auth()->user()->id,'income','null','null')).' تومان '
+             , 'box_titr' => 'درآمد کل ' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.report.service') ,
+             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
-        <!-- ./col -->
+
+
         <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3><?php echo $employees ; ?></h3>
-
-              <p>همکاران جدید</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="{{route('dashboard.admin.users.employee')}}" class="small-box-footer">اطلاعات بیشتر<i class="fas fa-arrow-circle-right"></i></a>
-          </div>
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'warning' , 'box_header' =>  $employees.' کارمند جدید'
+             , 'box_titr' => 'همکاران جدید  ' , 'box_icon' => 'ion ion-person-add'
+              , 'box_route' => route('dashboard.admin.users.employee') ,
+             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
-        <!-- ./col -->
+
         <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-danger" style="background: #358e82 !important">
-            <div class="inner">
-              <h3><?php echo $projects ; ?></h3>
-
-              <p>پروژه های انجام شده</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="{{route('dashboard.admin.project.manage')}}" class="small-box-footer">اطلاعات بیشتر<i class="fas fa-arrow-circle-right"></i></a>
-          </div>
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'primary' , 'box_header' =>  $projects.' پروژه '
+             , 'box_titr' => 'پروژه های انجام شده ' , 'box_icon' => 'ion ion-pie-graph'
+              , 'box_route' => route('dashboard.admin.project.manage') ,
+             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
-        <!-- ./col -->
+
+
+
         @if(!empty($finishing_projects) || !empty($finishing_phases) || !empty($overdue_projects))
             <div class="col-12">
                 @foreach($finishing_projects as $project)
@@ -110,11 +79,13 @@ foreach ($service as $key) {
                     </div>
                 @endforeach
                 @foreach($overdue_projects as $project)
+                <a href="{{route('dashboard.admin.project.index' , $project->id)}}" >
                     <div class="alert alert-primary no-dismiss">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        مهلت پروژه {{ $project->title }} در {{ $project->finish_date->formatJalali() }} به پایان
-                        رسیده‌است اما هنوز به اتمام نرسیده!
-                    </div>
+
+                            مهلت پروژه {{ $project->title }} در {{ $project->finish_date->formatJalali() }} به پایان
+                            رسیده‌است اما هنوز به اتمام نرسیده!
+
+                    </div></a>
                 @endforeach
             </div>
         @endif

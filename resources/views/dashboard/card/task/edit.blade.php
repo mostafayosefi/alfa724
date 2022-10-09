@@ -33,7 +33,7 @@
                                 <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title" value="{{ $item->title }}" placeholder="عنوان">
 
                                 <textarea type="text"
-                                 id="summernote{{ $item->id }}"
+                                 id="summernote_edit{{ $item->id }}"
                                  style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
                                  class="form-control" name="description"  placeholder="توضیحات">{{ $item->description }}</textarea>
 
@@ -151,17 +151,10 @@
                     </div>
                     <!-- /.modal-dialog -->
                   </div>
-                  {{-- <script>
-                      document.addEventListener("DOMContentLoaded", function (event) {
-                          CKEDITOR.replace('summernote{{ $item->id }}', {
-                              // Load the Farsi interface.
-                              language: 'fa'
-                          });
-                      });
-                  </script> --}}
 
 
-<script>
+
+{{-- <script>
     $(function () {
       $('#summernote{{ $item->id }}').summernote()
       CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
@@ -169,6 +162,26 @@
         theme: "monokai"
       });
     })
-  </script>
+  </script> --}}
+
+
+  <script>
+    var textareas = document.getElementById("summernote_edit{{ $item->id }}");
+    $(function () {
+      $('#summernote_edit{{ $item->id }}').summernote()
+for (var i = 0; i < textareas.length; i++) {
+  CodeMirror.fromTextArea(textareas[i], {
+    lineWrapping: true,
+    mode: "htmlmixed",
+    theme: "monokai"
+  });
+}
+      });
+</script>
+
 
 @endforeach
+
+
+
+

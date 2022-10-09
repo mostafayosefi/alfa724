@@ -327,18 +327,18 @@ BY WEBITO
 
 <script src="{{ asset('assets/cdn/editor/summernote-bs4.min.js')}}"></script>
 
-
-<!-- Page specific script -->
+{{--
 <script>
     $(function () {
-      // Summernote
       $('#summernote').summernote()
-      CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+      CodeMirror.fromTextArea(document.getElementById("summernote"), {
         mode: "htmlmixed",
         theme: "monokai"
       });
     })
-  </script>
+  </script> --}}
+
+
 
  {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/standard/ckeditor.js"></script> --}}
 
@@ -356,5 +356,7 @@ BY WEBITO
     }, 6000);
 </script>
 @yield('scripts', '')
+
+@yield('myscript')
 </body>
 </html>

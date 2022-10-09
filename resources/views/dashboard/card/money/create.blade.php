@@ -57,17 +57,26 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
         </div>
 
 
-<script>
-    $(function () {
-      $('#summernote{{$flag}}').summernote()
-      CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+        @section('myscript')
+
+        <script src="{{ asset('assets/cdn/editor/summernote-bs4.min.js')}}"></script>
+
+        <script>
+        var textareas = document.getElementById("summernote{{$flag}}");
+        $(function () {
+          $('#summernote{{$flag}}').summernote()
+        for (var i = 0; i < textareas.length; i++) {
+        CodeMirror.fromTextArea(textareas[i], {
+        lineWrapping: true,
         mode: "htmlmixed",
         theme: "monokai"
-      });
-    })
-  </script>
+        });
+        }
+          });
+        </script>
 
-
+        @endsection
+ 
 
 
           @csrf

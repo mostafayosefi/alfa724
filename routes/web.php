@@ -452,7 +452,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //ACCOUNTING PAGE
 
      Route::prefix('money')->name('money.')->group(function () {
-        Route::get('/', [AccountingController::class, 'GetMoney'])->name('index');
+        Route::get('/', [EmployeeAccountingController::class, 'GetMoney'])->name('index');
 
 
          });
