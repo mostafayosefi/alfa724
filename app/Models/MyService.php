@@ -18,7 +18,7 @@ class MyService extends Model
         'text','user_id','customer_id',  'status','service_id',
     ];
 
- 
+
 
     public function cleander_day_my_services(){
         return $this->hasMany(CleanderDayMyService::class , 'my_service_id');

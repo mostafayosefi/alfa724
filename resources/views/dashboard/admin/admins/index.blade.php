@@ -15,7 +15,7 @@
     </div>
 @endif
     <div class="col-md-12">
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>  مشاهده مدیران</x-card-header>
             <x-card-body>
                 <table id="example" class="table table-bordered table-hover">
@@ -71,7 +71,7 @@
             </td>
 
 
-            <td> 
+            <td>
                 @if($item->role_id)
                 @foreach ($permissionroles as $permission   )
                 @if($permission->role_id==$item->role_id)

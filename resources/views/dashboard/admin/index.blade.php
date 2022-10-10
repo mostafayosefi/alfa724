@@ -34,14 +34,14 @@ foreach ($service as $key) {
         <div class="row">
 
         <div class="col-lg-3 col-6">
-            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'info' , 'box_header' => number_format(price_finical(auth()->user()->id,'depo','null','null')).' تومان '
-             , 'box_titr' => 'بیعانه های دریافتی' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.report.depo') ,
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'info' , 'box_header' => number_format(price_finical(auth()->user()->id,'depo','service','null','null')).' تومان '
+             , 'box_titr' => 'بیعانه های دریافتی' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.service.price' , ['type' => 'depo'] ) ,
              'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
 
         <div class="col-lg-3 col-6">
-            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'success' , 'box_header' => number_format(price_finical(auth()->user()->id,'income','null','null')).' تومان '
-             , 'box_titr' => 'درآمد کل ' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.report.service') ,
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'success' , 'box_header' => number_format(price_finical(auth()->user()->id,'income','service','null','null')).' تومان '
+             , 'box_titr' => 'درآمد کل ' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.service.index') ,
              'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
 

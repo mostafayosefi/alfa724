@@ -31,21 +31,26 @@ class AccountingController extends Controller
         return view('dashboard.admin.money.employee', ['employee' => $employee, 'salaries' => Salary::all(),'service' => $service,]);
     }
 
-    public function report( $year = null ,$month = null )
+    public function report_service( $year = null ,$month = null )
     {
-        $type =  explode_url('4');
-
+        $type = 'service';
        $cleander_month =  calender_route_origin($year  ,$month , 'cleander_month'  );
        $cleander_today = calender_route_origin($year  ,$month , 'cleander_today'  );
-
         $price_my_services = PriceMyService::where([ ['id','<>','0'], ])->orderBy('miladi' , 'desc')->get();
         $my_services = MyService::where([ ['id','<>','0'], ])->orderBy('id' , 'desc')->get();
-        $service= Service::orderBy('created_at', 'desc')->get();
-
-
-        return view('dashboard.admin.money.report.index' , compact([   'cleander_month' ,
+        return view('dashboard.admin.money.report.service.index' , compact([   'cleander_month' ,
         'cleander_today'  , 'price_my_services' , 'type'  , 'my_services'     ]));
 
+    }
+
+    public function report_service_price( $type ,  $year = null ,$month = null )
+    {
+       $cleander_month =  calender_route_origin($year  ,$month , 'cleander_month'  );
+       $cleander_today = calender_route_origin($year  ,$month , 'cleander_today'  );
+        $price_my_services = PriceMyService::where([ ['id','<>','0'], ])->orderBy('miladi' , 'desc')->get();
+        $my_services = MyService::where([ ['id','<>','0'], ])->orderBy('id' , 'desc')->get();
+        return view('dashboard.admin.money.report.service.index' , compact([   'cleander_month' ,
+        'cleander_today'  , 'price_my_services' , 'type'  , 'my_services'     ]));
 
     }
 

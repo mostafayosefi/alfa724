@@ -23,6 +23,13 @@ action="{{ route('dashboard.admin.project.price') }}"
 @endif
 method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
+@if(explode_url(2)=='service')
+<input type="hidden" name="my_service_id" value="{{ $item->id }}" />
+
+@endif
+@if(explode_url(2)=='project')
+<input type="hidden" name="project_id" value="{{ $item->id }}" />
+@endif
 
         <div class="row">
             <div class="col-md-6">
@@ -46,7 +53,6 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
             </div>
         </div>
 
-        <input type="hidden" name="project_id" value="{{ $item->id }}" />
         <input type="hidden" name="type" value="{{$flag}}" />
         <input type="hidden" name="status" value="active" />
 
@@ -76,7 +82,7 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
         </script>
 
         @endsection
- 
+
 
 
           @csrf

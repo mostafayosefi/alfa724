@@ -2,6 +2,7 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>ردیف  </th>
                         <th>  تاریخ واریزی </th>
                         <th>مشتری  </th>
                         <th>مبلغ واریزی</th>
@@ -10,8 +11,9 @@
                     </tr>
                     </thead>
                         <tbody>
-                     @foreach($price_my_services as $item)
+                     @foreach($price_my_services as $key =>  $item)
                         <tr>
+                            <td>{{ $key +1 }}</td>
                             <td>{{ $item->date }}</td>
                             <td>{{ $item->my_service->customer->customer_name }}</td>
                             <td>{{ number_format($item->price) }} تومان</td>
@@ -23,6 +25,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
+                            <th>ردیف</th>
                             <th>  تاریخ واریزی </th>
                             <th>مشتری  </th>
                             <th>مبلغ واریزی</th>
@@ -36,6 +39,8 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+
+                        <th>ردیف  </th>
                         <th>  نام پروژه </th>
                         <th>مشتری  </th>
                         <th>مبلغ کل پروژه</th>
@@ -45,8 +50,9 @@
                     </tr>
                     </thead>
                         <tbody>
-                     @foreach($my_services as $item)
+                     @foreach($my_services as $key => $item)
                         <tr>
+                            <td>{{ $key +1 }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->customer->customer_name }}</td>
                             <td>{{ number_format($item->price) }} تومان</td>
@@ -60,6 +66,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
+                            <th>ردیف  </th>
                             <th>  نام پروژه </th>
                             <th>مشتری  </th>
                             <th>مبلغ کل پروژه</th>

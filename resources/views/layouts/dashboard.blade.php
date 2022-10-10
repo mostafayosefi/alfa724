@@ -179,14 +179,16 @@ BY WEBITO
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
+
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb float-sm-left">
+                            @yield('hierarchy') 
+                        </ol>
+                    </div>
+
+                    <div class="col-sm-12">
                         @yield('breadcrumb_extra', '')
                         <h1 class="m-0 text-dark">@yield('title')</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            @yield('hierarchy')
-                        </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

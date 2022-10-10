@@ -35,7 +35,8 @@ class PermissionRoleController extends Controller
         $permissionroles = PermissionRole::where([ ['status' , '=' , 'active'], ])->get();
 
         $roles=Role::orderBy('id', 'desc')->get();
-        return view('dashboard.admin.permission.index' , compact(['roles' , 'permissionroles'  ]));
+        $users=User::where([ ['type' , '=' , 'admin'], ])->orderBy('id', 'desc')->get();
+        return view('dashboard.admin.permission.index' , compact(['roles' , 'permissionroles', 'users'  ]));
     }
 
 
@@ -45,11 +46,6 @@ class PermissionRoleController extends Controller
         $permissions=Permission::orderBy('id', 'asc')->get();
         return view('dashboard.admin.permission.create' , compact([    'users' ,  'permissions' ,  'roles'  ]));
       }
-
-    public function edit($id){
-        $value=Value::find($id);
-        return view('admin.value.edit' , compact(['value'  ]));
-    }
 
 
     public function store(Request $request)
@@ -116,18 +112,43 @@ class PermissionRoleController extends Controller
         }
         $permission_roles = PermissionRole::where([ ['role_id' , $id], ])->get();
 
-
         return view('dashboard.admin.permission.edit' , compact(['permissions' ,  'role'  ,
          'permission_roles'  ]));
         }
 
 
 
-    public function show($id)
+    public function appointment($id)
     {
-        //
+        $role=Role::find($id);
+        $permissions=Permission::orderBy('id', 'asc')->get();
+
+        foreach($permissions as $item){
+            $update = PermissionRole::updateOrCreate([
+                'role_id' => $role->id  ,
+                'permission_id' => $item->id,
+            ],[
+
+                'role_id' => $role->id  ,
+                'permission_id' => $item->id,
+            ]);
+
+        }
+        $permission_roles = PermissionRole::where([ ['role_id' , $id], ])->get();
+        $users = User::where([ ['type' , 'admin'] ])->orderBy('id', 'desc')->get();
+        return view('dashboard.admin.permission.appointment' , compact(['permissions' ,  'role'  ,
+        'permission_roles' , 'users'  ]));
     }
 
+    public function appointment_put(Request $request, $id  ){
+
+        $data = $request->all();
+        $update = User::where([ ['id',$data['user_id']] ])->update([ 'role_id' => $id]);
+        return redirect()->route('dashboard.admin.permission.index')->with('info', 'نقش کاربری با موفقیت به مدیر انتخاب شده منتصب شد');
+
+
+
+    }
 
 
     public function updatepermission(Request $request, $id  ){
@@ -137,31 +158,29 @@ class PermissionRoleController extends Controller
         $data = $request->all();
         $permission_role=PermissionRole::where([  ['role_id' , $id],  ])->get();
         $update = Role::where([ ['id',$id] ])->update([ 'name' => $data['name']]);
- 
         update_permission_role_v1($data['permission'] , $id);
-        Alert::success('با موفقیت ویرایش شد', 'اطلاعات با موفقیت ویرایش شد');
-        return back();
-    }
+        return redirect()->back()->with('info', 'نقش کاربری با موفقیت ویرایش شد');
 
-    public function update(Request $request, $id , Value $value){
-        $request->validate([
-            'name' => 'required',
-            'text' => 'required',
-        ]);
-        $value=Value::find($id);
-        $data = $request->all();
-        $data['image']= $value->image;
-        $data['image']  =  uploadFile($request->file('image'),'images/values',$value->image);
-        $value->update($data);
-        Alert::success('با موفقیت ویرایش شد', 'اطلاعات با موفقیت ویرایش شد');
-        return back();
     }
 
 
     public function destroy($id , Request $request){
-        Value::destroy($request->id);
-        Alert::info('با موفقیت حذف شد', 'اطلاعات با موفقیت حذف شد');
-        return back();
+
+        $user = User::where([ ['type' , 'admin'],  ['role_id' , $id], ])->update( ['role_id' => null ] );
+        $destroy =  Role::destroy($id);
+          $permission_roles = PermissionRole::where([ [ 'role_id' , '=' , $id ] ])->delete();
+          $count = Role::find($id)->count();
+        if($count==0){
+            update_model_v1('permissions');
+            update_model_v1('roles');
+            update_model_v1('permission_roles');
+        }
+
+        if($destroy){
+            return redirect()->back()->with('info', 'نقش کاربری با موفقیت حذف شد و کاربران منتصب به این نقش بدون نقش هستند ، لطفا نسبت به انتصاب نقش به مدیران خود اقدام نمایید');
+        }else{
+            return redirect()->back()->with('warning', 'عملیلات حذف به دلیل منتصب بودن چندین نقش به چندین مدیر بامشکل مواجه شد');
+        }
     }
 
     public function status(Request $request , $id){

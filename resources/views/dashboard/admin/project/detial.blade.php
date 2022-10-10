@@ -9,13 +9,13 @@
 
 <div class="card-body">
 <div class="row">
-<div class="col-md-4">
+<div class="col-md-8">
 <strong><i class="fas fa-book mr-1"></i> نام پروژه:  {{ $project->title }}</strong>
 <p class="text-muted">
 </p>
 </div>
 <div class="col-md-4">
-<strong><i class="fas fa-book mr-1"></i>   هزینه پروژه :  {{ number_format($project->price) }}</strong>
+<strong><i class="fas fa-book mr-1"></i>   هزینه پروژه :  {{ number_format($project->price) }} تومان</strong>
 <p class="text-muted">
 </p>
 </div>

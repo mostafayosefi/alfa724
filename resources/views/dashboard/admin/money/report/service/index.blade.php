@@ -15,21 +15,30 @@
         </div>
     </div>
 @endif
-{{-- @include('dashboard.admin.employee.updateemployee', ['posts' => $employee, 'salaries' => $salaries]) --}}
 
+
+
+<div class="row">
+
+    <div class="col-lg-4 col-6">
+        @include('dashboard.card.dashboard.box' , [  'box_bg' => 'info' , 'box_header' => number_format(price_finical(auth()->user()->id,'depo','service','null','null')).' تومان '
+         , 'box_titr' => 'بیعانه های دریافتی' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => null ,
+         'box_more' => null, 'box_more_icon' => null ])
+    </div>
+
+</div>
 
     <div class="col-md-12">
 
-        @include('dashboard.admin.money.report.header')
 
 
 
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>
-                 گزارش {{law_name($type)}}
+                 گزارش {{law_name($type)}} های خدمات
             </x-card-header>
             <x-card-body>
-                @include('dashboard.admin.money.report.table')
+                @include('dashboard.admin.money.report.service.table')
             </x-card-body>
         </x-card>
     </div>

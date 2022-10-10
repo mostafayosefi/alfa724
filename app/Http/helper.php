@@ -27,6 +27,8 @@ use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
 use App\Models\Cleander\CleanderDayMyService;
+use App\Models\Price\PriceMyProject;
+use App\Models\Project;
 use App\Models\Role\Permission;
 use App\Models\Role\PermissionRole;
 use App\Models\Role\Role;
@@ -868,9 +870,8 @@ if(! function_exists('update_deposit_to') ) {
 
 
 if(! function_exists('price_finical') ) {
-    function price_finical($user,$type,$startdate,$enddate)
+    function price_finical($user , $type , $model , $startdate , $enddate )
     {
-
 
         $fir = 0 ;
         $user = User::find($user);
@@ -881,23 +882,57 @@ if(! function_exists('price_finical') ) {
         }
 
         if($user->type=='admin'){
-        $my_price_model  =  PriceMyService::where([ ['miladi','>=',$startdate] ,  ['miladi','<=',$enddate] , ]);
-        $price_my_service = $my_price_model->get();
+        $my_price_service_model  =  PriceMyService::where([ ['miladi','>=',$startdate] ,  ['miladi','<=',$enddate] , ]);
+        $price_my_service = $my_price_service_model->get();
 
         $my_service_model = MyService::where([ ['startdate','>=',$startdate] ,  ['enddate','<=',$enddate] ,   ]);
         $my_service = $my_service_model->get();
+
+        $my_price_project_model  =  PriceMyProject::where([ ['miladi','>=',$startdate] ,  ['miladi','<=',$enddate] , ]);
+        $price_project = $my_price_project_model->get();
+
+        $project_model = Project::where([ ['start_date','>=',$startdate] ,  ['finish_date','<=',$enddate] ,   ]);
+        $project= $project_model->get();
         }
 
-        if($type=='income'){
-        $fir = $my_service_model->sum('price');
+        $income_service = $my_service_model->sum('price');
+        $depo_service = $my_price_service_model->where([ ['type','=','depo'] ,  ['status','=','active'] ,   ])->sum('price');
+        $cost_service = $my_price_service_model->where([ ['type','=','cost'] ,  ['status','=','active'] ,   ])->sum('price');
+
+        $income_project = $project_model->sum('price');
+        $depo_project = $my_price_project_model->where([ ['type','=','depo'] ,  ['status','=','active'] ,   ])->sum('price');
+        $cost_project = $my_price_project_model->where([ ['type','=','cost'] ,  ['status','=','active'] ,   ])->sum('price');
+
+
+        if($model=='service'){
+            if($type=='income'){ return $income_service; }
+            if($type=='depo'){  return $depo_service; }
+            if($type=='cost'){  return $cost_service; }
+            if($type=='model'){  return $my_service; }
         }
 
-        if($type=='depo'){
-        $fir = $my_price_model->where([ ['type','=','depo'] ,  ['status','=','active'] ,   ])->sum('price');
+
+        if($model=='project'){
+            if($type=='income'){ return $income_project; }
+            if($type=='depo'){  return $depo_project; }
+            if($type=='cost'){  return $cost_project; }
+            if($type=='model'){  return $project; }
         }
 
 
-        return $fir;
+        if($model=='all'){
+            if($type=='income'){ return $income_service + $income_project; }
+            if($type=='depo'){  return  $depo_service +$depo_project; }
+            if($type=='cost'){  return $cost_service + $cost_project; }
+            if($type=='model'){
+                return  collect($project)->merge(collect($my_service));
+                // return  ($my_service_model() && $project_model())->take(4)->get();
+                // $collection = $my_service->concat($project)->shuffle()->take(4);
+            }
+        }
+
+
+
 
 
 
@@ -936,7 +971,8 @@ if(! function_exists('law_name') ) {
     {
         if($type=='depo'){$name='بیعانه'; }
         if($type=='cost'){$name='هزینه'; }
-        if($type=='service'){$name='خدمات پروژه'; }
+        if($type=='service'){$name='خدمات '; }
+        if($type=='project'){$name=' پروژه ها'; }
         return $name;
 
     }
@@ -1463,6 +1499,7 @@ if(! function_exists('update_permission_role_v1') ) {
     function update_permission_role_v1($data,$role_id)
     {
 
+        PermissionRole::where([ ['role_id' , $role_id],   ])->update( ['status' => 'inactive'] );
 
 if($data){
 foreach($data as $item){
@@ -1470,6 +1507,12 @@ $status = 'inactive';
 if($item){
     $status = 'active';
 }
+$update = PermissionRole::updateOrCreate([
+    'role_id' => $role_id  ,
+    'permission_id' => $item,
+],[
+    'status' => 'inactive'
+]);
 
 $update = PermissionRole::updateOrCreate([
     'role_id' => $role_id  ,
@@ -1484,7 +1527,7 @@ echo $status." _ ".$item.'<br>';
         }
 
 
-        dd('hi');
+        // dd('hi');
 
     }
 }
@@ -1532,7 +1575,7 @@ if(! function_exists('sum_price_depocost') ) {
 
 if(! function_exists('status_project') ) {
     function status_project($status)
-    { 
+    {
         if($status=='not_done'){ return 'انجام نشده'; }
         if($status=='delayed'){ return 'به تعویق افتاده'; }
         if($status=='in_progress'){ return 'در حال انجام'; }
