@@ -30,6 +30,7 @@ use App\Models\Cleander\CleanderDayMyService;
 use App\Models\Price\PriceMyProject;
 use App\Models\Project;
 use App\Models\Role\Permission;
+use App\Models\Role\PermissionAccesse;
 use App\Models\Role\PermissionRole;
 use App\Models\Role\Role;
 use App\Models\Score;
@@ -1044,6 +1045,66 @@ if(! function_exists('date_frmat_b') ) {
 }
 
 
+if(! function_exists('explode_ext') ) {
+    function explode_ext($date,$repl,$i)
+    {
+
+        $collection = Str::of($date)->explode($repl);
+
+        return $collection[$i];
+    }
+}
+
+
+
+
+if(! function_exists('updateorinsert_permission_accesses') ) {
+    function updateorinsert_permission_accesses($name,$link,$permission_id)
+    {
+        $updateorinsert = PermissionAccesse::updateOrCreate([
+            'link'   => $link ,
+        ],[
+            'link'   => $link ,  'name'   => $name,  'permission_id'   => $permission_id,
+        ]);
+
+    }
+}
+
+
+
+if(! function_exists('permission_accesses') ) {
+    function permission_accesses($permission)
+    {
+
+
+
+
+        for ($x = 1; $x <= 5; $x++) {
+
+            $coloumn_name = explode_ext($permission->name,'مدیریت','1');
+            $coloumn_link = $permission->link.'_';
+            if($x=='1'){ $name =  'ثبت'.$coloumn_name;  $link =  $coloumn_link.'add';
+                updateorinsert_permission_accesses($name,$link,$permission->id); }
+            if($x=='2'){ $name =  'مشاهده'.$coloumn_name;  $link =  $coloumn_link.'index';
+                updateorinsert_permission_accesses($name,$link,$permission->id); }
+            if($x=='3'){ $name =  'ویرایش'.$coloumn_name;  $link =  $coloumn_link.'edit';
+                updateorinsert_permission_accesses($name,$link,$permission->id); }
+            if($x=='4'){ $name =  'حذف'.$coloumn_name;  $link =  $coloumn_link.'delete';
+                updateorinsert_permission_accesses($name,$link,$permission->id); }
+            if($x=='5'){ $name =  'تغییر وضعیت'.$coloumn_name;  $link =  $coloumn_link.'status';
+                updateorinsert_permission_accesses($name,$link,$permission->id); }
+
+
+        }
+
+        // dd('hi');
+
+
+
+
+    }
+}
+
 
  if(! function_exists('update_model_v1') ) {
     function update_model_v1($model)
@@ -1101,37 +1162,55 @@ if(! function_exists('date_frmat_b') ) {
 
 
 
+
         if($model == 'permissions'){
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'daily' ,
             ],[
-                'link'   => 'daily' ,  'name'   => 'مدیریت وظایف' ,
+                'link'   => 'daily' ,  'name'   => 'مدیریت مسئولیت' ,
             ]);
+
+            permission_accesses($updateorinsert);
+
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'project' ,
             ],[
                 'link'   => 'project' ,  'name'   => 'مدیریت پروژه' ,
             ]);
+
+            permission_accesses($updateorinsert);
+
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'finicall' ,
             ],[
                 'link'   => 'finicall' ,  'name'   => 'مدیریت مالی' ,
             ]);
+
+            permission_accesses($updateorinsert);
+
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'customer' ,
             ],[
                 'link'   => 'customer' ,  'name'   => 'مدیریت مشتریان' ,
             ]);
+
+            permission_accesses($updateorinsert);
+
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'employee' ,
             ],[
                 'link'   => 'employee' ,  'name'   => 'مدیریت کارمندان' ,
             ]);
+
+            permission_accesses($updateorinsert);
+
             $updateorinsert = Permission::updateOrCreate([
                 'link'   => 'phase' ,
             ],[
                 'link'   => 'phase' ,  'name'   => 'مدیریت فازهای پروژه' ,
             ]);
+
+            permission_accesses($updateorinsert);
         }
 
         if($model == 'roles'){
@@ -1509,20 +1588,20 @@ if($item){
 }
 $update = PermissionRole::updateOrCreate([
     'role_id' => $role_id  ,
-    'permission_id' => $item,
+    'permission_accesse_id' => $item,
 ],[
     'status' => 'inactive'
 ]);
 
 $update = PermissionRole::updateOrCreate([
     'role_id' => $role_id  ,
-    'permission_id' => $item,
+    'permission_accesse_id' => $item,
 ],[
     'status' => $status
 ]);
 
 
-echo $status." _ ".$item.'<br>';
+// echo $status." _ ".$item.'<br>';
             }
         }
 
@@ -1582,6 +1661,35 @@ if(! function_exists('status_project') ) {
         if($status=='done'){ return 'به اتمام رسیده'; }
         if($status=='paid'){ return 'تسویه شده'; }
 
+
+    }
+}
+
+
+
+if(! function_exists('update_or_insert_permission_role') ) {
+    function update_or_insert_permission_role($id)
+    {
+
+
+$permission_accesses = PermissionAccesse::all();
+
+foreach($permission_accesses as $permission){
+
+    $first=PermissionAccesse::find($permission->id);
+
+    $update = PermissionRole::updateOrCreate([
+        'role_id' => $id  ,
+        'permission_id' => $first->permission_id,
+        'permission_accesse_id' => $permission->id,
+    ],[
+
+        'role_id' => $id  ,
+        'permission_id' => $first->permission_id,
+        'permission_accesse_id' => $permission->id,
+    ]);
+
+}
 
     }
 }

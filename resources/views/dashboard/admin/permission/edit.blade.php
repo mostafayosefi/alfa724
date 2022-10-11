@@ -18,9 +18,8 @@
 
     <div class="row">
 
-    <div class="col-md-3"></div>
-
-    <div class="col-md-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
         <x-card type="primary">
             <x-card-header>  ویرایش نقش {{$role->name}}    </x-card-header>
             <x-card-body>
@@ -38,31 +37,43 @@
 
 
 
-
-
                     <div class="card card-success">
                         <div class="card-header">
                         <h3 class="card-title"> ویرایش دسترسی های نقش کاربری {{$role->name}} </h3>
                         </div>
-                        <div class="card-body">
 
-                        <div class="row">
-                        <div class="col-sm-6">
+                            @foreach ($permission_roles->chunk(5) as $chunk)
+                            <div class="card-body">
+                            <div class="row">
 
 
-                            @foreach ($permission_roles as $permission )
+                            @foreach ($chunk as $key => $permission )
+                                                       <div class="col-md-4">
+
 
                             <div class="form-group clearfix">
                                 <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="permission{{$permission->permission->id}}"
-                                    name="permission[]" value="{{$permission->permission->id}}"
+                                    <input type="checkbox" id="permission{{$permission->permission_accesse->id}}"
+                                    name="permission[]" value="{{$permission->permission_accesse->id}}"
                                      @if($permission->status=='active') checked @endif  >
-                                    <label for="permission{{$permission->permission->id}}">
-                                        &nbsp; &nbsp; &nbsp;     {{ $permission->permission->name }}
+                                    <label for="permission{{$permission->permission_accesse->id}}">
+                                        &nbsp; &nbsp; &nbsp;     {{ $permission->permission_accesse->name }}
                                     </label>
                                 </div>
                                 </div>
 
+
+                                @php $key+1;
+                                 $k_hr = fmod($key, 5);
+                                if($k_hr==4){ echo '<hr>';}
+                                @endphp
+
+
+{{-- @php
+dd('hii');
+@endphp --}}
+
+</div>
                             @endforeach
 
 
@@ -70,8 +81,8 @@
                         </div>
 
 
+                        @endforeach
 
-                        </div>
 
 
 
@@ -88,7 +99,7 @@
             </x-card-body>
         </x-card>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
 
     </div>
 @endsection

@@ -9,7 +9,7 @@
             دفترچه یادداشت
           </h3>
 
-          {{-- @admin('gg')
+         {{-- @admin('daily_index')
           <p>Only admin sees this</p>
           @endadmin --}}
 

@@ -333,7 +333,8 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
 Route::prefix('daily')->name('daily.')->group(function () {
 
-    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
+    // Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
+    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware([  'hasPermission:daily_index']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::get('/index', [DailyController::class, 'index'])->name('index');
     Route::get('/alluser', [DailyController::class, 'alluser'])->name('alluser');

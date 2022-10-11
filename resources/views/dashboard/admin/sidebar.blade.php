@@ -1,12 +1,78 @@
 <x-sidebar-item title="داشبورد" icon="fas fa-tachometer-alt" route="dashboard.admin.index" ul="false" />
 
+
+
+@permission('daily')
+
+<li class="nav-item {{ isActive_open(['dashboard.admin.daily.manage' , 'dashboard.admin.daily.index' , 'dashboard.admin.daily.alluser'])}} ">
+
+
+    <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-folder"></i>
+    <p>
+        مدیریت مسئولیت
+    <i class="fas fa-angle-left right"></i>
+    </p>
+    </a>
+    <ul class="nav nav-treeview"  >
+
+        @admin('daily_index')
+
+        <li class="nav-item">
+            <a href="{{ route('dashboard.admin.daily.manage') }}" class="nav-link  {{ isActive(['dashboard.admin.daily.manage' ])}}">
+            <i class="far fa-circle nav-icon"></i>
+            <p> برنامه روزانه </p>
+            </a>
+            </li>
+
+        @endadmin
+
+
+<li class="nav-item">
+    <a href="{{ route('dashboard.admin.daily.index') }}" class="nav-link {{ isActive(['dashboard.admin.daily.index' ])}} ">
+    <i class="far fa-circle nav-icon"></i>
+    <p>   مسئولیت های من </p>
+    </a>
+    </li>
+
+<li class="nav-item">
+    <a href="{{ route('dashboard.admin.daily.alluser') }}" class="nav-link {{ isActive(['dashboard.admin.daily.alluser' ])}} ">
+    <i class="far fa-circle nav-icon"></i>
+    <p>   مسئولیت های کاربران </p>
+    </a>
+    </li>
+
+
+
+
+</ul>
+</li>
+
+@endpermission
+
+
+
+
+
+
+
+
+
+
+{{--
+
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-folder'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مسئولیت' ,
  'multi_route' => [
+
+
+
      ['dashboard.admin.daily.manage',[   ] ,' برنامه روزانه' , 'far fa-circle nav-icon'],
      ['dashboard.admin.daily.index',[   ] ,'   مسئولیت های من' , 'far fa-circle nav-icon'],
      ['dashboard.admin.daily.alluser',[   ] ,'   مسئولیت های کاربران' , 'far fa-circle nav-icon'],
+
+
       ]
-      ])
+      ]) --}}
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   ' مدیران ' ,
  'multi_route' => [

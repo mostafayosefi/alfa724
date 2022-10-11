@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Role\Permission;
+use App\Models\Role\PermissionAccesse;
 use App\Models\Role\PermissionRole;
 use App\Models\Role\Role;
 use Illuminate\Support\Facades\Hash;
@@ -44,7 +45,9 @@ class PermissionRoleController extends Controller
         $users=User::withTrashed()->where('type','admin')->orderBy('created_at', 'desc')->get();
         $roles=Role::orderBy('id', 'desc')->get();
         $permissions=Permission::orderBy('id', 'asc')->get();
-        return view('dashboard.admin.permission.create' , compact([    'users' ,  'permissions' ,  'roles'  ]));
+
+        $permission_accesses=PermissionAccesse::orderBy('id', 'asc')->get();
+        return view('dashboard.admin.permission.create' , compact([    'users' ,  'permissions' ,  'roles',  'permission_accesses'    ]));
       }
 
 
@@ -80,8 +83,11 @@ class PermissionRoleController extends Controller
         $role = Role::create([ 'name' => $data['name']   ]);
         $permissions=Permission::orderBy('id', 'asc')->get();
 
-        foreach($permissions as $permission){
-        $permission_role = PermissionRole::create([ 'role_id' => $role->id , 'permission_id' => $permission->id  ]);
+        $permission_accesses=PermissionAccesse::orderBy('id', 'asc')->get();
+
+        foreach($permission_accesses as $permission){
+        $first=PermissionAccesse::find($permission->id);
+        $permission_role = PermissionRole::create([ 'role_id' => $role->id , 'permission_id' => $first->permission_id , 'permission_accesse_id' => $permission->id  ]);
         }
 
 
@@ -98,22 +104,23 @@ class PermissionRoleController extends Controller
     public function editpermission($id){
         $role=Role::find($id);
         $permissions=Permission::orderBy('id', 'asc')->get();
+        $permission_accesses = PermissionAccesse::orderBy('id', 'asc')->get();
 
-        foreach($permissions as $item){
-            $update = PermissionRole::updateOrCreate([
-                'role_id' => $role->id  ,
-                'permission_id' => $item->id,
-            ],[
-
-                'role_id' => $role->id  ,
-                'permission_id' => $item->id,
-            ]);
-
-        }
+        update_or_insert_permission_role($id);
         $permission_roles = PermissionRole::where([ ['role_id' , $id], ])->get();
 
+
+        // dd($permission_roles);
+
+
+        // foreach($permission_roles as $item){
+        //     echo $item->permission_id.'<br>';
+        // }
+
+        // dd('hi');
+
         return view('dashboard.admin.permission.edit' , compact(['permissions' ,  'role'  ,
-         'permission_roles'  ]));
+         'permission_roles'   , 'permission_accesses'  ]));
         }
 
 
@@ -135,7 +142,7 @@ class PermissionRoleController extends Controller
 
         }
         $permission_roles = PermissionRole::where([ ['role_id' , $id], ])->get();
-        $users = User::where([ ['type' , 'admin'] ])->orderBy('id', 'desc')->get();
+        $users = User::where([ ['id' , '<>' , '0'] ])->orderBy('id', 'desc')->get();
         return view('dashboard.admin.permission.appointment' , compact(['permissions' ,  'role'  ,
         'permission_roles' , 'users'  ]));
     }
@@ -143,7 +150,7 @@ class PermissionRoleController extends Controller
     public function appointment_put(Request $request, $id  ){
 
         $data = $request->all();
-        $update = User::where([ ['id',$data['user_id']] ])->update([ 'role_id' => $id]);
+        $update = User::where([ ['id',$data['user_id']] ])->update([ 'role_id' => $id ,  'type' => 'admin']);
         return redirect()->route('dashboard.admin.permission.index')->with('info', 'نقش کاربری با موفقیت به مدیر انتخاب شده منتصب شد');
 
 

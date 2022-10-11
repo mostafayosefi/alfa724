@@ -18,9 +18,9 @@
 
     <div class="row">
 
-    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <x-card type="primary">
             <x-card-header>  ویرایش نقش {{$role->name}}    </x-card-header>
             <x-card-body>
@@ -44,24 +44,40 @@
                         <div class="card-header">
                         <h3 class="card-title"> نقشهای فعال {{$role->name}} </h3>
                         </div>
-                        <div class="card-body">
 
 
 
-                            @foreach ($permission_roles as $permission )
+                            @foreach ($permission_roles->chunk(5) as $chunk)
+                            <div class="card-body">
+                            <div class="row">
+
+
+                            @foreach ($chunk as $key => $permission )
+                                                       <div class="col-md-4">
+
 
                             <div class="form-group clearfix">
                                 <div class="icheck-primary d-inline">
-                                    <input type="checkbox" disabled id="permission{{$permission->permission->id}}"
-                                    name="permission[]" value="{{$permission->permission->id}}"
+                                    <input type="checkbox" disabled id="permission{{$permission->permission_accesse->id}}"
+                                    name="permission[]" value="{{$permission->permission_accesse->id}}"
                                      @if($permission->status=='active') checked @endif  >
-                                    <label for="permission{{$permission->permission->id}}">
-                                        &nbsp; &nbsp; &nbsp;     {{ $permission->permission->name }}
+                                    <label for="permission{{$permission->permission_accesse->id}}">
+                                        &nbsp; &nbsp; &nbsp;     {{ $permission->permission_accesse->name }}
                                     </label>
                                 </div>
                                 </div>
 
-                            @endforeach
+                                @php $key+1;
+                                 $k_hr = fmod($key, 5);
+                                if($k_hr==4){ echo '<hr>';}
+                                @endphp
+
+                                </div>
+
+                                @endforeach
+                            </div>
+                            </div>
+                                @endforeach
 
  <hr>
 
@@ -89,7 +105,7 @@
             </x-card-body>
         </x-card>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
 
     </div>
 @endsection

@@ -23,7 +23,7 @@
                     <tr>
                         <th>ردیف</th>
                         <th>  نقش     </th>
-                        <th>سطح دسترسی</th>
+                        {{-- <th>سطح دسترسی</th> --}}
                         <th>ویرایش</th>
                         <th>انتصاب نقش به مدیر</th>
                         <th> مدیران منتصب </th>
@@ -37,7 +37,7 @@
                             <td>{{ $key+1 }}</td>
                             <td>{{ $item->name }}</td>
 
-             <td>
+             {{-- <td>
                 @if($item->id)
                 @foreach ($permissionroles as $permission   )
                 @if($permission->role_id==$item->id)
@@ -45,7 +45,7 @@
                  @endif
                 @endforeach
                 @endif
-            </td>
+            </td> --}}
 
 
 

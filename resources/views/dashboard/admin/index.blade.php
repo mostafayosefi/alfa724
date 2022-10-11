@@ -81,6 +81,7 @@ foreach ($service as $key) {
                 @foreach($overdue_projects as $project)
                 <a href="{{route('dashboard.admin.project.index' , $project->id)}}" >
                     <div class="alert alert-primary no-dismiss">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
 
                             مهلت پروژه {{ $project->title }} در {{ $project->finish_date->formatJalali() }} به پایان
                             رسیده‌است اما هنوز به اتمام نرسیده!
