@@ -37,15 +37,23 @@
                     <!-- /.modal-dialog -->
                   </div>
 
-                  <script>
-                    $(function () {
-                      $('#summernote_note{{ $item->id }}').summernote()
-                      CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-                        mode: "htmlmixed",
-                        theme: "monokai"
-                      });
-                    })
-                  </script>
+
+
+
+  <script>
+    var textareas = document.getElementById("summernote_note{{ $item->id }}");
+    $(function () {
+      $('#summernote_note{{ $item->id }}').summernote()
+for (var i = 0; i < textareas.length; i++) {
+  CodeMirror.fromTextArea(textareas[i], {
+    lineWrapping: true,
+    mode: "htmlmixed",
+    theme: "monokai"
+  });
+}
+      });
+</script>
+
 
 
 

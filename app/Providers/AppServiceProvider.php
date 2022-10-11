@@ -30,12 +30,24 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
+
+
+
         Blade::if('admin', function ($base) {
-            if(($base=='gg')&& (auth()->user() ) && (auth()->user()->id)){
-                return 1;
-             }
-              return 0;
-           });
+
+            // dd(auth()->user()->type);
+
+            // if(auth()->user()->role_id){
+            //     foreach(auth()->user()->role->permissions as $item){
+
+            //     }
+            // }
+
+                if(($base==auth()->user()->type)&& (auth()->user() ) && (auth()->user()->id)){
+                    return 1;
+                 }
+                  return 0;
+               });
 
         Schema::defaultStringLength(191);
         Blade::component('breadcrumb-item', \App\View\Components\Dashboard\BreadcrumbItem::class);

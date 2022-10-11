@@ -16,6 +16,23 @@
           style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
           class="form-control" required name="content"  placeholder="توضیحات "    ></textarea>
 
+
+
+  <script>
+    var textareas = document.getElementById("summernote_note");
+    $(function () {
+      $('#summernote_note').summernote()
+for (var i = 0; i < textareas.length; i++) {
+  CodeMirror.fromTextArea(textareas[i], {
+    lineWrapping: true,
+    mode: "htmlmixed",
+    theme: "monokai"
+  });
+}
+      });
+</script>
+
+{{--
           <script>
             $(function () {
               $('#summernote_note').summernote()
@@ -24,7 +41,7 @@
                 theme: "monokai"
               });
             })
-          </script>
+          </script> --}}
 
 
 

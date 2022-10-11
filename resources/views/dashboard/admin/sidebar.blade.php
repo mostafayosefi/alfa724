@@ -8,7 +8,6 @@
       ]
       ])
 
-{{--
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   ' مدیران ' ,
  'multi_route' => [
      ['dashboard.admin.users.admins.create', [  ], 'ثبت مدیرجدید' , 'far fa-circle nav-icon'  ],
@@ -21,8 +20,7 @@
  'multi_route' => [
       ['dashboard.admin.permission.create', [  ], '  ایجاد نقش جدید  ' , 'far fa-circle nav-icon'  ],
       ['dashboard.admin.permission.index', [  ], 'مدیریت نقش ها' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.setting.score.index', [  ], '  مدیریت سطح دسترسی مدیران' , 'far fa-circle nav-icon'  ],
-        ]  ]) --}}
+         ]  ])
 
 
 
@@ -48,8 +46,10 @@
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-money-check-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مالی' ,
  'multi_route' => [
      ['dashboard.admin.money.employee', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.report.service', [  ], 'گزارش مالی پروژه ها' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.report.depo', [  ], 'گزارش مالی بیعانه ها' , 'far fa-circle nav-icon'  ],   ]  ])
+      ['dashboard.admin.money.service.index', [  ], 'گزارش مالی خدمات ' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.price', [  'type' => 'depo'  ], '  بیعانه های دریافتی خدمات' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.price', [  'type' => 'cost'  ], '  هزینه های پرداختی خدمات' , 'far fa-circle nav-icon'  ],
+       ]  ])
 
 {{--
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-envelope-open-text'  ,  'ul' => 'true' ,  'title' =>   '  اطلاع رسانی' ,

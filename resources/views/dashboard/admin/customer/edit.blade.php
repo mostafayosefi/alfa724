@@ -137,3 +137,23 @@
 
 
 @endsection
+
+@section('myscript')
+
+<script src="{{ asset('assets/cdn/editor/summernote-bs4.min.js')}}"></script>
+
+<script>
+var textareas = document.getElementById("summernote");
+$(function () {
+  $('#summernote').summernote()
+for (var i = 0; i < textareas.length; i++) {
+CodeMirror.fromTextArea(textareas[i], {
+lineWrapping: true,
+mode: "htmlmixed",
+theme: "monokai"
+});
+}
+  });
+</script>
+
+@endsection

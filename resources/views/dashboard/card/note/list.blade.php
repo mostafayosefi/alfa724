@@ -9,9 +9,9 @@
             دفترچه یادداشت
           </h3>
 
-          {{-- @admin('gg')
+         @admin('admin')
           <p>Only admin sees this</p>
-          @endadmin --}}
+          @endadmin
 
           <div class="card-tools">
             <ul class="pagination pagination-sm">
@@ -87,7 +87,7 @@
         <div class="card-footer clearfix">
           <button type="button"  data-toggle="modal" data-target="#modal-lgg" style="font-size:13px;" class="btn btn-warning float-right"><i class="fas fa-plus"></i>اضافه کردن یادداشت</button>
           <ul class="pagination">
-             {{$write->links()}}
+             {{-- {{$write->links()}} --}}
           </ul>
         </div>
       </div>

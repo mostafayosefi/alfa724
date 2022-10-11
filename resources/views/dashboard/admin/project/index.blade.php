@@ -17,6 +17,9 @@
     <x-breadcrumb-item title="{{ $post->title }}" route="dashboard.admin.project.index" />
 @endsection
 @section('content')
+
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+
 @include('dashboard.admin.phase.create', ['id' => $post->id])
 @include('dashboard.admin.phase.updatepost', ['posts' => $phase, 'id' => $post->id])
 @include('dashboard.admin.task.create', ['id' => $post->id, 'phase' => $phase, 'posts' => $users])
@@ -43,19 +46,13 @@
 @include('dashboard.card.money.create' , [ 'flag' => 'cost' , 'item' => $project ] )
 
     <div class="col-md-12">
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-3">
-                        @if($post->status != 'done' && $post->status != 'paid')
-                            <a class="btn btn-warning w-100 m-2" href="{{ route("dashboard.admin.project.updatestatus", ['id'=>$id,'status'=>'done']) }}">به اتمام‌رساندن پروژه</a>
-                        @endif
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3">
-                        @if($post->status != 'paid')
-                            <a class="btn btn-success w-100 m-2" href="{{ route("dashboard.admin.project.updatestatus", ['id'=>$id,'status'=>'paid']) }}">پروژه تسویه شده</a>
-                        @endif
-                    </div>
-                </div>
         <x-card type="primary">
+
+
+
+
+@include('dashboard.admin.project.detial')
+
 
              @if($post->customer)
              @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])

@@ -26,28 +26,28 @@
 
                     <div class="form-group">
                         <label for="first_name">نام </label>
-                      <input type="text" class="form-control" required  name="first_name" value="{{ old('first_name') }}" placeholder="  نام"  >
+                      <input type="text" class="form-control input_mystyle" required  name="first_name" value="{{ old('first_name') }}" placeholder="  نام"  >
                     </div>
 
                     <div class="form-group">
                         <label for="last_name">نام خانوادگی </label>
-                      <input type="text" class="form-control" required  name="last_name" value="{{ old('last_name') }}" placeholder="  نام خانوادگی"  >
+                      <input type="text" class="form-control input_mystyle" required  name="last_name" value="{{ old('last_name') }}" placeholder="  نام خانوادگی"  >
                     </div>
 
                     <div class="form-group">
                         <label for="email"> ایمیل   </label>
-                      <input type="email" class="form-control" required  name="email" value="{{ old('email') }}" placeholder="  ایمیل  "  >
+                      <input type="email" class="form-control input_mystyle" required  name="email" value="{{ old('email') }}" placeholder="  ایمیل  "  >
                     </div>
 
 
                     <div class="form-group">
                         <label for="password">  رمزعبور </label>
-                      <input type="password" class="form-control" required  name="password" value="{{ old('password') }}"    >
+                      <input type="password" class="form-control input_mystyle" required  name="password" value="{{ old('password') }}"    >
                     </div>
 
                     <div class="form-group">
                         <label for="password_confirmation">  تکرار رمزعبور </label>
-                      <input type="password" class="form-control" required  name="password_confirmation" value="{{ old('password_confirmation') }}"    >
+                      <input type="password" class="form-control input_mystyle" required  name="password_confirmation" value="{{ old('password_confirmation') }}"    >
                     </div>
 {{--
                     <div class="form-group">

@@ -122,6 +122,7 @@ Route::prefix('dashboard')
 
 
 
+
 Route::prefix('permission')->name('permission.')->group(function () {
 
     Route::get('/create', [PermissionRoleController::class, 'create'])->name('create');
@@ -129,7 +130,9 @@ Route::prefix('permission')->name('permission.')->group(function () {
     Route::post('/', [PermissionRoleController::class, 'storepermission'])->name('store');
     Route::get('/{id}/edit', [PermissionRoleController::class, 'editpermission'])->name('edit');
     Route::put('/{id}', [PermissionRoleController::class, 'updatepermission'])->name('update');
-//     Route::delete('/{id}', [PermissionRoleController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}/appointment', [PermissionRoleController::class, 'appointment'])->name('appointment');
+    Route::put('/{id}/appointment', [PermissionRoleController::class, 'appointment_put'])->name('appointment.put');
+    Route::delete('/{id}', [PermissionRoleController::class, 'destroy'])->name('destroy');
 //     Route::put('/{id}/status', [PermissionRoleController::class, 'status'])->name('status');
 
     // Route::get('/{id}', [PermissionRoleController::class, 'show'])->name('show');
@@ -293,8 +296,8 @@ Route::prefix('phase')->name('phase.')->group(function () {
                //ACCOUNTING PAGE
                Route::prefix('money')->name('money.')->group(function () {
                Route::get('/employee', [AccountingController::class, 'GetEmployee'])->name('employee');
-               Route::get('/report/depo/{year?}/{month?}', [AccountingController::class, 'report'])->name('report.depo');
-               Route::get('/report/service/{year?}/{month?}', [AccountingController::class, 'report'])->name('report.service');
+               Route::get('/report/service/index/{year?}/{month?}', [AccountingController::class, 'report_service'])->name('service.index');
+               Route::get('/report/service/price/{type}{year?}/{month?}', [AccountingController::class, 'report_service_price'])->name('service.price');
                });
 
                //ABSENCE PAGE
@@ -330,7 +333,8 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
 Route::prefix('daily')->name('daily.')->group(function () {
 
-    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
+    // Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
+    Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware([  'hasPermission:superadmin,banan']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::get('/index', [DailyController::class, 'index'])->name('index');
     Route::get('/alluser', [DailyController::class, 'alluser'])->name('alluser');
@@ -452,7 +456,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
                 //ACCOUNTING PAGE
 
      Route::prefix('money')->name('money.')->group(function () {
-        Route::get('/', [AccountingController::class, 'GetMoney'])->name('index');
+        Route::get('/', [EmployeeAccountingController::class, 'GetMoney'])->name('index');
 
 
          });

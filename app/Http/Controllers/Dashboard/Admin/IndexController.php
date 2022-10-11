@@ -11,6 +11,7 @@ use App\Models\Task;
 use App\Models\Project;
 use App\Models\Phase;
 use App\Models\EmployeeProject;
+use App\Models\MyService;
 use App\Models\Service;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,16 @@ class IndexController extends Controller
 
 
 
-            price_finical(Auth::user()->id,'income','null','null');
+ $test =  price_finical(Auth::user()->id,'model', 'all' ,'null','null');
+foreach($test as $model) {
+if($model instanceof Project){
+    // echo $model->id.'<br>';
+}elseif($model instanceof MyService){
+    // echo 'my_service'.$model->id.'<br>';
+}
+ }
+
+
 
             // update_customer_to();
             // delete_model('tasks');

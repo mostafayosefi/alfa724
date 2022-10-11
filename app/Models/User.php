@@ -140,5 +140,23 @@ class User extends Authenticatable
 
 
 
+    public function hasPermission(string $permission)
+    {
+
+        // dd($this->role()->name);
+
+        // dd($permission);
+        // if($this->role()->permissions()->where('role_id', $permission)->first())
+        if($this->role()->where('link', $permission)->first())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
 
 }

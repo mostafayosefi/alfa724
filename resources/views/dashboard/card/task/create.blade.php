@@ -15,7 +15,24 @@
            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"
            class="form-control" required  name="title"  placeholder="عنوان" value="{{ old('title') }}" >
             <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
-            class="form-control" required name="description"  placeholder="توضیحات مسئولیت"  id="summernote">{{ old('description') }}</textarea>
+            class="form-control" required name="description"  placeholder="توضیحات مسئولیت"  id="summernote_create_task">{{ old('description') }}</textarea>
+
+ 
+
+
+  <script>
+    var textareas = document.getElementById("summernote_create_task");
+    $(function () {
+      $('#summernote_create_task').summernote()
+for (var i = 0; i < textareas.length; i++) {
+  CodeMirror.fromTextArea(textareas[i], {
+    lineWrapping: true,
+    mode: "htmlmixed",
+    theme: "monokai"
+  });
+}
+      });
+</script>
 
     <div class="row">
         <div class="col-md-6">
