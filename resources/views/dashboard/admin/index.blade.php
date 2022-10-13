@@ -90,6 +90,21 @@ foreach ($service as $key) {
                 @endforeach
             </div>
         @endif
+
+
+
+        <div class="col-12">
+            <x-card type="primary">
+                <x-card-body>
+
+
+@include('dashboard.card.absence.index')
+                </x-card-body>
+            </x-card>
+        </div>
+
+
+        
       </div>
     </div>
 @endsection
