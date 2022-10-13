@@ -72,7 +72,20 @@
             </div>
             <!-- ./col -->
             <div class="col-12">
-                <x-card type="info">
+                <x-card type="primary"> 
+                    <x-card-body>
+
+
+@include('dashboard.card.absence.index')
+                    </x-card-body>
+                </x-card>
+            </div>
+
+
+
+
+            <div class="col-12">
+                <x-card type="primary">
                     <x-card-header>پروژه های شما</x-card-header>
                     <x-card-body>
                         <div class="box-body">

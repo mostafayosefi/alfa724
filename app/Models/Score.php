@@ -20,6 +20,8 @@ class Score extends Model
         'model_id',
         'pre',
         'date',
+        'type',
+        'price',
     ];
 
     public function user() {

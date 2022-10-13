@@ -15,75 +15,9 @@
         </div>
     @endif
 
-    <div class="col-md-12">
-        <x-card type="info">
-            <x-card-header>لیست امتیازات</x-card-header>
-            <x-card-body>
-                <table id="example1" class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>ردیف</th>
-                        <th>مقدار</th>
-                        <th>کاربر</th>
-                        <th>توضیحات</th>
-                        <th>ویرایش</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($scores as $key => $item)
-                        <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td style="direction:ltr">{{ $item->value }}</td>
-                            <td>@empty($item->user) کاربر حذف شده @else {{ $item->user->first_name }} {{ $item->user->last_name }}@endempty</td>
-                            <td >{!! $item->description !!}</td>
-                            <td>
-                             <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
-                                                                 <a href="{{route('dashboard.admin.score.edit',['score'=>$item])}}" class="edit_post"
-                                        target="_blank"><i class="fas fa-edit"></i></a>
-                            </td>
-                        </tr>
-                                                <!-- SHOW SUCCESS modal -->
-                                   <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
-                                    <div class="modal-dialog modal-danger">
-                                      <div class="modal-content bg-danger">
-                                        <div class="modal-header">
-                                          <h4 class="modal-title">{{ $item->content }}</h4>
-                                          <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
-                                            <span  aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            آیا می خواهید این  مورد حذف کنید ؟
+    
 
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                          <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
-                                           <form  action="#" method="post">
-                                               <input type="hidden" name="id" value="{{ $item->id }}" >
-                                              {{-- <a href="{{route('dashboard.admin.score.delete',['id'=>$item->id])}}" class="btn btn-outline-light">بله </a> --}}
-                                           </form>
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>ردیف</th>
-                        <th>مقدار</th>
-                        <th>کاربر</th>
-                        <th>توضیحات</th>
-                        <th>ویرایش</th>
-                    </tr>
-                    </tfoot>
-                </table>
-            </x-card-body>
-            <x-card-footer>
-                <a href="{{ route('dashboard.admin.score.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> افزودن/کسر امتیاز به کاربر</a>
-            </x-card-footer>
-        </x-card>
-    </div>
+ @include('dashboard.card.score.index')
+
+
 @endsection

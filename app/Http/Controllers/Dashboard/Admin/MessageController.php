@@ -59,15 +59,22 @@ class MessageController extends Controller
     }
 
 
-    public function GetAnswerMessage(Request $request, message $message)
+    public function GetAnswerMessage(Request $request, $id)
     {
+        // dd('hi');
+        // $message = message::where([ ['answer_id','=',$id] ])->first();
+        $message = message::find($id);
+        // dd($message->id);
         return view('dashboard.admin.message.answer', ['message' => $message]);
     }
 
-    public function AnswerMessage(Request $request, message $message)
+    public function AnswerMessage(Request $request,  $id)
     {
+
+        // $message = message::where([ ['answer_id','=',$id] ])->first();
+        $message = message::find($id);
         if ($message->answer_id != null)
-            return;
+            // return;
 
         $post = new message([
             'sender_id' => Auth::user()->id,
@@ -76,16 +83,7 @@ class MessageController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        //--------------
-        if($request->input('file')!=NULL){
-            $uploadedFile = $request->file('file');
-            $filename = $uploadedFile->getClientOriginalName();
-            Storage::disk('public')->putFileAs('/files/'.$filename, $uploadedFile, $filename);
-            $post->file = $filename;
-        }
-        $post->save();
-        $message->answer()->associate($post);
-        $message->save();
+           
         return redirect()->route('dashboard.admin.message.manage')->with('info', '  پیام جدید ارسال شد و نام آن' .' ' . $request->input('title'));
     }
 

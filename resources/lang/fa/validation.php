@@ -54,6 +54,8 @@ return [
         'social_twitter'        => 'آیدی توییتر',
         'category'              => 'دسته‌بندی',
         'keywords'              => 'کلمات کلیدی',
+        'value'              => ' امتیاز ',
+        'description'              => ' متن توضیحات ',
 
         "qustion" => "سوال",
         "answer" => "پاسخ",

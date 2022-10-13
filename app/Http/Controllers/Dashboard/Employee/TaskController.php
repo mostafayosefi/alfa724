@@ -70,13 +70,16 @@ class TaskController extends Controller
         $note=Note::where('user_id',Auth::user()->id)->orderBy('created_at', 'asc')->limit(30)->get();
         $write=Task::managePage()->where('status','!=','done')->where('employee_id',Auth::user()->id)->where('project_id',null)->orderBy('finish_date', 'asc')->paginate(6);
 
+        $users = User::where([ ['id','<>',0], ['id','=',Auth::user()->id], ])->get();
+
         return view('dashboard.employee.task.manage', [
         'task' => $task,
         'note' => $note,
         'write' => $write,
         'absence' => $absence,
         'diff' => $diff,
-        'message' => $message
+        'message' => $message,
+        'users' => $users
         ]);
     }
 
@@ -111,7 +114,7 @@ class TaskController extends Controller
             // if ($post->status == 'done' && $old_status != $post->status)
             //     $post->applyEmployeeScore(Auth::user());
         }
-        return redirect()->route('dashboard.employee.task.manage')->with('info', 'مسئولیت ویرایش شد');
+        return redirect()->back()->with('info', 'مسئولیت ویرایش شد');
     }
 
 
@@ -204,5 +207,32 @@ class TaskController extends Controller
         return redirect()->back()->with('info', 'مسئولیت باموفقیت حذف شد ' );
 
     }
-    
+
+
+
+
+    public function deleteall(  Request $request){
+
+
+        // $data = $request->all();
+        $data['delete'] = $request->delete;
+
+
+        if($data['delete']){
+            foreach($data['delete'] as $key => $location){
+                // echo $location.'<br>';
+                Task::destroy($location);
+              }
+
+              return redirect()->back()->with('info', 'مسئولیت های انتخابی باموفقیت حذف شدند ' );
+
+        }else{
+
+            return redirect()->back()->with('info', 'متاسفانه آیتمی انتخاب نشده است!' );
+        }
+
+
+    }
+
+
 }

@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 @section('sidebar')
-    @include('dashboard.admin.sidebar')
+    @include('dashboard.employee.sidebar')
 @endsection
 @section('hierarchy')
-    <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="حضور غیاب" route="dashboard.admin.absence.manage" />
+    <x-breadcrumb-item title="داشبورد" route="dashboard.employee.index" />
+    <x-breadcrumb-item title="حضور غیاب" route="dashboard.employee.absence.index" />
 @endsection
 @section('content')
     @if(Session::has('info'))

@@ -45,7 +45,10 @@ if($PermissionAccesse){
         ['permission_accesse_id',$PermissionAccesse->id],
         ['role_id',auth()->user()->role_id],
          ])->first();
-    $status = $PermissionRole->status;
+         if($PermissionRole){
+            $status = $PermissionRole->status;
+         }
+
 }
                 if((($status == 'active'))&& (auth()->user() ) && (auth()->user()->id)){
                     return 1;

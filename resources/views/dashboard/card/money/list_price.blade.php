@@ -1,9 +1,9 @@
 
-<div class="row">
-    <div class="col-md-6">
 
-                       <div class="card-body">
-                        <h3 class="card-title"><strong> لیست {{ law_name($flag) }} </strong></h3><br>
+        <x-card type="primary">
+            <x-card-header>   لیست {{ law_name($flag) }}       </x-card-header>
+            <x-card-body>
+
 
                         <table id="" class="table table-bordered table-hover">
                             <thead>
@@ -20,17 +20,17 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>  {{ $my_price->date }}</td>
-                                    <td>  {!! $my_price->text !!}</td>
+                                    <td>  {!! $my_price->description !!}</td>
                                     <td>
                                         <span class="btn btn-{{ law_style($flag) }}  btn-sm">
                                         {{ number_format($my_price->price) }} تومان </span>  </td>
 
                                         <td>
 @php
- 
- if(explode_url(2)=='project'){ 
+
+ if(explode_url(2)=='project'){
     $route_delete = route('dashboard.admin.project.destroy_price' , $my_price->id  ) ; }
- if(explode_url(2)=='service'){ 
+ if(explode_url(2)=='service'){
     $route_delete = route('dashboard.admin.service.destroy_price' , $my_price->id  ) ; }
 @endphp
 
@@ -50,7 +50,7 @@
                             <tbody><tr>
                             <th style="width:50%">جمع کل {{law_name($flag)}} های پرداختی:</th>
                             <td>
-                                <span class="btn btn-block bg-gradient-secondary btn-lg">
+                                <span class="btn btn-block bg-gradient-secondary btn-sm">
                                     @if(explode_url(2)=='service')
                                     {{ number_format(sum_price_depocost($item->price_my_services,$flag,'service')) }}
                                     @endif
@@ -66,8 +66,8 @@
                             </tbody></table>
 
 
-
-                        </div>
+                        </x-card-body>
+                    </x-card>
 
 
  <a href="#" class="delete_post"  type="button"  data-toggle="modal" data-target="#modal-lg-{{ $flag }}">
@@ -80,11 +80,4 @@
 
 
 
-
-
-
-    </div>
-</div>
-
-<hr>
 

@@ -15,7 +15,7 @@
     </div>
 @endif
     <div class="col-md-12">
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>مدیریت کارمندان</x-card-header>
             <x-card-body>
                 <table id="example" class="table table-bordered table-hover">

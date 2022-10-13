@@ -14,34 +14,65 @@
             </div>
         </div>
     @endif
-    <div class="col-md-12">
-        <x-card type="info">
-            <x-card-header>افزودن/کسر امتیاز</x-card-header>
-            <form style="padding:10px;" action="{{ route('dashboard.admin.score.store') }}"
+
+
+<script>
+    function fetch_score_setting(vall){
+        var vall = document.getElementById("score_setting_id").value;$.ajax({
+            type: 'get',
+            url: '../../../../dashboard/admin/fetch/score_setting/'+vall+'/{{ $value }}',
+        data: {get_option:vall},
+        success: function (response) {document.getElementById("score_setting_input").innerHTML=response;}
+    });
+        }
+</script>
+
+    <div class="row">
+
+        @php
+            if($value=='award'){
+                $style_card = 'success';
+                $my_title = 'افزودن امتیاز';
+            }else{
+                $style_card = 'danger';
+                $my_title = 'کسر امتیاز';
+            }
+        @endphp
+
+
+@include('dashboard.ui.java-price')
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <x-card type="{{ $style_card }}">
+            <x-card-header>  {{ $my_title }}  </x-card-header>
+            <form style="padding:10px;" action="{{ route('dashboard.admin.score.store' , [ $value ]) }}"
                   method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
                 @csrf
                 <x-card-body>
-                    <div class="form-group">
-                        <label>کاربر</label><br>
-                        @foreach($users as $user)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="user_id" value="{{ $user->id }}" id="check_{{ $user->id }}">
-                                <label class="form-check-label" for="check_{{ $user->id }}">
-                                    {{ $user->first_name }} {{ $user->last_name }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
 
-                    <x-text-group name="description_no_textarea" label="توضیحات" />
-                    <x-text-group name="value" label="مقدار" type="number" step="any" />
+          @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
+          'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
+          'value' =>    old('user_id')  , 'required'=>'required'  ,
+           'index_id'=>'user_id' ]) <hr>
+
+          @include('dashboard.ui.selectbox', [ 'allforeachs' => $score_settings ,
+          'input_name' => 'name'  ,  'name_select' => 'نوع امتیازدهی' ,
+          'value' =>    old('score_setting_id')  , 'required'=>'required'  ,
+           'index_id'=>'score_setting_id' ]) <hr>
+
+
+<div id="score_setting_input"></div>
+<hr>
                 </x-card-body>
                 <x-card-footer>
                     <button type="submit" style=" margin: 20px 0px; height: 42px;width: 100%;font-size: 20px;"
-                            class="btn btn-primary">ارسال
+                            class="btn btn-{{ $style_card }}">{{ $my_title }}
                     </button>
                 </x-card-footer>
             </form>
         </x-card>
     </div>
+    <div class="col-md-2"></div>
+</div>
 @endsection

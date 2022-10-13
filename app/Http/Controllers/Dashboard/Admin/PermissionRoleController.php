@@ -102,6 +102,10 @@ class PermissionRoleController extends Controller
 
 
     public function editpermission($id){
+        $permission_roles = PermissionRole::where([ [ 'role_id' , '=' , $id ],
+          [ 'permission_accesse_id' , '=' , null ] ,
+          ])->delete();
+
         $role=Role::find($id);
         $permissions=Permission::orderBy('id', 'asc')->get();
         $permission_accesses = PermissionAccesse::orderBy('id', 'asc')->get();

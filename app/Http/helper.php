@@ -970,7 +970,7 @@ if(! function_exists('calender_route_origin') ) {
 if(! function_exists('law_name') ) {
     function law_name($type)
     {
-        if($type=='depo'){$name='بیعانه'; }
+        if($type=='depo'){$name='دریافتی'; }
         if($type=='cost'){$name='هزینه'; }
         if($type=='service'){$name='خدمات '; }
         if($type=='project'){$name=' پروژه ها'; }
@@ -1211,6 +1211,49 @@ if(! function_exists('permission_accesses') ) {
             ]);
 
             permission_accesses($updateorinsert);
+
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'service' ,
+            ],[
+                'link'   => 'service' ,  'name'   => 'مدیریت خدمات ' ,
+            ]);
+
+            permission_accesses($updateorinsert);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'setting' ,
+            ],[
+                'link'   => 'setting' ,  'name'   => 'مدیریت تنظیمات ' ,
+            ]);
+
+            permission_accesses($updateorinsert);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'message' ,
+            ],[
+                'link'   => 'message' ,  'name'   => 'مدیریت پیامها ' ,
+            ]);
+
+            permission_accesses($updateorinsert);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'permission' ,
+            ],[
+                'link'   => 'permission' ,  'name'   => 'مدیریت سطوح دسترسی ها ' ,
+            ]);
+
+            permission_accesses($updateorinsert);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'report_finical' ,
+            ],[
+                'link'   => 'report_finical' ,  'name'   => 'مدیریت گزارش های مالی   ' ,
+            ]);
+
+            permission_accesses($updateorinsert);
+            $updateorinsert = Permission::updateOrCreate([
+                'link'   => 'absence' ,
+            ],[
+                'link'   => 'absence' ,  'name'   => 'مدیریت حضور و غیاب کاربران    ' ,
+            ]);
+
+            permission_accesses($updateorinsert);
         }
 
         if($model == 'roles'){
@@ -1247,25 +1290,25 @@ if(! function_exists('permission_accesses') ) {
             $updateorinsert = ScoreSetting::updateOrCreate([
                 'link'   => 'tasks' ,
             ],[
-                'link'   => 'tasks' ,  'name'   => 'تاخیر در انجام مسئولیت' ,
+                'link'   => 'tasks' ,  'name'   => 'انجام مسئولیت' ,
             ]);
 
             $updateorinsert = ScoreSetting::updateOrCreate([
                 'link'   => 'projects' ,
             ],[
-                'link'   => 'projects' ,  'name'   => 'تاخیر در انجام پروژه' ,
+                'link'   => 'projects' ,  'name'   => 'انجام پروژه' ,
             ]);
 
             $updateorinsert = ScoreSetting::updateOrCreate([
                 'link'   => 'phases' ,
             ],[
-                'link'   => 'phases' ,  'name'   => ' تاخیر در انجام فاز پروژه' ,
+                'link'   => 'phases' ,  'name'   => 'انجام فاز پروژه' ,
             ]);
 
             $updateorinsert = ScoreSetting::updateOrCreate([
                 'link'   => 'absences' ,
             ],[
-                'link'   => 'absences' ,  'name'   => ' تاخیر در حضور غیاب  ' ,
+                'link'   => 'absences' ,  'name'   => 'حضور غیاب ' ,
             ]);
 
         }
@@ -1364,19 +1407,18 @@ if(! function_exists('uploadFile') ) {
 
 
 if(! function_exists('score_system') ) {
-    function score_system($link , $id)
+    function score_system($link , $id, $activition )
     {
         $score_setting = ScoreSetting::where([ ['link',$link] ])->first();
 
         if($link=='tasks'){
             $task = Task::where([ ['id', $id],['status', '=','notwork'], ])->first();
-
-
             $mydate =now()->format('Y-m-d H:i:s');
             // $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '+1' , ' days');
             if($task){
 
-                $last_score = Score::where([ ['user_id','=', $task->employee_id ], ])->orderBy('id', 'desc')->first();
+                $last_score = Score::where([ ['user_id','=', $task->employee_id ],
+                ['model','=', $link ], ])->orderBy('id', 'desc')->first();
 
 
                 $start_date_time = date_by_time(   $task->start_date , $task->start_time  );
@@ -1389,6 +1431,8 @@ if(! function_exists('score_system') ) {
                 }else{
                     $last_score =  $pdate;
                 }
+                }elseif($last_score==null){
+                    $last_score =  $pdate;
                 }
 
 
@@ -1396,15 +1440,20 @@ if(! function_exists('score_system') ) {
                 $betwen_day = betwen_day_date($pdate,$mydate,'days');
                 $betwen_recentupdate_day = betwen_day_date($last_score,$mydate,'days');
 
-                // dd($betwen_recentupdate_day);
+                $user_id = $task->employee_id;
+
+                if($betwen_recentupdate_day > 1){
+                    $scorecomemt ='به دلیل تاخیر ';
+                    $scorecomemt = $scorecomemt.$betwen_recentupdate_day.' روزه در انجام مسئولیت'.' این کاربر ملزم به جریمه امتیازی و مالی در سیستم می باشد!';
+                    User::where([ ['id',$user_id ], ])->update([ 'scorecomemt' => $scorecomemt ]);
+                }
+
 
 
                 if(($betwen_hours>0)&&($betwen_recentupdate_day>0)){
 
-
-
-                    for ($x = 0; $x <= $betwen_day; $x++) {
-            if($x==0){ $pre = 'first'; $my_time="یک ساعته";  }elseif($x!=0){$pre = $x; $my_time= $x."روزه ";  }
+ for ($x = 0; $x <= $betwen_day; $x++) {
+ if($x==0){ $pre = 'first'; $my_time="یک ساعته";  }elseif($x!=0){$pre = $x; $my_time= $x."روزه ";  }
 
 
 
@@ -1418,6 +1467,7 @@ if(! function_exists('score_system') ) {
             }
 
 
+            if($activition == 'update_db'){
                 $score = Score::updateOrCreate([
                     'pre'   => $pre ,
                     'model'   => $link ,
@@ -1441,8 +1491,18 @@ if(! function_exists('score_system') ) {
                     'score_id'   => $score->id ,
                 ]);
 
+
+                User::where([ ['id',$task->employee_id ], ])->update([ 'scorecomemt' => null ]);
+
+
+
+            }
+
+
+
             }
         }
+
 
             }
 
@@ -1471,15 +1531,16 @@ if(! function_exists('add_date_func') ) {
 
 
 if(! function_exists('scope_score') ) {
-    function scope_score(   $link , $user_id )
+    function scope_score(   $link , $user_id , $activition  )
     {
 
         $user = User::find($user_id);
         if($user){
-            foreach($user->tasks as $item){
-                score_system($link,$item->id);
+            foreach($user->tasks as $key => $item){
+                score_system($link,$item->id, $activition );
             }
         }
+
 
 
 
@@ -1690,6 +1751,23 @@ foreach($permission_accesses as $permission){
     ]);
 
 }
+
+    }
+}
+
+
+
+
+if(! function_exists('price_low_high') ) {
+    function price_low_high($price)
+    {
+
+
+        if($price < '0'){  echo   '<span class="badge badge-danger">'.number_format($price ).' تومان </span>';}elseif($price == '0') {
+            echo   '<span class="badge badge-warning">'.number_format($price ).' تومان </span>';}else{
+                echo   '<span class="badge badge-success">'.number_format($price ).' تومان </span>';
+            }
+
 
     }
 }

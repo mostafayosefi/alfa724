@@ -201,7 +201,7 @@ class ProjectController extends Controller
     }
 
 
-    
+
     public function price( Request $request)
     {
 
@@ -209,11 +209,18 @@ class ProjectController extends Controller
         $request->validate([
             'date' => 'required',
             'price' => 'required',
-            'text' => 'required',
+            'description' => 'required|max:5000',
         ]);
         $data = $request->all();
         $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
         $data['price'] = str_rep_price($data['price']);
+        $data['file']  =  uploadFile($request->file('file'),'images/price_my_project','');
+
+
+        // $data['image']= $page->image;
+        // $data['image']  =  uploadFile($request->file('image'),'images/pages',$page->image);
+
+
        $pricemyservice = PriceMyProject::create($data);
 
 

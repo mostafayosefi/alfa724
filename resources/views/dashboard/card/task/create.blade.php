@@ -17,7 +17,7 @@
             <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
             class="form-control" required name="description"  placeholder="توضیحات مسئولیت"  id="summernote_create_task">{{ old('description') }}</textarea>
 
- 
+
 
 
   <script>
@@ -115,6 +115,26 @@ for (var i = 0; i < textareas.length; i++) {
               <x-select-item value="1d">نمایش در هر روز</x-select-item>
               <x-select-item value="2d">نمایش یک روز در میان</x-select-item>
           </x-select-group>
+
+
+          <hr>
+
+          @if((explode_url(1)=='employee'))
+          <input type="hidden" name="employee_id" value="{{ Auth::user()->id }}" >
+          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" >
+
+          @endif
+
+
+
+          @if((explode_url(1)=='admin'))
+
+          @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
+          'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
+          'value' =>   auth()->user()->id , 'required'=>'required'  ,
+           'index_id'=>'user_id' ]) <hr>
+           @endif
+
 
           @csrf
 

@@ -15,7 +15,7 @@
     </div>
 @endif
     <div class="col-md-12">
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>مدیریت پیام ها</x-card-header>
                 <x-card-body>
                     <div class="box-body">
@@ -54,10 +54,8 @@
                                     <td><a href="{{route('dashboard.admin.message.show',['id'=>$item->id])}}" class="btn btn-block btn-outline-primary btn-sm">مشاهده پیام</a></td>
                                     <td><a href="{{route('dashboard.admin.message.updatemessage',['id'=>$item->id])}}"  class="btn btn-block bg-gradient-warning btn-sm">ویرایش</a></td>
                                     <td>
-                                        @if(!$item->answer_id && $item->user_id == Auth::user()->id)
-                                            <a href="{{route('dashboard.admin.message.answer',['message'=>$item])}}" class="btn btn-block bg-gradient-success btn-sm">ارسال پاسخ</a>
-                                        @endif
-                                    </td>
+                                             <a href="{{route('dashboard.admin.message.answer.edit',['id'=>$item->id])}}" class="btn btn-block bg-gradient-success btn-sm">ارسال پاسخ</a>
+                                     </td>
                                     <td>
                                     <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                                     </td>
@@ -74,7 +72,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>

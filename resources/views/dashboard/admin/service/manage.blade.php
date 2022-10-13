@@ -15,8 +15,19 @@
         </div>
     </div>
 @endif
+<div class="col-md-12">
+    <div class ="row">
+        <div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
+        </div>
+
+<div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
+    <a href="{{route('dashboard.admin.service.create')}}" style="float:left;" class="btn btn-primary">ثبت خدمت جدید</a>
+  </div>
+  </div>
+  </div>
+
     <div class="col-md-12">
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>مدیریت خدمت ها</x-card-header>
                 <x-card-body>
                     <div class="box-body">
@@ -25,6 +36,7 @@
                             <tr>
                                 <th>ردیف</th>
                                 <th>نام خدمت</th>
+                                <th> مسئول</th>
                                  <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
                                 <th>مشاهده</th>
@@ -36,7 +48,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->name }}</td>
-                                     {{-- <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td> --}}
+                                     <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td>
                                     <td>{{ date_frmat_a($item->startdate) }}</td>
                                     <td>{{ date_frmat_a($item->enddate) }}</td>
                                     <td><a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}" class="btn btn-primary">مشاهده</a></td>

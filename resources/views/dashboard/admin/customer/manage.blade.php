@@ -25,7 +25,7 @@
 
     <div class="col-md-12">
 
-        <x-card type="info">
+        <x-card type="primary">
 
             <x-card-header>
                   مدیریت مشتری ها

@@ -106,9 +106,17 @@
 
 
 
+ <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" >
  <input type="hidden" name="employee_id" value="{{ Auth::user()->id }}" >
  <input type="hidden" name="task_id" value="{{$item->id}}" >
 
+
+ @if((explode_url(1)=='admin'))
+ @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
+ 'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
+ 'value' =>   $item->employee_id , 'required'=>'required'  ,
+  'index_id'=>'employee_id' ]) <hr>
+  @endif
 
     <div class="row">
         <div class="col-md-6">

@@ -82,7 +82,7 @@ class TaskRequest extends FormRequest
 
                 }
             $existing_tasks = Task
-                ::where('employee_id', Auth::user()->id)
+                ::where('employee_id', $data['user_id'])
                 ->where('status', 'notwork')
                 ->where(function ($q) use ($data) {
                     $q
@@ -125,14 +125,14 @@ class TaskRequest extends FormRequest
 
             if (!empty($this->id))
                 $existing_tasks = $existing_tasks
-                    ->where('id', '!=', $this->id);
+                    ->where([ ['id', '!=', $this->id], ['employee_id', '=', $data['user_id']], ]);
 
 
 
                     if (in_array($this->method(), ['POST'])) {
 
                         if (!$this->has('ignore_conflict') && $existing_tasks->count() > 0){
-                        $past_task = Task::where([ ['employee_id','=',Auth::user()->id], ])
+                        $past_task = Task::where([ ['employee_id', '=', $data['user_id']], ])
                         ->orderby('finish_date','desc')->orderby('finish_time','desc')->first();
                         $pdate = date_by_time(   $past_task->finish_date , $past_task->finish_time  );
                         $tarikh = date_frmat($pdate);

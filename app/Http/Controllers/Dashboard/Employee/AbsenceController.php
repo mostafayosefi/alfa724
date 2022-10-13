@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard\Employee;
 
 use App\Http\Controllers\Controller;
-use App\Models\Score\ScoreSetting;
+use App\Models\Absence;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ScoreSettingController extends Controller
+class AbsenceController extends Controller
 {
 
 
     public function index(){
-        $score_settings= ScoreSetting::all();
-        return view('dashboard.admin.score.setting.index' , compact(['score_settings'  ]));
+        $absence= Absence::where([ ['employee_id',Auth::user()->id] ])->orderby('id','desc')->paginate(50);
+        return view('dashboard.employee.absence.index' , compact(['absence'  ]));
     }
 
 
@@ -48,17 +49,16 @@ class ScoreSettingController extends Controller
 
 
 
-    public function update(Request $request , $id ){
+    public function update(Request $request, $id , Value $value){
         $request->validate([
-            'value' => 'required',
+            'name' => 'required',
+            'text' => 'required',
         ]);
-         $score_settings=ScoreSetting::find($id);
+        $value=Value::find($id);
         $data = $request->all();
-
-        $data['price'] = str_rep_price($data['price']);
-        $data['price_award'] = str_rep_price($data['price_award']);
-
-        $score_settings->update($data);
+        $data['image']= $value->image;
+        $data['image']  =  uploadFile($request->file('image'),'images/values',$value->image);
+        $value->update($data);
         Alert::success('با موفقیت ویرایش شد', 'اطلاعات با موفقیت ویرایش شد');
         return back();
     }

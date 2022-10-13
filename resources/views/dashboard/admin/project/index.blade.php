@@ -50,15 +50,15 @@
 
 
 
+            @if($post->customer)
+            @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])
+            @else
+            مشتری این پروژه هنوز مشخص نشده است
+            @endif
+
+
 
 @include('dashboard.admin.project.detial')
-
-
-             @if($post->customer)
-             @include('dashboard.admin.customer.detial' , [ 'customer' =>$post->customer  ])
-             @else
-             مشتری این پروژه هنوز مشخص نشده است
-             @endif
 
 
 
@@ -353,18 +353,32 @@
     </div>
 
 
+    <div class="row">
 
-    <div class="col-md-12">
+    <div class="col-md-6">
         <x-card type="info">
 
 
  @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'item' => $project , 'items' => $project->price_my_projects ] )
- @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'item' => $project , 'items' => $project->price_my_projects ] )
 
-@include('dashboard.card.money.table_price_sum',[  'item' => $project ])
-{{-- @include('dashboard.card.service.footer') --}}
 
         </x-card>
+    </div>
+
+    <div class="col-md-6">
+        <x-card type="info">
+
+            @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'item' => $project , 'items' => $project->price_my_projects ] )
+
+        </x-card>
+    </div>
+    <div class="col-md-12">
+
+
+    @include('dashboard.card.money.table_price_sum',[  'item' => $project ])
+    {{-- @include('dashboard.card.service.footer') --}}
+
+    </div>
     </div>
 
 
