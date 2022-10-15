@@ -103,12 +103,7 @@ foreach ($service as $key) {
             </x-card>
         </div>
 
+       </div>
 
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> refs/remotes/origin/master
-      </div>
     </div>
 @endsection
