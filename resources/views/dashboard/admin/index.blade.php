@@ -104,7 +104,11 @@ foreach ($service as $key) {
         </div>
 
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> refs/remotes/origin/master
       </div>
     </div>
 @endsection
