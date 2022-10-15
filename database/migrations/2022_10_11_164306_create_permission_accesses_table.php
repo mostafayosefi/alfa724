@@ -17,6 +17,8 @@ class CreatePermissionAccessesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('link');
+            $table->unsignedBigInteger('permission_id')->nullable();
+            $table->foreign('permission_id')->references('id')->on('permissions');
             $table->timestamps();
         });
     }

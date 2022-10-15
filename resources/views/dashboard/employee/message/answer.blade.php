@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('sidebar')
-    @include('dashboard.admin.sidebar')
+    @include('dashboard.employee.sidebar')
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.employee.index" />

@@ -27,7 +27,7 @@
                         <th>پروفایل</th>
                         <th>ویرایش</th>
                         <th>نقش</th>
-                        <th>دسترسی</th>
+                        {{-- <th>دسترسی</th> --}}
                         <th>حذف</th>
                     </tr>
                     </thead>
@@ -70,7 +70,7 @@
                 </a>
             </td>
 
-
+{{--
             <td>
                 @if($item->role_id)
                 @foreach ($permissionroles as $permission   )
@@ -79,7 +79,7 @@
                  @endif
                 @endforeach
                 @endif
-            </td>
+            </td> --}}
                             <td>
                                     <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                             </td>
@@ -113,16 +113,7 @@
                                   </div>
                      @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>نام و نام خانوادگی </th>
-                            <th>ایمیل</th>
-                            <th>شماره تماس</th>
-                            <th>پروفایل</th>
-                            <th>ویرایش</th>
-                            <th>حذف</th>
-                        </tr>
-                        </tfoot>
+
                 </table>
             </x-card-body>
         </x-card>

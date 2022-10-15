@@ -9,7 +9,7 @@ class PermissionAccesse extends Model
 {
 
     protected $fillable = [
-        'name', 'link',
+        'name', 'link','permission_id',
     ];
 
 
@@ -17,5 +17,14 @@ class PermissionAccesse extends Model
     public function permission_roles(){
         return $this->hasMany(PermissionRole::class , 'permission_accesse_id');
     }
+
+
+
+
+    
+
+
+
+
 
 }

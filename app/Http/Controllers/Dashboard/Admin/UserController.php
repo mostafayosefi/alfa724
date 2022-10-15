@@ -30,8 +30,9 @@ class UserController extends Controller
     }
 
     public function edit($id) {
-        $post = User::find($id);
-        $task=Task::where('user_id',$id)->orderBy('created_at', 'desc')->paginate(50);
+        $counttask=Task::where('employee_id',$id)->orderBy('id', 'desc')->count();
+        $task=Task::where('employee_id',$id)->orderBy('id', 'desc')->paginate(10);
+
         $employee=EmployeeProject::where('employee_id',$id)->orderBy('created_at', 'desc')->get();
         $phase=Phase::whereHas('for', function($q) {
             $q->whereHas('employees', function($q) {
@@ -43,10 +44,12 @@ class UserController extends Controller
 
         // $score = Score::where( [ ['id','<>','0'] ]);
         // $score->delete();
-
-
-        scope_score(   'tasks' , $id );
-        return view('dashboard.admin.users.profile', ['id' => $id,'post' => $post,'phase' => $phase,'users' => $users,'employee' => $employee,'task' => $task]);
+        // $activition = 'update_db';
+        $activition = 'view';
+         scope_score(   'tasks' , $id, $activition  );
+         $post = User::find($id);
+        return view('dashboard.admin.users.profile', ['id' => $id,'post' => $post,'phase' => $phase,'users' => $users,
+        'employee' => $employee,'task' => $task,'counttask' => $counttask]);
     }
 
     public function DeletePost($id)

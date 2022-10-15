@@ -25,6 +25,8 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
+
+
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -50,6 +52,8 @@ BY WEBITO
         var module = { };
     </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 </head>
 <style>
     .card-info:not(.card-outline) > .card-header {
@@ -182,7 +186,7 @@ BY WEBITO
 
                     <div class="col-sm-12">
                         <ol class="breadcrumb float-sm-left">
-                            @yield('hierarchy') 
+                            @yield('hierarchy')
                         </ol>
                     </div>
 
@@ -328,6 +332,24 @@ BY WEBITO
 
 
 <script src="{{ asset('assets/cdn/editor/summernote-bs4.min.js')}}"></script>
+
+
+<script src="{{ asset('assets/dashboard/plugins/select2/js/select2.full.min.js') }}"></script>
+
+
+<script>
+    $(function () {
+      //Initialize Select2 Elements
+      $('.select2').select2()
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
+
+    }) 
+
+  </script>
 
 {{--
 <script>

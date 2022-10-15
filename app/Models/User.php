@@ -43,6 +43,7 @@ class User extends Authenticatable
         'referral',
         'picture',
         'role_id',
+        'scorecomemt',
     ];
 
     protected $cascadeDeletes = ['Absence', 'Payment', 'messages', 'messagesend', 'scores', 'employeeProjects', 'tasks'];

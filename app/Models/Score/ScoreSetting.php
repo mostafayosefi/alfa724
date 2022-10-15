@@ -14,5 +14,14 @@ class ScoreSetting extends Model
         'status',
         'value',
         'text',
+        'value_award',
+        'text_value_award',
+        'price',
+        'text_price',
+        'price_award',
+        'text_price_award',
     ];
+ 
+
+
 }

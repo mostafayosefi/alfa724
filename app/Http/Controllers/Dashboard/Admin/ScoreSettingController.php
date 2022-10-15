@@ -54,6 +54,10 @@ class ScoreSettingController extends Controller
         ]);
          $score_settings=ScoreSetting::find($id);
         $data = $request->all();
+
+        $data['price'] = str_rep_price($data['price']);
+        $data['price_award'] = str_rep_price($data['price_award']);
+
         $score_settings->update($data);
         Alert::success('با موفقیت ویرایش شد', 'اطلاعات با موفقیت ویرایش شد');
         return back();

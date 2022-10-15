@@ -9,9 +9,9 @@
             دفترچه یادداشت
           </h3>
 
-         @admin('admin')
+         {{-- @admin('daily_index')
           <p>Only admin sees this</p>
-          @endadmin
+          @endadmin --}}
 
           <div class="card-tools">
             <ul class="pagination pagination-sm">
@@ -31,20 +31,20 @@
                 <i class="fas fa-ellipsis-v"></i>
               </span>
               <div  class="icheck-primary d-inline ml-2">
-                   <input type="checkbox"  id="todoCheck2{{ $item->id }}"  data-toggle="modal" data-target="#modal-success{{ $item->id }}">
-                <label for="todoCheck2{{ $item->id }}"></label>
+                   <input type="checkbox"  id="todoCheck23{{ $item->id }}"  data-toggle="modal" data-target="#modal-success{{ $item->id }}">
+                <label for="todoCheck23{{ $item->id }}"></label>
               </div>
-              <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{!! $item->content !!}</span>
+              <span class="text2" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{!! $item->content !!}</span>
               <small class="badge badge-info"><i class="far fa-clock"></i> {{$item->created_at->formatJalali()}}</small>
               <div class="tools">
                 <i class="fas fa-edit" data-target="#modal-lgf{{ $item->id }}" data-toggle="modal"></i>
                 <script>
                   $(document).ready(function(){
                 $(".check").click(function(){
-                    $("#todoCheck2{{ $item->id }}").prop("checked", true);
+                    $("#todoCheck23{{ $item->id }}").prop("checked", true);
                 });
                 $(".uncheckd").click(function(){
-                    $("#todoCheck2{{ $item->id }}").prop("checked", false);
+                    $("#todoCheck23{{ $item->id }}").prop("checked", false);
                 });
                });
 

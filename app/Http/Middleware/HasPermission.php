@@ -2,32 +2,31 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Role\PermissionAccesse;
+use App\Models\Role\PermissionRole;
 use Closure;
 use Illuminate\Http\Request;
 
 class HasPermission
 {
 
-public function handle($request, Closure $next,$permissions ,$b)
+public function handle($request, Closure $next,$permissions  )
 {
 
 
 
+    $PermissionAccesse = PermissionAccesse::where([ ['link',$permissions], ])->first();
+    $PermissionRole = PermissionRole::where([
+        ['permission_accesse_id',$PermissionAccesse->id],
+        ['role_id',$request->user()->role_id],
+         ])->first();
+    $status = $PermissionRole->status;
 
-    $permissions_array = explode('|', $permissions);
-    // $user = $this->auth->user();
-
-    dd($b);
-    // dd($permissions_array);
-    // dd($request->user()->hasPermission('superasmin'));
-    foreach($permissions_array as $permission){
-        if(!$request->user()->hasPermission($permission)){
-
-            // echo $permission.'<br>';
+        if($status == 'inactive'){
             return redirect()->route('dashboard.admin.customer.create');
         }
-    }
-    // dd($request->user()->hasPermission($permission));
+
+ 
 
     return $next($request);
 

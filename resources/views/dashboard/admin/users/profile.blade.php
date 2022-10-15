@@ -28,6 +28,35 @@ foreach ($task as $item) {
 </style>
     <div class="container">
       <div class="row">
+
+        @if(Session::has('info'))
+        <div class="row">
+            <div class="col-md-12">
+                <p class="alert alert-info">{{ Session::get('info') }}</p>
+            </div>
+        </div>
+    @endif
+
+ 
+    @if(($post->scorecomemt) && ($counttask != 0))
+        <div class="col-md-12">
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-exclamation-triangle"></i> اخطار !</h5>
+
+        {!! $post->scorecomemt !!}
+        </div>
+        </div>
+
+
+        <div class="col-lg-12 col-12">
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'warning' , 'box_header' => ' اخطار! '
+             , 'box_titr' => $post->scorecomemt   , 'box_icon' => 'icon fas fa-exclamation-triangle' , 'box_route' => '' ,
+             'box_more' => 'مشاهده و بررسی مسئولیتهای عقب افتاده'.' '.$post->name , 'box_more_icon' => 'fa fa-arrow-circle-left' ])
+        </div>
+        @endif
+
+
         <div class="col-md-3">
 
             <!-- Profile Image -->
@@ -117,102 +146,21 @@ foreach ($task as $item) {
 
     <div class="active tab-pane" id="task">
         <div class="row">
-            <div class="col-md-12">
-              <x-card type="primary">
-                  <x-card-header>مدیریت مسئولیت ها</x-card-header>
-                      <x-card-body>
-                          <div class="box-body">
-                              <table id="example1" class="table table-bordered table-hover">
-                                  <thead>
-                                  <tr>
-                                      <th>ردیف</th>
-                                      <th>عنوان</th>
-                                      <th>تاریخ شروع</th>
-                                      <th>تاریخ پایان</th>
-                                       <th>ساعت شروع</th>
-                                      <th>ساعت پایان</th>
-                                      <th>وضعیت</th>
-                                      <th>حذف</th>
-                                      <th>ویرایش</th>
-                                  </tr>
-                                  </thead>
-                                      <tbody>
-                                   @foreach($task as $key => $item)
-                                      <tr>
-                                          <td>{{ $key + 1 }}</td>
-                                          <td>{{ $item->title }}</td>
-                                          <td>{{ $item->start_date->formatJalali() }}</td>
-                                          <td>{{$item->finish_date->formatJalali()}}</td>
-                                          @if($item->start_time != NULL && $item->finish_time != NULL)
-                                          <td>{{$item->start_time->format('H:i')}}</td>
-                                          <td>{{$item->finish_time->format('H:i')}}</td>
-                                          @else
-                                          <td>تعریف نشده</td>
-                                          <td>تعریف نشده</td>
-                                          @endif
-                                          <td>{{ __('app.status.' . $item->status) }}</td>
-                                          <td>
-                                          <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
-                                          </td>
-                                          <td>
-                                          <button type="button" data-toggle="modal" data-target="#modal-edit-task-{{ $item->id }}" style="padding: 0;color:#dc3545" class="btn edit_post"><i class="fas fa-edit"></i></button>
-                                          </td>
-                                      </tr>
-                                                              <!-- SHOW SUCCESS modal -->
-                             <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
-                              <div class="modal-dialog modal-danger">
-                                <div class="modal-content bg-danger">
-                                  <div class="modal-header">
-                                    <h4 class="modal-title">{{ $item->content }}</h4>
-                                    <button type="button" class="close uncheckd" data-dismiss="modal" aria-label="Close">
-                                      <span  aria-hidden="true">×</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                      آیا می خواهید این  مورد حذف کنید ؟
 
-                                  </div>
-                                  <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>
-                                     <form  action="#" method="post">
-                                         <input type="hidden" name="id" value="{{ $item->id }}" >
-                                        {{-- <a href="{{route('dashboard.admin.task.deletetask',['id'=>$item->id,'project_id'=>$item->for->id])}}" class="btn btn-outline-light">بله </a> --}}
-                                     </form>
-                                  </div>
-                                </div>
-                                <!-- /.modal-content -->
-                              </div>
-                              <!-- /.modal-dialog -->
-                            </div>
-                                   @endforeach
-                                      </tbody>
-                                      <tfoot>
-                                      <tr>
-                                          <th>ردیف</th>
-                                          <th>عنوان</th>
-                                          <th>تاریخ شروع</th>
-                                          <th>تاریخ پایان</th>
-                                          <th>ساعت شروع</th>
-                                          <th>ساعت پایان</th>
-                                          <th>وضعیت</th>
-                                          <th>حذف</th>
-                                          <th>ویرایش</th>
-                                      </tr>
-                                      </tfoot>
-                              </table>
-                          </div>
-                          </x-card-body>
-                      <x-card-footer>
-                          <div class="row">
-                              <div class="col-lg-12">
-                                  <ul class="pagination">
-                                      {{$task->links()}}
-                                  </ul>
-                              </div>
-                          </div>
-                      </x-card-footer>
-              </x-card>
-          </div>
+
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+
+@include('dashboard.card.task.edit', [ 'route' =>  route('dashboard.admin.daily.editdaily')  ] )
+@include('dashboard.card.task.index')
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 

@@ -50,7 +50,7 @@ class DailyController extends Controller
 
 
         $data = $request->validated();
-        $data['employee_id'] = Auth::user()->id;
+        $data['employee_id'] = $request->user_id;
         $cleander_day = first_cleander_day($data['finish_date']);
         if($cleander_day==null){
             return redirect()->back()->withErrors(['finish_date' => 'دقت نمایید بازه زمانی انتخاب شده در سیستم تعریف نشده است!       ' ]);
@@ -92,25 +92,31 @@ class DailyController extends Controller
         $note=Note::where('user_id',Auth::user()->id)->orderBy('created_at', 'asc')->limit(30)->get();
         $write=Task::managePage()->where('status','!=','done')->where('employee_id',Auth::user()->id)->where('project_id',null)->orderBy('finish_date', 'asc')->paginate(6);
 
+
+        $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
+
         return view('dashboard.admin.daily.manage', [
         'task' => $task,
         'write' => $write,
         'note' => $note,
         'absence' => $absence,
         'diff' => $diff,
+        'users' => $users,
         ]);
     }
 
     public function index()
     {
-        $task=Task::where('employee_id',Auth::user()->id)->orderBy('finish_date', 'desc')->paginate(10);
-        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user'  ]);
+        $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
+        $task=Task::where('employee_id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
+        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user' , 'users' => $users    ]);
     }
 
     public function alluser()
     {
-        $task=Task::where('id','<>' , '0')->orderBy('finish_date', 'desc')->paginate(10);
-        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin'  ]);
+        $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
+        $task=Task::where('id','<>' , '0')->orderBy('id', 'desc')->paginate(10);
+        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin' , 'users' => $users  ]);
     }
 
     public function GetTask($id,Request $request)
@@ -135,7 +141,7 @@ class DailyController extends Controller
             // if ($post->status == 'done' && $old_status != $post->status)
             //     $post->applyEmployeeScore(Auth::user());
         }
-        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت انجام شد');
+        return redirect()->back()->with('info', 'مسئولیت انجام شد');
     }
 
 
@@ -153,7 +159,7 @@ class DailyController extends Controller
             // if ($post->status == 'done' && $old_status != $post->status)
             //     $post->applyEmployeeScore(Auth::user());
         }
-        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت ویرایش شد');
+        return redirect()->back()->with('info', 'مسئولیت ویرایش شد');
     }
 
 
@@ -185,7 +191,7 @@ class DailyController extends Controller
     public function CreateNote(Request $request)
     {
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:5000'] ,
+            'content' => ['required', 'string', 'max:20000'] ,
         ]);
         $post = new Note([
             'content' => $request->input('content'),
@@ -212,7 +218,7 @@ class DailyController extends Controller
 
         // dd($request);
         $this->validate($request, [
-            'content' => ['required', 'string', 'max:5000'] ,
+            'content' => ['required', 'string', 'max:20000'] ,
         ]);
         $post = Note::find($request->input('id'));
         if (!is_null($post)) {
@@ -229,6 +235,31 @@ class DailyController extends Controller
     public function destroy($id , Request $request){
         Task::destroy($request->id);
         return redirect()->back()->with('info', 'مسئولیت باموفقیت حذف شد ' );
+
+    }
+
+    public function destroy_get($id){
+        Task::destroy($id);
+        return redirect()->back()->with('info', 'مسئولیت باموفقیت حذف شد ' );
+
+    }
+
+
+    public function deleteall(  Request $request){
+
+$data['delete'] = $request->delete;
+
+if($data['delete']){
+    foreach($data['delete'] as $key => $location){
+        Task::destroy($location);
+      }
+
+      return redirect()->back()->with('info', 'مسئولیت های انتخابی باموفقیت حذف شدند ' );
+
+}else{
+
+    return redirect()->back()->with('info', 'متاسفانه آیتمی انتخاب نشده است!' );
+}
 
     }
 

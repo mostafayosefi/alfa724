@@ -18,9 +18,8 @@
 
     <div class="row">
 
-    <div class="col-md-3"></div>
-
-    <div class="col-md-6">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
         <x-card type="primary">
             <x-card-header>  ایجاد نقش جدید</x-card-header>
             <x-card-body>
@@ -43,14 +42,14 @@
                         <div class="card-header">
                         <h3 class="card-title"> فعالسازی دسترسی های نقش کاربری </h3>
                         </div>
-                        <div class="card-body">
 
-                        <div class="row">
-                        <div class="col-sm-6">
+  @foreach ($permission_accesses->chunk(5) as $chunk)
+ <div class="card-body">
+ <div class="row">
 
 
-                            @foreach ($permissions as $permission )
-
+ @foreach ($chunk as $key => $permission )
+                            <div class="col-md-4">
                             <div class="form-group clearfix">
                                 <div class="icheck-primary d-inline">
                                     <input type="checkbox" id="permission{{$permission->id}}"
@@ -61,12 +60,22 @@
                                 </div>
                                 </div>
 
+
+
+</div>
+
+@php $key+1;
+$k_hr = fmod($key, 5);
+if($k_hr==4){ echo '<hr>';}
+@endphp
                             @endforeach
 
 
                         </div>
-                        </div>
 
+
+                    </div>
+                        @endforeach
 
 
                         </div>
@@ -94,7 +103,7 @@
             </x-card-body>
         </x-card>
     </div>
-    <div class="col-md-3"></div>
 
+    <div class="col-md-2"></div>
     </div>
 @endsection

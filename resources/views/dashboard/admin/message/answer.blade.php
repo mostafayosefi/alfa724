@@ -5,7 +5,7 @@
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
     <x-breadcrumb-item title="پیام ها" route="dashboard.admin.message.manage" />
-    <x-breadcrumb-item title="پاسخ به پیام" route="dashboard.admin.message.answer" />
+    {{-- <x-breadcrumb-item title="پاسخ به پیام" route="dashboard.admin.message.answer" /> --}}
 @endsection
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/dropzone/min/dropzone.min.css') }}">
@@ -18,9 +18,16 @@
     </div>
 @endif
     <div class="col-md-12">
-        <x-card type="info">
+        <x-card type="primary">
             <x-card-header>ارسال پیام</x-card-header>
-        <form style="padding:10px;" action="{{ route('dashboard.admin.message.answer', ['message' => $message]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
+
+            <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" disabled   name="tttt"  value="{{ $message->title }}"  placeholder="عنوان">
+            <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control"  disabled value="{{ $message->conbtent }}"  name="ccccc"  placeholder="متن پیام"></textarea>
+
+
+            <h4>پاسخ :</h4>
+
+        <form style="padding:10px;" action="{{ route('dashboard.admin.message.answer.update', ['id' => $message->id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title"  placeholder="عنوان">
             <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="content"  placeholder="متن پیام"></textarea>
             {{ csrf_field() }}

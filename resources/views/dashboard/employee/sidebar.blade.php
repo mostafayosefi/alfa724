@@ -11,6 +11,7 @@
 
 
  {{-- <x-sidebar-item title="مدیریت مالی" icon="fas fa-money-check-alt" route="dashboard.employee.money.index"  ul="false"  /> --}}
+<x-sidebar-item title="مشاهده حضور غیاب" icon="nav-icon fas fa-users" route="dashboard.employee.absence.index"  ul="false" />
 <x-sidebar-item title="پیام ها" icon="fas fa-envelope-open-text" route="dashboard.employee.message.manage"  ul="false" />
 <x-sidebar-item title="ویرایش مشخصات" icon="fas fa-user" route="dashboard.profile.edit"  ul="false"  />
 <x-sidebar-item :title="'امتیاز شما: ' . Auth::user()->score" icon="fas fa-medal"  ul="false"  />

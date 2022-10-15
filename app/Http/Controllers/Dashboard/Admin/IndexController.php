@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Models\Absence;
 use Illuminate\Session\Store;
 use App\Models\User;
 use App\Models\Task;
@@ -83,6 +84,9 @@ if($model instanceof Project){
             update_model_v1('score_settings');
 
 
+
+
+            $absence = Absence::orderby('id','desc')->paginate(8);
         return view('dashboard.admin.index', [
             'posts' => $posts,
             'users' => $users,
@@ -90,6 +94,7 @@ if($model instanceof Project){
             'finishing_projects' => $finishing_projects,
             'finishing_phases' => $finishing_phases,
             'overdue_projects' => $overdue_projects,
+            'absence' => $absence,
         ]);
     }
 }

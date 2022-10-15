@@ -48,7 +48,7 @@ onmouseover="myFunction()"
 onclick="alert('click event occurred')" /> --}}
 
 
-<span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->title }}</span>
+<span class="text2" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->title }}</span>
 <small class="badge badge-info"><i class="far fa-clock"></i>@if(!empty($item->start_time)){{ $item->start_time->format('H:i') }} - {{ $item->finish_time->format('H:i') }} - {{$item->finish_date->formatJalali()}}@else {{$item->finish_date->formatJalali()}} @endif</small>
 <div class="tools">
 <i class="fas fa-edit" data-target="#modal-lf{{ $item->id }}" data-toggle="modal"></i>

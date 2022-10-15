@@ -40,8 +40,24 @@
             @include('dashboard.admin.customer.detial')
             @include('dashboard.admin.service.detial')
 
-            @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'items' => $item->price_my_services  ] )
-            @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'items' => $item->price_my_services   ] )
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <x-card type="info">
+                @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'items' => $item->price_my_services  ] )
+
+            </x-card>
+        </div>
+
+        <div class="col-md-6">
+            <x-card type="info">
+                @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'items' => $item->price_my_services   ] )
+
+            </x-card>
+        </div>
+        </div>
+
 
 
 
