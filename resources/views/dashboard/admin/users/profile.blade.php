@@ -37,7 +37,7 @@ foreach ($task as $item) {
         </div>
     @endif
 
- 
+
     @if(($post->scorecomemt) && ($counttask != 0))
         <div class="col-md-12">
         <div class="alert alert-warning alert-dismissible">
@@ -131,8 +131,7 @@ foreach ($task as $item) {
     <ul class="nav nav-pills">
     <li class="nav-item"><a class="nav-link" href="#edit" data-toggle="tab">ویرایش اطلاعات شخصی</a></li>
     <li class="nav-item"><a class="nav-link active" href="#task" data-toggle="tab">مسئولیت ها</a></li>
-    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-    </ul>
+     </ul>
     </div>
     <div class="card-body">
     <div class="tab-content">
@@ -164,21 +163,7 @@ foreach ($task as $item) {
         </div>
     </div>
 
-    <div class="tab-pane" id="settings">
-    <form class="form-horizontal">
-    <div class="form-group row">
-    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-    <div class="col-sm-10">
-    <input type="email" class="form-control" id="inputName" placeholder="Name">
-    </div>
-    </div>
-    <div class="form-group row">
-    <div class="offset-sm-2 col-sm-10">
-    <button type="submit" class="btn btn-danger">Submit</button>
-    </div>
-    </div>
-    </form>
-    </div>
+
 
     </div>
 

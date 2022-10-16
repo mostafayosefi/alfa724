@@ -15,15 +15,18 @@
         </div>
     @endif
 
+    {{-- @foreach ($permission_roles->chunk(5) as $chunk)
+    @foreach ($chunk as $key => $permission ) --}}
 
     <div class="row">
 
-    <div class="col-md-2"></div>
 
-    <div class="col-md-8">
+
+    <div class="col-md-12">
         <x-card type="primary">
             <x-card-header>  ویرایش نقش {{$role->name}}    </x-card-header>
             <x-card-body>
+
 
                 <form style="padding:10px;" action="{{route('dashboard.admin.permission.appointment.put' , $role->id)}}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
@@ -38,46 +41,12 @@
 
 
 
-
-
-                    <div class="card card-success">
-                        <div class="card-header">
-                        <h3 class="card-title"> نقشهای فعال {{$role->name}} </h3>
-                        </div>
+                    @include('dashboard.card.permission.tab_accesses' , [ $permissions , $permission_roles , 'oper' => 'show' ] )
 
 
 
-                            @foreach ($permission_roles->chunk(5) as $chunk)
-                            <div class="card-body">
-                            <div class="row">
 
 
-                            @foreach ($chunk as $key => $permission )
-                                                       <div class="col-md-4">
-
-
-                            <div class="form-group clearfix">
-                                <div class="icheck-primary d-inline">
-                                    <input type="checkbox" disabled id="permission{{$permission->permission_accesse->id}}"
-                                    name="permission[]" value="{{$permission->permission_accesse->id}}"
-                                     @if($permission->status=='active') checked @endif  >
-                                    <label for="permission{{$permission->permission_accesse->id}}">
-                                        &nbsp; &nbsp; &nbsp;     {{ $permission->permission_accesse->name }}
-                                    </label>
-                                </div>
-                                </div>
-
-                                @php $key+1;
-                                 $k_hr = fmod($key, 5);
-                                if($k_hr==4){ echo '<hr>';}
-                                @endphp
-
-                                </div>
-
-                                @endforeach
-                            </div>
-                            </div>
-                                @endforeach
 
  <hr>
 
@@ -85,10 +54,6 @@
  'input_name' => 'name'  ,  'name_select' => 'مدیر' ,
  'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id' ]) <hr>
 
-
-
-
-                        </div>
 
 
 
@@ -105,7 +70,7 @@
             </x-card-body>
         </x-card>
     </div>
-    <div class="col-md-2"></div>
+
 
     </div>
 @endsection
