@@ -22,7 +22,11 @@
 
 @include('dashboard.admin.phase.create', ['id' => $post->id])
 @include('dashboard.admin.phase.updatepost', ['posts' => $phase, 'id' => $post->id])
-@include('dashboard.admin.task.create', ['id' => $post->id, 'phase' => $phase, 'posts' => $users])
+
+
+@include('dashboard.card.task.create' , [ 'route' => route('dashboard.admin.daily.store') , 'users' => $all_users ] )
+
+{{-- @include('dashboard.admin.task.create', ['id' => $post->id, 'phase' => $phase, 'posts' => $users]) --}}
 @include('dashboard.admin.task.updatetask', ['id' => $post->id, 'phase' => $phase, 'users' => $users, 'posts' => $tasks])
 @include('dashboard.admin.employee.create', ['users' => $all_users, 'project' => $post])
 @include('dashboard.admin.employee.updateemployee', ['posts' => $users, 'salaries' => $salaries])
@@ -319,7 +323,7 @@
                          <div class="card-footer">
                              <div class="row">
                                  <div class="col-12 col-md-4 col-lg-3">
-                                     <button type="button" data-toggle="modal" data-target="#modal-create-task" class="btn btn-success">افزودن مسئولیت</button>
+                                     <button type="button"  data-toggle="modal" data-target="#modal-lg" class="btn btn-success">افزودن مسئولیت</button>
                                  </div>
 
                             </div>

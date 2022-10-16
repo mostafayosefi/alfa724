@@ -50,6 +50,8 @@ class ProjectController extends Controller
         $tasks= Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25);
         $salaries = Salary::all();
 
+ 
+
         // dd($users);
 
         return view('dashboard.admin.project.index' , compact(['post' , 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));

@@ -128,12 +128,16 @@ for (var i = 0; i < textareas.length; i++) {
 
 
           @if((explode_url(1)=='admin'))
-
           @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
           'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
           'value' =>   auth()->user()->id , 'required'=>'required'  ,
            'index_id'=>'user_id' ]) <hr>
            @endif
+
+          @if((explode_url(2)=='project'))
+          <input type="hidden" name="project_id" value="{{$id}}" >
+           @endif
+
 
 
           @csrf

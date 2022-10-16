@@ -51,13 +51,14 @@ class DailyController extends Controller
 
         $data = $request->validated();
         $data['employee_id'] = $request->user_id;
+        $data['project_id'] = $request->project_id;
         $cleander_day = first_cleander_day($data['finish_date']);
         if($cleander_day==null){
             return redirect()->back()->withErrors(['finish_date' => 'دقت نمایید بازه زمانی انتخاب شده در سیستم تعریف نشده است!       ' ]);
         }
         $task = Task::create($data);
         insert_task_in_cleander($data['start_date'],$data['finish_date'],'tasks',$task->id,'shamsi');
-        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت جدید اضافه شد ' );
+        return redirect()->back()->with('info', 'مسئولیت جدید اضافه شد ' );
     }
 
     public function GetManagePost(Request $request)
@@ -134,7 +135,7 @@ class DailyController extends Controller
             if($post->created_at<='2022-01-26 14:20:44'){
                 $post->status == 'done';
                 $post->save();
-                return redirect()->route('dashboard.admin.daily.manage')->with('info', 'مسئولیت انجام شد');
+                return redirect()->back()->with('info', 'مسئولیت انجام شد');
             }
 
             $post->update($request->validated());
@@ -172,7 +173,7 @@ class DailyController extends Controller
             'enter'=>Carbon::now()->isoFormat('HH:mm:ss')
         ]);
         $post->save();
-        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'حضوری شما زده شد ' );
+        return redirect()->back()->with('info', 'حضوری شما زده شد ' );
     }
 
     public function AbsenceEnd($id,Request $request)
@@ -183,7 +184,7 @@ class DailyController extends Controller
             $post->hours = strtotime(Carbon::now()->isoFormat('HH:mm:ss')) - strtotime($post->enter);
             $post->save();
         }
-        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'ساعت خروج شما ثبت شد ' );
+        return redirect()->back()->with('info', 'ساعت خروج شما ثبت شد ' );
     }
 
 
@@ -227,7 +228,7 @@ class DailyController extends Controller
             $post->save();
 
         }
-        return redirect()->route('dashboard.admin.daily.manage')->with('info', 'یادداشت ویرایش شد');
+        return redirect()->back()->with('info', 'یادداشت ویرایش شد');
     }
 
 

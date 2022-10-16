@@ -121,11 +121,14 @@
 
             </x-card-body>
 
+
+            @if(explode_url(1)!='employee')
             <x-card-footer>
                 <ul class="pagination">
                     {{$task->links()}}
                  </ul>
-               </x-card-footer>
+            </x-card-footer>
+            @endif
 
         </x-card>
     </div>
