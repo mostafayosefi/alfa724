@@ -123,24 +123,27 @@ foreach ($service as $key) {
                 <div class="widget-user-header bg-warning">
                 <h3 class="widget-user-username">  لیست وظایف انجام نشده کاربران  </h3>
                 </div>
-                <div class="card-footer p-0">
-                <ul class="nav flex-column">
+                <div class="card-body">
 
 
             @if($task_notwork_all)
 
 
+            <div class="col-12">
                 @foreach ($task_notwork_all as $item )
 
-                <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-warning">
-                    مهلت انجام مسئولیت  {{$item->title}} توسط کاربر {{$item->user->name}} به پایان رسیده ولی هنوز پایان کار ثبت نگردید
 
-                </span> </a> </li>
+                <div class="alert alert-warning no-dismiss">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                مهلت انجام مسئولیت  {{$item->title}} توسط کاربر {{$item->user->name}} به پایان رسیده ولی هنوز پایان کار ثبت نگردید
+
+
+                </div>
 
                 @endforeach
+            </div>
                 @endif
 
-                </ul>
                 </div>
                 </div>
                 </div>
