@@ -12,8 +12,9 @@
     </style>
 @endsection
 @section('hierarchy')
-    <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="مدیریت پروژه ها" route="dashboard.admin.project.manage" />
+<x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
+<x-breadcrumb-item title="مدیریت پروژه ها" route="dashboard.admin.project.manage" />
+<x-breadcrumb-item title="{{ $project->title }}" route="dashboard.admin.project.step" />
 @endsection
 @section('content')
 

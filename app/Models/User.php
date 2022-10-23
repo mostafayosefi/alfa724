@@ -77,7 +77,7 @@ class User extends Authenticatable
     }
 
     public function absences() {
-        return $this->hasmany(User::class, 'employee_id');
+        return $this->hasOne(User::class , 'id');
     }
 
 

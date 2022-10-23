@@ -13,10 +13,7 @@
                         <th>تاریخ شروع</th>
                         <th>تاریخ پایان</th>
                         <th>وضعیت پروژه</th>
-                        <th>نمایش پروژه</th>
-                        {{-- <th>تاریخ ایجاد  </th> --}}
-                        <th>حذف</th>
-                        <th>ویرایش</th>
+                        <th>  عملیات</th>
                     </tr>
                     </thead>
                         <tbody>
@@ -33,33 +30,20 @@
                              @if($item->status=='not_done') <td><span class="btn btn-block bg-gradient-danger btn-sm"> انجام نشده</span></td> @endif
                              @if($item->status=='paid') <td><span class="btn btn-block bg-gradient-success btn-sm"> تسویه شده</span></td> @endif
                             <td>
-                                <a href="{{route('dashboard.admin.project.step',['id'=>$item->id , 'project' ])}}" class="btn btn-block bg-gradient-success btn-sm">مراحل کاری پروژه</a>
-                                <a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" class="btn btn-block bg-gradient-primary btn-sm">نمایش پروژه</a>
-                            </td>
-                            {{-- <td>{{ date_frmat($item->created_at) }}</td> --}}
-                            <td>
+
+
+
+                                <a href="{{route('dashboard.admin.project.step',['id'=>$item->id , 'project' ])}}" title="مراحل کاری پروژه " class="btn btn-outline-primary btn-sm"><i class="fas fa-user-edit fa-1x"></i></a>
+                                <a href="{{route('dashboard.admin.project.index',['id'=>$item->id])}}" title="نمایش پروژه " class="btn btn-outline-success btn-sm"><i class="fas fa-user-edit fa-1x"></i></a>
+                                <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" title="ویرایش "   class="btn btn-outline-success btn-sm" target="_blank"><i class="fas fa-edit fa-1x"></i></a>
+
                              @include('dashboard.ui.modal_delete', [$item ,'route' => route('dashboard.admin.project.destroy', $item) , 'myname' => 'پروژه '.$item->title ])
-                            </td>
-                            <td>
-                            <a href="{{route('dashboard.admin.project.edit',['id'=>$item->id])}}" class="edit_post" ><i class="fas fa-edit"></i></a>
-                            </td>
+
+                             </td>
                         </tr>
                         <!-- SHOW SUCCESS modal -->
                      @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>ردیف</th>
-                            <th>عنوان</th>
-                            <th>مسئول پروژه</th>
-                            <th>تاریخ شروع</th>
-                            <th>تاریخ پایان</th>
-                            <th>وضعیت پروژه</th>
-                            <th>نمایش پروژه</th>
-                            <th>حذف</th>
-                            <th>ویرایش</th>
-                        </tr>
-                        </tfoot>
                 </table>
             </div>
             </x-card-body>

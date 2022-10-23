@@ -89,45 +89,107 @@ foreach ($service as $key) {
         <div class="row">
 
 
-        <div class="col-md-4">
 
-            <div class="card card-widget widget-user-2">
+            <div class="col-md-4">
+                <div class="card card-widget widget-user-2">
+                <div class="widget-user-header bg-primary">
+                <h3 class="widget-user-username">لیست حضور غیاب</h3>
+                </div>
+                <div class="card-footer p-0">
+                <ul class="nav flex-column">
+            @if($listabsence)
+            @foreach ($listabsence as $item )
 
-            <div class="widget-user-header bg-warning">
-            <div class="widget-user-image">
-            <img class="img-circle elevation-2" src="{{ !empty(Auth::user()->picture) ? Auth::user()->picture : asset('assets/images/user.png') }}" alt="User Avatar">
-            </div>
+@php $first = report_user($item->id  , 'first' , 'list_absence'   ); @endphp
 
-            <h3 class="widget-user-username">Nadia Carmichael</h3>
-            <h5 class="widget-user-desc">Lead Developer</h5>
-            </div>
-            <div class="card-footer p-0">
-            <ul class="nav flex-column">
-            <li class="nav-item">
-            <a href="#" class="nav-link">
-            Projects <span class="float-right badge bg-primary">31</span>
-            </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link">
-            Tasks <span class="float-right badge bg-info">5</span>
-            </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link">
-            Completed Projects <span class="float-right badge bg-success">12</span>
-            </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link">
-            Followers <span class="float-right badge bg-danger">842</span>
-            </a>
-            </li>
-            </ul>
-            </div>
-            </div>
+@if ($first)
+ <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-success">ساعت ورود  {{ $first->enter }}
+ </span> </a> </li>
+  @else
+
+  <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-danger"> غایب </span> </a> </li>
+ @endif
+
+                @endforeach
+                @endif
+
+                </ul>
+                </div>
+                </div>
+                </div>
+
+            <div class="col-md-8">
+                <div class="card card-widget widget-user-2">
+                <div class="widget-user-header bg-warning">
+                <h3 class="widget-user-username">  لیست وظایف انجام نشده کاربران  </h3>
+                </div>
+                <div class="card-footer p-0">
+                <ul class="nav flex-column">
+
+
+            @if($task_notwork_all)
+
+
+                @foreach ($task_notwork_all as $item )
+
+                <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-warning">
+                    مهلت انجام مسئولیت  {{$item->title}} توسط کاربر {{$item->user->name}} به پایان رسیده ولی هنوز پایان کار ثبت نگردید
+
+                </span> </a> </li>
+
+                @endforeach
+                @endif
+
+                </ul>
+                </div>
+                </div>
+                </div>
+
+
 
             </div>
+        <div class="row">
+
+
+            @if($listabsence)
+            @foreach ($listabsence as $item )
+
+            <div class="col-md-4">
+
+                <div class="card card-widget widget-user-2">
+
+                <div class="widget-user-header bg-primary">
+                <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="{{ !empty($item->picture) ? $item->picture : asset('assets/images/user.png') }}" alt="User Avatar">
+                </div>
+
+                <h3 class="widget-user-username">{{ $item->name }}</h3>
+                <h5 class="widget-user-desc">{{ $item->situation }}</h5>
+                </div>
+                <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                پروژه ها <span class="float-right badge bg-primary">{{ report_user($item->id  , 'count' , 'employee_project'   ) }}</span>
+                </a>
+                </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                مسئولیت ها <span class="float-right badge bg-info">{{ report_user($item->id  , 'count' , 'task'   ) }}</span>
+                </a>
+                </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                وظایف انجام نداده <span class="float-right badge bg-danger">{{ report_user($item->id  , 'count' , 'task_notwork'   ) }}</span>
+                </a>
+                </li>
+                </ul>
+                </div>
+                </div>
+
+                </div>
+            @endforeach
+            @endif
             </div>
 
             <div class="row">
@@ -162,22 +224,8 @@ foreach ($service as $key) {
         @endif
 
 
-        @if($task_notwork_all)
 
-        <div class="col-12">
-
-            @foreach ($task_notwork_all as $item )
-
-            <div class="alert alert-warning no-dismiss">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                مهلت انجام مسئولیت  {{$item->title}} توسط کاربر {{$item->user->name}} به پایان رسیده ولی هنوز پایان کار ثبت نگردید
-
-            </div>
-            @endforeach
-        </div>
-        @endif
-
-        <div class="col-12">
+       <div class="col-12">
             <x-card type="primary">
                 <x-card-body>
 

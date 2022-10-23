@@ -4,7 +4,11 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="مشاهده مسئولیت ها  " route="dashboard.admin.users.admins.index" />
+    @if (explode_url(3)=='index')
+    <x-breadcrumb-item title=" مسئولیت های من" route="dashboard.admin.daily.{{explode_url(3)}}" />
+@else
+<x-breadcrumb-item title=" مسئولیت های کاربران" route="dashboard.admin.daily.{{explode_url(3)}}" />
+    @endif
 @endsection
 @section('content')
     @if(Session::has('info'))

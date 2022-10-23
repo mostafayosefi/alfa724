@@ -124,22 +124,12 @@ if($model instanceof Project){
 
             $model_absence = Absence::where([ ['id' , '<>' , 0], ]);
             $count_online_absence =  $model_absence->where([ [ 'date' , $now_miladi ], ])->count();
+            $list_online_absence =  $model_absence->where([ [ 'date' , $now_miladi ], ])->get();
 
-            // dd($count_online_absence);
+            // dd($count_listabsence);
 
 
-        return view('dashboard.admin.index', [
-            'posts' => $posts,
-            'users' => $users,
-            'service' => $service,
-            'finishing_projects' => $finishing_projects,
-            'finishing_phases' => $finishing_phases,
-            'overdue_projects' => $overdue_projects,
-            'absence' => $absence,
-            'task_notwork_all' => $task_notwork_all,
-            'task_notwork_count' => $task_notwork_count,
-            'myabsence' => $myabsence,
-            'diff' => $diff,
-        ]);
+        return view('dashboard.admin.index', compact([  'posts','users' , 'service'  ,'finishing_projects','finishing_phases'
+        ,'overdue_projects' ,'absence' ,'task_notwork_all' ,'task_notwork_count' ,'myabsence' ,'diff' ,'listabsence'  ,'list_online_absence' ]));
     }
 }

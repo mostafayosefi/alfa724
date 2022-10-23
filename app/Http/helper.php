@@ -43,6 +43,7 @@ use App\Http\Services\Message\MessageService;
 use App\Models\Cleander\CleanderDayMyService;
 use App\Models\Notification\NotificationMessage;
 use App\Http\Services\Message\Email\EmailService;
+use App\Models\Absence;
 
 if(!function_exists('isActive'))
 {
@@ -905,6 +906,36 @@ if(! function_exists('update_deposit_to') ) {
 }
 
 
+
+if(! function_exists('report_user') ) {
+    function report_user($id  , $type , $model , $startdate = null , $enddate = null )
+    {
+
+        $now_miladi=date_today('now_miladi');
+        $user = User::find($id);
+        if(($startdate=='null')&&($enddate=='null')){
+            $startdate = '2000-01-01';
+            $enddate = '3000-01-01';
+        }
+
+        if($model=='task'){  $mymodel = Task::where([ ['employee_id', $id], ]); }
+        if($model=='task_notwork'){  $mymodel = Task::where([ ['employee_id', $id],['status', 'notwork'], ]); }
+        if($model=='employee_project'){  $mymodel = EmployeeProject::where([ ['employee_id', $id], ]); }
+        if($model=='list_absence'){  $mymodel = Absence::where([ ['employee_id', $id], [ 'date' , $now_miladi ], ]); }
+
+        if($type=='count'){
+            $output = $mymodel->count();
+        }
+        if($type=='first'){
+            $output = $mymodel->first();
+        }
+
+
+        return $output;
+
+
+    }
+}
 
 
 if(! function_exists('price_finical') ) {

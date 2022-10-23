@@ -39,8 +39,7 @@
                                 <th> مسئول</th>
                                  <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
-                                <th>مشاهده</th>
-                                <th>حذف</th>
+                                <th>عملیات</th>
                             </tr>
                             </thead>
                                 <tbody>
@@ -51,23 +50,18 @@
                                      <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td>
                                     <td>{{ date_frmat_a($item->startdate) }}</td>
                                     <td>{{ date_frmat_a($item->enddate) }}</td>
-                                    <td><a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}" class="btn btn-primary">مشاهده</a></td>
                                     <td>
-                                    <a href="{{route('dashboard.admin.service.deleteservice',['id'=>$item->id])}}" class="delete_post" ><i class="fa fa-fw fa-eraser"></i></a>
+
+
+                                        <a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}" title="مشاهده " class="btn btn-outline-primary btn-sm"><i class="fas fa-user-edit fa-1x"></i></a>
+
+
+                                       <a href="{{route('dashboard.admin.service.deleteservice',['id'=>$item->id])}}"  class="btn btn-outline-danger btn-sm" title="حذف "  ><i class="fas fa-eraser"  ></i></a>
+
                                     </td>
                                 </tr>
                              @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>ردیف</th>
-                                <th>نام خدمت</th>
-                                <th>تاریخ پایان</th>
-                                <th>تاریخ شروع</th>
-                                <th>مشاهده</th>
-                                <th>حذف</th>
-                                </tr>
-                                </tfoot>
                         </table>
                     </div>
                     </x-card-body>

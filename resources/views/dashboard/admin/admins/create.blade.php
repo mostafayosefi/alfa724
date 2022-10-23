@@ -4,7 +4,7 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index"/>
-    <x-breadcrumb-item title="مشاهده مدیران  " route="dashboard.admin.users.admins.index" />
+    <x-breadcrumb-item title="  ثبت مدیر جدید  " route="dashboard.admin.users.admins.create" />
 @endsection
 @section('content')
 

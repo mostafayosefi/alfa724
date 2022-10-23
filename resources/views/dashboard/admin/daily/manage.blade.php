@@ -5,7 +5,7 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="مدیریت مسئولیت ها" route="dashboard.admin.daily.manage" />
+    <x-breadcrumb-item title="برنامه روزانه " route="dashboard.admin.daily.manage" />
 @endsection
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/MDTimePicker/mdtimepicker.min.css') }}">
