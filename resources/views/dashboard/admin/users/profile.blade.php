@@ -36,14 +36,9 @@ foreach ($task as $item) {
         </div>
     @endif
 
-<<<<<<< HEAD
     <div class="row">
 
     @if(($user->scorecomemt) && ($counttask != 0))
-=======
-
-    @if(($post->scorecomemt) && ($counttask != 0))
->>>>>>> 258f96c65876930f11c495605fa7ae745478f096
         <div class="col-md-12">
         <div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -134,14 +129,9 @@ foreach ($task as $item) {
     <div class="card">
     <div class="card-header p-2">
     <ul class="nav nav-pills">
-<<<<<<< HEAD
     <li class="nav-item"><a class="nav-link @if($tab_active=='profile')  active @endif " href="#edit" data-toggle="tab">ویرایش  </a></li>
     <li class="nav-item"><a class="nav-link @if($tab_active=='secret')  active @endif " href="#secret" data-toggle="tab">  امنیتی</a></li>
     <li class="nav-item"><a class="nav-link  @if(($tab_active=='task')||($tab_active==null))   active @endif " href="#task" data-toggle="tab">مسئولیت ها</a></li>
-=======
-    <li class="nav-item"><a class="nav-link" href="#edit" data-toggle="tab">ویرایش اطلاعات شخصی</a></li>
-    <li class="nav-item"><a class="nav-link active" href="#task" data-toggle="tab">مسئولیت ها</a></li>
->>>>>>> 258f96c65876930f11c495605fa7ae745478f096
      </ul>
     </div>
     <div class="card-body">

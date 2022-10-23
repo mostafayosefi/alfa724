@@ -43,7 +43,6 @@ class ProjectController extends Controller
 
     public function GetProject($id)
     {
-<<<<<<< HEAD
         $project = show_detial_model('project',$id);
         $phase = show_detial_model('phase',$id);
         $users = show_detial_model('users',$id);
@@ -52,21 +51,6 @@ class ProjectController extends Controller
         $salaries = show_detial_model('salaries',$id);
         return view('dashboard.admin.project.index' , compact([ 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
      }
-=======
-        $project = Project::find($id);
-        $post = Project::find($id);
-        $phase= Phase::where('project_id',$id)->orderBy('created_at', 'desc')->get();
-        $users = EmployeeProject::where('project_id',$id)->orderBy('created_at', 'desc')->get();
-        $all_users = User::orderBy('created_at', 'desc')->get();
-        $tasks= Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25);
-        $salaries = Salary::all();
-
- 
-
-        // dd($users);
-
-        return view('dashboard.admin.project.index' , compact(['post' , 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
->>>>>>> 258f96c65876930f11c495605fa7ae745478f096
 
 
     public function step($id,$level)

@@ -20,11 +20,7 @@
         <div class="col-md-4">
         <div class="form-group clearfix">
             <div class="icheck-primary d-inline">
-<<<<<<< HEAD
                 <input type="checkbox" @if((explode_url(3)=='appointment')) disabled @endif  id="permission{{$permission->permission_accesse->id}}"
-=======
-                <input type="checkbox" @if ($oper=='show') disabled @endif  id="permission{{$permission->permission_accesse->id}}"
->>>>>>> 258f96c65876930f11c495605fa7ae745478f096
                 name="permission[]" value="{{$permission->permission_accesse->id}}"
                  @if($permission->status=='active') checked @endif  >
                 <label for="permission{{$permission->permission_accesse->id}}">

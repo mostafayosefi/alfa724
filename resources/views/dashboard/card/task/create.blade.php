@@ -128,10 +128,7 @@ for (var i = 0; i < textareas.length; i++) {
 
 
           @if((explode_url(1)=='admin'))
-<<<<<<< HEAD
           @include('dashboard.ui.java-fetch-select')
-=======
->>>>>>> 258f96c65876930f11c495605fa7ae745478f096
           @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
           'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
           'value' =>   auth()->user()->id , 'required'=>'required'  ,

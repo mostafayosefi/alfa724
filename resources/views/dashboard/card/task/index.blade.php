@@ -141,11 +141,7 @@
                     {{$task->links()}}
                  </ul>
             </x-card-footer>
-<<<<<<< HEAD
 
-=======
-          
->>>>>>> 258f96c65876930f11c495605fa7ae745478f096
 
         </x-card>
     </div>
