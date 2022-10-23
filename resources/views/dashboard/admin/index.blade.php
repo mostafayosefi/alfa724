@@ -187,11 +187,15 @@ foreach ($service as $key) {
             </x-card>
         </div>
 
+       </div>
 
+<<<<<<< HEAD
 
 
 
        </div>
 
+=======
+>>>>>>> 258f96c65876930f11c495605fa7ae745478f096
     </div>
 @endsection

@@ -15,6 +15,8 @@
         </div>
     @endif
 
+    {{-- @foreach ($permission_roles->chunk(5) as $chunk)
+    @foreach ($chunk as $key => $permission ) --}}
 
 
 
@@ -65,11 +67,25 @@
 
 
 
+<<<<<<< HEAD
+=======
+                    @include('dashboard.card.permission.tab_accesses' , [ $permissions , $permission_roles , 'oper' => 'show' ] )
+
+
+
+>>>>>>> 258f96c65876930f11c495605fa7ae745478f096
 
 
 
  <hr>
 
+<<<<<<< HEAD
+=======
+ @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
+ 'input_name' => 'name'  ,  'name_select' => 'مدیر' ,
+ 'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id' ]) <hr>
+
+>>>>>>> 258f96c65876930f11c495605fa7ae745478f096
 
 
 
