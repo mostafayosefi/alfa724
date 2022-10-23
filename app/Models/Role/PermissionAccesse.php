@@ -19,9 +19,15 @@ class PermissionAccesse extends Model
     }
 
 
+    public function permission(){
+        return $this->belongsTo(Permission::class);
+    }
 
 
-    
+
+
+
+
 
 
 

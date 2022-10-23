@@ -29,7 +29,7 @@
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->mobile }}</td>
                                     <td>
-                                        <a target="_blank" href="{{ route('dashboard.admin.users.profile',['id'=>$item->id]) }}" class="btn btn-block btn-outline-primary btn-sm">
+                                        <a target="_blank" href="{{ route('dashboard.admin.users.show',['id'=>$item->id]) }}" class="btn btn-block btn-outline-primary btn-sm">
                                             مشاهده پروفایل
                                         </a>
                                     </td>

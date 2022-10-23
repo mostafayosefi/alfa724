@@ -11,12 +11,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <x-card type="info">
+                        <x-card type="success">
                             <x-card-header>ویرایش فاز پروژه</x-card-header>
                             <x-card-body>
                                 <input type="hidden" style="margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"  name="id" value="{{ $post->id }}" >
                                 <input type="hidden" style="margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control"  name="project_id" value="{{ $post->for->id }}" >
                                 <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title" value="{{ $post->title }}" placeholder="عنوان">
+
+
+
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>تاریخ شروع:</label>
                                     <div class="input-group">
@@ -27,6 +32,9 @@
                                     </div>
                                     <!-- /.input group -->
                                 </div>
+                                </div>
+
+                                <div class="col-6 col-md-6 col-sm-12">
 
                                 <div class="form-group">
                                     <label>تاریخ پایان:</label>
@@ -37,6 +45,8 @@
                                         <input name="finish_date" value="{{ $post->finish_date->formatJalali() }}" type="text" id="date1" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="" required>
                                     </div>
                                     <!-- /.input group -->
+                                </div>
+                                </div>
                                 </div>
                             </x-card-body>
                     </x-card>

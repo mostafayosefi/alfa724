@@ -12,17 +12,17 @@
             <div class="form-group">
                 <label for="first_name">    نام </label>
               <input type="text" class="form-control input_mystyle"
-              required  name="first_name" value="{{ $post->first_name }}" placeholder=" نام "  >
+              required  name="first_name" value="{{ $user->first_name }}" placeholder=" نام "  >
             </div><hr>
             <div class="form-group">
                 <label for="last_name">    نام خانوادگی </label>
               <input type="text" class="form-control input_mystyle"
-              required  name="last_name" value="{{ $post->last_name }}" placeholder=" نام خانوادگی "  >
+              required  name="last_name" value="{{ $user->last_name }}" placeholder=" نام خانوادگی "  >
             </div><hr>
             <div class="form-group">
                 <label for="situation">    سمت   </label>
               <input type="text" class="form-control input_mystyle"
-              required  name="situation" value="{{ $post->situation }}" placeholder=" سمت   "  >
+              required  name="situation" value="{{ $user->situation }}" placeholder=" سمت   "  >
             </div><hr>
         </div>
         <div class="col-md-5">
@@ -31,17 +31,17 @@
                 <label for="birthdate">      تاریخ تولد </label>
               <input type="text" class="form-control input_mystyle" id="date"
               data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask=""
-              required  name="birthdate" value="{{ $post->birthdate }}" placeholder="   تاریخ تولد "  >
+              required  name="birthdate" value="{{ $user->birthdate }}" placeholder="   تاریخ تولد "  >
             </div><hr>
             <div class="form-group">
                 <label for="mobile">      شماره همراه </label>
               <input type="text" class="form-control input_mystyle"
-              required  name="mobile" value="{{ $post->mobile }}" placeholder="   شماره همراه "  >
+              required  name="mobile" value="{{ $user->mobile }}" placeholder="   شماره همراه "  >
             </div><hr>
             <div class="form-group">
                 <label for="email">        ایمیل </label>
               <input type="text" class="form-control input_mystyle"
-              required  name="email" value="{{ $post->email }}" placeholder="     ایمیل "  >
+              required  name="email" value="{{ $user->email }}" placeholder="     ایمیل "  >
             </div><hr>
         </div>
         <div class="col-md-1">
@@ -50,7 +50,7 @@
         </div>
 
 
-
+@method('PUT')
         @csrf
 
         <x-card-footer>

@@ -39,11 +39,6 @@
         <div class="col-md-5">
 
 
-    @include('dashboard.ui.selectbox', [ 'allforeachs' => $customers ,
-    'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
-    'value' =>   $project->customer_id , 'required'=>'required'  , 'index_id'=>'customer_id' ]) <hr>
-
-
 
     <div class="form-group">
         <label for="time"> مدت زمان حدودی پروژه (به روز)</label>
@@ -66,6 +61,11 @@
         </div>
     </div><hr>
 
+
+    @include('dashboard.ui.java-fetch-select')
+    @include('dashboard.ui.selectbox', [ 'allforeachs' => $customers ,
+    'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
+    'value' =>   $project->customer_id , 'required'=>'required'  , 'index_id'=>'customer_id'  , 'onchange'=>'close_select' ]) <hr>
 
         </div>
 

@@ -5,10 +5,10 @@
 @section('title', __('پروفایل'))
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="پروفایل" route="dashboard.admin.users.profile" />
+    <x-breadcrumb-item title="پروفایل" route="dashboard.admin.users.show" />
 @endsection
 @section('content')
-@include('dashboard.admin.task.updatetask', ['id' => $post->id, 'phase' => $phase, 'users' => $users, 'posts' => $task])
+@include('dashboard.admin.task.updatetask', ['id' => $user->id, 'phase' => $phase, 'users' => $users, 'posts' => $task])
 <?php
 $tasks=0;
 $income=0;
@@ -27,7 +27,6 @@ foreach ($task as $item) {
     #example1_info {display:none }
 </style>
     <div class="container">
-      <div class="row">
 
         @if(Session::has('info'))
         <div class="row">
@@ -37,22 +36,23 @@ foreach ($task as $item) {
         </div>
     @endif
 
- 
-    @if(($post->scorecomemt) && ($counttask != 0))
+    <div class="row">
+
+    @if(($user->scorecomemt) && ($counttask != 0))
         <div class="col-md-12">
         <div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h5><i class="icon fas fa-exclamation-triangle"></i> اخطار !</h5>
 
-        {!! $post->scorecomemt !!}
+        {!! $user->scorecomemt !!}
         </div>
         </div>
 
 
         <div class="col-lg-12 col-12">
             @include('dashboard.card.dashboard.box' , [  'box_bg' => 'warning' , 'box_header' => ' اخطار! '
-             , 'box_titr' => $post->scorecomemt   , 'box_icon' => 'icon fas fa-exclamation-triangle' , 'box_route' => '' ,
-             'box_more' => 'مشاهده و بررسی مسئولیتهای عقب افتاده'.' '.$post->name , 'box_more_icon' => 'fa fa-arrow-circle-left' ])
+             , 'box_titr' => $user->scorecomemt   , 'box_icon' => 'icon fas fa-exclamation-triangle' , 'box_route' => '' ,
+             'box_more' => 'مشاهده و بررسی مسئولیتهای عقب افتاده'.' '.$user->name , 'box_more_icon' => 'fa fa-arrow-circle-left' ])
         </div>
         @endif
 
@@ -63,25 +63,25 @@ foreach ($task as $item) {
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="{{ !empty($post->picture) ? $post->picture : asset('assets/images/user.png') }}" alt="{{ $post->first_name }}">
+                  <img class="profile-user-img img-fluid img-circle" src="{{ !empty($user->picture) ? $user->picture : asset('assets/images/user.png') }}" alt="{{ $user->first_name }}">
                 </div>
 
-                <h3 class="profile-username text-center">{{ $post->first_name }} {{ $post->last_name }}</h3>
+                <h3 class="profile-username text-center">{{ $user->first_name }} {{ $user->last_name }}</h3>
 
-                <p class="text-muted text-center">{{ $post->situation }}</p>
+                <p class="text-muted text-center">{{ $user->situation }}</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                     <b>مسئولیت های انجام شده</b> <a class="float-right"><?php echo $tasks ;  ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>امتیاز</b> <a class="float-right" style="direction: ltr;" >{{ $post->score }}</a>
+                    <b>امتیاز</b> <a class="float-right" style="direction: ltr;" >{{ $user->score }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>تاریخ تولد</b> <a class="float-right">{{ $post->birthdate }}</a>
+                    <b>تاریخ تولد</b> <a class="float-right">{{ $user->birthdate }}</a>
                   </li>
                 </ul>
-                <a href="{{route('dashboard.admin.message.create',['user_id'=>$post->id])}}" class="btn btn-warning btn-block"><b>ارسال پیام</b></a>
+                <a href="{{route('dashboard.admin.message.create',['user_id'=>$user->id])}}" class="btn btn-warning btn-block"><b>ارسال پیام</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -129,22 +129,21 @@ foreach ($task as $item) {
     <div class="card">
     <div class="card-header p-2">
     <ul class="nav nav-pills">
-    <li class="nav-item"><a class="nav-link" href="#edit" data-toggle="tab">ویرایش اطلاعات شخصی</a></li>
-    <li class="nav-item"><a class="nav-link active" href="#task" data-toggle="tab">مسئولیت ها</a></li>
-    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-    </ul>
+    <li class="nav-item"><a class="nav-link @if($tab_active=='profile')  active @endif " href="#edit" data-toggle="tab">ویرایش  </a></li>
+    <li class="nav-item"><a class="nav-link @if($tab_active=='secret')  active @endif " href="#secret" data-toggle="tab">  امنیتی</a></li>
+    <li class="nav-item"><a class="nav-link  @if(($tab_active=='task')||($tab_active==null))   active @endif " href="#task" data-toggle="tab">مسئولیت ها</a></li>
+     </ul>
     </div>
     <div class="card-body">
     <div class="tab-content">
-    <div class="tab-pane" id="edit">
-
-
-        @include('dashboard.card.user.edit' , [  'route' => '#' ])
-
-
+    <div class=" @if($tab_active=='profile')  active @endif tab-pane" id="edit">
+        @include('dashboard.card.user.edit' , [  'route' =>  route('dashboard.admin.users.updateuser', $user->id)  ])
+    </div>
+    <div class=" @if($tab_active=='secret')  active @endif tab-pane" id="secret">
+        @include('dashboard.card.user.secret' , [  'route' =>  route('dashboard.admin.users.secret', $user->id)  ])
     </div>
 
-    <div class="active tab-pane" id="task">
+    <div class=" @if(($tab_active=='task')||($tab_active==null))   active @endif  tab-pane" id="task">
         <div class="row">
 
 
@@ -164,21 +163,7 @@ foreach ($task as $item) {
         </div>
     </div>
 
-    <div class="tab-pane" id="settings">
-    <form class="form-horizontal">
-    <div class="form-group row">
-    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-    <div class="col-sm-10">
-    <input type="email" class="form-control" id="inputName" placeholder="Name">
-    </div>
-    </div>
-    <div class="form-group row">
-    <div class="offset-sm-2 col-sm-10">
-    <button type="submit" class="btn btn-danger">Submit</button>
-    </div>
-    </div>
-    </form>
-    </div>
+
 
     </div>
 

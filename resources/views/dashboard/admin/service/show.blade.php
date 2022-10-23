@@ -34,6 +34,8 @@
 @include('dashboard.card.money.create' , [ 'flag' => 'depo' ] )
 @include('dashboard.card.money.create' , [ 'flag' => 'cost' ] )
 
+@include('dashboard.card.money.edit' , [ 'route' => '#' , 'items' => $item->price_my_services  ] )
+
     <div class="col-md-12">
         <x-card type="info">
 

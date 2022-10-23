@@ -27,7 +27,7 @@
                 <input type="checkbox"  id="todoCheck2{{ $item->id }}"  data-toggle="modal" data-target="#modal-success{{ $item->id }}">
                 <label for="todoCheck2{{ $item->id }}"></label>
               </div>
-              <span class="text" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->title }}</span>
+              <span class="text2" style="cursor:pointer;" data-target="#modal-info{{ $item->id }}" data-toggle="modal">{{ $item->title }}</span>
               <small class="badge badge-info"><i class="far fa-clock"></i>@if(!empty($item->start_time)){{ $item->start_time->format('H:i') }} - {{ $item->finish_time->format('H:i') }} - {{$item->finish_date->formatJalali()}}@else {{$item->finish_date->formatJalali()}} @endif</small>
               <div class="tools">
                 <i class="fas fa-edit" data-target="#modal-lf{{ $item->id }}" data-toggle="modal"></i>
@@ -68,7 +68,7 @@
               <!-- /.modal-dialog -->
             </div>
 
-                
+
 
         @endforeach
       </ul>

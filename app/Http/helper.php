@@ -4,15 +4,27 @@
 use Carbon\Carbon;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Phase;
+use App\Models\Score;
+use App\Models\Salary;
+use App\Models\Project;
 use App\Models\Service;
 use App\Models\Customer;
+use App\Rules\Uniqemail;
 use App\Models\MyService;
+use App\Models\Role\Role;
 use App\Models\MyCustomer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
+use App\Models\EmployeeProject;
+use App\Models\Role\Permission;
+use App\Models\Score\ScoreTask;
 use App\Models\Eform\PriceFinical;
+use App\Models\Score\ScoreSetting;
+use App\Models\Role\PermissionRole;
 use App\Models\Cleander\CleanderDay;
+use App\Models\Price\PriceMyProject;
 use App\Models\Price\PriceMyService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,22 +32,17 @@ use App\Models\Cleander\CleanderYear;
 use Illuminate\Support\Facades\Route;
 use App\Models\Cleander\CleanderMonth;
 use App\Models\Cleander\CleanderToday;
+use App\Models\Role\PermissionAccesse;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use App\Models\Cleander\CleanderDayTask;
 use App\Models\Cleander\CleanderDayPhase;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cleander\CleanderDayProject;
+use App\Http\Services\Message\MessageService;
 use App\Models\Cleander\CleanderDayMyService;
-use App\Models\Price\PriceMyProject;
-use App\Models\Project;
-use App\Models\Role\Permission;
-use App\Models\Role\PermissionAccesse;
-use App\Models\Role\PermissionRole;
-use App\Models\Role\Role;
-use App\Models\Score;
-use App\Models\Score\ScoreSetting;
-use App\Models\Score\ScoreTask;
+use App\Models\Notification\NotificationMessage;
+use App\Http\Services\Message\Email\EmailService;
 
 if(!function_exists('isActive'))
 {
@@ -86,6 +93,36 @@ if(! function_exists('getStatusEmployerPackage') ) {
 }
 
 
+if(! function_exists('date_today') ) {
+
+    function date_today($flg)
+    {
+
+        $date = now();
+        $shamsi = Jalalian::forge($date)->format('Y/m/d');
+        $miladi = Jalalian::forge($date)->format('Y-m-d');
+        $year = Jalalian::forge($date)->format('Y');
+        $month = Jalalian::forge($date)->format('m');
+        $day = Jalalian::forge($date)->format('d');
+
+        $now_miladi = $date->format('Y-m-d');
+
+        $my_format_date = Jalalian::forge($date)->format('%A, %d %B %Y');
+
+
+        if($flg=='shamsi'){
+            return $my_format_date;
+        }
+
+        if($flg=='now_miladi'){
+            return $now_miladi;
+        }
+
+
+
+    }
+
+}
 if(! function_exists('updatecleandertoday') ) {
 
     function updatecleandertoday()
@@ -1406,9 +1443,31 @@ if(! function_exists('uploadFile') ) {
 
 
 
-if(! function_exists('score_system') ) {
-    function score_system($link , $id, $activition )
+if(! function_exists('date_time') ) {
+    function date_time($format)
     {
+
+
+
+        $mydate =now()->format('Y-m-d H:i:s');
+        $date_output = add_date_func('H:i' , $mydate , '+1' , ' hours');
+
+        $date =now();
+
+        if($format=='date'){ return  $mydate = Jalalian::forge($date)->format('Y/m/d');   }
+        if($format=='time'){ return  $mydate = Jalalian::forge($date)->format('H:i');   }
+        if($format=='finish_time'){ return  $date_output;   }
+
+
+
+    }
+}
+
+
+
+        if(! function_exists('score_system') ) {
+            function score_system($link , $id, $activition )
+            {
         $score_setting = ScoreSetting::where([ ['link',$link] ])->first();
 
         if($link=='tasks'){
@@ -1771,6 +1830,147 @@ if(! function_exists('price_low_high') ) {
 
     }
 }
+
+
+if(! function_exists('show_detial_model') ) {
+    function show_detial_model($model,$id)
+    {
+        if($model=='project'){ $my_model = Project::find($id);  }
+        if($model=='phase'){ $my_model = Phase::where('project_id',$id)->orderBy('created_at', 'desc')->get(); }
+        if($model=='users'){ $my_model = EmployeeProject::where('project_id',$id)->orderBy('created_at', 'desc')->get(); }
+        if($model=='all_users'){ $my_model =  User::orderBy('created_at', 'desc')->get(); }
+        if($model=='tasks'){ $my_model = Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25); }
+        if($model=='salaries'){ $my_model = Salary::all(); }
+
+        return $my_model;
+
+    }
+}
+
+
+if(! function_exists('step_btn_footer') ) {
+    function step_btn_footer($mystep , $level)
+    {
+        if($level=='project'){ $next = 'phase' ; $perv = ''; }
+        if($level=='phase'){ $next = 'employee' ; $perv = 'project'; }
+        if($level=='employee'){ $next = 'task' ; $perv = 'phase'; }
+        if($level=='task'){ $next = 'finical' ; $perv = 'employee'; }
+
+
+        if($mystep=='next'){ return $next;  }
+        if($mystep=='perv'){ return $perv;  }
+
+
+    }
+}
+
+
+
+if(! function_exists('model_filter') ) {
+    function model_filter($model , $status)
+    {
+
+        if($model=='task'){  $mymodel=Task::where([  ['id','<>' ,'0' ],  ]);   }
+        if($model=='project'){  $mymodel=Project::where([  ['id','<>' ,'0' ],  ]);   }
+
+        if($status!=null){  $mymodel=$mymodel->where([  ['status',$status ], ]);  }
+
+        return $mymodel;
+
+
+    }
+}
+
+
+
+
+
+
+if(! function_exists('send_notification_email') ) {
+    function send_notification_email(  $notification_message_id  )
+    {
+
+
+//  Start Send Email
+
+// $notification_message = NotificationMessage::find($notification_message_id);
+// $emailrecerve = $notification_message->user->email;
+// $title = $notification_message->notification_list->notification_type->name;
+
+$emailrecerve = 'mustafa1390@gmail.com';
+$title = 'فراموشی رمزعبور';
+$text = 'بازگردانی رمزعبور شما';
+$emailService = new EmailService();
+$details = [
+    'title' => $title,
+    'body' =>  $text
+];
+$emailService->setDetails($details);
+$emailService->setFrom($emailrecerve, 'example');
+$emailService->setSubject($title);
+$emailService->setTo($emailrecerve);
+$messagesService = new MessageService($emailService);
+$messagesService->send();
+
+
+
+
+    }
+}
+
+
+
+
+
+
+if(! function_exists('secret_user') ) {
+    function secret_user(Request $request , $user , $oper , $db)
+    {
+
+
+        if($oper=='secret'){
+
+            session(['err' => '1']);
+            $request->validate([
+                'password' => 'required| min:4 |confirmed',
+                'password_confirmation' => 'required| min:4'
+            ]);
+    $user->update([ 'password' => Hash::make($request->password) ]);
+
+        }
+
+
+        if($oper=='update'){
+            $request->session()->forget('err');
+
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => ['required' , 'email',new Uniqemail($db,'email',$user->id)] ,
+                'mobile' => ['required', 'regex:/^09[0-9]{9}$/'] ,
+            ]);
+
+
+             $data = $request->all();
+            $data['picture']= $user->picture;
+            $data['picture']  =  uploadFile($request->file('picture'),'images/'.$db,$user->picture);
+
+
+   $m =  $user->update($data);
+
+
+        }
+
+
+
+
+
+    }
+}
+
+
+
+
 
 
 // ->middleware(['role:admin']);

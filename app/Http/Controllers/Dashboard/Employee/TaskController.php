@@ -44,10 +44,11 @@ class TaskController extends Controller
 
     public function GetManagePost(Request $request)
     {
+
         $message=message::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+
         $absence=Absence::orderBy('created_at', 'desc')
-        ->where('employee_id',Auth::user()->id)
-        ->where('date',Carbon::now()->format('Y-m-d'))->FIRST();
+        ->where([ ['employee_id',Auth::user()->id], ['date',date_today('now_miladi')] ])->first();
         $diff=NULL;
         if($absence != NULL){
         if($absence->exit != NULL){
@@ -119,7 +120,7 @@ class TaskController extends Controller
 
 
     //ABSENCCE CONTROLLER
-    public function Absence(Request $request)
+    public function store(Request $request)
     {
        $absence=NULL;
        $absence=Absence::where('employee_id', Auth::user()->id)->where('date',Carbon::now()->format('Y-m-d'))->where('exit', NULL)->orderBy('created_at', 'desc')->FIRST();
@@ -136,7 +137,7 @@ class TaskController extends Controller
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'شما حضوری خود را ثبت کرده اید' );
     }
     }
-    public function AbsenceEnd($id,Request $request)
+    public function end($id,Request $request)
     {
         $post = Absence::find($id);
         if (!is_null($post)) {
@@ -195,8 +196,13 @@ class TaskController extends Controller
 
 
         $mydate =now()->format('Y-m-d H:i:s');
+
+
+        // $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '-7' , ' days');
+        // $task=Task::where([ ['employee_id',Auth::user()->id],   ])->orderBy('finish_date', 'desc')->get();
+
         $date_output = add_date_func('Y-m-d H:i:s' , $mydate , '-7' , ' days');
-        $task=Task::where([ ['employee_id',Auth::user()->id],  ['finish_date', '>=' ,$date_output], ])->orderBy('finish_date', 'desc')->paginate(10);
+        $task=Task::where([ ['employee_id',Auth::user()->id],  ])->orderBy('finish_date', 'desc')->paginate(10);
         return view('dashboard.employee.task.index', ['task' => $task , 'guard' => 'user'  ]);
     }
 

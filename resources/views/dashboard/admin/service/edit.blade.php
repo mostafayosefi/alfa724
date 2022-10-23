@@ -102,10 +102,10 @@
 
 
 
-
+    @include('dashboard.ui.java-fetch-select')
     @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
      'input_name' => 'name'  ,  'name_select' => '  کارمند ' ,
-     'value' =>   $item->user_id , 'required'=>'required'  , 'index_id'=>'user_id' ])
+     'value' =>   $item->user_id , 'required'=>'required'  , 'index_id'=>'user_id'  , 'onchange'=>'close_select' ])
 
 
 

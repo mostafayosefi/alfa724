@@ -1,6 +1,9 @@
 
     @if($absence != NULL && $absence->exit==NULL)
 
+    <div class="row">
+        <div class="col-md-12">
+    <div class="alert alert-warning no-dismiss">
     <!-- SHOW SUCCESS modal -->
     <div class="modal fade show" id="modal-absence" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-success">
@@ -16,7 +19,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-info uncheckd" data-dismiss="modal">نه هنوز انجام نشده</button>
-                    <form method="post" action="{{ route('dashboard.employee.absence.end', $absence->id) }}">
+                    <form method="post" action="{{ route('dashboard.'.explode_url(1).'.absence.end', $absence->id) }}">
                         @csrf
                         <button type="submit"  class="btn btn-success">بله انجام شده</button>
                     </form>
@@ -47,7 +50,14 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 @elseif($absence != NULL && $absence->exit!=NULL)
+
+<div class="row">
+    <div class="col-md-12">
+<div class="alert alert-warning no-dismiss">
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-info no-dismiss" style="background: #17a2b85e; width:100%;display:inline-flex;">
@@ -57,4 +67,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 @endif
+

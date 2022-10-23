@@ -25,9 +25,7 @@
                         <th>نام و نام خانوادگی </th>
                         <th>ایمیل</th>
                         <th>شماره تماس</th>
-                        <th>پروفایل</th>
-                        <th>ویرایش</th>
-                        <th>حذف</th>
+                        <th>عملیات</th>
                     </tr>
                     </thead>
                         <tbody>
@@ -38,22 +36,13 @@
                             <td>{{ $item->first_name }} {{ $item->last_name }}</td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->mobile }}</td>
+
                             <td>
-                                @if($item->trashed())
-                                    <p>کاربر حذف شده</p>
-                                @else
-                                    <a href="{{route('dashboard.admin.users.profile',['id'=>$item->id])}}" class="btn btn-block btn-outline-primary btn-sm">مشاهده پروفایل</a>
-                                @endif
-                            </td>
-                            <td>
-                                @if($item->trashed())
-                                    <a href="{{route('dashboard.admin.users.restore',['id'=>$item->id])}}" class="edit_post"><i class="fas fa-undo"></i> بازگردانی</a>
-                                @else
-                                    <a href="{{route('dashboard.admin.users.updateuser',['id'=>$item->id])}}" class="edit_post" target="_blank"><i class="fas fa-edit"></i></a>
-                                @endif
-                            </td>
-                            <td>
-                                    <a href="#" class="delete_post" ><i class="fa fa-fw fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
+                                <a href="{{route('dashboard.admin.users.show',['id'=>$item->id])}}" title="مشاهده پروفایل" class="btn btn-outline-primary btn-sm"><i class="fas fa-user-edit fa-1x"></i></a>
+
+                                {{-- <a href="{{route('dashboard.admin.users.updateuser',['id'=>$item->id])}}" title="ویرایش پروفایل"   class="btn btn-outline-success btn-sm" target="_blank"><i class="fas fa-edit fa-1x"></i></a> --}}
+
+                               <a href="#"  class="btn btn-outline-danger btn-sm" title="حذف پروفایل"  ><i class="fas fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
                             </td>
                         </tr>
                         <!-- SHOW SUCCESS modal -->
@@ -84,17 +73,6 @@
                                   </div>
                      @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>ردیف</th>
-                            <th>نام و نام خانوادگی </th>
-                            <th>ایمیل</th>
-                            <th>شماره تماس</th>
-                            <th>پروفایل</th>
-                            <th>ویرایش</th>
-                            <th>حذف</th>
-                        </tr>
-                        </tfoot>
                 </table>
             </x-card-body>
         </x-card>

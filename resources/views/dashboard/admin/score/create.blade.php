@@ -50,16 +50,16 @@
                   method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
                 @csrf
                 <x-card-body>
-
+                    @include('dashboard.ui.java-fetch-select')
           @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
           'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
           'value' =>    old('user_id')  , 'required'=>'required'  ,
-           'index_id'=>'user_id' ]) <hr>
+           'index_id'=>'user_id'  , 'onchange'=>'close_select'  ]) <hr>
 
           @include('dashboard.ui.selectbox', [ 'allforeachs' => $score_settings ,
           'input_name' => 'name'  ,  'name_select' => 'نوع امتیازدهی' ,
           'value' =>    old('score_setting_id')  , 'required'=>'required'  ,
-           'index_id'=>'score_setting_id' ]) <hr>
+           'index_id'=>'score_setting_id' , 'onchange'=>'' ]) <hr>
 
 
 <div id="score_setting_input"></div>

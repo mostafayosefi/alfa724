@@ -12,15 +12,6 @@
             </div>
         <div class="col-md-5">
 
-            @if($customer_id)
-            <input type="hidden" name="customer_id" value="{{ $customer_id }}" />
-            @else
-
-    @include('dashboard.ui.selectbox', [ 'allforeachs' => $customer ,
-    'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
-    'value' =>   old('customer_id') , 'required'=>'required'  , 'index_id'=>'customer_id' ]) <hr>
-
-@endif
 
 <div class="form-group">
     <label for="title">عنوان</label>
@@ -28,15 +19,23 @@
   required  name="title" value="{{ old('title') }}" placeholder="عنوان"  >
 </div><hr>
 
-
-
+ 
 @include('dashboard.ui.java-price')
 <div class="form-group">
-    <label for="durday">  هزینه پروژه (به تومان)    </label>
+    <label for="durday">  مبلغ پروژه (به تومان)    </label>
     <input type="text" class="form-control input_mystyle" id="price"  name="price"    value="{{ number_format(old('price')) }}"
     onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
     </div><hr>
 
+    @if($customer_id)
+    <input type="hidden" name="customer_id" value="{{ $customer_id }}" />
+    @else
+    @include('dashboard.ui.java-fetch-select')
+@include('dashboard.ui.selectbox', [ 'allforeachs' => $customer ,
+'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
+'value' =>   old('customer_id') , 'required'=>'required'  , 'index_id'=>'customer_id'  , 'onchange'=>'close_select' ]) <hr>
+
+@endif
 
         </div>
 
@@ -47,7 +46,7 @@
             <div class="form-group">
                 <label>تاریخ شروع:</label>
                 <div class="input-group">
-                  <input required id="date" name="start_date" value="{{ old('start_date') }}"  type="text" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+                  <input required id="date" name="start_date" value="{{ old('start_date', date_time('date')) }}"  type="text" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
                 </div>
             </div><hr>
 

@@ -86,13 +86,22 @@
 
 
 
-@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   'مدیریت کاربران ' ,
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   '  کاربران ' ,
  'multi_route' => [
      ['dashboard.admin.users.employee', [  ], 'مدیریت کارمندها ' , 'far fa-circle nav-icon'  ],
      ['dashboard.admin.customer.manage', [  ], 'مدیریت مشتری ها' , 'far fa-circle nav-icon'  ],
      ['dashboard.admin.customer.create', [  ], 'ثبت مشتری' , 'far fa-circle nav-icon'  ],
-     ['dashboard.admin.service.index', [  ], 'مدیریت خدمات ' , 'far fa-circle nav-icon'  ],
+
+
+     ]  ])
+
+
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   '  پروژه و خدمات ' ,
+ 'multi_route' => [
+    ['dashboard.admin.project.create', [  ], 'ثبت پروژه ' , 'far fa-circle nav-icon'  ],
     ['dashboard.admin.project.manage', [  ], 'مدیریت پروژه ها' , 'far fa-circle nav-icon'  ],
+     ['dashboard.admin.service.create', [  ], 'ثبت خدمت ' , 'far fa-circle nav-icon'  ],
+     ['dashboard.admin.service.index', [  ], 'مدیریت خدمات ' , 'far fa-circle nav-icon'  ],
 
 
      ]  ])
@@ -106,10 +115,10 @@
 
 @include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-money-check-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مالی' ,
  'multi_route' => [
-     ['dashboard.admin.money.employee', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],
+     ['dashboard.admin.money.index', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],
       ['dashboard.admin.money.service.index', [  ], 'گزارش مالی خدمات ' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.service.price', [  'type' => 'depo'  ], '  بیعانه های دریافتی خدمات' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.service.price', [  'type' => 'cost'  ], '  هزینه های پرداختی خدمات' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.price', [  'type' => 'depo'  ], '  مبالغ دریافتی خدمات' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.price', [  'type' => 'cost'  ], '  مبالغ پرداختی خدمات' , 'far fa-circle nav-icon'  ],
        ]  ])
 
 
@@ -148,9 +157,16 @@
 
 
 
- <x-sidebar-item title="حضورغیاب" icon="fas fa-users" route="dashboard.admin.absence.manage" ul="false" />
-<x-sidebar-item title="تعطیلی ها" icon="fas fa-folder" route="dashboard.admin.date.manage" ul="false" />
-<x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" ul="false" />
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-users'  ,  'ul' => 'true' ,  'title' =>   'حضور و غیاب ' ,
+ 'multi_route' => [
+     ['dashboard.admin.absence.manage',[   ] ,'  حضور و غیاب' , 'far fa-circle nav-icon'],
+     ['dashboard.admin.absence.setting',[   ] ,'  تنظیمات حضور و غیاب ' , 'far fa-circle nav-icon'],
+      ]
+      ])
+
+
+
+ <x-sidebar-item title="گزارش گیری" icon="fas fa-folder" route="dashboard.admin.report.index" ul="false" />
 
 
 

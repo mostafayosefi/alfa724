@@ -31,10 +31,10 @@
 @if($customer_id)
 <input type="hidden" name="customer_id" value="{{ $customer_id }}" />
 @else
-
+@include('dashboard.ui.java-fetch-select')
 @include('dashboard.ui.selectbox', [ 'allforeachs' => $customer ,
 'input_name' => 'name'  ,  'name_select' => '  مشتری ' ,
-'value' =>   old('customer_id') , 'required'=>'required'  , 'index_id'=>'customer_id' ])
+'value' =>   old('customer_id') , 'required'=>'required'  , 'index_id'=>'customer_id'  , 'onchange'=>'close_select'])
 <hr>
 
 
@@ -65,15 +65,15 @@
 
 <div class="col-md-5">
 
-@include('dashboard.ui.java-price') 
+@include('dashboard.ui.java-price')
 <div class="form-group">
     <label for="durday">  هزینه خدمت (به تومان)    </label>
     <input type="text" class="form-control input_mystyle" id="price"  name="price"  onkeyup="separateNum(this.value,this);"  required placeholder=" هزینه پروژه (به تومان)        ">
 </div><hr>
-
+@include('dashboard.ui.java-fetch-select')
     @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
      'input_name' => 'name'  ,  'name_select' => '  کارمند ' ,
-     'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id' ])
+     'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id'  , 'onchange'=>'close_select' ])
      <hr>
 
 </div>

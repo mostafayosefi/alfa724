@@ -12,8 +12,8 @@ use App\Models\Project;
 use App\Models\Phase;
 use App\Models\Absence;
 use App\Models\EmployeeProject;
-use Illuminate\Auth\Access\Gate; 
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Support\Facades\Storage;
 use Hekmatinasser\Verta\Verta;
@@ -24,8 +24,62 @@ class AbsenceController extends Controller
     public function GetAbsence()
     {
         $absence=Absence::orderBy('date', 'desc')->paginate(50);
-        return view('dashboard.admin.absence.manage', ['absence' => $absence]);
+        return view('dashboard.admin.absence.manage' , compact([   'absence'     ]));
+
     }
+
+    public function setting()
+    {
+        $users=User::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.absence.setting' , compact([   'users'     ]));
+    }
+
+    public function update(Request $request)
+    {
+
+        $mu_user = User::where([ ['listabsence','active'], ])->update([ 'listabsence' => 'inactive' ]);
+
+        foreach($request->users as $user){
+            $mu_user = User::where([ ['id',$user], ])->update([ 'listabsence' => 'active' ]);
+        }
+
+        return redirect()->back()
+        ->with('info',   'لیست حضور و غیاب کارمندان با موفقیت ویرایش شد') ;
+    }
+
+
+
+    public function store(Request $request)
+    {
+       $absence=NULL;
+       $absence=Absence::where('employee_id', Auth::user()->id)->where('date',Carbon::now()->format('Y-m-d'))->where('exit', NULL)->orderBy('created_at', 'desc')->FIRST();
+       if($absence == NULL){
+        $post = new Absence([
+            'employee_id' => Auth::user()->id,
+            'date' => Carbon::now(),
+            'enter'=>Carbon::now()->isoFormat('HH:mm:ss')
+        ]);
+        $post->save();
+        return redirect()->route('dashboard.admin.index')->with('info', 'حضوری شما زده شد ' );
+       }
+       else{
+        return redirect()->route('dashboard.admin.index')->with('info', 'شما حضوری خود را ثبت کرده اید' );
+    }
+    }
+
+
+
+    public function end($id,Request $request)
+    {
+        $post = Absence::find($id);
+        if (!is_null($post)) {
+            $post->exit = Carbon::now()->isoFormat('HH:mm:ss');
+            $post->hours = strtotime(Carbon::now()->isoFormat('HH:mm:ss')) - strtotime($post->enter);
+            $post->save();
+        }
+        return redirect()->route('dashboard.admin.index')->with('info', 'ساعت خروج شما ثبت شد ' );
+    }
+
 
 
 }

@@ -18,7 +18,7 @@
                         @foreach($absence as $key => $item)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->for->first_name }} {{ $item->for->last_name }}</td>
+                                <td>{{ $item->user->first_name }} {{ $item->user->last_name }}</td>
                                 <td>{!! Facades\Verta::instance($item->date)->formatDate() !!}</td>
                                 <td>{{ $item->enter }}</td>
                                 <td>{{ $item->exit }}</td>

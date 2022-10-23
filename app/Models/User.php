@@ -44,6 +44,7 @@ class User extends Authenticatable
         'picture',
         'role_id',
         'scorecomemt',
+        'listabsence',
     ];
 
     protected $cascadeDeletes = ['Absence', 'Payment', 'messages', 'messagesend', 'scores', 'employeeProjects', 'tasks'];
@@ -75,8 +76,8 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function Absence() {
-        return $this->hasOne(User::class, 'employee_id');
+    public function absences() {
+        return $this->hasmany(User::class, 'employee_id');
     }
 
 
@@ -130,6 +131,11 @@ class User extends Authenticatable
 
     public function notification_messages(){
         return $this->hasMany(NotificationMessage::class , 'user_id');
+    }
+
+
+    public function employee_project(){
+        return $this->belongsTo(EmployeeProject::class);
     }
 
 
