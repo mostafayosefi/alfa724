@@ -11,7 +11,7 @@
                         </div>
                         <div class="modal-body">
                           <div class="col-md-12">
-                            <x-card type="info">
+                            <x-card type="primary">
                                 <x-card-header>ویرایش مسئولیت </x-card-header>
                             <form style="padding:10px;" action="{{$route}}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="{{ $item->id }}" >
@@ -112,10 +112,11 @@
 
 
  @if((explode_url(1)=='admin'))
+ @include('dashboard.ui.java-fetch-select')
  @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
  'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
  'value' =>   $item->employee_id , 'required'=>'required'  ,
-  'index_id'=>'employee_id' ]) <hr>
+  'index_id'=>'employee_id'  , 'onchange'=>'close_select' ]) <hr>
   @endif
 
     <div class="row">

@@ -77,5 +77,6 @@ class Project extends Model
         return $this->hasMany(PriceMyProject::class , 'project_id');
     }
 
+ 
 
 }

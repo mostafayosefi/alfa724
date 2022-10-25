@@ -42,7 +42,7 @@
                                 @if($item->trashed())
                                     <p>کاربر حذف شده</p>
                                 @else
-                                    <a href="{{route('dashboard.admin.users.profile',['id'=>$item->id])}}" class="btn btn-block btn-outline-primary btn-sm">مشاهده پروفایل</a>
+                                    <a href="{{route('dashboard.admin.users.show',['id'=>$item->id])}}" class="btn btn-block btn-outline-primary btn-sm">مشاهده پروفایل</a>
                                 @endif
                             </td>
                             <td>

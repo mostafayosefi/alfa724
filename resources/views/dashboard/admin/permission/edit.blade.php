@@ -18,11 +18,12 @@
 
     <div class="row">
 
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-        <x-card type="primary">
+
+    <div class="col-md-12">
+        <x-card type="success">
             <x-card-header>  ویرایش نقش {{$role->name}}    </x-card-header>
             <x-card-body>
+
 
                 <form style="padding:10px;" action="{{route('dashboard.admin.permission.update' , $role->id)}}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
@@ -34,56 +35,7 @@
                         <label for="name">نام نقش </label>
                       <input type="text" class="form-control" required  name="name" value="{{$role->name}}" placeholder="  نام"  >
                     </div>
-
-
-
-                    <div class="card card-success">
-                        <div class="card-header">
-                        <h3 class="card-title"> ویرایش دسترسی های نقش کاربری {{$role->name}} </h3>
-                        </div>
-
-                            @foreach ($permission_roles->chunk(5) as $chunk)
-                            <div class="card-body">
-                            <div class="row">
-
-
-                            @foreach ($chunk as $key => $permission )
-                                                       <div class="col-md-4">
-
-
-                            <div class="form-group clearfix">
-                                <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="permission{{$permission->permission_accesse->id}}"
-                                    name="permission[]" value="{{$permission->permission_accesse->id}}"
-                                     @if($permission->status=='active') checked @endif  >
-                                    <label for="permission{{$permission->permission_accesse->id}}">
-                                        &nbsp; &nbsp; &nbsp;     {{ $permission->permission_accesse->name }}
-                                    </label>
-                                </div>
-                                </div>
-
-
-                                @php $key+1;
-                                 $k_hr = fmod($key, 5);
-                                if($k_hr==4){ echo '<hr>';}
-                                @endphp
-
-
-{{-- @php
-dd('hii');
-@endphp --}}
-
-</div>
-                            @endforeach
-
-
-                        </div>
-                        </div>
-
-
-                        @endforeach
-
-
+                    @include('dashboard.card.permission.tab_accesses'  )
 
 
                 <div class="card-footer">
@@ -99,7 +51,6 @@ dd('hii');
             </x-card-body>
         </x-card>
     </div>
-    <div class="col-md-2"></div>
 
     </div>
 @endsection

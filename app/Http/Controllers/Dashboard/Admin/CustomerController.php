@@ -34,8 +34,10 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $service= Service::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
         $my_services= MyService::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
+        $projects= Project::where('customer_id',$id)->orderBy('created_at', 'desc')->get();
 
-        return view('dashboard.admin.customer.show' , compact([   'customer' , 'id'  , 'service'  , 'my_services'     ]));
+        return view('dashboard.admin.customer.show' , compact([   'customer' , 'id'  ,
+        'service'  , 'my_services'  , 'projects'     ]));
     }
 
     public function CreatePost(Request $request)

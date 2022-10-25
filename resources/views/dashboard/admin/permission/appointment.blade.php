@@ -15,6 +15,9 @@
         </div>
     @endif
 
+
+
+
     {{-- @foreach ($permission_roles->chunk(5) as $chunk)
     @foreach ($chunk as $key => $permission ) --}}
 
@@ -24,7 +27,7 @@
 
     <div class="col-md-12">
         <x-card type="primary">
-            <x-card-header>  ویرایش نقش {{$role->name}}    </x-card-header>
+            <x-card-header>  انتصاب مدیر به نقش {{$role->name}}   </x-card-header>
             <x-card-body>
 
 
@@ -34,14 +37,31 @@
                     @method('PUT')
 
 
+
+        <div class="row">
+            <div class="col-md-6">
                     <div class="form-group">
                         <label for="name">نام نقش </label>
                       <input type="text" class="form-control" required disabled  name="name" value="{{$role->name}}" placeholder="  نام"  >
                     </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+@include('dashboard.ui.java-fetch-select')
+ @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
+ 'input_name' => 'name'  ,  'name_select' => 'مدیر' ,
+ 'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id'  , 'onchange'=>'close_select' ])
+
+                    </div>
+                    </div>
 
 
+                    <div id="close_select_input"></div>
 
-                    @include('dashboard.card.permission.tab_accesses' , [ $permissions , $permission_roles , 'oper' => 'show' ] )
+                    {{-- $permissions , $permission_roles ,  --}}
+
+  @include('dashboard.card.permission.tab_accesses'  )
 
 
 
@@ -49,10 +69,6 @@
 
 
  <hr>
-
- @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
- 'input_name' => 'name'  ,  'name_select' => 'مدیر' ,
- 'value' =>   old('user_id') , 'required'=>'required'  , 'index_id'=>'user_id' ]) <hr>
 
 
 

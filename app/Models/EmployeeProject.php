@@ -28,4 +28,10 @@ class EmployeeProject extends Model
         return $this->belongsTo(Salary::class, 'salary_id');
     }
 
+
+    public function users(){
+        return $this->hasMany(User::class , 'employee_id');
+    }
+
+
 }

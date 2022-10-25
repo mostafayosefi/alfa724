@@ -4,7 +4,7 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="مدیریت تاریخ ها" route="dashboard.admin.date.manage" />
+    <x-breadcrumb-item title="مدیریت تاریخ ها" route="dashboard.admin.calender.daily" />
 @endsection
 @section('content')
     @if (Session::has('info'))
@@ -20,7 +20,7 @@
 
     @include('dashboard.calender.table.modal')
 
- 
+
     <link rel="stylesheet" href="{{ asset('assets/datepicker_v1/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/datepicker_v1/main.css') }}">
 

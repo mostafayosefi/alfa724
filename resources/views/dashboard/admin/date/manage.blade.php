@@ -4,7 +4,7 @@
 @endsection
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="مدیریت تاریخ ها" route="dashboard.admin.date.manage" />
+    <x-breadcrumb-item title="مدیریت تاریخ ها" route="dashboard.admin.calender.daily" />
 @endsection
 @section('content')
     @if(Session::has('info'))
@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="modal-body">
                                             آیا می خواهید این  مورد حذف کنید ؟
-                    
+
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-light uncheckd" data-dismiss="modal">خیر</button>

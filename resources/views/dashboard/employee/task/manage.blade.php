@@ -23,9 +23,7 @@
     #example1_info {display:none }
 </style>
 @endsection
-@section('breadcrumb_extra')
-@include('dashboard.card.absence.create')
-@endsection
+
 @section('content')
 <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
     @if(Session::has('info'))
@@ -40,7 +38,9 @@
 @include('dashboard.card.task.status', [ 'route' =>   route('dashboard.employee.task.update')   ] )
 @include('dashboard.card.note.updatenote' , [ 'route' => route('dashboard.employee.task.updatenote')  ] )
 @include('dashboard.card.note.create' , [ 'route' => route('dashboard.employee.task.note') ] )
-@include('dashboard.card.absence.employee')
+
+@include('dashboard.card.absence.create')
+@include('dashboard.card.absence.employee' , [   'route' => route('dashboard.employee.absence.store') ])
 
 
 <div class="row">

@@ -5,7 +5,7 @@
 @section('hierarchy')
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
     <x-breadcrumb-item title="مدیریت پروژه ها" route="dashboard.admin.project.manage" />
-    <x-breadcrumb-item title="مدیریت هزینه کاربران" route="dashboard.admin.money.employee" />
+    <x-breadcrumb-item title="مدیریت هزینه کاربران" route="dashboard.admin.money.index" />
 @endsection
 @section('content')
     @if(Session::has('info'))

@@ -13,7 +13,6 @@
 
 
 
-
 <form style="padding:10px;"
 @if(explode_url(2)=='service')
 action="{{ route('dashboard.admin.service.price') }}"
@@ -30,6 +29,28 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
 @if(explode_url(2)=='project')
 <input type="hidden" name="project_id" value="{{ $item->id }}" />
 @endif
+
+
+
+@php
+
+$myprice = $item->price;
+if(explode_url(2)=='project'){
+$sumdepo = sum_price_depocost($item->price_my_projects,'depo','project');
+$sumcost = sum_price_depocost($item->price_my_projects,'cost','project');
+}
+if(explode_url(2)=='service'){
+
+$sumdepo = sum_price_depocost($item->price_my_services,'depo','service');
+$sumcost = sum_price_depocost($item->price_my_services,'cost','service');
+}
+
+    $kolli = $item->price - $sumdepo;
+
+@endphp
+<input type="hidden" name="kolli" value="{{ $kolli }}" />
+<input type="hidden" name="sumdepo" value="{{ $sumdepo }}" />
+<input type="hidden" name="sumcost" value="{{ $sumcost }}" />
 
         <div class="row">
             <div class="col-md-6">
@@ -55,6 +76,15 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
     <label class="custom-file-label  " for="customFile">آپلود مستندات پرداخت</label>
     </div>
     </div>
+
+
+
+    <hr>
+
+
+    @include('dashboard.ui.multi_upload' , [ 'txtfile' => ' آپلود مستندات ' .law_name($flag) ])
+
+
             </div>
 
 
@@ -63,7 +93,7 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
                     <label>تاریخ تراکنش:</label>
                     <div class="input-group">
                       <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
-                      data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('date') }}"  >
+                      data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('date', date_time('date')) }}"  >
                     </div>
                 </div><hr>
 
@@ -86,13 +116,9 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
         <div class="form-group">
             <label>توضیحات :</label>
             <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"
-            class="form-control" required name="description"  placeholder="توضیحات "  id="summernote{{ $flag }}">{{ old('description') }}</textarea>
+            class="form-control"   name="description"  placeholder="توضیحات "  id="summernote{{ $flag }}">{{ old('description') }}</textarea>
         </div>
 
-
-        @section('myscript')
-
-        <script src="{{ asset('assets/cdn/editor/summernote-bs4.min.js')}}"></script>
 
         <script>
         var textareas = document.getElementById("summernote{{$flag}}");
@@ -108,8 +134,6 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
           });
         </script>
 
-        @endsection
-
 
 
           @csrf
@@ -124,6 +148,7 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
         <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
         <button type="submit"  class="btn btn-{{ law_style($flag) }} ">ثبت {{  law_name($flag) }}</button>
       </form>
+
       </div>
     </div>
     <!-- /.modal-content -->

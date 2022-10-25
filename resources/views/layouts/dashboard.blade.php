@@ -54,6 +54,10 @@ BY WEBITO
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
+
+
+
+
 </head>
 <style>
     .card-info:not(.card-outline) > .card-header {
@@ -299,7 +303,7 @@ BY WEBITO
           "url": "{{ asset('assets/cdn/Persian.json')}}"
       },
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
     $("#example3").DataTable({
@@ -307,7 +311,7 @@ BY WEBITO
           "url": "{{ asset('assets/cdn/Persian.json')}}"
       },
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
     $("#example").DataTable({
@@ -315,7 +319,7 @@ BY WEBITO
           "url": "{{ asset('assets/cdn/Persian.json')}}"
       },
       "responsive": true,"searching": true, "lengthChange": true, "autoWidth": false, "pageLength": 50,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
     $('.toastrDefaultSuccess').click(function() {
@@ -347,7 +351,7 @@ BY WEBITO
         theme: 'bootstrap4'
       })
 
-    }) 
+    })
 
   </script>
 

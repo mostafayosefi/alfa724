@@ -22,7 +22,7 @@
                                     <td>  {{ $my_price->date }}</td>
                                     <td>  {!! $my_price->description !!}</td>
                                     <td>
-                                        <span class="btn btn-{{ law_style($flag) }}  btn-sm">
+                                        <span class="btn btn-{{ law_style($flag) }}  btn-sm"  type="button"  data-toggle="modal"   data-target="#modal-lg-edit-money{{ $flag }}{{ $my_price->id }}" >
                                         {{ number_format($my_price->price) }} تومان </span>  </td>
 
                                         <td>

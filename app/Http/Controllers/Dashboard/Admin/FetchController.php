@@ -18,6 +18,10 @@ class FetchController extends Controller
 
     }
 
+    public function close_select(   $value)  {
+
+    }
+
 
 
 }

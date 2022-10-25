@@ -1,5 +1,5 @@
 <form action="{{ route('dashboard.admin.phase.store',['id'=>$id]) }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
-    {{ csrf_field() }}
+    @csrf
     <div class="modal fade show" id="modal-create-phase" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -10,10 +10,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <x-card type="info">
+                    <x-card type="success">
                         <x-card-header>ساخت فاز جدید</x-card-header>
                         <x-card-body>
                             <input type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; font-size: 16px;"class="form-control" required  name="title"  placeholder="عنوان">
+
+
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>تاریخ شروع:</label>
                                 <div class="input-group">
@@ -24,6 +28,8 @@
                                 </div>
                                 <!-- /.input group -->
                             </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>تاریخ پایان:</label>
                                 <div class="input-group">
@@ -33,6 +39,8 @@
                                   <input name="finish_date" type="text" id="date1" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="" required>
                                 </div>
                                 <!-- /.input group -->
+                            </div>
+                            </div>
                             </div>
                         </x-card-body>
                     </x-card>

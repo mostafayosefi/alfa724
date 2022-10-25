@@ -106,17 +106,22 @@ class DailyController extends Controller
         ]);
     }
 
-    public function index()
+    public function index($status=null)
     {
         $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
-        $task=Task::where('employee_id',Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
+        $mymodel = model_filter('task',$status);
+        $task=$mymodel->where([  ['employee_id',Auth::user()->id ], ])->orderBy('id', 'desc')->paginate(10);
         return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user' , 'users' => $users    ]);
     }
 
-    public function alluser()
+    public function alluser($status=null)
     {
+
+
         $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
-        $task=Task::where('id','<>' , '0')->orderBy('id', 'desc')->paginate(10);
+
+        $mymodel = model_filter('task',$status);
+        $task=$mymodel->orderBy('id', 'desc')->paginate(10);
         return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin' , 'users' => $users  ]);
     }
 
@@ -149,7 +154,12 @@ class DailyController extends Controller
     public function EditPost( TaskRequest $request)
     {
         $data = $request->validated();
-        $data['employee_id'] = Auth::user()->id;
+
+        if($request->employee_id){
+            $data['employee_id'] = $request->employee_id;
+        }else{
+            $data['employee_id'] = Auth::user()->id;
+        }
 
         // dd($request->task_id);
 
@@ -264,6 +274,32 @@ if($data['delete']){
 
     }
 
+
+
+
+    public function duplicate( $id ){
+
+        $task = Task::find($id);
+        $data['project_id']  =  $task->project_id;
+        $data['phase_id']  =  $task->phase_id;
+        $data['title']  =  $task->title;
+        $data['description']  =  $task->description;
+        $data['status']  =  $task->status;
+        $data['start_date']  =  $task->start_date;
+        $data['finish_date']  =  $task->finish_date;
+        $data['continuity']  =  $task->continuity;
+        $data['start_time']  =  $task->start_time;
+        $data['finish_time']  =  $task->finish_time;
+        $data['done_at']  =  $task->done_at;
+        $data['price']  =  $task->price;
+        $data['employee_id']  =  $task->employee_id;
+
+
+        Task::create($data);
+
+      return redirect()->back()->with('info', 'مسئولیت انتخابی باموفقیت کپی شد ' );
+
+    }
 
 
 }

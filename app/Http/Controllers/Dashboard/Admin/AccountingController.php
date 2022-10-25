@@ -24,11 +24,11 @@ use App\Models\Service;
 
 class AccountingController extends Controller
 {
-    public function GetEmployee()
+    public function index()
     {
         $employee=EmployeeProject::orderBy('created_at', 'desc')->get();
         $service= Service::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.money.employee', ['employee' => $employee, 'salaries' => Salary::all(),'service' => $service,]);
+        return view('dashboard.admin.money.index', ['employee' => $employee, 'salaries' => Salary::all(),'service' => $service,]);
     }
 
     public function report_service( $year = null ,$month = null )

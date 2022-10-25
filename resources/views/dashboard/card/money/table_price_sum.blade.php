@@ -19,7 +19,7 @@
     $sumcost = sum_price_depocost($item->price_my_services,'cost','service');
  }
 
-        $kolli = $item->price - $sumdepo;
+        $kolli = $item->price - $sumcost;
 
     @endphp
     <p class="lead">لیست کلی تراکنش مالی</p>

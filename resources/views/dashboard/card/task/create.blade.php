@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <x-card type="info">
+        <x-card type="primary">
           <x-card-header>ساخت برنامه کاری جدید</x-card-header>
       <form style="padding:10px;" action="{{ $route }}" method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
@@ -42,8 +42,8 @@ for (var i = 0; i < textareas.length; i++) {
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                   </div>
-                  <input id="date" name="start_date" type="text" class="form-control" data-inputmask-alias="datetime"
-                  data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('start_date') }}"  >
+                  <input id="date" name="start_date" type="text" class="form-control" data-inputmask-alias="datetime" required
+                  data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('start_date' , date_time('date')) }}"  >
                 </div>
                 <!-- /.input group -->
             </div>
@@ -56,8 +56,8 @@ for (var i = 0; i < textareas.length; i++) {
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
               </div>
-              <input name="finish_date" type="text" id="date1" class="form-control" data-inputmask-alias="datetime"
-              data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('finish_date') }}"  >
+              <input name="finish_date" type="text" id="date1" class="form-control" data-inputmask-alias="datetime" required
+              data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('finish_date', date_time('date')) }}"  >
             </div>
             <!-- /.input group -->
         </div>
@@ -76,7 +76,7 @@ for (var i = 0; i < textareas.length; i++) {
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                   </div>
-                  <input name="start_time" type="text"  value="{{ old('start_time') }}"   class="form-control mdtimepicker-input">
+                  <input name="start_time" type="text"  value="{{ old('start_time' , date_time('time')) }}" required  class="form-control mdtimepicker-input">
                 </div>
                 <!-- /.input group -->
             </div>
@@ -89,7 +89,7 @@ for (var i = 0; i < textareas.length; i++) {
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                   </div>
-                  <input name="finish_time" type="text"  value="{{ old('finish_time') }}"   class="form-control mdtimepicker-input">
+                  <input name="finish_time" type="text"  value="{{ old('finish_time',date_time('finish_time')) }}" required  class="form-control mdtimepicker-input">
                 </div>
                 <!-- /.input group -->
             </div>
@@ -128,10 +128,11 @@ for (var i = 0; i < textareas.length; i++) {
 
 
           @if((explode_url(1)=='admin'))
+          @include('dashboard.ui.java-fetch-select')
           @include('dashboard.ui.selectbox', [ 'allforeachs' => $users ,
           'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
           'value' =>   auth()->user()->id , 'required'=>'required'  ,
-           'index_id'=>'user_id' ]) <hr>
+           'index_id'=>'user_id'  , 'onchange'=>'close_select']) <hr>
            @endif
 
           @if((explode_url(2)=='project'))

@@ -7,6 +7,8 @@
     {{-- <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" /> --}}
 @endsection
 @section('content')
+
+
 <?php
 $projects=0;
 $employees=0;
@@ -26,24 +28,31 @@ foreach ($service as $key) {
 <style>
  .alert-primary {
     color: #ffffff;
-    background: #718ba7;
+    background: #006fe5;
     border-color: #8c9aa9;
   }
+
+  .alert-primary a {
+
+  }
+
+  .alert .close, .alert .mailbox-attachment-close {
+    color: #fff;
+    opacity: .2;
+}
 </style>
     <div class="container">
+
+
+
+        @if(auth()->user()->listabsence=='active')
+        @include('dashboard.card.absence.create' , [  'absence'=> $myabsence ] )
+        @include('dashboard.card.absence.employee', [  'absence'=> $myabsence , 'route' => route('dashboard.admin.absence.store') ])
+        @endif
+
+
         <div class="row">
 
-        <div class="col-lg-3 col-6">
-            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'info' , 'box_header' => number_format(price_finical(auth()->user()->id,'depo','service','null','null')).' تومان '
-             , 'box_titr' => 'بیعانه های دریافتی' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.service.price' , ['type' => 'depo'] ) ,
-             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
-        </div>
-
-        <div class="col-lg-3 col-6">
-            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'success' , 'box_header' => number_format(price_finical(auth()->user()->id,'income','service','null','null')).' تومان '
-             , 'box_titr' => 'درآمد کل ' , 'box_icon' => 'ion ion-stats-bars' , 'box_route' => route('dashboard.admin.money.service.index') ,
-             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
-        </div>
 
 
         <div class="col-lg-3 col-6">
@@ -60,7 +69,133 @@ foreach ($service as $key) {
              'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
         </div>
 
+        <div class="col-lg-3 col-6">
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'warning' , 'box_header' =>  $task_notwork_count.' مسئولیت '
+             , 'box_titr' => 'مسئولیت های انجام نشده ' , 'box_icon' => 'ion ion-pie-graph'
+              , 'box_route' => route('dashboard.admin.daily.alluser',[ 'notwork']) ,
+             'box_more' => 'مشاهده همه' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
+        </div>
+        <div class="col-lg-3 col-6">
+            @include('dashboard.card.dashboard.box' , [  'box_bg' => 'card-outline card-success' , 'box_header' =>   date_today('shamsi')
+             , 'box_titr' => ' آخرین به روز رسانی سامانه' , 'box_icon' => 'ion ion-gear-a'
+              , 'box_route' => '#',
+             'box_more' => 'به روزرسانی ' , 'box_more_icon' => 'fas fa-arrow-circle-left' ])
+        </div>
 
+
+        </div>
+
+
+        <div class="row">
+
+
+
+            <div class="col-md-4">
+                <div class="card card-widget widget-user-2">
+                <div class="widget-user-header bg-primary">
+                <h3 class="widget-user-username">لیست حضور غیاب</h3>
+                </div>
+                <div class="card-footer p-0">
+                <ul class="nav flex-column">
+            @if($listabsence)
+            @foreach ($listabsence as $item )
+
+@php $first = report_user($item->id  , 'first' , 'list_absence'   ); @endphp
+
+@if ($first)
+ <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-success">ساعت ورود  {{ $first->enter }}
+ </span> </a> </li>
+  @else
+
+  <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-danger"> غایب </span> </a> </li>
+ @endif
+
+                @endforeach
+                @endif
+
+                </ul>
+                </div>
+                </div>
+                </div>
+
+            <div class="col-md-8">
+                <div class="card card-widget widget-user-2">
+                <div class="widget-user-header bg-warning">
+                <h3 class="widget-user-username">  لیست وظایف انجام نشده کاربران  </h3>
+                </div>
+                <div class="card-body">
+
+
+            @if($task_notwork_all)
+
+
+            <div class="col-12">
+                @foreach ($task_notwork_all as $item )
+
+
+                <div class="alert alert-warning no-dismiss">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                مهلت انجام مسئولیت  {{$item->title}} توسط کاربر {{$item->user->name}} به پایان رسیده ولی هنوز پایان کار ثبت نگردید
+
+
+                </div>
+
+                @endforeach
+            </div>
+                @endif
+
+                </div>
+                </div>
+                </div>
+
+
+
+            </div>
+        <div class="row">
+
+
+            @if($listabsence)
+            @foreach ($listabsence as $item )
+
+            <div class="col-md-4">
+
+                <div class="card card-widget widget-user-2">
+
+                <div class="widget-user-header bg-primary">
+                <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="{{ !empty($item->picture) ? $item->picture : asset('assets/images/user.png') }}" alt="User Avatar">
+                </div>
+
+                <h3 class="widget-user-username">{{ $item->name }}</h3>
+                <h5 class="widget-user-desc">{{ $item->situation }}</h5>
+                </div>
+                <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                پروژه ها <span class="float-right badge bg-primary">{{ report_user($item->id  , 'count' , 'employee_project'   ) }}</span>
+                </a>
+                </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                مسئولیت ها <span class="float-right badge bg-info">{{ report_user($item->id  , 'count' , 'task'   ) }}</span>
+                </a>
+                </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                وظایف انجام نداده <span class="float-right badge bg-danger">{{ report_user($item->id  , 'count' , 'task_notwork'   ) }}</span>
+                </a>
+                </li>
+                </ul>
+                </div>
+                </div>
+
+                </div>
+            @endforeach
+            @endif
+            </div>
+
+            <div class="row">
 
         @if(!empty($finishing_projects) || !empty($finishing_phases) || !empty($overdue_projects))
             <div class="col-12">
@@ -93,7 +228,7 @@ foreach ($service as $key) {
 
 
 
-        <div class="col-12">
+       <div class="col-12">
             <x-card type="primary">
                 <x-card-body>
 
@@ -102,6 +237,14 @@ foreach ($service as $key) {
                 </x-card-body>
             </x-card>
         </div>
+
+
+
+
+        {{-- @include('dropzone.sample1') --}}
+
+
+
 
        </div>
 

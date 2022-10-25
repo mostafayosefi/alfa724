@@ -23,24 +23,24 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $users=User::where('type','employee')->orderBy('created_at', 'desc')->get();
+        $users=User::where([ ['id','<>','0'], ])->orderBy('created_at', 'desc')->get();
         return view('dashboard.admin.report.index', ['users' => $users]);
     }
-    
+
     public function show($id)
     {
         $post = User::find($id);
-        $b= Verta::now()->startMonth()->subMonths(0)->formatGregorian('Y-m-d H:i:s'); 
+        $b= Verta::now()->startMonth()->subMonths(0)->formatGregorian('Y-m-d H:i:s');
         $task=Task::where('employee_id',$id)->where('created_at','>', $b)->paginate(50);
         return view('dashboard.admin.report.show', ['task' => $task]);
     }
-    
+
     public function absence($id)
     {
         $post = User::find($id);
-        $b= Verta::now()->startMonth()->subMonths(1)->formatGregorian('Y-m-d H:i:s'); 
+        $b= Verta::now()->startMonth()->subMonths(1)->formatGregorian('Y-m-d H:i:s');
         $absence=Absence::where('employee_id',$id)->where('created_at','>', $b)->orderBy('date', 'desc')->paginate(50);
         return view('dashboard.admin.report.absence', ['absence' => $absence]);
     }
-    
+
 }

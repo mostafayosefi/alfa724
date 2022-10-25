@@ -13,7 +13,7 @@ class Absence extends Model
     protected $table='absences';
     protected $fillable=['employee_id','enter','exit','date','hours'];
 
-    public function for() {
+    public function user() {
         return $this->belongsTo(User::class, 'employee_id');
     }
 }

@@ -35,7 +35,7 @@ class PhaseController extends Controller
         if ($post->finish_date->gt($project->finish_date))
             return redirect()->back()->withErrors(['finish_date' => 'تاریخ پایان این فاز نباید از تاریخ پایان پروژه دیرتر باشد.']);
         $post->save();
-        return redirect()->back()->with('info', '  فاز جدید ذخیره شد و نام آن' .' ' . $request->input('title'));
+        return redirect()->back()->with('info', '  فاز جدید  ' .' ' . $request->input('title') . 'ثبت شد');
     }
     public function DeletePost($id,$project_id){
         $post = Phase::find($id);

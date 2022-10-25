@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Salary;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Session\Store;
 use App\Models\User;
-use App\Models\Project;
 use App\Models\Phase;
-use App\Models\Customer;
+use App\Http\Requests;
+use App\Models\Salary;
+use App\Models\Project;
 use App\Models\Service;
-use App\Models\EmployeeProject;
+use App\Models\Customer;
 use App\Models\MyService;
-use App\Models\Price\PriceMyService;
+use App\Rules\ValidateRule;
+use Illuminate\Http\Request;
+use Illuminate\Session\Store;
+use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
+use App\Http\Controllers\Controller;
+use App\Models\Price\PriceMyService;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceController extends Controller
@@ -53,7 +54,7 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'durday' => 'required|numeric',
-            'price' => 'required',
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
         ]);
         $data = $request->all();
         $data['startdate'] = convert_shamsi_to_miladi($data['startdate'],'/');
@@ -107,7 +108,7 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'durday' => 'required|numeric',
-            'price' => 'required',
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
         ]);
 
         $my_service=MyService::find($id);
@@ -132,12 +133,27 @@ class ServiceController extends Controller
 
         $request->validate([
             'date' => 'required',
-            'price' => 'required',
-            'text' => 'required',
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
+            'description' => 'required',
         ]);
         $data = $request->all();
         $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
         $data['price'] = str_rep_price($data['price']);
+
+        if(($data['price'] > $data['kolli'])&&($data['type']=='cost')){
+            return redirect()->back()
+            ->with('info',  'هزینه پرداختی بیشتر از سود پروژه می باشد لطفا مبلغی مناسب پروژه هزینه نمایید!') ;
+        }
+        if(($data['price'] > ($data['kolli']-$data['sumdepo']))&&($data['type']=='depo')){
+            return redirect()->back()
+            ->with('info',  'بیعانه دریافتی بیشتر از مبلغ کل پروژه می باشد لطفا مبلغی مناسب پروژه ثبت بیعانه نمایید!') ;
+        }
+
+
+
+        $data['file']  =  uploadFile($request->file('file'),'images/price_my_services','');
+
+
        $pricemyservice = PriceMyService::create($data);
 
 

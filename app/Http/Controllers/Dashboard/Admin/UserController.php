@@ -29,7 +29,7 @@ class UserController extends Controller
         return view('dashboard.admin.users.employee', ['users' => $users]);
     }
 
-    public function edit($id) {
+    public function show($id, $tab_active = null  ){
         $counttask=Task::where('employee_id',$id)->orderBy('id', 'desc')->count();
         $task=Task::where('employee_id',$id)->orderBy('id', 'desc')->paginate(10);
 
@@ -41,15 +41,13 @@ class UserController extends Controller
         })->get();
         $users = EmployeeProject::where('employee_id', Auth::id())->get();
 
-
-        // $score = Score::where( [ ['id','<>','0'] ]);
-        // $score->delete();
-        // $activition = 'update_db';
         $activition = 'view';
          scope_score(   'tasks' , $id, $activition  );
-         $post = User::find($id);
-        return view('dashboard.admin.users.profile', ['id' => $id,'post' => $post,'phase' => $phase,'users' => $users,
-        'employee' => $employee,'task' => $task,'counttask' => $counttask]);
+         $user = User::find($id);
+
+         return view('dashboard.admin.users.profile', compact([  'id' ,  'user' , 'phase' , 'users' , 'employee' , 'task' , 'counttask' , 'tab_active' ]));
+
+
     }
 
     public function DeletePost($id)
@@ -73,20 +71,23 @@ class UserController extends Controller
 
     public function UpdatePost($id,Request $request)
     {
-        $post = User::find($request->input('id'));
-        if (!is_null($post)) {
-            $post->first_name = $request->input('first_name');
-            $post->last_name = $request->input('last_name');
-            $post->mobile = $request->input('mobile');
-            $post->situation = $request->input('situation');
-            $post->email = $request->input('email');
-            $post->birthdate = $request->input('birthdate');
-            if (!empty($password = $request->input('password')))
-                $post->password = Hash::make($password);
-            $post->save();
-        }
-        return redirect()->route('dashboard.admin.users.employee',$post->id)->with('info', 'کاربر ویرایش شد');
-    }
+        $user = User::find($id);
+        secret_user($request , $user , 'update'  , 'users' );
+
+        return redirect()->route('dashboard.admin.users.show', [$id , 'profile'  ])->with('info', ' اطلاعات پروفایل با موفقیت ویرایش شد');
+
+
+  }
+
+    public function secret($id,Request $request)
+    {
+        $user = User::find($id);
+        secret_user($request , $user , 'secret'  , 'users' );
+
+        return redirect()->route('dashboard.admin.users.show', [$id , 'secret'  ])->with('info', ' رمزعبور کاربر با موفقیت ویرایش شد');
+
+
+  }
 
     public function restore($id) {
         $user = User::withTrashed()->findOrFail($id);

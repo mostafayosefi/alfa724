@@ -44,10 +44,11 @@ class TaskController extends Controller
 
     public function GetManagePost(Request $request)
     {
+
         $message=message::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+
         $absence=Absence::orderBy('created_at', 'desc')
-        ->where('employee_id',Auth::user()->id)
-        ->where('date',Carbon::now()->format('Y-m-d'))->FIRST();
+        ->where([ ['employee_id',Auth::user()->id], ['date',date_today('now_miladi')] ])->first();
         $diff=NULL;
         if($absence != NULL){
         if($absence->exit != NULL){
@@ -119,7 +120,7 @@ class TaskController extends Controller
 
 
     //ABSENCCE CONTROLLER
-    public function Absence(Request $request)
+    public function store(Request $request)
     {
        $absence=NULL;
        $absence=Absence::where('employee_id', Auth::user()->id)->where('date',Carbon::now()->format('Y-m-d'))->where('exit', NULL)->orderBy('created_at', 'desc')->FIRST();
@@ -136,7 +137,7 @@ class TaskController extends Controller
         return redirect()->route('dashboard.employee.task.manage')->with('info', 'شما حضوری خود را ثبت کرده اید' );
     }
     }
-    public function AbsenceEnd($id,Request $request)
+    public function end($id,Request $request)
     {
         $post = Absence::find($id);
         if (!is_null($post)) {

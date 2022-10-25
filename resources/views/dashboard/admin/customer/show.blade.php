@@ -29,23 +29,30 @@
 @endsection
 @section('content')
     <div class="col-md-12">
-        <x-card type="info">
 
             @include('dashboard.admin.customer.detial')
 
 
-{{--
-<x-card-body>
-    <div class="box-body">
-        <div style="margin-bottom: 50px; clear:both;"></div>
-    @foreach($my_services as $item)
- @include('dashboard.admin.service.list-service')
- <div style="margin-bottom: 50px; clear:both;"></div>
+
+<div class="card card-success">
+    <div class="card-header">
+        <h3 class="card-title">  پروژه های مشتری</h3>
+    </div>
+@foreach($projects as $item)
+@include('dashboard.card.project.detial' , [ 'project' => $item ] )
  @endforeach
 </div>
-</x-card-body> --}}
 
-        </x-card>
+<div class="card card-success">
+    <div class="card-header">
+        <h3 class="card-title">  خدمات مشتری</h3>
     </div>
+@foreach($my_services as $item)
+ @include('dashboard.admin.service.list-service')
+ @endforeach
+</div>
+
+
+</div>
 
 @endsection

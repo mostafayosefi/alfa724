@@ -52,7 +52,7 @@
 
 
 
-@include('dashboard.admin.service.price-my-service')
+{{-- @include('dashboard.admin.service.price-my-service') --}}
 
 
                         </div>

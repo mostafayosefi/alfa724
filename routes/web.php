@@ -8,6 +8,7 @@ use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\Admin\DateController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
+use App\Http\Controllers\Dropzone\ImageUploadController;
 use App\Http\Controllers\Dashboard\Admin\DailyController;
 use App\Http\Controllers\Dashboard\Admin\FetchController;
 use App\Http\Controllers\Dashboard\Admin\IndexController;
@@ -24,17 +25,19 @@ use App\Http\Controllers\Notification\SettingSmsController;
 use App\Http\Controllers\Dashboard\Admin\CalenderController;
 use App\Http\Controllers\Dashboard\Admin\CustomerController;
 use App\Http\Controllers\Dashboard\Admin\EmployeeController;
-use App\Http\Controllers\Dashboard\Admin\AccountingController;
 // use App\Http\Controllers\Dashboard\Employee\TaskController as EmployeeTaskController ;
+use App\Http\Controllers\Dashboard\Admin\AccountingController;
 use App\Http\Controllers\Dashboard\Admin\ScoreSettingController;
 use App\Http\Controllers\Notification\NotificationListController;
 use App\Http\Controllers\Dashboard\Admin\PermissionRoleController;
+use App\Http\Controllers\Dashboard\LoginController as PassLoginController;
 use App\Http\Controllers\Dashboard\IndexController as DashboardIndexController;
 use App\Http\Controllers\Dashboard\Customer\IndexController as CustomerIndexController ;
-use App\Http\Controllers\Dashboard\Employee\AbsenceController as EmployeeAbsenceController;
 use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexController ;
+use App\Http\Controllers\Dashboard\Employee\AbsenceController as EmployeeAbsenceController;
 use App\Http\Controllers\Dashboard\Employee\MessageController as EmployeeMessageController ;
 use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAccountingController ;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,9 +86,23 @@ Route::get('/config_optimize', [ConfigController::class, 'config_optimize'])->na
 Route::get('/add_admin_demo', [ConfigController::class, 'add_admin_demo'])->name('add_admin_demo');
 
 
+Route::get('/forget_pass', [PassLoginController::class, 'forget_pass'])->name('forget_pass');
+
 Route::get('install', 'InstallController@index')->name('install');
 Route::post('installl', 'InstallController@install')->name('installl');
 Auth::routes();
+
+
+Route::post('admin/viewsstudents/dropzone/store', ['as'=>'dropzone.storestu','uses'=>'ImageUploadController@dropzoneStorestum']);
+
+
+
+Route::prefix('dropzone')->name('dropzone.')->group(function () {
+Route::get('image/upload', [ImageUploadController::class, 'fileCreate'])->name('fileCreate');
+Route::post('image/upload/store/{model}', [ImageUploadController::class, 'fileStore'])->name('fileStore');
+Route::post('image/delete/{model}', [ImageUploadController::class, 'fileDestroy'])->name('fileDestroy');
+
+});
 
 Route::prefix('dashboard')
     ->name('dashboard.')
@@ -162,14 +179,13 @@ Route::prefix('permission')->name('permission.')->group(function () {
                 //Project PAGE
 Route::prefix('project')->name('project.')->group(function () {
 
-    Route::get('/', [ProjectController::class, 'GetManagePost'])->name('manage');
+    Route::get('/manage/{status?}', [ProjectController::class, 'GetManagePost'])->name('manage');
     Route::get('/create/{customer_id?}', [ProjectController::class, 'create'])->name('create');
     Route::post('/', [ProjectController::class, 'store'])->name('store');
-    Route::get('/{id}', [ProjectController::class, 'GetProject'])->name('index');
+    Route::get('/{id}/show', [ProjectController::class, 'GetProject'])->name('index');
+    Route::get('/{id}/step/{level}', [ProjectController::class, 'step'])->name('step');
     Route::get('/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
     Route::put('/{id}', [ProjectController::class, 'update'])->name('update');
-    Route::get('/show/done', [ProjectController::class, 'GetDonePost'])->name('done');
-    Route::get('/show/paid', [ProjectController::class, 'GetPaidPost'])->name('paid');
     Route::get('/{id}/status/{status}', [ProjectController::class, 'UpdateStatus'])->name('updatestatus');
     Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('destroy');
 
@@ -304,17 +320,18 @@ Route::prefix('phase')->name('phase.')->group(function () {
 
 
                Route::get('/employee', [UserController::class, 'GetUsers'])->name('employee');
-               Route::get('/profile/{id}', [UserController::class, 'edit'])->name('profile');
+               Route::get('/show/{id}/{tab_active?}', [UserController::class, 'show'])->name('show');
                Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
                Route::get('/deleteuser/{id}', [UserController::class, 'DeletePost'])->name('deleteuser');
                Route::get('/updateuser/{id}', [UserController::class, 'GetEditPost'])->name('updateuser');
-               Route::post('/updateuser/{id}', [UserController::class, 'UpdatePost'])->name('update');
+               Route::put('/updateuser/{id}', [UserController::class, 'UpdatePost'])->name('update');
+               Route::put('/secret/{id}', [UserController::class, 'secret'])->name('secret');
 
                });
 
                //ACCOUNTING PAGE
                Route::prefix('money')->name('money.')->group(function () {
-               Route::get('/employee', [AccountingController::class, 'GetEmployee'])->name('employee');
+               Route::get('/index', [AccountingController::class, 'index'])->name('index');
                Route::get('/report/service/index/{year?}/{month?}', [AccountingController::class, 'report_service'])->name('service.index');
                Route::get('/report/service/price/{type}{year?}/{month?}', [AccountingController::class, 'report_service_price'])->name('service.price');
                });
@@ -322,7 +339,11 @@ Route::prefix('phase')->name('phase.')->group(function () {
                //ABSENCE PAGE
 
                Route::prefix('absence')->name('absence.')->group(function () {
+                Route::post('/create', [AbsenceController::class, 'store'])->name('store');
+                Route::post('/end/{id}', [AbsenceController::class, 'end'])->name('end');
                 Route::get('/manage', [AbsenceController::class, 'GetAbsence'])->name('manage');
+                Route::get('/setting', [AbsenceController::class, 'setting'])->name('setting');
+                Route::put('/setting', [AbsenceController::class, 'update'])->name('setting.update');
                 });
 
 
@@ -355,10 +376,11 @@ Route::prefix('daily')->name('daily.')->group(function () {
     // Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware(['testadmin:admin']);
     Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware([  'hasPermission:daily_index']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
-    Route::get('/index', [DailyController::class, 'index'])->name('index');
-    Route::get('/alluser', [DailyController::class, 'alluser'])->name('alluser');
+    Route::get('/index/{status?}', [DailyController::class, 'index'])->name('index');
+    Route::get('/alluser/{status?}', [DailyController::class, 'alluser'])->name('alluser');
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
+    Route::get('/duplicate/{id}', [DailyController::class, 'duplicate'])->name('duplicate');
     Route::put('/update', [DailyController::class, 'UpdatePost'])->name('update');
     Route::put('/editdaily', [DailyController::class, 'EditPost'])->name('editdaily');
     Route::put('/{id}/edit/daily', [DailyController::class, 'GetEditPost'])->name('updatedaily');
@@ -378,16 +400,17 @@ Route::prefix('daily')->name('daily.')->group(function () {
 });
 
 
+
                //DATE MANAGMENT
-               Route::prefix('date')->name('date.')->group(function () {
+            //    Route::prefix('date')->name('date.')->group(function () {
 
-                Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
-                Route::get('/create', [DateController::class, 'GetCreatePost'])->name('create');
-                Route::get('/manage', [DateController::class, 'GetDate'])->name('manage');
-                Route::get('/deletedate/{id}', [DateController::class, 'DeletePost'])->name('deletedate');
+            //     Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
+            //     Route::get('/create', [DateController::class, 'GetCreatePost'])->name('create');
+            //     Route::get('/manage', [DateController::class, 'GetDate'])->name('manage');
+            //     Route::get('/deletedate/{id}', [DateController::class, 'DeletePost'])->name('deletedate');
 
-                Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
-            });
+            //     Route::post('/create', [DateController::class, 'CreatePost'])->name('store');
+            // });
 
                //REPORT PAGE
                Route::prefix('report')->name('report.')->group(function () {
@@ -399,7 +422,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
 
 
 
-                //Calender PAGE
+                // Calender PAGE
                 Route::prefix('calender')->name('calender.')->group(function () {
 
                     Route::get('/holiday/{year?}/{month?}', [CalenderController::class, 'manage'])->name('holiday');
@@ -419,6 +442,7 @@ Route::prefix('fetch')
 ->name('fetch.')->group(function () {
 
     Route::get('/score_setting/{value}/{m}', [FetchController::class, 'score_setting'])->name('score_setting');
+    Route::get('/sample/close_select/{value}', [FetchController::class, 'close_select'])->name('close_select');
 
 
 });
@@ -475,8 +499,8 @@ Route::prefix('fetch')
                 //ABSENCE
                 Route::prefix('absence')->name('absence.')->group(function () {
 
-                Route::post('/create', [TaskController::class, 'Absence'])->name('store');
-                Route::post('/end/{id}', [TaskController::class, 'AbsenceEnd'])->name('end');
+                Route::post('/create', [TaskController::class, 'store'])->name('store');
+                Route::post('/end/{id}', [TaskController::class, 'end'])->name('end');
                 Route::get('/', [EmployeeAbsenceController::class, 'index'])->name('index');
 
 

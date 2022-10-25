@@ -12,6 +12,8 @@ class PriceMyService extends Model
     protected $fillable = [
         'price', 'text', 'date', 'miladi',
         'type','status','my_service_id',
+        'for','description','name_send',
+        'name_recv','intype','file',
     ];
 
     public function my_service(){

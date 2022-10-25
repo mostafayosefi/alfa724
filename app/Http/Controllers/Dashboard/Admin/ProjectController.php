@@ -8,14 +8,15 @@ use App\Models\User;
 use App\Models\Phase;
 use App\Http\Requests;
 use App\Models\Salary;
-use App\Models\Price\PriceMyProject;
 use App\Models\Project;
+use App\Models\Customer;
+use App\Rules\ValidateRule;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
+use App\Models\Price\PriceMyProject;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -42,28 +43,33 @@ class ProjectController extends Controller
 
     public function GetProject($id)
     {
-        $project = Project::find($id);
-        $post = Project::find($id);
-        $phase= Phase::where('project_id',$id)->orderBy('created_at', 'desc')->get();
-        $users = EmployeeProject::where('project_id',$id)->orderBy('created_at', 'desc')->get();
-        $all_users = User::orderBy('created_at', 'desc')->get();
-        $tasks= Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25);
-        $salaries = Salary::all();
-
- 
-
-        // dd($users);
-
-        return view('dashboard.admin.project.index' , compact(['post' , 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
+        $project = show_detial_model('project',$id);
+        $phase = show_detial_model('phase',$id);
+        $users = show_detial_model('users',$id);
+        $all_users = show_detial_model('all_users',$id);
+        $tasks = show_detial_model('tasks',$id);
+        $salaries = show_detial_model('salaries',$id);
+        return view('dashboard.admin.project.index' , compact([ 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
+     }
 
 
+    public function step($id,$level)
+    {
+        $project = show_detial_model('project',$id);
+        $phase = show_detial_model('phase',$id);
+        $users = show_detial_model('users',$id);
+        $all_users = show_detial_model('all_users',$id);
+        $tasks = show_detial_model('tasks',$id);
+        $salaries = show_detial_model('salaries',$id);
+        return view('dashboard.admin.project.step' , compact([ 'id', 'phase' ,'users'
+         , 'all_users'   , 'tasks'  , 'salaries' , 'project'  , 'level'   ]));
      }
 
     public function store(Request $request)
     {
 
         $request->validate([
-            'price' => 'required',
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
         ]);
 
 
@@ -77,13 +83,15 @@ class ProjectController extends Controller
             return redirect()->back()->withErrors(['finish_date' => 'تاریخ پایان نباید از تاریخ شروع کوچک‌تر باشد.']);
         }
         $project = Project::create($data);
-        return redirect()->route('dashboard.admin.project.index', ['id' => $project->id])->with('info', '  پروژه جدید با نام '.$project->title.' ذخیره شد و نام آن' .' ');
+        return redirect()->route('dashboard.admin.project.step', ['id' => $project->id , 'phase'])->with('info', '  پروژه جدید با نام '.$project->title.' ثبت شد   ' .' ');
     }
 
-    public function GetManagePost(Request $request)
+    public function GetManagePost(Request $request , $status = null)
     {
-        $posts = Project::where('status','!=','paid')->where('status','!=','done')->orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.project.manage', ['posts' => $posts]);
+
+        $mymodel = model_filter('project',$status);
+        $project=$mymodel->orderBy('created_at', 'desc')->get();
+        return view('dashboard.admin.project.manage', ['project' => $project]);
     }
 
     public function GetDonePost(Request $request)
@@ -117,7 +125,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'time' => 'required|numeric',
-            'price' => 'required',
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
         ]);
 
         $data = $request->all();
@@ -208,15 +216,33 @@ class ProjectController extends Controller
     {
 
 
+
+
+
         $request->validate([
             'date' => 'required',
-            'price' => 'required',
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
             'description' => 'required|max:5000',
         ]);
+
+
         $data = $request->all();
+
+
         $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
         $data['price'] = str_rep_price($data['price']);
+
+        if(($data['price'] > $data['kolli'])&&($data['type']=='cost')){
+            return redirect()->back()
+            ->with('info',  'هزینه پرداختی بیشتر از سود پروژه می باشد لطفا مبلغی مناسب پروژه هزینه نمایید!') ;
+        }
+        if(($data['price'] > ($data['kolli']-$data['sumdepo']))&&($data['type']=='depo')){
+            return redirect()->back()
+            ->with('info',  'بیعانه دریافتی بیشتر از مبلغ کل پروژه می باشد لطفا مبلغی مناسب پروژه ثبت بیعانه نمایید!') ;
+        }
+
         $data['file']  =  uploadFile($request->file('file'),'images/price_my_project','');
+        $data['file']  = uploader_multiple($request,'images/price_my_project','');
 
 
         // $data['image']= $page->image;
@@ -227,7 +253,7 @@ class ProjectController extends Controller
 
 
 
-       return redirect()->route('dashboard.admin.project.index', $data['project_id'] )
+       return redirect()->back()
        ->with('info',  'تراکنش ثبت '.law_name($data['type']).' باموفقیت انجام شد') ;
 
     }

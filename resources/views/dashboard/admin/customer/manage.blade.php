@@ -43,9 +43,7 @@
                                 <th>موضوع کسب و کار</th>
                                 <th>تلفن</th>
                                 <th>همراه</th>
-                                <th>نمایش</th>
-                                <th>ویرایش</th>
-                                <th>حذف</th>
+                                <th>عملیات</th>
                             </tr>
                             </thead>
                                 <tbody>
@@ -57,15 +55,16 @@
                                     <td>{{ $item->job }}</td>
                                     <td>{{ $item->tells }}</td>
                                     <td>{{ $item->tell }}</td>
-                                    <td>
-                                    <a href="{{route('dashboard.admin.customer.show',['id'=>$item->id])}}" class="btn btn-primary" >نمایش</a>
-                                    </td>
-                                    <td>
-                                    <a href="{{route('dashboard.admin.customer.updatecustomer',['id'=>$item->id])}}" class="btn btn-warning" >ویرایش</a>
-                                    </td>
-                                    <td>
-                                    <a href="#" class="delete_post" data-toggle="modal" data-target="#modal-success{{ $item->id }}" ><i class="fa fa-fw fa-eraser"></i></a>
-                                    </td>
+                                    <td style="width: 150px;">
+
+                                <a href="{{route('dashboard.admin.customer.show',['id'=>$item->id])}}" title="مشاهده " class="btn btn-outline-primary btn-sm"><i class="fas fa-user-edit fa-1x"></i></a>
+
+                                <a href="{{route('dashboard.admin.customer.updatecustomer',['id'=>$item->id])}}" title="ویرایش "   class="btn btn-outline-success btn-sm" target="_blank"><i class="fas fa-edit fa-1x"></i></a>
+
+                               <a href="#"  class="btn btn-outline-danger btn-sm" title="حذف "  ><i class="fas fa-eraser"  data-toggle="modal" data-target="#modal-success{{ $item->id }}"></i></a>
+
+
+                                     </td>
                                 </tr>
                                 <!-- SHOW SUCCESS modal -->
                                    <div class="modal fade show" id="modal-success{{ $item->id }}" aria-modal="true" role="dialog">
@@ -95,19 +94,6 @@
                                   </div>
                              @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                <th> ردیف</th>
-                                <th>کد مشتری</th>
-                                <th>نام و نام خانوادگی</th>
-                                <th>موضوع کسب و کار</th>
-                                <th>تلفن</th>
-                                <th>همراه</th>
-                                <th>نمایش</th>
-                                <th>ویرایش</th>
-                                <th>حذف</th>
-                                </tr>
-                                </tfoot>
                         </table>
                     </div>
                     </x-card-body>
