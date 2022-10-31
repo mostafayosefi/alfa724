@@ -113,14 +113,130 @@
 
 
 
-@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-money-check-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مالی' ,
- 'multi_route' => [
-     ['dashboard.admin.money.index', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.service.index', [  ], 'گزارش مالی خدمات ' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.service.price', [  'type' => 'depo'  ], '  مبالغ دریافتی خدمات' , 'far fa-circle nav-icon'  ],
-      ['dashboard.admin.money.service.price', [  'type' => 'cost'  ], '  مبالغ پرداختی خدمات' , 'far fa-circle nav-icon'  ],
-       ]  ])
 
+<li class="nav-item">
+    <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-money-check-alt"></i>
+    <p>
+    مدیریت مالی
+    <i class="fas fa-angle-left right"></i>
+    </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+
+
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>
+    پروژه ها
+    <i class="fas fa-angle-left right"></i>
+    </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.index_project',['depo'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>دریافتی ها</p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.index_project',['cost'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>پرداختی ها</p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.index_project',['all'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>گزارش تراکنش مالی</p>
+    </a>
+    </li>
+    </ul>
+    </li>
+
+
+
+
+
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>
+     خدمات
+    <i class="fas fa-angle-left right"></i>
+    </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.service.price',['type'=>'depo'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>دریافتی ها</p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.service.price',['type'=>'cost'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>پرداختی ها</p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.create',['cost_price_system'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>گزارش تراکنش مالی</p>
+    </a>
+    </li>
+    </ul>
+    </li>
+
+
+
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>
+     هزینه های ثابت
+    <i class="fas fa-angle-left right"></i>
+    </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.create',['cost_price_system'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p> ثبت هزینه ثابت</p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.index_system',['cost_price_system'])}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>مشاهده هزینه ها </p>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="{{route('dashboard.admin.money.index')}}" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>گزارش تراکنش مالی</p>
+    </a>
+    </li>
+    </ul>
+    </li>
+
+
+
+
+
+    <li class="nav-item">
+    <a href="pages/examples/lockscreen.html" class="nav-link">
+    <i class="far fa-circle nav-icon"></i>
+    <p>تنظیمات مالی</p>
+    </a>
+    </li>
+
+
+
+
+    </ul>
+    </li>
 
 
 

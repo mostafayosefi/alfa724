@@ -2,11 +2,13 @@
 
 
 use Carbon\Carbon;
+use App\Models\File;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Phase;
 use App\Models\Score;
 use App\Models\Salary;
+use App\Models\Absence;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Customer;
@@ -17,6 +19,7 @@ use App\Models\MyCustomer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
+use App\Models\SettingAbsence;
 use App\Models\EmployeeProject;
 use App\Models\Role\Permission;
 use App\Models\Score\ScoreTask;
@@ -43,7 +46,6 @@ use App\Http\Services\Message\MessageService;
 use App\Models\Cleander\CleanderDayMyService;
 use App\Models\Notification\NotificationMessage;
 use App\Http\Services\Message\Email\EmailService;
-use App\Models\Absence;
 
 if(!function_exists('isActive'))
 {
@@ -1038,10 +1040,13 @@ if(! function_exists('calender_route_origin') ) {
 if(! function_exists('law_name') ) {
     function law_name($type)
     {
+        if($type=='all'){$name='(کل)'; }
         if($type=='depo'){$name='دریافتی'; }
         if($type=='cost'){$name='هزینه'; }
         if($type=='service'){$name='خدمات '; }
         if($type=='project'){$name=' پروژه ها'; }
+        if($type=='depo_price_system'){$name='درآمد های ثابت'; }
+        if($type=='cost_price_system'){$name='هزینه های ثابت'; }
         return $name;
 
     }
@@ -1052,8 +1057,23 @@ if(! function_exists('law_name') ) {
 if(! function_exists('law_style') ) {
     function law_style($type)
     {
+        if($type=='all'){$name='primary'; }
         if($type=='depo'){$name='success'; }
         if($type=='cost'){$name='warning'; }
+        if($type=='depo_price_system'){$name='success'; }
+        if($type=='cost_price_system'){$name='warning'; }
+        if($type=='all_price_system'){$name='primary'; }
+        return $name;
+
+    }
+}
+
+if(! function_exists('law_type') ) {
+    function law_type($type)
+    {
+        if($type=='cost_price_system'){$name='cost'; }
+        if($type=='depo_price_system'){$name='depo'; }
+        if($type=='all_price_system'){$name='all'; }
         return $name;
 
     }
@@ -1382,6 +1402,17 @@ if(! function_exists('permission_accesses') ) {
         }
 
 
+        if($model=='setting_absence'){
+
+        $updateorcreate = SettingAbsence::updateOrCreate([
+            'id'   => 1,
+        ],[   ]);
+        }
+
+
+
+
+
 
     }
 
@@ -1430,6 +1461,7 @@ if(! function_exists('config_optimize') ) {
         Artisan::call('cache:clear');
         Artisan::call('view:clear');
         Artisan::call('optimize:clear');
+        Artisan::call('migrate');
         exec('composer dump-autoload');
 
 
@@ -1472,14 +1504,14 @@ if(! function_exists('uploadFile') ) {
 
 if(! function_exists('destroyFile') ) {
 
-    function destroyFile($file,$path,$defaultfile)
+    function destroyFile($file,$defaultfile)
     {
  if($file){
-        $imagePath = "/upload/$path/";
-        $path="/upload/$path/".$file;
-        if (file_exists($path)) {
-            unlink($path);
-        }
+
+    $image_path = public_path($file->name);
+    if (File::exists($image_path)) {
+        unlink($image_path);
+    }
 
 
  }else{
@@ -1492,16 +1524,27 @@ if(! function_exists('destroyFile') ) {
 
 if(! function_exists('uploader_multiple') ) {
 
-    function uploader_multiple($request,$path,$defaultfile)
+    function uploader_multiple($request,$path,$defaultfile,$id,$id_sub=null)
     {
 
-$filename='';
-  if($request->image_uploader_multiple){
-    $file = $request->image_uploader_multiple;
+$filename=$defaultfile;
+  if($request->uploader_multiple){
+    $file = $request->uploader_multiple;
     if(is_array($file))
     { foreach($file as $part) { if($part){
 
-           return uploadFile($part,$path,$defaultfile);
+        $current_timestamp = Carbon::now()->timestamp;
+        $imagePath = "/upload/$path/";
+        $filename = $current_timestamp . $part->getClientOriginalName();
+
+           $filename = time().$part->getClientOriginalName();
+           $part->move(public_path($imagePath) , $filename);
+
+           $name = $imagePath.$filename;
+
+           $create = File::create( ['name' =>$name , 'model' => $path ,
+            'model_id' => $id , 'model_sub_id' => $id_sub ] );
+
 
             }  }  } }
 
@@ -1826,13 +1869,16 @@ if(! function_exists('sum_price_depocost') ) {
 
 
         $sum = 0;
+        if($flag=='all'){
+            $depo = $my_model->where('type', 'depo')->sum('price');
+            $cost = $my_model->where('type', 'cost')->sum('price');
+            $sum = $depo - $cost;
 
-        // if($table=='price_my_service'){
-        //     $my_model = PriceMyService::where([ ['my_services_id','=',$id],['type','=',$flag], ])->first();
-        // }
+        }else{
+            $sum = $my_model->where('type', $flag)->sum('price');
 
+        }
 
-        $sum = $my_model->where('type', $flag)->sum('price');
 
         return $sum;
 
@@ -1911,6 +1957,12 @@ if(! function_exists('show_detial_model') ) {
         if($model=='all_users'){ $my_model =  User::orderBy('created_at', 'desc')->get(); }
         if($model=='tasks'){ $my_model = Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25); }
         if($model=='salaries'){ $my_model = Salary::all(); }
+        if($model=='price_my_project_depo'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
+        if($model=='price_my_project_cost'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
+        if($model=='price_my_service_depo'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
+        if($model=='price_my_service_cost'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
+        if($model=='price_system_depo'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
+        if($model=='price_system_cost'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
 
         return $my_model;
 
@@ -1939,15 +1991,21 @@ if(! function_exists('step_btn_footer') ) {
 if(! function_exists('model_filter') ) {
     function model_filter($model , $status)
     {
-
         if($model=='task'){  $mymodel=Task::where([  ['id','<>' ,'0' ],  ]);   }
         if($model=='project'){  $mymodel=Project::where([  ['id','<>' ,'0' ],  ]);   }
-
-        if($status!=null){  $mymodel=$mymodel->where([  ['status',$status ], ]);  }
-
+        if($status!='all'){  $mymodel=$mymodel->where([  ['status',$status ], ]);  }
         return $mymodel;
+    }
+}
 
 
+
+
+if(! function_exists('model_filter_user') ) {
+    function model_filter_user($mymodel , $coloumn = null ,$user_id = 'all')
+    {
+        if($user_id!='all'){  $mymodel=$mymodel->where([  [$coloumn,$user_id ], ]);  }
+        return $mymodel;
     }
 }
 
@@ -2023,7 +2081,7 @@ if(! function_exists('secret_user') ) {
 
              $data = $request->all();
             $data['picture']= $user->picture;
-            $data['picture']  =  uploadFile($request->file('picture'),'images/'.$db,$user->picture);
+            $data['picture']  =  uploadFile($request->file('file'),'images/'.$db,$user->picture);
 
 
    $m =  $user->update($data);

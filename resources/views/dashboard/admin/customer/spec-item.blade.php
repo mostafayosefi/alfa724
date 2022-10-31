@@ -113,15 +113,7 @@
         </td>
         <td>
 
-
-          <div class="form-group">
-            <label for="a8">کاربر      </label>
-            <x-select-group name="specifications[{{ !empty($specification) ? $idx : 'IDX' }}][lead]" id="lead{{ !empty($specification) ? $idx : 'IDX' }}"  required :model="$model ?? null">
-                @foreach($users as $category)
-                    <x-select-item value="{{ !empty($category->id) ? $category->id : (!empty($specification) ? $specification->key : '' )}}">{{ $category->first_name }} {{ $category->last_name }}</x-select-item>
-                @endforeach
-           </x-select-group>
-          </div>
+ 
 
 
         </td>

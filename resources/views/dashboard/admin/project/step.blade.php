@@ -129,10 +129,13 @@
 
 
     @if($level=='finical')
+
+
+
     <div class="row">
     <div class="col-md-6">
         <x-card type="info">
- @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'item' => $project , 'items' => $project->price_my_projects ] )
+ @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'item' => $project , 'items' => $price_my_project_depo ] )
 
 
         </x-card>
@@ -141,7 +144,7 @@
     <div class="col-md-6">
         <x-card type="info">
 
-            @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'item' => $project , 'items' => $project->price_my_projects ] )
+            @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'item' => $project , 'items' => $price_my_project_cost ] )
 
         </x-card>
     </div>

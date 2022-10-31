@@ -27,6 +27,27 @@ if ($user_id==$user->id){
         </div>
     </div>
 @endif
+
+<style>
+    input[type=file]::file-selector-button::before {
+        content: 'انتخاب تصویر';
+    }
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+
+  input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+  }
+</style>
+
     <div class="col-md-12">
         <x-card type="info">
             <x-card-header>ارسال پیام</x-card-header>
@@ -42,7 +63,7 @@ if ($user_id==$user->id){
             </x-select-group>
             <textarea type="text" style="padding:10px; margin: 10px 0px 16px 0px; height: 140px; border-radius: 7px; font-size: 16px;"class="form-control" required name="content"  placeholder="متن پیام"></textarea>
             {{ csrf_field() }}
-            <input type="file" style="margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; width: 100%; font-size: 16px;" name="file">
+            <input type="file" style="margin: 10px 0px 16px 0px; height: 40px; border-radius: 7px; width: 100%; font-size: 16px; "  name="file">
             <script type="text/javascript">
                 Dropzone.options.dropzone =
                     {

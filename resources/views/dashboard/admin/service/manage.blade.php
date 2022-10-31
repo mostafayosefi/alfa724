@@ -46,7 +46,8 @@
                              @foreach($myservices as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>   <a href="{{route('dashboard.admin.service.show',['id'=>$item->id])}}">
+                                        {{ $item->name }}</a></td>
                                      <td>{{ $item->user->first_name }}  {{ $item->user->last_name }}</td>
                                     <td>{{ date_frmat_a($item->startdate) }}</td>
                                     <td>{{ date_frmat_a($item->enddate) }}</td>

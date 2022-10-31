@@ -159,7 +159,7 @@
            //Get all multi select inputs
            var fileInputs = document.querySelectorAll('.multipleImageFileInput');
            //Url where the image is to be uploaded
-           var url=  route('dropzone.fileStore');
+           var url=  {{ route('dropzone.storestu') }};
            //Get number of inputs
            var number_of_inputs = $(fileInputs).length;
            var inputCount = 0;
@@ -185,49 +185,49 @@
                        formData.append('image_uploader_multiple[' +(inputCount++)+ ']', file, file.name);
                    }
                }
-            //    // Set up the request.
-            //    var xhr = new XMLHttpRequest();
-            //    xhr.open('POST', url, true);
-            //    xhr.onload = function () {
-            //        if (xhr.status === 200) {
-            //            var jsonResponse = JSON.parse(xhr.responseText);
-            //            if (jsonResponse.status == 1) {
-            //                $(jsonResponse.file_info).each(function(){
-            //                    //Iterate through response and find data corresponding to each file uploaded
-            //                    var uploaded_file_name = this.original;
-            //                    var saved_file_name = this.target;
-            //                    var file_name_input = '<input type="hidden" class="image_name" name="image_names[]" value="' +saved_file_name+ '" />';
-            //                    file_info_container.append(file_name_input);
+               // Set up the request.
+               var xhr = new XMLHttpRequest();
+               xhr.open('POST', url, true);
+               xhr.onload = function () {
+                   if (xhr.status === 200) {
+                       var jsonResponse = JSON.parse(xhr.responseText);
+                       if (jsonResponse.status == 1) {
+                           $(jsonResponse.file_info).each(function(){
+                               //Iterate through response and find data corresponding to each file uploaded
+                               var uploaded_file_name = this.original;
+                               var saved_file_name = this.target;
+                               var file_name_input = '<input type="hidden" class="image_name" name="image_names[]" value="' +saved_file_name+ '" />';
+                               file_info_container.append(file_name_input);
 
-            //                    imageCount--;
-            //                })
-            //                //Decrement count of inputs to find all images selected by all multi select are uploaded
-            //                number_of_inputs--;
-            //                if(number_of_inputs == 0) {
-            //                    //All images selected by each file selector is uploaded
-            //                    //Do necessary acteion post upload
-            //                    $('.overlay').hide();
-            //                }
-            //            } else {
-            //                if (typeof jsonResponse.error_field_name != 'undefined') {
-            //                    //Do appropriate error action
-            //                } else {
-            //                    alert(jsonResponse.message);
-            //                }
-            //                $('.overlay').hide();
-            //                event.preventDefault();
-            //                return false;
-            //            }
-            //        } else {
-            //            /*alert('Something went wrong!');*/
-            //            $('.overlay').hide();
-            //            event.preventDefault();
-            //        }
-            //    };
-            //    xhr.send(formData);
+                               imageCount--;
+                           })
+                           //Decrement count of inputs to find all images selected by all multi select are uploaded
+                           number_of_inputs--;
+                           if(number_of_inputs == 0) {
+                               //All images selected by each file selector is uploaded
+                               //Do necessary acteion post upload
+                               $('.overlay').hide();
+                           }
+                       } else {
+                           if (typeof jsonResponse.error_field_name != 'undefined') {
+                               //Do appropriate error action
+                           } else {
+                               alert(jsonResponse.message);
+                           }
+                           $('.overlay').hide();
+                           event.preventDefault();
+                           return false;
+                       }
+                   } else {
+                       /*alert('Something went wrong!');*/
+                       $('.overlay').hide();
+                       event.preventDefault();
+                   }
+               };
+               xhr.send(formData);
            })
 
-        //    return false;
+           return false;
        }
 
 

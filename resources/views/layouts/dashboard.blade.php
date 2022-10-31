@@ -45,6 +45,7 @@ BY WEBITO
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/adminlte.rtl.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/my_style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/persian_upload/style.css') }}">
   <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -56,16 +57,14 @@ BY WEBITO
 
 
 
-
-
 </head>
 <style>
-    .card-info:not(.card-outline) > .card-header {
+    /* .card-info:not(.card-outline) > .card-header {
         background-color: #dc3545;
-    }
-    a {
+    } */
+    /* a {
         color: #dc3545
-    }
+    } */
     .content-wrapper {
         background: #f9f4f4;
     }
@@ -109,21 +108,29 @@ BY WEBITO
                    onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" class="nav-link">{{ __('خروج') }}</a>
             </li>
 
-{{--
+
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="far fa-bell fa-2x mr-md-2"></i>
-                <span class="badge badge-warning navbar-badge ">15</span>
+                <span class="badge badge-warning navbar-badge ">{{ $message_count }}</span>
                 </a>
+
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
+                <span class="dropdown-item dropdown-header">{{ $message_count }} پیام جدید</span>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+
+                @if ($messages)
+                @foreach ($messages as $message )
+                <a href="{{route('dashboard.admin.message.show',['id'=>$message->id])}}" class="dropdown-item">
+                    <i class="fas fa-envelope mr-2"></i> {{ $message->title }} ({{ $message->as->name }})
+                    <span class="float-right text-muted text-sm">{{ date_frmat_a($message->created_at) }}</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                @endforeach
+                @endif
+
+
+                {{-- <a href="#" class="dropdown-item">
                 <i class="fas fa-users mr-2"></i> 8 friend requests
                 <span class="float-right text-muted text-sm">12 hours</span>
                 </a>
@@ -384,6 +391,11 @@ BY WEBITO
     }, 6000);
 </script>
 @yield('scripts', '')
+
+
+
+{{-- <script src="{{ asset('assets/persian_upload/jquery.min.js')}}"></script> --}}
+{{-- <script src="{{ asset('assets/persian_upload/global.js')}}"></script> --}}
 
 @yield('myscript')
 </body>

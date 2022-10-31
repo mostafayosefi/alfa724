@@ -21,7 +21,7 @@
                         <tr>
 
                             <td>{{$key+1}}</td>
-                            <td>{{ $item->title }}</td>
+                            <td><a href="{{route('dashboard.admin.project.step',['id'=>$item->id , 'project' ])}}">{{ $item->title }}</a></td>
                             <td>@if($item->customer) {{$item->customer->name}} @else هنوزمشخص نشده @endif</td>
                             <td>{{ date_frmat_a($item->start_date) }}</td>
                             <td>{{ date_frmat_a($item->finish_date) }}</td>

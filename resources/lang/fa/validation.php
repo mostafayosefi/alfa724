@@ -56,6 +56,7 @@ return [
         'keywords'              => 'کلمات کلیدی',
         'value'              => ' امتیاز ',
         'description'              => ' متن توضیحات ',
+        'startdate'              => '  تاریخ شروع ',
 
         "qustion" => "سوال",
         "answer" => "پاسخ",

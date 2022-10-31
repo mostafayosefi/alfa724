@@ -47,14 +47,14 @@
 
         <div class="col-md-6">
             <x-card type="info">
-                @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'items' => $item->price_my_services  ] )
+                @include('dashboard.card.money.list_price' , [ 'flag' => 'depo' , 'items' => $price_my_service_depo  ] )
 
             </x-card>
         </div>
 
         <div class="col-md-6">
             <x-card type="info">
-                @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'items' => $item->price_my_services   ] )
+                @include('dashboard.card.money.list_price' , [ 'flag' => 'cost' , 'items' => $price_my_service_cost   ] )
 
             </x-card>
         </div>

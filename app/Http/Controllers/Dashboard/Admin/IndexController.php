@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Phase;
 use App\Http\Requests;
 use App\Models\Absence;
-use Illuminate\Session\Store;
-use App\Models\User;
-use App\Models\Task;
 use App\Models\Project;
-use App\Models\Phase;
-use App\Models\EmployeeProject;
-use App\Models\MyService;
 use App\Models\Service;
-use Illuminate\Auth\Access\Gate;
-use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
-use Illuminate\Support\Facades\Storage;
-use Hekmatinasser\Verta\Verta;
-use Carbon\Carbon;
+use App\Models\MyService;
+use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
+use Illuminate\Session\Store;
+use App\Models\SettingAbsence;
+use Hekmatinasser\Verta\Verta;
+use App\Models\EmployeeProject;
+use Illuminate\Auth\Access\Gate;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Null_;
 
 class IndexController extends Controller
 {
@@ -63,9 +64,14 @@ if($model instanceof Project){
 
  $now_miladi=date_today('now_miladi');
  $mymodel = model_filter('task', 'notwork');
- $mymodel=$mymodel->where([ [ 'finish_date','>', $now_miladi ], ]);
+ $mymodel=$mymodel->where([ [ 'finish_date','<', $now_miladi ], ]);
  $task_notwork_count=$mymodel->orderBy('id', 'desc')->count();
- $task_notwork_all=$mymodel->orderBy('id', 'desc')->get();
+ $task_notwork_all=$mymodel->orderBy('id', 'desc')->limit(5)->get();
+
+
+ $mymodel = model_filter('task', 'all');
+ $mymodel=$mymodel->where([ [ 'finish_date','=', $now_miladi ], ]);
+ $task_today_all=$mymodel->orderBy('id', 'desc')->limit(5)->get();
 
 
  $myabsence=Absence::orderBy('created_at', 'desc')
@@ -115,6 +121,8 @@ if($model instanceof Project){
             update_model_v1('tasks');
             update_model_v1('score_settings');
 
+        update_model_v1('setting_absence');
+
             $absence = Absence::orderby('id','desc')->paginate(8);
 
 
@@ -126,10 +134,13 @@ if($model instanceof Project){
             $count_online_absence =  $model_absence->where([ [ 'date' , $now_miladi ], ])->count();
             $list_online_absence =  $model_absence->where([ [ 'date' , $now_miladi ], ])->get();
 
+
+            $setting_absence = SettingAbsence::find('1');
             // dd($count_listabsence);
 
 
         return view('dashboard.admin.index', compact([  'posts','users' , 'service'  ,'finishing_projects','finishing_phases'
-        ,'overdue_projects' ,'absence' ,'task_notwork_all' ,'task_notwork_count' ,'myabsence' ,'diff' ,'listabsence'  ,'list_online_absence' ]));
+        ,'overdue_projects' ,'absence' ,'task_notwork_all' ,'task_notwork_count' ,'myabsence' ,'diff' ,'listabsence'
+        ,'list_online_absence','setting_absence' , 'task_today_all' ]));
     }
 }

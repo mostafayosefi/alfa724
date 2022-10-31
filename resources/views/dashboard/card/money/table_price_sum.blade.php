@@ -1,6 +1,4 @@
-<div class="col-12">
-
-
+<div class="col-12"> 
     <x-card type="primary">
         <x-card-header>   لیست کلی تراکنش مالی    </x-card-header>
         <x-card-body>

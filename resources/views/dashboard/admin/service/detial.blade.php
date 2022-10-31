@@ -19,11 +19,13 @@
 <p class="text-muted">
 </p>
 </div>
+@if($my_service->durday!='0')
 <div class="col-md-4">
 <strong><i class="fas fa-book mr-1"></i>   مدت زمان روزکاری:  {{  valid_init($my_service->durday,'daywork') }}</strong>
 <p class="text-muted">
 </p>
 </div>
+@endif
 <div class="col-md-4">
 <strong><i class="fas fa-book mr-1"></i> تاریخ پایان:  {{ date_frmat_a($my_service->enddate)   }}</strong>
 <p class="text-muted">

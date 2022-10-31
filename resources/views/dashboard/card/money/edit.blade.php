@@ -1,5 +1,5 @@
 
-                                 @foreach ($items as $key =>  $my_price )
+                                 @foreach ($items as   $my_price )
 
                                  @php $flag=$my_price->type; @endphp
 <div class="modal fade show" id="modal-lg-edit-money{{ $flag }}{{ $my_price->id }}" aria-modal="true" role="dialog">
@@ -13,48 +13,52 @@
       </div>
       <div class="modal-body">
         <x-card type="{{ law_style($flag) }}">
-          <x-card-header> ویرایش {{  law_name($flag) }}  </x-card-header>
+          <x-card-header> ویرایش {{  law_name($flag) }}   </x-card-header>
 
 
 
 <form style="padding:10px;"
 @if(explode_url(2)=='service')
-action="{{ route('dashboard.admin.service.price') }}"
+action="{{ route('dashboard.admin.service.price.update') }}"
 @endif
 @if(explode_url(2)=='project')
-action="{{ route('dashboard.admin.project.price') }}"
+action="{{ route('dashboard.admin.project.price.update') }}"
+@endif
+@if(explode_url(3)=='index_system')
+action="{{ route('dashboard.admin.money.price.update') }}"
 @endif
 method="post" role="form" class="form-horizontal " enctype="multipart/form-data">
 
+@method('PUT')
+
 @if(explode_url(2)=='service')
-<input type="hidden" name="my_service_id" value="{{ $my_price->id }}" />
-
-@endif
-@if(explode_url(2)=='project')
-<input type="hidden" name="project_id" value="{{ $my_price->id }}" />
-@endif
-
-
-
+<input type="hidden" name="my_service_id" value="{{ $my_price->my_service_id }}" />
 @php
-
-$myprice = $my_price->price;
-if(explode_url(2)=='project'){
-$sumdepo = sum_price_depocost($my_price,'depo','project');
-$sumcost = sum_price_depocost($my_price,'cost','project');
-}
-if(explode_url(2)=='service'){
-
-$sumdepo = sum_price_depocost($my_price,'depo','service');
-$sumcost = sum_price_depocost($my_price,'cost','service');
-}
-
-    $kolli = $my_price->price - $sumdepo;
-
+if($flag=='depo'){ $list_files = show_detial_model('price_my_service_depo',$my_price->my_service_id); }
+if($flag=='cost'){ $list_files = show_detial_model('price_my_service_cost',$my_price->my_service_id); }
 @endphp
-<input type="hidden" name="kolli" value="{{ $kolli }}" />
-<input type="hidden" name="sumdepo" value="{{ $sumdepo }}" />
-<input type="hidden" name="sumcost" value="{{ $sumcost }}" />
+@endif
+
+@if((explode_url(2)=='project')||(explode_url(3)=='index_project'))
+<input type="hidden" name="project_id" value="{{$my_price->project_id}}" />
+@php
+if($flag=='depo'){ $list_files = show_detial_model('price_my_project_depo',$my_price->project_id); }
+if($flag=='cost'){ $list_files = show_detial_model('price_my_project_cost',$my_price->project_id); }
+@endphp
+@endif
+
+
+@if(explode_url(3)=='index_system')
+@php
+if($flag=='depo'){ $list_files = show_detial_model('price_system_depo',1); }
+if($flag=='cost'){ $list_files = show_detial_model('price_system_cost',1); }
+@endphp
+@endif
+
+
+
+
+<input type="hidden" name="my_price_id" value="{{ $my_price->id }}" />
 
         <div class="row">
             <div class="col-md-6">
@@ -65,25 +69,26 @@ $sumcost = sum_price_depocost($my_price,'cost','service');
                 </div><hr>
 
                 <div class="form-group">
-                    <label for="name_send">  نام و نام خانوادگی واریزکننده {{  law_name($flag) }}     </label>
+                    <label for="name_send">  نام و نام خانوادگی واریزکننده      </label>
                     <input type="text" class="form-control input_mystyle"   name="name_send"  value="{{$my_price->name_send}}"     >
                 </div><hr>
                 <div class="form-group">
-                    <label for="name_recv">  نام و نام خانوادگی دریافت کننده {{  law_name($flag) }}     </label>
+                    <label for="name_recv">  نام و نام خانوادگی دریافت کننده      </label>
                     <input type="text" class="form-control input_mystyle"   name="name_recv"  value="{{$my_price->name_recv}}"     >
                 </div><hr>
 
+
+
+
+<hr>
+
 <div class="form-group">
-
-    <div class="custom-file">
-    <input type="file" class="custom-file-input" id="customFile" name="file" >
-    <label class="custom-file-label  " for="customFile">آپلود مستندات پرداخت</label>
+    <label>تاریخ تراکنش:</label>
+    <div class="input-group">
+      <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
+      data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{$my_price->date }}"  >
     </div>
-    </div>
-
-    <a target="_blank" href="{{ asset($my_price->file)}}">مشاهده فایل</a>
-    <hr>
-
+</div><hr>
 
 
 
@@ -92,13 +97,6 @@ $sumcost = sum_price_depocost($my_price,'cost','service');
 
 
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>تاریخ تراکنش:</label>
-                    <div class="input-group">
-                      <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
-                      data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{$my_price->date }}"  >
-                    </div>
-                </div><hr>
 
                 <div class="form-group">
                     <label for="for">  بابت       </label>
@@ -109,6 +107,50 @@ $sumcost = sum_price_depocost($my_price,'cost','service');
                     <label for="intype">  نحوه تراکنش (نقدی ، شبا ، انتقالی یا .....)       </label>
                     <input type="text" class="form-control input_mystyle"   name="intype"  value="{{$my_price->intype}}"     >
                 </div><hr>
+
+ @include('dashboard.ui.upload' , [ 'flag' => $flag.'_edit_'.$my_price->id , 'type_file' => 'multi' ])
+
+
+@if ($list_files)
+<div class="col-12">
+    <x-card type="{{ law_style($flag) }} ">
+        <x-card-header> فایلهای تراکنش {{ law_name($flag) }}  </x-card-header>
+        <x-card-body>
+            <div class="table-responsive">
+            <table class="table">
+            <tbody><tr>
+            <th>مشاهده</th>
+            <th>حذف</th>
+            </tr>
+
+
+@foreach ($list_files as  $file )
+@if($file->model_sub_id==$my_price->id)
+            <tr>
+            <td>  <a target="_blank" href="{{ asset($file->name)}}">مشاهده فایل</a>
+            </td>
+            <td>
+
+ @include('dashboard.ui.modal_delete_get' , ['myname' =>  'فایل انتخابی تراکنش '.law_name($flag).'  مبلغ '.number_format($my_price->price).'تومان'
+ , 'route' => route('dashboard.admin.project.destroy.file',[ 'type'=>$flag , 'id'=>$file->id]) , 'item' =>$file ] )
+            </td>
+            </tr>
+@endif
+@endforeach
+            </tbody>
+            </table>
+            </div>
+
+        </x-card-body>
+    </x-card>
+</div>
+
+
+@endif
+
+
+
+
 
             </div>
         </div>

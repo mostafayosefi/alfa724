@@ -2,9 +2,10 @@
 @section('sidebar')
     @include('dashboard.admin.sidebar')
 @endsection
-@section('hierarchy')
-    <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index"/>
-    <x-breadcrumb-item title="    مدیریت نقش ها" route="dashboard.admin.permission.index"/>
+@section('hierarchy') 
+
+<li class="breadcrumb-item "><a href="{{ route('dashboard.admin.index') }}">داشبورد</a></li>
+<li class="breadcrumb-item  active "> ایجاد نقش جدید</li>
 @endsection
 @section('content')
     @if(Session::has('info'))

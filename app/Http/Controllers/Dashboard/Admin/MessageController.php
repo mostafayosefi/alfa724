@@ -83,7 +83,7 @@ class MessageController extends Controller
             'content' => $request->input('content'),
         ]);
 
-           
+
         return redirect()->route('dashboard.admin.message.manage')->with('info', '  پیام جدید ارسال شد و نام آن' .' ' . $request->input('title'));
     }
 
@@ -94,6 +94,9 @@ class MessageController extends Controller
     }
 
     public function ShowMessage($id){
+
+        $message = message::find($id);
+        $message->update([ 'status' => 'seen' ]);
         $message = message::find($id);
         return view('dashboard.admin.message.show', ['message' => $message]);
     }

@@ -32,70 +32,47 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
 
 
 
-@php
-
-$myprice = $item->price;
-if(explode_url(2)=='project'){
-$sumdepo = sum_price_depocost($item->price_my_projects,'depo','project');
-$sumcost = sum_price_depocost($item->price_my_projects,'cost','project');
-}
-if(explode_url(2)=='service'){
-
-$sumdepo = sum_price_depocost($item->price_my_services,'depo','service');
-$sumcost = sum_price_depocost($item->price_my_services,'cost','service');
-}
-
-    $kolli = $item->price - $sumdepo;
-
-@endphp
-<input type="hidden" name="kolli" value="{{ $kolli }}" />
-<input type="hidden" name="sumdepo" value="{{ $sumdepo }}" />
-<input type="hidden" name="sumcost" value="{{ $sumcost }}" />
 
         <div class="row">
             <div class="col-md-6">
                 @include('dashboard.ui.java-price')
                 <div class="form-group">
                     <label for="durday">  مبلغ {{  law_name($flag) }} (به تومان)    </label>
-                    <input type="text" class="form-control input_mystyle" id="price"  name="price"  onkeyup="separateNum(this.value,this);"  required placeholder="   مبلغ {{  law_name($flag) }} (به تومان)     ">
+                    <input type="text" class="form-control input_mystyle" id="price"  name="price"  onkeyup="separateNum(this.value,this);"    placeholder="   مبلغ {{  law_name($flag) }} (به تومان)     ">
                 </div><hr>
 
                 <div class="form-group">
-                    <label for="name_send">  نام و نام خانوادگی واریزکننده {{  law_name($flag) }}     </label>
+                    <label for="name_send">  نام و نام خانوادگی واریزکننده      </label>
                     <input type="text" class="form-control input_mystyle"   name="name_send"  value="{{ old('name_send') }}"     >
                 </div><hr>
                 <div class="form-group">
-                    <label for="name_recv">  نام و نام خانوادگی دریافت کننده {{  law_name($flag) }}     </label>
+                    <label for="name_recv">  نام و نام خانوادگی دریافت کننده       </label>
                     <input type="text" class="form-control input_mystyle"   name="name_recv"  value="{{ old('name_recv') }}"     >
                 </div><hr>
-
-<div class="form-group">
-
-    <div class="custom-file">
-    <input type="file" class="custom-file-input" id="customFile" name="file" >
-    <label class="custom-file-label  " for="customFile">آپلود مستندات پرداخت</label>
-    </div>
-    </div>
-
 
 
     <hr>
 
 
-    @include('dashboard.ui.multi_upload' , [ 'txtfile' => ' آپلود مستندات ' .law_name($flag) ])
+    <div class="form-group">
+        <label>تاریخ تراکنش:</label>
+        <div class="input-group">
+          <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
+          data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('date', date_time('date')) }}"  >
+        </div>
+    </div><hr>
+    {{-- @include('dashboard.ui.multi_upload' , [ 'txtfile' => ' آپلود مستندات ' .law_name($flag) ]) --}}
+
+
+
+
+
 
 
             </div>
 
 
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>تاریخ تراکنش:</label>
-                    <div class="input-group">
-                      <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
-                      data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('date', date_time('date')) }}"  >
-                    </div>
-                </div><hr>
 
                 <div class="form-group">
                     <label for="for">  بابت       </label>
@@ -106,6 +83,10 @@ $sumcost = sum_price_depocost($item->price_my_services,'cost','service');
                     <label for="intype">  نحوه تراکنش (نقدی ، شبا ، انتقالی یا .....)       </label>
                     <input type="text" class="form-control input_mystyle"   name="intype"  value="{{ old('intype') }}"     >
                 </div><hr>
+
+
+    @include('dashboard.ui.upload' , [  'type_file' => 'multi' ] )
+
 
             </div>
         </div>

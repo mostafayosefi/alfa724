@@ -24,17 +24,45 @@
 
 @include('dashboard.card.task.edit', [ 'route' =>  route('dashboard.admin.daily.editdaily') , $users  ] )
 
+<div class="col-md-12">
+    <x-card type="primary">
+        <x-card-header> مشاهده گزارش ها</x-card-header>
+        <x-card-body>
+
 
 <div class ="row">
+    <div class ="col-md-4 col-sm-6"  >
+
+        @if((explode_url(3)=='alluser'))
+        @include('dashboard.ui.select_box_redirect', [ 'allforeachs' => $users ,
+        'input_name' => 'name'  ,  'name_select' => 'کاربر' ,
+        'value' =>   $user_id   , 'index_id'=>'user_id' , 'search' => 'search_task'  ]) <hr>
+         @endif
+
+    </div>
+    <div class ="col-md-8 col-sm-6"  >
+
+    </div>
+    </div>
+    <div class ="row">
     <div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
-        <a href="{{ route('dashboard.admin.daily.index') }}" class="btn btn-primary" > همه مسئولیت ها </a>
-        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'done' ] ) }}" class="btn btn-success" > مسئولیتهای انجام شده   </a>
-        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'notwork' ] ) }}" class="btn btn-danger" > مسئولیتهای انجام نشده   </a>
-           </div>
+        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'all' , $user_id ]  ) }}" class="btn btn-primary" > همه مسئولیت ها </a>
+        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'done', $user_id ] ) }}" class="btn btn-success" > مسئولیتهای انجام شده   </a>
+        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'notwork', $user_id ] ) }}" class="btn btn-danger" > مسئولیتهای انجام نشده   </a>
+
+
+
+
+
+    </div>
     <div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
       {{-- <button type="button"  data-toggle="modal" style="float:left;" data-target="#modal-lg" style="font-size:13px;" class="btn btn-info float-right"><i class="fas fa-plus"></i>اضافه کردن کار</button> --}}
 
     </div>
+</div>
+
+</x-card-body>
+</x-card>
 </div>
 
 @include('dashboard.card.task.index' , [ $users ])

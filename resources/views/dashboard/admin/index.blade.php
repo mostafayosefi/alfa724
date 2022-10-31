@@ -87,10 +87,7 @@ foreach ($service as $key) {
 
 
         <div class="row">
-
-
-
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-widget widget-user-2">
                 <div class="widget-user-header bg-primary">
                 <h3 class="widget-user-username">لیست حضور غیاب</h3>
@@ -99,58 +96,46 @@ foreach ($service as $key) {
                 <ul class="nav flex-column">
             @if($listabsence)
             @foreach ($listabsence as $item )
-
-@php $first = report_user($item->id  , 'first' , 'list_absence'   ); @endphp
-
-@if ($first)
- <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-success">ساعت ورود  {{ $first->enter }}
- </span> </a> </li>
-  @else
-
-  <li class="nav-item"> <a href="#" class="nav-link"> {{$item->name}} <span class="float-right badge bg-danger"> غایب </span> </a> </li>
- @endif
-
+@include('dashboard.card.absence.list_absence' , [ 'list_absence' => 'list' ])
                 @endforeach
                 @endif
-
                 </ul>
                 </div>
                 </div>
+
+                @include('dashboard.card.task.list' , [ 'card' => 'task_notwork' ])
+
+
                 </div>
 
-            <div class="col-md-8">
+
+            <div class="col-md-6">
                 <div class="card card-widget widget-user-2">
-                <div class="widget-user-header bg-warning">
-                <h3 class="widget-user-username">  لیست وظایف انجام نشده کاربران  </h3>
+                <div class="widget-user-header bg-secondary">
+                <h3 class="widget-user-username">جریمه تاخیر و غیبت کاربران</h3>
                 </div>
+
+
                 <div class="card-body">
-
-
-            @if($task_notwork_all)
-
-
-            <div class="col-12">
-                @foreach ($task_notwork_all as $item )
-
-
-                <div class="alert alert-warning no-dismiss">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                مهلت انجام مسئولیت  {{$item->title}} توسط کاربر {{$item->user->name}} به پایان رسیده ولی هنوز پایان کار ثبت نگردید
-
-
-                </div>
-
+                <div class="col-12">
+            @if($listabsence)
+            @foreach ($listabsence as $item )
+@include('dashboard.card.absence.list_absence' , [ 'list_absence' => 'score' ])
                 @endforeach
-            </div>
                 @endif
 
+
+
                 </div>
                 </div>
                 </div>
+                @include('dashboard.card.task.list' , [ 'card' => 'task_today' ])
+
+                </div>
 
 
+                </div>
 
-            </div>
         <div class="row">
 
 
@@ -177,12 +162,12 @@ foreach ($service as $key) {
                 </a>
                 </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('dashboard.admin.daily.alluser' ,  [ 'all' , $item->id ]  ) }}" class="nav-link">
                 مسئولیت ها <span class="float-right badge bg-info">{{ report_user($item->id  , 'count' , 'task'   ) }}</span>
                 </a>
                 </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('dashboard.admin.daily.alluser' ,  [ 'notwork' , $item->id ]  ) }}" class="nav-link">
                 وظایف انجام نداده <span class="float-right badge bg-danger">{{ report_user($item->id  , 'count' , 'task_notwork'   ) }}</span>
                 </a>
                 </li>

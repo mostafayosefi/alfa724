@@ -17,6 +17,7 @@ class ConfigController extends Controller
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Artisan::call('optimize:clear');
+    Artisan::call('migrate');
     // exec('composer dump-autoload');
     }
 

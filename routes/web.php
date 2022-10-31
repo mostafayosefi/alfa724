@@ -192,8 +192,32 @@ Route::prefix('project')->name('project.')->group(function () {
     Route::post('price', [ProjectController::class, 'price'])->name('price');
     Route::delete('price/{id}', [ProjectController::class, 'destroy_price'])->name('destroy_price');
 
+    Route::put('price/update', [ProjectController::class, 'price_update'])->name('price.update');
+    Route::get('file/{type}/{id}', [ProjectController::class, 'destroy_file'])->name('destroy.file');
+
 
             });
+
+
+
+                //SERVICE PAGE
+
+                Route::prefix('service')->name('service.')->group(function () {
+
+                    Route::get('/show/{id}', [ServiceController::class, 'show'])->name('show');
+                    Route::post('/create', [ServiceController::class, 'store'])->name('store');
+                    Route::get('/create/{customer_id?}', [ServiceController::class, 'create'])->name('create');
+                    Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
+                    Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
+                    Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
+                    Route::put('update/{id}', [ServiceController::class, 'update'])->name('update');
+                    Route::get('index', [ServiceController::class, 'index'])->name('index');
+                    Route::post('price', [ServiceController::class, 'price'])->name('price');
+                    Route::delete('price/{id}', [ServiceController::class, 'destroy_price'])->name('destroy_price');
+
+                    Route::put('price/update', [ServiceController::class, 'price_update'])->name('price.update');
+
+                });
 
 
                 //CUSTOMER PAGE
@@ -238,24 +262,6 @@ Route::prefix('notification')->name('notification.')->group(function () {
 
 });
 
-
-                //SERVICE PAGE
-
-                Route::prefix('service')->name('service.')->group(function () {
-
-                    Route::get('/show/{id}', [ServiceController::class, 'show'])->name('show');
-                    Route::post('/create', [ServiceController::class, 'store'])->name('store');
-                    Route::get('/create/{customer_id?}', [ServiceController::class, 'create'])->name('create');
-                    Route::get('/', [ServiceController::class, 'GetManagePost'])->name('manage');
-                    Route::get('deleteservice/{id}', [ServiceController::class, 'DeletePost'])->name('deleteservice');
-                    Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
-                    Route::put('update/{id}', [ServiceController::class, 'update'])->name('update');
-                    Route::get('index', [ServiceController::class, 'index'])->name('index');
-                    Route::post('price', [ServiceController::class, 'price'])->name('price');
-                    Route::delete('price/{id}', [ServiceController::class, 'destroy_price'])->name('destroy_price');
-
-
-                });
                 //PHASE PAGE
 
 
@@ -334,6 +340,17 @@ Route::prefix('phase')->name('phase.')->group(function () {
                Route::get('/index', [AccountingController::class, 'index'])->name('index');
                Route::get('/report/service/index/{year?}/{month?}', [AccountingController::class, 'report_service'])->name('service.index');
                Route::get('/report/service/price/{type}{year?}/{month?}', [AccountingController::class, 'report_service_price'])->name('service.price');
+
+               Route::get('/create/{flg}', [AccountingController::class, 'create'])->name('create');
+               Route::post('/create/{flg}', [AccountingController::class, 'store'])->name('store');
+               Route::get('/index_system/{flg}', [AccountingController::class, 'index_system'])->name('index_system');
+
+               Route::delete('price/{id}', [AccountingController::class, 'destroy_price'])->name('destroy_price');
+               Route::put('price/update', [AccountingController::class, 'price_update'])->name('price.update');
+
+               Route::get('/index_project/{flg}', [AccountingController::class, 'index_project'])->name('index_project');
+
+
                });
 
                //ABSENCE PAGE
@@ -377,7 +394,7 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware([  'hasPermission:daily_index']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::get('/index/{status?}', [DailyController::class, 'index'])->name('index');
-    Route::get('/alluser/{status?}', [DailyController::class, 'alluser'])->name('alluser');
+    Route::get('/alluser/{status?}/{user_id?}', [DailyController::class, 'alluser'])->name('alluser');
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
     Route::get('/duplicate/{id}', [DailyController::class, 'duplicate'])->name('duplicate');

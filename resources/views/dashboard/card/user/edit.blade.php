@@ -43,6 +43,8 @@
               <input type="text" class="form-control input_mystyle"
               required  name="email" value="{{ $user->email }}" placeholder="     ایمیل "  >
             </div><hr>
+            @include('dashboard.ui.upload' , [ 'flag' => 'profile' , 'type_file' => 'file' ] )
+
         </div>
         <div class="col-md-1">
 

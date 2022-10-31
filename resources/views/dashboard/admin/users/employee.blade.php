@@ -33,7 +33,7 @@
                      <?php $ids=$item->id ; ?>
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $item->first_name }} {{ $item->last_name }}</td>
+                            <td><a href="{{route('dashboard.admin.users.show',['id'=>$item->id])}}">{{ $item->first_name }} {{ $item->last_name }}</a></td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->mobile }}</td>
 

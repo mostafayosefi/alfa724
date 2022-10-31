@@ -27,6 +27,38 @@
 </div>
 
 
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>ساعت شروع حضور غیاب:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+              </div>
+              <input name="time_enter" type="text"  value="{{$setting_absence->time_enter}}" required  class="form-control mdtimepicker-input">
+            </div>
+            <!-- /.input group -->
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label> تاخیر ساعت حضور غیاب:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+              </div>
+              <input name="time_float" type="text"  value="{{$setting_absence->time_float}}" required  class="form-control mdtimepicker-input">
+            </div>
+            <!-- /.input group -->
+        </div>
+    </div>
+
+</div>
+
+
+
+
 <button type="submit" style=" margin: 20px 0px; height: 42px;width: 100%;font-size: 20px;"
 class="btn btn-primary">   ویرایش لیست حضور و غیاب
 </button>

@@ -2,8 +2,9 @@
 
 namespace App\Models\Price;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PriceMyProject extends Model
 {
@@ -15,7 +16,7 @@ class PriceMyProject extends Model
         'name_recv','intype','file',
     ];
 
- 
+
 
     public function project(){
         return $this->belongsTo(Project::class);

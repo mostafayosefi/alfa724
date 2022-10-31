@@ -2,10 +2,12 @@
 @section('sidebar')
     @include('dashboard.admin.sidebar')
 @endsection
-@section('title', __('پروفایل'))
 @section('hierarchy')
-    <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
-    <x-breadcrumb-item title="پروفایل" route="dashboard.admin.users.show" />
+
+
+<li class="breadcrumb-item "><a href="{{ route('dashboard.admin.index') }}">داشبورد</a></li>
+<li class="breadcrumb-item "><a href="{{ route('dashboard.admin.users.employee') }}">مدیریت کارمندها</a></li>
+<li class="breadcrumb-item  active "> پروفایل  </li> 
 @endsection
 @section('content')
 @include('dashboard.admin.task.updatetask', ['id' => $user->id, 'phase' => $phase, 'users' => $users, 'posts' => $task])
@@ -38,6 +40,7 @@ foreach ($task as $item) {
 
     <div class="row">
 
+        <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
     @if(($user->scorecomemt) && ($counttask != 0))
         <div class="col-md-12">
         <div class="alert alert-warning alert-dismissible">

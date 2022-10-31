@@ -51,7 +51,8 @@
                                 <tr>
                                     <td>{{ $key + 1}}</td>
                                     <td>{{ $item->code}}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td> <a href="{{route('dashboard.admin.customer.show',['id'=>$item->id])}}">
+                                        {{ $item->name }}</a></td>
                                     <td>{{ $item->job }}</td>
                                     <td>{{ $item->tells }}</td>
                                     <td>{{ $item->tell }}</td>
