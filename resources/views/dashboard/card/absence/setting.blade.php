@@ -27,6 +27,7 @@
 </div>
 
 
+<<<<<<< HEAD
 <div class="row">
 
     <div class="col-md-6">
@@ -59,6 +60,8 @@
 
 
 
+=======
+>>>>>>> refs/remotes/origin/master
 <button type="submit" style=" margin: 20px 0px; height: 42px;width: 100%;font-size: 20px;"
 class="btn btn-primary">   ویرایش لیست حضور و غیاب
 </button>

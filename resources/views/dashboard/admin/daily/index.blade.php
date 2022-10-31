@@ -24,6 +24,7 @@
 
 @include('dashboard.card.task.edit', [ 'route' =>  route('dashboard.admin.daily.editdaily') , $users  ] )
 
+<<<<<<< HEAD
 <div class="col-md-12">
     <x-card type="primary">
         <x-card-header> مشاهده گزارش ها</x-card-header>
@@ -55,16 +56,28 @@
 
 
     </div>
+=======
+
+<div class ="row">
+    <div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
+        <a href="{{ route('dashboard.admin.daily.index') }}" class="btn btn-primary" > همه مسئولیت ها </a>
+        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'done' ] ) }}" class="btn btn-success" > مسئولیتهای انجام شده   </a>
+        <a href="{{ route('dashboard.admin.daily.'.explode_url(3) ,  [ 'notwork' ] ) }}" class="btn btn-danger" > مسئولیتهای انجام نشده   </a>
+           </div>
+>>>>>>> refs/remotes/origin/master
     <div class ="col-md-6 col-sm-12" style="margin:20px 0px;">
       {{-- <button type="button"  data-toggle="modal" style="float:left;" data-target="#modal-lg" style="font-size:13px;" class="btn btn-info float-right"><i class="fas fa-plus"></i>اضافه کردن کار</button> --}}
 
     </div>
 </div>
 
+<<<<<<< HEAD
 </x-card-body>
 </x-card>
 </div>
 
+=======
+>>>>>>> refs/remotes/origin/master
 @include('dashboard.card.task.index' , [ $users ])
 
 @endsection

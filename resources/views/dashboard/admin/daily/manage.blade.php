@@ -4,10 +4,15 @@
 @include('dashboard.admin.sidebar')
 @endsection
 @section('hierarchy')
+<<<<<<< HEAD
 
 <li class="breadcrumb-item "><a href="{{ route('dashboard.admin.index') }}">داشبورد</a></li>
 <li class="breadcrumb-item  active ">برنامه روزانه</li>
  
+=======
+    <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
+    <x-breadcrumb-item title="برنامه روزانه " route="dashboard.admin.daily.manage" />
+>>>>>>> refs/remotes/origin/master
 @endsection
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/MDTimePicker/mdtimepicker.min.css') }}">

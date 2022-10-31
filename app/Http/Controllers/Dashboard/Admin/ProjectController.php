@@ -16,7 +16,10 @@ use Illuminate\Session\Store;
 use App\Models\EmployeeProject;
 use Illuminate\Auth\Access\Gate;
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\File;
+=======
+>>>>>>> refs/remotes/origin/master
 use App\Models\Price\PriceMyProject;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,6 +53,7 @@ class ProjectController extends Controller
         $all_users = show_detial_model('all_users',$id);
         $tasks = show_detial_model('tasks',$id);
         $salaries = show_detial_model('salaries',$id);
+<<<<<<< HEAD
 
         $price_my_project_depo = PriceMyProject::where([ ['project_id',$id], ['type','depo'], ])->get();
         $price_my_project_cost = PriceMyProject::where([ ['project_id',$id], ['type','cost'], ])->get();
@@ -59,6 +63,9 @@ class ProjectController extends Controller
            , 'tasks'  , 'salaries' , 'project',
            'price_my_project_depo' , 'price_my_project_cost'
          ]));
+=======
+        return view('dashboard.admin.project.index' , compact([ 'id', 'phase' ,'users'   , 'all_users'   , 'tasks'  , 'salaries' , 'project'   ]));
+>>>>>>> refs/remotes/origin/master
      }
 
 
@@ -70,6 +77,7 @@ class ProjectController extends Controller
         $all_users = show_detial_model('all_users',$id);
         $tasks = show_detial_model('tasks',$id);
         $salaries = show_detial_model('salaries',$id);
+<<<<<<< HEAD
 
         $price_my_project_depo = PriceMyProject::where([ ['project_id',$id], ['type','depo'], ])->get();
         $price_my_project_cost = PriceMyProject::where([ ['project_id',$id], ['type','cost'], ])->get();
@@ -78,15 +86,23 @@ class ProjectController extends Controller
          , 'all_users'   , 'tasks'  , 'salaries' , 'project'  , 'level' ,
           'price_my_project_depo' , 'price_my_project_cost'
           ]));
+=======
+        return view('dashboard.admin.project.step' , compact([ 'id', 'phase' ,'users'
+         , 'all_users'   , 'tasks'  , 'salaries' , 'project'  , 'level'   ]));
+>>>>>>> refs/remotes/origin/master
      }
 
     public function store(Request $request)
     {
 
         $request->validate([
+<<<<<<< HEAD
             'title' => 'required',
             'price' => ['required',new ValidateRule('validate_rep_price')] ,
             'description' => 'required|max:5000',
+=======
+            'price' => ['required',new ValidateRule('validate_rep_price')] ,
+>>>>>>> refs/remotes/origin/master
         ]);
 
         $data = $request->all();
@@ -112,7 +128,11 @@ class ProjectController extends Controller
         return redirect()->route('dashboard.admin.project.step', ['id' => $project->id , 'phase'])->with('info', '  پروژه جدید با نام '.$project->title.' ثبت شد   ' .' ');
     }
 
+<<<<<<< HEAD
     public function GetManagePost(Request $request , $status = 'all')
+=======
+    public function GetManagePost(Request $request , $status = null)
+>>>>>>> refs/remotes/origin/master
     {
 
         $mymodel = model_filter('project',$status);
@@ -284,16 +304,40 @@ class ProjectController extends Controller
     }
 
 
+<<<<<<< HEAD
     public function price_update( Request $request)
     {
+=======
+
+
+
+>>>>>>> refs/remotes/origin/master
         $request->validate([
             'date' => 'required',
             'price' => ['required',new ValidateRule('validate_rep_price')] ,
             'description' => 'required|max:5000',
         ]);
+
+
         $data = $request->all();
+
+
         $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
         $data['price'] = str_rep_price($data['price']);
+<<<<<<< HEAD
+=======
+
+        if(($data['price'] > $data['kolli'])&&($data['type']=='cost')){
+            return redirect()->back()
+            ->with('info',  'هزینه پرداختی بیشتر از سود پروژه می باشد لطفا مبلغی مناسب پروژه هزینه نمایید!') ;
+        }
+        if(($data['price'] > ($data['kolli']-$data['sumdepo']))&&($data['type']=='depo')){
+            return redirect()->back()
+            ->with('info',  'بیعانه دریافتی بیشتر از مبلغ کل پروژه می باشد لطفا مبلغی مناسب پروژه ثبت بیعانه نمایید!') ;
+        }
+
+        $data['file']  =  uploadFile($request->file('file'),'images/price_my_project','');
+>>>>>>> refs/remotes/origin/master
 
         $project = Project::find($data['project_id']);
         $sumdepo = sum_price_depocost($project->price_my_projects,'depo','project');
@@ -319,11 +363,16 @@ class ProjectController extends Controller
         $path = 'price_my_project_'.$data['type'];
 
 
+<<<<<<< HEAD
         $price_my_project->update($data);
 
           uploader_multiple($request,$path,'' , $price_my_project->project_id , $price_my_project->id);
        return redirect()->back()
        ->with('info',  'تراکنش ویرایش '.law_name($data['type']).' باموفقیت انجام شد') ;
+=======
+       return redirect()->back()
+       ->with('info',  'تراکنش ثبت '.law_name($data['type']).' باموفقیت انجام شد') ;
+>>>>>>> refs/remotes/origin/master
 
     }
 

@@ -7,6 +7,7 @@
 
         <div class="row">
 
+<<<<<<< HEAD
             <div class="col-md-4">
 
                 <div class="form-group">
@@ -16,6 +17,21 @@
                 </div><hr>
 
 
+=======
+            <div class="col-md-1">
+
+            </div>
+        <div class="col-md-5">
+
+
+<div class="form-group">
+    <label for="title">عنوان</label>
+  <input type="text" class="form-control input_mystyle"
+  required  name="title" value="{{ old('title') }}" placeholder="عنوان"  >
+</div><hr>
+
+ 
+>>>>>>> refs/remotes/origin/master
 @include('dashboard.ui.java-price')
 <div class="form-group">
     <label for="durday">  مبلغ پروژه (به تومان)    </label>
@@ -23,14 +39,35 @@
     onkeyup="separateNum(this.value,this);"    placeholder=" هزینه پروژه (به تومان)        ">
     </div><hr>
 
+<<<<<<< HEAD
             </div>
         <div class="col-md-4">
+=======
+    @if($customer_id)
+    <input type="hidden" name="customer_id" value="{{ $customer_id }}" />
+    @else
+    @include('dashboard.ui.java-fetch-select')
+@include('dashboard.ui.selectbox', [ 'allforeachs' => $customer ,
+'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
+'value' =>   old('customer_id') , 'required'=>'required'  , 'index_id'=>'customer_id'  , 'onchange'=>'close_select' ]) <hr>
+
+@endif
+
+        </div>
+
+        <div class="col-md-5">
+
+>>>>>>> refs/remotes/origin/master
 
 
             <div class="form-group">
                 <label>تاریخ شروع:</label>
                 <div class="input-group">
+<<<<<<< HEAD
                   <input   id="date" name="start_date" value="{{ old('start_date', date_time('date')) }}"  type="text" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+=======
+                  <input required id="date" name="start_date" value="{{ old('start_date', date_time('date')) }}"  type="text" class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask="">
+>>>>>>> refs/remotes/origin/master
                 </div>
             </div><hr>
 

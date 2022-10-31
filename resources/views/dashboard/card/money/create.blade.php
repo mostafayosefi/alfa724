@@ -32,6 +32,28 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
 
 
 
+<<<<<<< HEAD
+=======
+@php
+
+$myprice = $item->price;
+if(explode_url(2)=='project'){
+$sumdepo = sum_price_depocost($item->price_my_projects,'depo','project');
+$sumcost = sum_price_depocost($item->price_my_projects,'cost','project');
+}
+if(explode_url(2)=='service'){
+
+$sumdepo = sum_price_depocost($item->price_my_services,'depo','service');
+$sumcost = sum_price_depocost($item->price_my_services,'cost','service');
+}
+
+    $kolli = $item->price - $sumdepo;
+
+@endphp
+<input type="hidden" name="kolli" value="{{ $kolli }}" />
+<input type="hidden" name="sumdepo" value="{{ $sumdepo }}" />
+<input type="hidden" name="sumcost" value="{{ $sumcost }}" />
+>>>>>>> refs/remotes/origin/master
 
         <div class="row">
             <div class="col-md-6">
@@ -73,6 +95,16 @@ method="post" role="form" class="form-horizontal " enctype="multipart/form-data"
 
 
             <div class="col-md-6">
+<<<<<<< HEAD
+=======
+                <div class="form-group">
+                    <label>تاریخ تراکنش:</label>
+                    <div class="input-group">
+                      <input id="date" name="date" type="text" class="form-control input_mystyle" data-inputmask-alias="datetime"
+                      data-inputmask-inputformat="yyyy-mm-dd" data-mask=""  value="{{ old('date', date_time('date')) }}"  >
+                    </div>
+                </div><hr>
+>>>>>>> refs/remotes/origin/master
 
                 <div class="form-group">
                     <label for="for">  بابت       </label>

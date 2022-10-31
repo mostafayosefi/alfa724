@@ -6,6 +6,7 @@
     <x-breadcrumb-item title="داشبورد" route="dashboard.admin.index" />
     <x-breadcrumb-item title="تنظیمات حضور و غیاب" route="dashboard.admin.absence.setting" />
 @endsection
+<<<<<<< HEAD
 
 
 @section('styles')
@@ -24,6 +25,8 @@
 </style>
 @endsection
 
+=======
+>>>>>>> refs/remotes/origin/master
 @section('content')
     @if(Session::has('info'))
     <div class="row">
@@ -38,6 +41,7 @@
 
     @endsection
 
+<<<<<<< HEAD
     @section('scripts')
     <script src="{{ asset('assets/dashboard/plugins/MDTimePicker/mdtimepicker.min.js') }}"></script>
     <script>
@@ -47,3 +51,5 @@
     </script>
 @endsection
 
+=======
+>>>>>>> refs/remotes/origin/master

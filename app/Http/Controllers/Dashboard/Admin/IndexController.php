@@ -64,6 +64,7 @@ if($model instanceof Project){
 
  $now_miladi=date_today('now_miladi');
  $mymodel = model_filter('task', 'notwork');
+<<<<<<< HEAD
  $mymodel=$mymodel->where([ [ 'finish_date','<', $now_miladi ], ]);
  $task_notwork_count=$mymodel->orderBy('id', 'desc')->count();
  $task_notwork_all=$mymodel->orderBy('id', 'desc')->limit(5)->get();
@@ -72,6 +73,11 @@ if($model instanceof Project){
  $mymodel = model_filter('task', 'all');
  $mymodel=$mymodel->where([ [ 'finish_date','=', $now_miladi ], ]);
  $task_today_all=$mymodel->orderBy('id', 'desc')->limit(5)->get();
+=======
+ $mymodel=$mymodel->where([ [ 'finish_date','>', $now_miladi ], ]);
+ $task_notwork_count=$mymodel->orderBy('id', 'desc')->count();
+ $task_notwork_all=$mymodel->orderBy('id', 'desc')->get();
+>>>>>>> refs/remotes/origin/master
 
 
  $myabsence=Absence::orderBy('created_at', 'desc')
@@ -121,26 +127,43 @@ if($model instanceof Project){
             update_model_v1('tasks');
             update_model_v1('score_settings');
 
+<<<<<<< HEAD
         update_model_v1('setting_absence');
+=======
+            $absence = Absence::orderby('id','desc')->paginate(8);
+>>>>>>> refs/remotes/origin/master
 
             $absence = Absence::orderby('id','desc')->paginate(8);
-
 
             $model_listabsence = User::where([ ['listabsence' , 'active'], ]);
             $count_listabsence = User::where([ ['listabsence' , 'active'], ])->count();
             $listabsence = User::where([ ['listabsence' , 'active'], ])->get();
 
+<<<<<<< HEAD
+            $model_listabsence = User::where([ ['listabsence' , 'active'], ]);
+            $count_listabsence = User::where([ ['listabsence' , 'active'], ])->count();
+            $listabsence = User::where([ ['listabsence' , 'active'], ])->get();
+
+=======
+>>>>>>> refs/remotes/origin/master
             $model_absence = Absence::where([ ['id' , '<>' , 0], ]);
             $count_online_absence =  $model_absence->where([ [ 'date' , $now_miladi ], ])->count();
             $list_online_absence =  $model_absence->where([ [ 'date' , $now_miladi ], ])->get();
 
+<<<<<<< HEAD
 
             $setting_absence = SettingAbsence::find('1');
+=======
+>>>>>>> refs/remotes/origin/master
             // dd($count_listabsence);
 
 
         return view('dashboard.admin.index', compact([  'posts','users' , 'service'  ,'finishing_projects','finishing_phases'
+<<<<<<< HEAD
         ,'overdue_projects' ,'absence' ,'task_notwork_all' ,'task_notwork_count' ,'myabsence' ,'diff' ,'listabsence'
         ,'list_online_absence','setting_absence' , 'task_today_all' ]));
+=======
+        ,'overdue_projects' ,'absence' ,'task_notwork_all' ,'task_notwork_count' ,'myabsence' ,'diff' ,'listabsence'  ,'list_online_absence' ]));
+>>>>>>> refs/remotes/origin/master
     }
 }

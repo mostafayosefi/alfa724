@@ -12,7 +12,10 @@ use App\Models\Project;
 use App\Models\Phase;
 use App\Models\Absence;
 use App\Models\EmployeeProject;
+<<<<<<< HEAD
 use App\Models\SettingAbsence;
+=======
+>>>>>>> refs/remotes/origin/master
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
@@ -31,16 +34,22 @@ class AbsenceController extends Controller
 
     public function setting()
     {
+<<<<<<< HEAD
         update_model_v1('setting_absence');
 
 
         $setting_absence = SettingAbsence::find('1');
         $users=User::orderBy('id', 'desc')->get();
         return view('dashboard.admin.absence.setting' , compact([   'users' , 'setting_absence'    ]));
+=======
+        $users=User::orderBy('id', 'desc')->get();
+        return view('dashboard.admin.absence.setting' , compact([   'users'     ]));
+>>>>>>> refs/remotes/origin/master
     }
 
     public function update(Request $request)
     {
+<<<<<<< HEAD
         $data = $request->all();
         if($data['time_enter'] > $data['time_float']){
         return redirect()->back()
@@ -49,12 +58,21 @@ class AbsenceController extends Controller
         $mu_user = User::where([ ['listabsence','active'], ])->update([ 'listabsence' => 'inactive' ]);
         $setting_absence = SettingAbsence::find('1');
         $setting_absence->update($data);
+=======
+
+        $mu_user = User::where([ ['listabsence','active'], ])->update([ 'listabsence' => 'inactive' ]);
+
+>>>>>>> refs/remotes/origin/master
         foreach($request->users as $user){
             $mu_user = User::where([ ['id',$user], ])->update([ 'listabsence' => 'active' ]);
         }
 
         return redirect()->back()
+<<<<<<< HEAD
         ->with('info',   'لیست حضور و غیاب کارمندان/وتنظیمات ورود کاربران با موفقیت ویرایش شد') ;
+=======
+        ->with('info',   'لیست حضور و غیاب کارمندان با موفقیت ویرایش شد') ;
+>>>>>>> refs/remotes/origin/master
     }
 
 

@@ -27,6 +27,7 @@ use phpDocumentor\Reflection\Types\Null_;
 
 class AccountingController extends Controller
 {
+<<<<<<< HEAD
     public function create($flag)
     {
         return view('dashboard.admin.money.system.create', compact([ 'flag' ]));
@@ -116,6 +117,8 @@ class AccountingController extends Controller
 
 
 
+=======
+>>>>>>> refs/remotes/origin/master
     public function index()
     {
         $employee=EmployeeProject::orderBy('created_at', 'desc')->get();

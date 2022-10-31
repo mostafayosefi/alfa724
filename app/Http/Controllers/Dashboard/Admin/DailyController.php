@@ -106,11 +106,16 @@ class DailyController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     public function index($status='all')
+=======
+    public function index($status=null)
+>>>>>>> refs/remotes/origin/master
     {
         $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
         $mymodel = model_filter('task',$status);
         $task=$mymodel->where([  ['employee_id',Auth::user()->id ], ])->orderBy('id', 'desc')->paginate(10);
+<<<<<<< HEAD
 
         $guard = 'admin';
         $user_id = Auth::user()->id;
@@ -120,10 +125,17 @@ class DailyController extends Controller
     }
 
     public function alluser($status='all',$user_id='all')
+=======
+        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'user' , 'users' => $users    ]);
+    }
+
+    public function alluser($status=null)
+>>>>>>> refs/remotes/origin/master
     {
 
 
         $users = User::where([ ['id','<>','0'], ])->orderby('id','desc')->get();
+<<<<<<< HEAD
         $mymodel = model_filter('task',$status);
         $mymodel = model_filter_user($mymodel,'employee_id',$user_id);
         $task=$mymodel->orderBy('id', 'desc')->paginate(10);
@@ -131,6 +143,12 @@ class DailyController extends Controller
 
         return view('dashboard.admin.daily.index',
          compact([ 'task'  , 'guard'  , 'users', 'status' , 'user_id'])   );
+=======
+
+        $mymodel = model_filter('task',$status);
+        $task=$mymodel->orderBy('id', 'desc')->paginate(10);
+        return view('dashboard.admin.daily.index', ['task' => $task , 'guard' => 'admin' , 'users' => $users  ]);
+>>>>>>> refs/remotes/origin/master
     }
 
     public function GetTask($id,Request $request)

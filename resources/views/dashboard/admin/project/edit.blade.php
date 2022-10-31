@@ -49,6 +49,7 @@
         <div class="col-md-3">
 
 
+<<<<<<< HEAD
 
             <input type="hidden" value="{{ $project->time }}" name="time" />
 
@@ -93,6 +94,8 @@ onclick="show1();" value="end"  @if($project->time=='0')checked=""@endif >
 <label for="customRadio2" class="custom-control-label">    تاریخ پایان بصورت ثابت </label>
 </div>
 </div>
+=======
+>>>>>>> refs/remotes/origin/master
 
 
 
@@ -107,6 +110,7 @@ name="time"  value="{{$project->time}}"  placeholder="مدت زمان روزکا
 </div>
 
 
+<<<<<<< HEAD
 <div  id="div2" @if($project->time!='0') style="display: none;" @endif    >
 <hr>
 <div class="form-group">
@@ -117,6 +121,14 @@ class="form-control input_mystyle" data-inputmask-alias="datetime" data-inputmas
             </div>
 </div><hr>
 </div>
+=======
+    @include('dashboard.ui.java-fetch-select')
+    @include('dashboard.ui.selectbox', [ 'allforeachs' => $customers ,
+    'input_name' => 'name'  ,  'name_select' => 'مشتری' ,
+    'value' =>   $project->customer_id , 'required'=>'required'  , 'index_id'=>'customer_id'  , 'onchange'=>'close_select' ]) <hr>
+
+        </div>
+>>>>>>> refs/remotes/origin/master
 
 
 

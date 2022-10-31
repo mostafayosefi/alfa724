@@ -29,7 +29,11 @@
                                     @endif
                                     <td>  {!! $my_price->description !!}</td>
                                     <td>
+<<<<<<< HEAD
                                         <span class="btn btn-{{ law_style($my_price->type) }}  btn-sm"  type="button"  data-toggle="modal"   data-target="#modal-lg-edit-money{{ $my_price->type }}{{ $my_price->id }}" >
+=======
+                                        <span class="btn btn-{{ law_style($flag) }}  btn-sm"  type="button"  data-toggle="modal"   data-target="#modal-lg-edit-money{{ $flag }}{{ $my_price->id }}" >
+>>>>>>> refs/remotes/origin/master
                                         {{ number_format($my_price->price) }} تومان </span>  </td>
 
                                         <td>

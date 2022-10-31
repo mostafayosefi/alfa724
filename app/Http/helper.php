@@ -8,7 +8,10 @@ use App\Models\User;
 use App\Models\Phase;
 use App\Models\Score;
 use App\Models\Salary;
+<<<<<<< HEAD
 use App\Models\Absence;
+=======
+>>>>>>> refs/remotes/origin/master
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Customer;
@@ -19,7 +22,10 @@ use App\Models\MyCustomer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
+<<<<<<< HEAD
 use App\Models\SettingAbsence;
+=======
+>>>>>>> refs/remotes/origin/master
 use App\Models\EmployeeProject;
 use App\Models\Role\Permission;
 use App\Models\Score\ScoreTask;
@@ -46,6 +52,10 @@ use App\Http\Services\Message\MessageService;
 use App\Models\Cleander\CleanderDayMyService;
 use App\Models\Notification\NotificationMessage;
 use App\Http\Services\Message\Email\EmailService;
+<<<<<<< HEAD
+=======
+use App\Models\Absence;
+>>>>>>> refs/remotes/origin/master
 
 if(!function_exists('isActive'))
 {
@@ -1514,6 +1524,7 @@ if(! function_exists('destroyFile') ) {
     }
 
 
+<<<<<<< HEAD
  }else{
      return $defaultfile;
  }
@@ -1560,6 +1571,12 @@ if(! function_exists('date_time') ) {
     function date_time($format)
     {
 
+=======
+if(! function_exists('date_time') ) {
+    function date_time($format)
+    {
+
+>>>>>>> refs/remotes/origin/master
 
 
         $mydate =now()->format('Y-m-d H:i:s');
@@ -1957,12 +1974,15 @@ if(! function_exists('show_detial_model') ) {
         if($model=='all_users'){ $my_model =  User::orderBy('created_at', 'desc')->get(); }
         if($model=='tasks'){ $my_model = Task::where('project_id',$id)->orderBy('created_at', 'desc')->paginate(25); }
         if($model=='salaries'){ $my_model = Salary::all(); }
+<<<<<<< HEAD
         if($model=='price_my_project_depo'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
         if($model=='price_my_project_cost'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
         if($model=='price_my_service_depo'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
         if($model=='price_my_service_cost'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
         if($model=='price_system_depo'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
         if($model=='price_system_cost'){ $my_model = File::where([ [ 'model' ,$model  ],[ 'model_id' ,$id  ], ])->get(); }
+=======
+>>>>>>> refs/remotes/origin/master
 
         return $my_model;
 
@@ -1991,6 +2011,7 @@ if(! function_exists('step_btn_footer') ) {
 if(! function_exists('model_filter') ) {
     function model_filter($model , $status)
     {
+<<<<<<< HEAD
         if($model=='task'){  $mymodel=Task::where([  ['id','<>' ,'0' ],  ]);   }
         if($model=='project'){  $mymodel=Project::where([  ['id','<>' ,'0' ],  ]);   }
         if($status!='all'){  $mymodel=$mymodel->where([  ['status',$status ], ]);  }
@@ -2006,6 +2027,17 @@ if(! function_exists('model_filter_user') ) {
     {
         if($user_id!='all'){  $mymodel=$mymodel->where([  [$coloumn,$user_id ], ]);  }
         return $mymodel;
+=======
+
+        if($model=='task'){  $mymodel=Task::where([  ['id','<>' ,'0' ],  ]);   }
+        if($model=='project'){  $mymodel=Project::where([  ['id','<>' ,'0' ],  ]);   }
+
+        if($status!=null){  $mymodel=$mymodel->where([  ['status',$status ], ]);  }
+
+        return $mymodel;
+
+
+>>>>>>> refs/remotes/origin/master
     }
 }
 
@@ -2081,7 +2113,11 @@ if(! function_exists('secret_user') ) {
 
              $data = $request->all();
             $data['picture']= $user->picture;
+<<<<<<< HEAD
             $data['picture']  =  uploadFile($request->file('file'),'images/'.$db,$user->picture);
+=======
+            $data['picture']  =  uploadFile($request->file('picture'),'images/'.$db,$user->picture);
+>>>>>>> refs/remotes/origin/master
 
 
    $m =  $user->update($data);

@@ -113,6 +113,16 @@
 
 
 
+<<<<<<< HEAD
+=======
+@include('components.dashboard.sidebar-item', [ 'route' => '#'  ,  'icon' => 'fas fa-money-check-alt'  ,  'ul' => 'true' ,  'title' =>   'مدیریت مالی' ,
+ 'multi_route' => [
+     ['dashboard.admin.money.index', [  ], 'مدیریت مالی' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.index', [  ], 'گزارش مالی خدمات ' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.price', [  'type' => 'depo'  ], '  مبالغ دریافتی خدمات' , 'far fa-circle nav-icon'  ],
+      ['dashboard.admin.money.service.price', [  'type' => 'cost'  ], '  مبالغ پرداختی خدمات' , 'far fa-circle nav-icon'  ],
+       ]  ])
+>>>>>>> refs/remotes/origin/master
 
 <li class="nav-item">
     <a href="#" class="nav-link">

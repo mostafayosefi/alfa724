@@ -37,6 +37,10 @@ use App\Http\Controllers\Dashboard\Employee\IndexController as EmployeeIndexCont
 use App\Http\Controllers\Dashboard\Employee\AbsenceController as EmployeeAbsenceController;
 use App\Http\Controllers\Dashboard\Employee\MessageController as EmployeeMessageController ;
 use App\Http\Controllers\Dashboard\Employee\AccountingController as EmployeeAccountingController ;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\Dashboard\LoginController as PassLoginController;
+>>>>>>> refs/remotes/origin/master
 
 /*
 |--------------------------------------------------------------------------
@@ -394,7 +398,11 @@ Route::prefix('daily')->name('daily.')->group(function () {
     Route::get('/', [DailyController::class, 'GetManagePost'])->name('manage') ->middleware([  'hasPermission:daily_index']);
     Route::get('/create', [DailyController::class, 'GetCreatePost'])->name('create');
     Route::get('/index/{status?}', [DailyController::class, 'index'])->name('index');
+<<<<<<< HEAD
     Route::get('/alluser/{status?}/{user_id?}', [DailyController::class, 'alluser'])->name('alluser');
+=======
+    Route::get('/alluser/{status?}', [DailyController::class, 'alluser'])->name('alluser');
+>>>>>>> refs/remotes/origin/master
     Route::post('/', [DailyController::class, 'store'])->name('store');
     Route::get('/{id}', [DailyController::class, 'GetTask'])->name('show');
     Route::get('/duplicate/{id}', [DailyController::class, 'duplicate'])->name('duplicate');

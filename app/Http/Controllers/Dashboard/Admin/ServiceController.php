@@ -53,7 +53,11 @@ class ServiceController extends Controller
 
         $request->validate([
             'name' => 'required',
+<<<<<<< HEAD
             'startdate' => 'required',
+=======
+            'durday' => 'required|numeric',
+>>>>>>> refs/remotes/origin/master
             'price' => ['required',new ValidateRule('validate_rep_price')] ,
         ]);
         $data = $request->all();
@@ -177,6 +181,7 @@ class ServiceController extends Controller
         $data['miladi'] = convert_shamsi_to_miladi($data['date'],'/');
         $data['price'] = str_rep_price($data['price']);
 
+<<<<<<< HEAD
 
         $my_service = MyService::find($data['my_service_id']);
         $sumdepo = sum_price_depocost($my_service->price_my_services,'depo','service');
@@ -191,14 +196,30 @@ class ServiceController extends Controller
         if(($data['price'] > ($kolli))&&($data['type']=='depo')){
             return redirect()->back()
             ->with('info',  'بیعانه دریافتی بیشتر از مبلغ کل خدمت می باشد لطفا مبلغی مناسب خدمت ثبت بیعانه نمایید!') ;
+=======
+        if(($data['price'] > $data['kolli'])&&($data['type']=='cost')){
+            return redirect()->back()
+            ->with('info',  'هزینه پرداختی بیشتر از سود پروژه می باشد لطفا مبلغی مناسب پروژه هزینه نمایید!') ;
+        }
+        if(($data['price'] > ($data['kolli']-$data['sumdepo']))&&($data['type']=='depo')){
+            return redirect()->back()
+            ->with('info',  'بیعانه دریافتی بیشتر از مبلغ کل پروژه می باشد لطفا مبلغی مناسب پروژه ثبت بیعانه نمایید!') ;
+>>>>>>> refs/remotes/origin/master
         }
 
 
 
+<<<<<<< HEAD
         $path = 'price_my_service_'.$data['type'];
         $pricemyservice = PriceMyService::create($data);
           uploader_multiple($request,$path,'' , $pricemyservice->my_service_id , $pricemyservice->id);
 
+=======
+        $data['file']  =  uploadFile($request->file('file'),'images/price_my_services','');
+
+
+       $pricemyservice = PriceMyService::create($data);
+>>>>>>> refs/remotes/origin/master
 
 
 
